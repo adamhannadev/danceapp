@@ -140,6 +140,9 @@ GEM
     ffi (1.17.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hirb (0.7.3)
+    hirb-colors (0.0.1)
+      hirb (~> 0.5)
     htmlentities (4.3.4)
     httparty (0.23.1)
       csv
@@ -422,6 +425,7 @@ DEPENDENCIES
   error_highlight (>= 0.4.0)
   factory_bot_rails
   faker
+  hirb-colors
   httparty
   ice_cube
   image_processing (~> 1.2)
