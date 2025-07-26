@@ -1073,3 +1073,469 @@ Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached
   [1m[36mDanceStyle Load (20.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
   [1m[36mLocation Load (1.4ms)[0m  [1m[34mSELECT "locations".* FROM "locations"[0m
   [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started GET "/" for 127.0.0.1 at 2025-07-26 10:09:12 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (16.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mDanceLevel Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:197
+  [1m[36mCACHE Figure Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:197
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 226.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 343.3ms | GC: 0.0ms)
+Completed 200 OK in 698ms (Views: 281.3ms | ActiveRecord: 67.7ms (30 queries, 2 cached) | GC: 121.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-26 10:09:14 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/?id=a02c2048-b5ae-42e8-af77-a8dad0a2ee73&vscodeBrowserReqId=1753549755269" for ::1 at 2025-07-26 10:09:15 -0700
+Processing by DashboardController#index as HTML
+  Parameters: {"id"=>"a02c2048-b5ae-42e8-af77-a8dad0a2ee73", "vscodeBrowserReqId"=>"1753549755269"}
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mDanceLevel Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mDanceLevel Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels" WHERE "dance_levels"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:181
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:197
+  [1m[36mCACHE Figure Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:197
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 101.4ms | GC: 19.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 105.6ms | GC: 19.3ms)
+Completed 200 OK in 107ms (Views: 88.2ms | ActiveRecord: 18.2ms (30 queries, 2 cached) | GC: 19.3ms)
+
+
+Started GET "/figures" for 127.0.0.1 at 2025-07-26 10:09:40 -0700
+Processing by FiguresController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  Rendered figures/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.0ms | GC: 0.4ms)
+Completed 200 OK in 32ms (Views: 30.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/dance_classes/new" for 127.0.0.1 at 2025-07-26 10:09:41 -0700
+Processing by DanceClassesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/new.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/new.html.erb:61
+  [1m[36mDanceLevel Load (1.2ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels"[0m
+  ↳ app/views/dance_classes/new.html.erb:78
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/new.html.erb:94
+  [1m[36mLocation Load (0.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."active" = $1[0m  [["active", true]]
+  ↳ app/views/dance_classes/new.html.erb:110
+  Rendered dance_classes/new.html.erb within layouts/application (Duration: 65.2ms | GC: 2.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 70.1ms | GC: 2.4ms)
+Completed 200 OK in 95ms (Views: 64.1ms | ActiveRecord: 13.3ms (4 queries, 0 cached) | GC: 3.6ms)
+
+
+Started GET "/figures" for 127.0.0.1 at 2025-07-26 10:09:42 -0700
+Processing by FiguresController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  Rendered figures/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.7ms | GC: 0.2ms)
+Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/dance_classes/new" for 127.0.0.1 at 2025-07-26 10:09:47 -0700
+Processing by DanceClassesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/new.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.2ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/new.html.erb:61
+  [1m[36mDanceLevel Load (1.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels"[0m
+  ↳ app/views/dance_classes/new.html.erb:78
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/new.html.erb:94
+  [1m[36mLocation Load (0.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."active" = $1[0m  [["active", true]]
+  ↳ app/views/dance_classes/new.html.erb:110
+  Rendered dance_classes/new.html.erb within layouts/application (Duration: 36.1ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 42.3ms | GC: 1.4ms)
+Completed 200 OK in 46ms (Views: 39.3ms | ActiveRecord: 4.2ms (4 queries, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/dance_classes?id=a02c2048-b5ae-42e8-af77-a8dad0a2ee73&vscodeBrowserReqId=1753549795999" for ::1 at 2025-07-26 10:09:56 -0700
+Processing by DanceClassesController#index as HTML
+  Parameters: {"id"=>"a02c2048-b5ae-42e8-af77-a8dad0a2ee73", "vscodeBrowserReqId"=>"1753549795999"}
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.7ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 30.9ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 31.6ms | GC: 1.0ms)
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 2.3ms (3 queries, 0 cached) | GC: 1.0ms)
+
+
+  
+ActionView::Template::Error (Missing partial kaminari/twitter-bootstrap-4/_paginator with {:locale=>[:en], :formats=>[:html, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :axlsx]}.
+
+Searched in:
+  * "/home/adam/projects/danceapp/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/kaminari-core-1.2.2/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/devise-4.9.4/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/turbo-rails-2.0.16/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actiontext-7.2.2.1/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actionmailbox-7.2.2.1/app/views"
+
+Did you mean?  kaminari/paginator
+               kaminari/page
+               kaminari/gap
+               kaminari/prev_page
+               kaminari/last_page
+               kaminari/next_page):
+
+Causes:
+ActionView::MissingTemplate (Missing partial kaminari/twitter-bootstrap-4/_paginator with {:locale=>[:en], :formats=>[:html, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :axlsx]}.
+
+Searched in:
+  * "/home/adam/projects/danceapp/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/kaminari-core-1.2.2/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/devise-4.9.4/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/turbo-rails-2.0.16/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actiontext-7.2.2.1/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actionmailbox-7.2.2.1/app/views"
+
+Did you mean?  kaminari/paginator
+               kaminari/page
+               kaminari/gap
+               kaminari/prev_page
+               kaminari/last_page
+               kaminari/next_page)
+    161:   <!-- Pagination -->
+    162:   <% if defined?(Kaminari) && @dance_classes.respond_to?(:current_page) %>
+    163:     <div class="d-flex justify-content-center mt-4">
+    164:       <%= paginate @dance_classes, theme: 'twitter-bootstrap-4' %>
+    165:     </div>
+    166:   <% end %>
+    167: </div>
+  
+app/views/dance_classes/index.html.erb:164
+Started GET "/dance_classes" for 127.0.0.1 at 2025-07-26 10:10:26 -0700
+Processing by DanceClassesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.8ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 18.8ms | GC: 1.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.6ms | GC: 1.1ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 2.6ms (3 queries, 0 cached) | GC: 1.1ms)
+
+
+  
+ActionView::Template::Error (Missing partial kaminari/twitter-bootstrap-4/_paginator with {:locale=>[:en], :formats=>[:html, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :axlsx]}.
+
+Searched in:
+  * "/home/adam/projects/danceapp/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/kaminari-core-1.2.2/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/devise-4.9.4/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/turbo-rails-2.0.16/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actiontext-7.2.2.1/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actionmailbox-7.2.2.1/app/views"
+
+Did you mean?  kaminari/paginator
+               kaminari/page
+               kaminari/gap
+               kaminari/prev_page
+               kaminari/last_page
+               kaminari/next_page):
+
+Causes:
+ActionView::MissingTemplate (Missing partial kaminari/twitter-bootstrap-4/_paginator with {:locale=>[:en], :formats=>[:html, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :axlsx]}.
+
+Searched in:
+  * "/home/adam/projects/danceapp/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/kaminari-core-1.2.2/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/devise-4.9.4/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/turbo-rails-2.0.16/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actiontext-7.2.2.1/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actionmailbox-7.2.2.1/app/views"
+
+Did you mean?  kaminari/paginator
+               kaminari/page
+               kaminari/gap
+               kaminari/prev_page
+               kaminari/last_page
+               kaminari/next_page)
+    161:   <!-- Pagination -->
+    162:   <% if defined?(Kaminari) && @dance_classes.respond_to?(:current_page) %>
+    163:     <div class="d-flex justify-content-center mt-4">
+    164:       <%= paginate @dance_classes, theme: 'twitter-bootstrap-4' %>
+    165:     </div>
+    166:   <% end %>
+    167: </div>
+  
+app/views/dance_classes/index.html.erb:164
+Started GET "/dance_classes/new" for 127.0.0.1 at 2025-07-26 10:10:44 -0700
+Started GET "/favicon.ico" for 127.0.0.1 at 2025-07-26 10:10:44 -0700
+Processing by DanceClassesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/new.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.3ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/new.html.erb:61
+  [1m[36mDanceLevel Load (1.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels"[0m
+  ↳ app/views/dance_classes/new.html.erb:78
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/new.html.erb:94
+  [1m[36mLocation Load (1.2ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."active" = $1[0m  [["active", true]]
+  ↳ app/views/dance_classes/new.html.erb:110
+  Rendered dance_classes/new.html.erb within layouts/application (Duration: 25.7ms | GC: 1.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 36.3ms | GC: 1.3ms)
+Completed 200 OK in 39ms (Views: 32.5ms | ActiveRecord: 4.7ms (4 queries, 0 cached) | GC: 1.3ms)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-26 10:10:44 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dance_classes" for 127.0.0.1 at 2025-07-26 10:13:50 -0700
+Processing by DanceClassesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.7ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 45.5ms | GC: 5.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 67.2ms | GC: 24.1ms)
+Completed 500 Internal Server Error in 104ms (ActiveRecord: 18.0ms (3 queries, 0 cached) | GC: 26.5ms)
+
+
+  
+ActionView::Template::Error (Missing partial kaminari/bootstrap-4/_paginator with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :webp, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip, :turbo_stream, :xlsx, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :axlsx]}.
+
+Searched in:
+  * "/home/adam/projects/danceapp/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/kaminari-core-1.2.2/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/devise-4.9.4/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/turbo-rails-2.0.16/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actiontext-7.2.2.1/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actionmailbox-7.2.2.1/app/views"
+
+Did you mean?  kaminari/paginator
+               kaminari/page
+               kaminari/gap
+               kaminari/prev_page
+               kaminari/last_page
+               kaminari/next_page):
+
+Causes:
+ActionView::MissingTemplate (Missing partial kaminari/bootstrap-4/_paginator with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :webp, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip, :turbo_stream, :xlsx, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :axlsx]}.
+
+Searched in:
+  * "/home/adam/projects/danceapp/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/kaminari-core-1.2.2/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/devise-4.9.4/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/turbo-rails-2.0.16/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actiontext-7.2.2.1/app/views"
+  * "/usr/share/rvm/gems/ruby-3.1.0/gems/actionmailbox-7.2.2.1/app/views"
+
+Did you mean?  kaminari/paginator
+               kaminari/page
+               kaminari/gap
+               kaminari/prev_page
+               kaminari/last_page
+               kaminari/next_page)
+    161:   <!-- Pagination -->
+    162:   <% if defined?(Kaminari) && @dance_classes.respond_to?(:current_page) %>
+    163:     <div class="d-flex justify-content-center mt-4">
+    164:       <%= paginate @dance_classes, theme: 'bootstrap-4', window: 2, outer_window: 1, left: 1, right: 1 %>
+    165:     </div>
+    166:   <% end %>
+    167: </div>
+  
+app/views/dance_classes/index.html.erb:164
+Started GET "/dance_classes" for 127.0.0.1 at 2025-07-26 10:14:24 -0700
+Processing by DanceClassesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.6ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 44.2ms | GC: 1.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 65.3ms | GC: 3.1ms)
+Completed 200 OK in 92ms (Views: 58.5ms | ActiveRecord: 13.2ms (3 queries, 0 cached) | GC: 4.3ms)
+
+
+Started GET "/dance_classes" for 127.0.0.1 at 2025-07-26 10:14:39 -0700
+Processing by DanceClassesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.6ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 13.4ms | GC: 1.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 18.9ms | GC: 1.8ms)
+Completed 200 OK in 22ms (Views: 18.0ms | ActiveRecord: 1.7ms (3 queries, 0 cached) | GC: 1.8ms)
+
+
+Started GET "/dance_classes" for 127.0.0.1 at 2025-07-26 10:15:05 -0700
+Processing by DanceClassesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.9ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 13.7ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.1ms | GC: 1.4ms)
+Completed 200 OK in 21ms (Views: 17.0ms | ActiveRecord: 2.7ms (3 queries, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/dance_classes?id=a02c2048-b5ae-42e8-af77-a8dad0a2ee73&vscodeBrowserReqId=1753550111485" for ::1 at 2025-07-26 10:15:11 -0700
+Processing by DanceClassesController#index as HTML
+  Parameters: {"id"=>"a02c2048-b5ae-42e8-af77-a8dad0a2ee73", "vscodeBrowserReqId"=>"1753550111485"}
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.4ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 13.6ms | GC: 1.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 18.9ms | GC: 1.8ms)
+Completed 200 OK in 21ms (Views: 18.0ms | ActiveRecord: 1.6ms (3 queries, 0 cached) | GC: 1.8ms)
+
+

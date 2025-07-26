@@ -1,0 +1,331 @@
+// Ballroom Dancing CRM - Purple & Gold Theme
+
+// Color Variables
+:root {
+  --primary-purple: #663399;
+  --light-purple: #8B5FBF;
+  --dark-purple: #4A1A5C;
+  --gold: #DAA520;
+  --light-gold: #F4E4BC;
+  --dark-gold: #B8860B;
+  --cream: #FFF8DC;
+  --soft-gray: #F8F9FA;
+  --dark-gray: #495057;
+}
+
+// Override Bootstrap primary colors
+$primary: #663399;
+$secondary: #DAA520;
+$success: #28a745;
+$info: #8B5FBF;
+$warning: #DAA520;
+$danger: #dc3545;
+$light: #FFF8DC;
+$dark: #4A1A5C;
+
+// Custom gradient backgrounds
+.bg-purple-gradient {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+}
+
+.bg-ballroom-gradient {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--gold) 100%);
+}
+
+// Main layout styling
+body {
+  background-color: var(--cream);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Navigation styling
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--gold) !important;
+  
+  &:hover {
+    color: var(--light-gold) !important;
+  }
+}
+
+.navbar-ballroom {
+  background: var(--primary-purple) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+// Card styling
+.card-ballroom {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(102, 51, 153, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(102, 51, 153, 0.2);
+  }
+}
+
+.card-header-ballroom {
+  background: var(--bg-purple-gradient);
+  color: white;
+  border-radius: 15px 15px 0 0 !important;
+  border: none;
+  font-weight: 600;
+}
+
+// Button styling
+.btn-ballroom-primary {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--light-purple) 0%, var(--primary-purple) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 51, 153, 0.3);
+  }
+}
+
+.btn-ballroom-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  color: var(--dark-purple);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--gold) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+  }
+}
+
+.btn-ballroom-outline {
+  border: 2px solid var(--primary-purple);
+  color: var(--primary-purple);
+  background: transparent;
+  border-radius: 25px;
+  padding: 8px 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: var(--primary-purple);
+    color: white;
+    transform: translateY(-2px);
+  }
+}
+
+// Badge styling
+.badge-ballroom {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+  color: var(--dark-purple);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.badge-level {
+  &.bronze {
+    background: linear-gradient(135deg, #CD7F32 0%, #E6B85C 100%);
+    color: white;
+  }
+  
+  &.silver {
+    background: linear-gradient(135deg, #C0C0C0 0%, #E5E5E5 100%);
+    color: var(--dark-purple);
+  }
+  
+  &.gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+    color: var(--dark-purple);
+  }
+}
+
+// Form styling
+.form-control-ballroom {
+  border: 2px solid #E9ECEF;
+  border-radius: 10px;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 0.2rem rgba(102, 51, 153, 0.25);
+  }
+}
+
+.form-label-ballroom {
+  color: var(--dark-purple);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+// Table styling
+.table-ballroom {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(102, 51, 153, 0.1);
+  
+  thead {
+    background: var(--primary-purple);
+    color: white;
+    
+    th {
+      border: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      padding: 15px;
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: background-color 0.3s ease;
+      
+      &:hover {
+        background-color: rgba(102, 51, 153, 0.05);
+      }
+      
+      td {
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+// Alert styling
+.alert-ballroom {
+  border: none;
+  border-radius: 15px;
+  padding: 15px 20px;
+  
+  &.alert-success {
+    background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+    color: white;
+  }
+  
+  &.alert-warning {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+    color: var(--dark-purple);
+  }
+  
+  &.alert-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #e35d6a 100%);
+    color: white;
+  }
+}
+
+// Page header styling
+.page-header-ballroom {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--gold) 100%);
+  color: white;
+  padding: 40px 0;
+  margin-bottom: 30px;
+  border-radius: 0 0 30px 30px;
+  
+  h1 {
+    font-weight: 300;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .lead {
+    opacity: 0.9;
+    font-size: 1.1rem;
+  }
+}
+
+// Dance style specific colors
+.dance-style {
+  &.smooth {
+    border-left: 4px solid #8B5FBF;
+  }
+  
+  &.rhythm {
+    border-left: 4px solid #DAA520;
+  }
+  
+  &.social {
+    border-left: 4px solid #663399;
+  }
+}
+
+// Pricing display
+.price-display {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--gold);
+  
+  .currency {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+}
+
+// Icon styling
+.icon-ballroom {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+// Animation classes
+.fade-in {
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .page-header-ballroom h1 {
+    font-size: 2rem;
+  }
+  
+  .card-ballroom {
+    margin-bottom: 20px;
+  }
+  
+  .btn-ballroom-primary,
+  .btn-ballroom-gold,
+  .btn-ballroom-outline {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

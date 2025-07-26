@@ -1,2 +1,254 @@
-<h1>DanceClasses#new</h1>
+<% content_for :title, "New Dance Class" %>
+
+<div class="page-header-ballroom">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1><i class="fas fa-plus-circle me-3"></i>Create New Dance Class</h1>
+        <p class="lead mb-0">Add a new class to your dance program</p>
+      </div>
+      <div class="col-md-4 text-end">
+        <%= link_to dance_classes_path, class: "btn btn-ballroom-outline" do %>
+          <i class="fas fa-arrow-left me-2"></i>Back to Classes
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card card-ballroom fade-in">
+        <div class="card-header card-header-ballroom">
+          <h5 class="mb-0"><i class="fas fa-form me-2"></i>Class Information</h5>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @dance_class, local: true, class: "needs-validation", novalidate: true do |form| %>
+            <% if @dance_class.errors.any? %>
+              <div class="alert alert-ballroom alert-danger mb-4" role="alert">
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Please fix the following errors:</h6>
+                <ul class="mb-0">
+                  <% @dance_class.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="row g-3">
+              <!-- Class Name -->
+              <div class="col-12">
+                <%= form.label :name, class: "form-label-ballroom" do %>
+                  <i class="fas fa-signature me-2"></i>Class Name *
+                <% end %>
+                <%= form.text_field :name, 
+                      class: "form-control form-control-ballroom #{'is-invalid' if @dance_class.errors[:name].any?}",
+                      placeholder: "e.g., Beginner Waltz Fundamentals",
+                      required: true %>
+                <% if @dance_class.errors[:name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:name].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Dance Style -->
+              <div class="col-md-6">
+                <%= form.label :dance_style_id, class: "form-label-ballroom" do %>
+                  <i class="fas fa-music me-2"></i>Dance Style *
+                <% end %>
+                <%= form.collection_select :dance_style_id, @dance_styles, :id, :name, 
+                      { prompt: "Select a dance style" }, 
+                      { class: "form-select form-control-ballroom #{'is-invalid' if @dance_class.errors[:dance_style_id].any?}",
+                        required: true,
+                        data: { dance_style_target: true } } %>
+                <% if @dance_class.errors[:dance_style_id].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:dance_style_id].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Dance Level -->
+              <div class="col-md-6">
+                <%= form.label :dance_level_id, class: "form-label-ballroom" do %>
+                  <i class="fas fa-layer-group me-2"></i>Dance Level *
+                <% end %>
+                <%= form.collection_select :dance_level_id, @dance_levels, :id, :name, 
+                      { prompt: "Select a level" }, 
+                      { class: "form-select form-control-ballroom #{'is-invalid' if @dance_class.errors[:dance_level_id].any?}",
+                        required: true } %>
+                <% if @dance_class.errors[:dance_level_id].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:dance_level_id].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Instructor -->
+              <div class="col-md-6">
+                <%= form.label :instructor_id, class: "form-label-ballroom" do %>
+                  <i class="fas fa-user-graduate me-2"></i>Instructor *
+                <% end %>
+                <%= form.collection_select :instructor_id, @instructors, :id, :full_name, 
+                      { prompt: "Select an instructor" }, 
+                      { class: "form-select form-control-ballroom #{'is-invalid' if @dance_class.errors[:instructor_id].any?}",
+                        required: true } %>
+                <% if @dance_class.errors[:instructor_id].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:instructor_id].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Location -->
+              <div class="col-md-6">
+                <%= form.label :location_id, class: "form-label-ballroom" do %>
+                  <i class="fas fa-map-marker-alt me-2"></i>Location *
+                <% end %>
+                <%= form.collection_select :location_id, @locations, :id, :name, 
+                      { prompt: "Select a location" }, 
+                      { class: "form-select form-control-ballroom #{'is-invalid' if @dance_class.errors[:location_id].any?}",
+                        required: true } %>
+                <% if @dance_class.errors[:location_id].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:location_id].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Class Type -->
+              <div class="col-md-6">
+                <%= form.label :class_type, class: "form-label-ballroom" do %>
+                  <i class="fas fa-tag me-2"></i>Class Type *
+                <% end %>
+                <%= form.select :class_type, 
+                      options_for_select([
+                        ['Regular Class', 'regular'],
+                        ['Drop-in Class', 'drop_in'],
+                        ['Practice Party', 'practice_party'],
+                        ['Workshop', 'workshop']
+                      ], @dance_class.class_type),
+                      { prompt: "Select class type" },
+                      { class: "form-select form-control-ballroom #{'is-invalid' if @dance_class.errors[:class_type].any?}",
+                        required: true } %>
+                <% if @dance_class.errors[:class_type].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:class_type].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Duration -->
+              <div class="col-md-6">
+                <%= form.label :duration_minutes, class: "form-label-ballroom" do %>
+                  <i class="fas fa-clock me-2"></i>Duration (minutes) *
+                <% end %>
+                <%= form.number_field :duration_minutes, 
+                      class: "form-control form-control-ballroom #{'is-invalid' if @dance_class.errors[:duration_minutes].any?}",
+                      placeholder: "45",
+                      min: 15,
+                      max: 180,
+                      step: 15,
+                      required: true %>
+                <% if @dance_class.errors[:duration_minutes].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:duration_minutes].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Max Capacity -->
+              <div class="col-md-6">
+                <%= form.label :max_capacity, class: "form-label-ballroom" do %>
+                  <i class="fas fa-users me-2"></i>Max Capacity *
+                <% end %>
+                <%= form.number_field :max_capacity, 
+                      class: "form-control form-control-ballroom #{'is-invalid' if @dance_class.errors[:max_capacity].any?}",
+                      placeholder: "20",
+                      min: 1,
+                      max: 50,
+                      required: true %>
+                <% if @dance_class.errors[:max_capacity].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:max_capacity].first %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Price -->
+              <div class="col-md-6">
+                <%= form.label :price, class: "form-label-ballroom" do %>
+                  <i class="fas fa-dollar-sign me-2"></i>Price per Class *
+                <% end %>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <%= form.number_field :price, 
+                        class: "form-control form-control-ballroom #{'is-invalid' if @dance_class.errors[:price].any?}",
+                        placeholder: "25.00",
+                        min: 0,
+                        step: 0.01,
+                        required: true %>
+                  <% if @dance_class.errors[:price].any? %>
+                    <div class="invalid-feedback">
+                      <%= @dance_class.errors[:price].first %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="col-12">
+                <%= form.label :description, class: "form-label-ballroom" do %>
+                  <i class="fas fa-align-left me-2"></i>Description
+                <% end %>
+                <%= form.text_area :description, 
+                      class: "form-control form-control-ballroom #{'is-invalid' if @dance_class.errors[:description].any?}",
+                      rows: 4,
+                      placeholder: "Describe what students will learn in this class, prerequisites, and any special notes..." %>
+                <% if @dance_class.errors[:description].any? %>
+                  <div class="invalid-feedback">
+                    <%= @dance_class.errors[:description].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <hr class="my-4">
+            <div class="d-flex justify-content-between">
+              <%= link_to dance_classes_path, class: "btn btn-ballroom-outline" do %>
+                <i class="fas fa-times me-2"></i>Cancel
+              <% end %>
+              
+              <div>
+                <%= form.submit "Create Dance Class", 
+                      class: "btn btn-ballroom-primary btn-lg",
+                      data: { disable_with: '<i class="fas fa-spinner fa-spin me-2"></i>Creating...' } %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Form validation
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>1>DanceClasses#new</h1>
 <p>Find me in app/views/dance_classes/new.html.erb</p>

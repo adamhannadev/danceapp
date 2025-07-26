@@ -1,2 +1,225 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<% content_for :title, "Dashboard" %>
+
+<div class="page-header-ballroom">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1><i class="fas fa-tachometer-alt me-3"></i>Dashboard</h1>
+        <p class="lead mb-0">Welcome to your ballroom dancing management system</p>
+      </div>
+      <div class="col-md-4 text-end">
+        <div class="text-white">
+          <small>Today is</small><br>
+          <strong><%= Date.current.strftime("%B %d, %Y") %></strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Quick Stats -->
+  <div class="row mb-5">
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card card-ballroom text-center fade-in">
+        <div class="card-body">
+          <div class="icon-ballroom mx-auto mb-3">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= User.students.count %></h3>
+          <p class="text-muted mb-0">Active Students</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card card-ballroom text-center fade-in" style="animation-delay: 0.1s;">
+        <div class="card-body">
+          <div class="icon-ballroom mx-auto mb-3" style="background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3 class="fw-bold" style="color: var(--gold);"><%= User.instructors.count %></h3>
+          <p class="text-muted mb-0">Instructors</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card card-ballroom text-center fade-in" style="animation-delay: 0.2s;">
+        <div class="card-body">
+          <div class="icon-ballroom mx-auto mb-3">
+            <i class="fas fa-music"></i>
+          </div>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= DanceClass.count %></h3>
+          <p class="text-muted mb-0">Dance Classes</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card card-ballroom text-center fade-in" style="animation-delay: 0.3s;">
+        <div class="card-body">
+          <div class="icon-ballroom mx-auto mb-3" style="background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);">
+            <i class="fas fa-step-forward"></i>
+          </div>
+          <h3 class="fw-bold" style="color: var(--gold);"><%= Figure.count %></h3>
+          <p class="text-muted mb-0">Dance Figures</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Quick Actions -->
+    <div class="col-lg-4 mb-4">
+      <div class="card card-ballroom h-100 slide-in-left">
+        <div class="card-header card-header-ballroom">
+          <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-3">
+            <%= link_to new_user_path, class: "btn btn-ballroom-primary" do %>
+              <i class="fas fa-user-plus me-2"></i>Add New Student
+            <% end %>
+            
+            <%= link_to new_dance_class_path, class: "btn btn-ballroom-gold" do %>
+              <i class="fas fa-plus me-2"></i>Create Dance Class
+            <% end %>
+            
+            <%= link_to figures_path, class: "btn btn-ballroom-outline" do %>
+              <i class="fas fa-step-forward me-2"></i>Manage Figures
+            <% end %>
+            
+            <%= link_to student_progress_index_path, class: "btn btn-ballroom-outline" do %>
+              <i class="fas fa-chart-line me-2"></i>Track Progress
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Classes -->
+    <div class="col-lg-8 mb-4">
+      <div class="card card-ballroom h-100 slide-in-left" style="animation-delay: 0.2s;">
+        <div class="card-header card-header-ballroom d-flex justify-content-between align-items-center">
+          <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Recent Dance Classes</h5>
+          <%= link_to dance_classes_path, class: "btn btn-ballroom-gold btn-sm" do %>
+            View All
+          <% end %>
+        </div>
+        <div class="card-body">
+          <% recent_classes = DanceClass.includes(:dance_style, :dance_level, :instructor).limit(5) %>
+          <% if recent_classes.any? %>
+            <div class="row">
+              <% recent_classes.each do |dance_class| %>
+                <div class="col-md-6 mb-3">
+                  <div class="border rounded p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h6 class="mb-0"><%= dance_class.name %></h6>
+                      <span class="badge badge-level <%= dance_class.dance_level.name.downcase.split(' ').first %>">
+                        <%= dance_class.dance_level.name %>
+                      </span>
+                    </div>
+                    <p class="text-muted small mb-2">
+                      <i class="fas fa-music me-1"></i><%= dance_class.dance_style.name %><br>
+                      <i class="fas fa-user-graduate me-1"></i><%= dance_class.instructor.full_name %><br>
+                      <i class="fas fa-clock me-1"></i><%= dance_class.duration_formatted %>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="price-display" style="font-size: 1rem;">
+                        $<%= dance_class.price.to_i %>
+                      </span>
+                      <%= link_to dance_class_path(dance_class), class: "btn btn-ballroom-outline btn-sm" do %>
+                        View
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-4">
+              <div class="icon-ballroom mx-auto mb-3">
+                <i class="fas fa-music"></i>
+              </div>
+              <h6 class="text-muted">No Classes Yet</h6>
+              <p class="text-muted small mb-3">Start building your dance program</p>
+              <%= link_to new_dance_class_path, class: "btn btn-ballroom-primary" do %>
+                <i class="fas fa-plus me-2"></i>Create First Class
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dance Styles Overview -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-ballroom fade-in">
+        <div class="card-header card-header-ballroom">
+          <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Dance Styles Overview</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <% DanceStyle.all.group_by(&:category).each_with_index do |(category, styles), index| %>
+              <div class="col-lg-4 mb-4">
+                <h6 class="fw-bold dance-style <%= category.downcase.gsub(' ', '_') %>">
+                  <%= category %>
+                </h6>
+                <div class="list-group list-group-flush">
+                  <% styles.each do |style| %>
+                    <div class="list-group-item border-0 px-0 py-2">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span><%= style.name %></span>
+                        <div>
+                          <span class="badge bg-secondary me-1">
+                            <%= style.dance_levels.count %> levels
+                          </span>
+                          <span class="badge bg-info">
+                            <%= style.figures.count %> figures
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Message for Empty State -->
+  <% if DanceClass.count == 0 && Figure.count <= 4 %>
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="text-center py-5">
+          <div class="icon-ballroom mx-auto mb-4" style="width: 80px; height: 80px; font-size: 2rem;">
+            <i class="fas fa-music"></i>
+          </div>
+          <h2 class="mb-3" style="color: var(--primary-purple);">Welcome to Your Ballroom Dancing CRM!</h2>
+          <p class="lead text-muted mb-4">
+            Your system is ready to help you manage students, classes, and dance progress.<br>
+            Let's get started by setting up your first dance class.
+          </p>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <div class="d-grid gap-2">
+                <%= link_to new_dance_class_path, class: "btn btn-ballroom-primary btn-lg" do %>
+                  <i class="fas fa-plus me-2"></i>Create Your First Class
+                <% end %>
+                <%= link_to figures_path, class: "btn btn-ballroom-gold btn-lg" do %>
+                  <i class="fas fa-upload me-2"></i>Import Dance Figures
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
