@@ -1,6 +1,5 @@
 class DanceStyle < ApplicationRecord
   # Associations
-  has_many :dance_levels, dependent: :destroy
   has_many :figures, dependent: :destroy
   has_many :dance_classes, dependent: :destroy
   has_many :private_lessons, dependent: :destroy

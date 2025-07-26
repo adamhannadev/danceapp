@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_26_162150) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_26_181627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,11 +62,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_162150) do
   create_table "dance_levels", force: :cascade do |t|
     t.string "name"
     t.integer "level_number"
-    t.bigint "dance_style_id", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["dance_style_id"], name: "index_dance_levels_on_dance_style_id"
+    t.index ["level_number"], name: "index_dance_levels_on_level_number", unique: true
+    t.index ["name"], name: "index_dance_levels_on_name", unique: true
   end
 
   create_table "dance_styles", force: :cascade do |t|
@@ -224,7 +224,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_162150) do
   add_foreign_key "dance_classes", "dance_styles"
   add_foreign_key "dance_classes", "locations"
   add_foreign_key "dance_classes", "users", column: "instructor_id"
-  add_foreign_key "dance_levels", "dance_styles"
   add_foreign_key "event_registrations", "events"
   add_foreign_key "event_registrations", "users"
   add_foreign_key "events", "locations"

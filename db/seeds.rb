@@ -58,17 +58,15 @@ level_data = [
   { name: 'Gold 4', number: 12 }
 ]
 
-DanceStyle.all.each do |dance_style|
-  level_data.each do |level_info|
-    DanceLevel.find_or_create_by!(
-      name: level_info[:name],
-      dance_style: dance_style,
-      level_number: level_info[:number]
-    ) do |level|
-      level.description = "#{level_info[:name]} level for #{dance_style.name}"
-    end
+level_data.each do |level_info|
+  DanceLevel.find_or_create_by!(
+    name: level_info[:name],
+    level_number: level_info[:number]
+  ) do |level|
+    level.description = "#{level_info[:name]} difficulty level"
   end
 end
+
 
 # Create Location
 puts "Creating Location..."
@@ -139,7 +137,7 @@ end
 # Create Sample Figures for Waltz Bronze 1
 puts "Creating Sample Figures..."
 waltz = DanceStyle.find_by(name: 'Waltz')
-bronze1 = DanceLevel.find_by(name: 'Bronze 1', dance_style: waltz)
+bronze1 = DanceLevel.find_by(name: 'Bronze 1')
 
 if waltz && bronze1
   sample_figures = [
