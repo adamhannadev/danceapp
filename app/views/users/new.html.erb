@@ -1,2 +1,299 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<% content_for :title, "Add New User" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <h1 class="h3 mb-1">
+          <i class="fas fa-user-plus me-2 text-primary"></i>
+          Add New User
+        </h1>
+        <p class="text-muted mb-0">Create a new account for a student, instructor, or administrator</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-form me-2"></i>User Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @user, local: true, class: "needs-validation", novalidate: true do |form| %>
+            
+            <!-- Error Messages -->
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger mb-4">
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Please correct the following errors:</h6>
+                <ul class="mb-0">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- Personal Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-user me-2"></i>Personal Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :first_name, "First Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :first_name, 
+                    class: "form-control #{'is-invalid' if @user.errors[:first_name].any?}",
+                    required: true %>
+                <% if @user.errors[:first_name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:first_name].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :last_name, "Last Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :last_name, 
+                    class: "form-control #{'is-invalid' if @user.errors[:last_name].any?}",
+                    required: true %>
+                <% if @user.errors[:last_name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:last_name].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-envelope me-2"></i>Contact Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :email, "Email Address *", class: "form-label fw-medium" %>
+                <%= form.email_field :email, 
+                    class: "form-control #{'is-invalid' if @user.errors[:email].any?}",
+                    required: true %>
+                <% if @user.errors[:email].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:email].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :phone, "Phone Number", class: "form-label fw-medium" %>
+                <%= form.tel_field :phone, 
+                    class: "form-control",
+                    placeholder: "(555) 123-4567" %>
+                <div class="form-text">Optional - for class reminders and notifications</div>
+              </div>
+            </div>
+
+            <!-- Account Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-key me-2"></i>Account Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password, "Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
+                    required: true %>
+                <% if @user.errors[:password].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Minimum 6 characters</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password_confirmation, "Confirm Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password_confirmation, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
+                    required: true %>
+                <% if @user.errors[:password_confirmation].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password_confirmation].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Role and Permissions -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-user-tag me-2"></i>Role and Permissions
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :role, "User Role *", class: "form-label fw-medium" %>
+                <%= form.select :role, 
+                    options_for_select([
+                      ['Student', 'student'],
+                      ['Instructor', 'instructor'],
+                      ['Administrator', 'admin']
+                    ], @user.role),
+                    { prompt: "Select a role..." },
+                    { class: "form-select #{'is-invalid' if @user.errors[:role].any?}", required: true } %>
+                <% if @user.errors[:role].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:role].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Determines access level and permissions</div>
+              </div>
+            </div>
+
+            <!-- Membership Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-crown me-2"></i>Membership Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :membership_type, "Membership Type", class: "form-label fw-medium" %>
+                <%= form.select :membership_type, 
+                    options_for_select([
+                      ['No Membership', 'none'],
+                      ['Monthly Membership', 'monthly'],
+                      ['Annual Membership', 'annual']
+                    ], @user.membership_type || 'none'),
+                    {},
+                    { class: "form-select" } %>
+                <div class="form-text">Members receive discounts on classes and events</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :membership_discount, "Membership Discount (%)", class: "form-label fw-medium" %>
+                <%= form.number_field :membership_discount, 
+                    class: "form-control",
+                    min: 0, max: 100, step: 0.1,
+                    value: @user.membership_discount || 0 %>
+                <div class="form-text">Percentage discount applied to class prices</div>
+              </div>
+            </div>
+
+            <!-- Waiver -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-file-signature me-2"></i>Legal Requirements
+                </h6>
+              </div>
+              
+              <div class="col-12 mb-3">
+                <div class="form-check">
+                  <%= form.check_box :waiver_signed, class: "form-check-input" %>
+                  <%= form.label :waiver_signed, "Waiver has been signed", class: "form-check-label" %>
+                </div>
+                <div class="form-text">Liability waiver must be signed before participating in classes</div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row">
+              <div class="col-12">
+                <div class="d-flex justify-content-between">
+                  <%= link_to "Cancel", users_path, class: "btn btn-outline-secondary" %>
+                  
+                  <div>
+                    <button type="button" class="btn btn-outline-info me-2" onclick="fillSampleData()">
+                      <i class="fas fa-magic me-1"></i>Fill Sample Data
+                    </button>
+                    <%= form.submit "Create User", 
+                        class: "btn btn-primary",
+                        data: { disable_with: "Creating User..." } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+// Sample data filler for testing
+function fillSampleData() {
+  if (confirm('Fill form with sample data?')) {
+    document.getElementById('user_first_name').value = 'Jane';
+    document.getElementById('user_last_name').value = 'Smith';
+    document.getElementById('user_email').value = 'jane.smith@example.com';
+    document.getElementById('user_phone').value = '(555) 987-6543';
+    document.getElementById('user_password').value = 'password123';
+    document.getElementById('user_password_confirmation').value = 'password123';
+    document.getElementById('user_role').value = 'student';
+    document.getElementById('user_membership_type').value = 'monthly';
+    document.getElementById('user_membership_discount').value = '10';
+    document.getElementById('user_waiver_signed').checked = true;
+  }
+}
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+
+.border-bottom {
+  border-color: #e9ecef !important;
+}
+
+.was-validated .form-control:valid {
+  border-color: #198754;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+</style>

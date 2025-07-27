@@ -1,2 +1,355 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<% content_for :title, "Edit #{@user.full_name}" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+          <li class="breadcrumb-item"><%= link_to @user.full_name, user_path(@user) %></li>
+          <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <div class="d-flex justify-content-center align-items-center mb-3">
+          <div class="bg-<%= user_role_color(@user.role) %> rounded-circle d-flex align-items-center justify-content-center me-3" 
+               style="width: 60px; height: 60px;">
+            <i class="fas fa-<%= user_role_icon(@user.role) %> text-white fs-4"></i>
+          </div>
+          <div>
+            <h1 class="h3 mb-1">Edit Profile</h1>
+            <p class="text-muted mb-0"><%= @user.full_name %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-edit me-2"></i>Update User Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @user, local: true, class: "needs-validation", novalidate: true do |form| %>
+            
+            <!-- Error Messages -->
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger mb-4">
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Please correct the following errors:</h6>
+                <ul class="mb-0">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- Personal Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-user me-2"></i>Personal Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :first_name, "First Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :first_name, 
+                    class: "form-control #{'is-invalid' if @user.errors[:first_name].any?}",
+                    required: true %>
+                <% if @user.errors[:first_name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:first_name].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :last_name, "Last Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :last_name, 
+                    class: "form-control #{'is-invalid' if @user.errors[:last_name].any?}",
+                    required: true %>
+                <% if @user.errors[:last_name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:last_name].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-envelope me-2"></i>Contact Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :email, "Email Address *", class: "form-label fw-medium" %>
+                <%= form.email_field :email, 
+                    class: "form-control #{'is-invalid' if @user.errors[:email].any?}",
+                    required: true %>
+                <% if @user.errors[:email].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:email].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :phone, "Phone Number", class: "form-label fw-medium" %>
+                <%= form.tel_field :phone, 
+                    class: "form-control",
+                    placeholder: "(555) 123-4567" %>
+                <div class="form-text">For class reminders and notifications</div>
+              </div>
+            </div>
+
+            <!-- Password Change (Optional) -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-key me-2"></i>Change Password (Optional)
+                </h6>
+                <p class="text-muted small mb-3">Leave blank to keep current password</p>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password, "New Password", class: "form-label fw-medium" %>
+                <%= form.password_field :password, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}" %>
+                <% if @user.errors[:password].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Minimum 6 characters if changing</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password_confirmation, "Confirm New Password", class: "form-label fw-medium" %>
+                <%= form.password_field :password_confirmation, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}" %>
+                <% if @user.errors[:password_confirmation].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password_confirmation].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Role and Permissions -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-user-tag me-2"></i>Role and Permissions
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :role, "User Role *", class: "form-label fw-medium" %>
+                <%= form.select :role, 
+                    options_for_select([
+                      ['Student', 'student'],
+                      ['Instructor', 'instructor'],
+                      ['Administrator', 'admin']
+                    ], @user.role),
+                    {},
+                    { class: "form-select #{'is-invalid' if @user.errors[:role].any?}", required: true } %>
+                <% if @user.errors[:role].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:role].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Changing role may affect access permissions</div>
+              </div>
+            </div>
+
+            <!-- Membership Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-crown me-2"></i>Membership Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :membership_type, "Membership Type", class: "form-label fw-medium" %>
+                <%= form.select :membership_type, 
+                    options_for_select([
+                      ['No Membership', 'none'],
+                      ['Monthly Membership', 'monthly'],
+                      ['Annual Membership', 'annual']
+                    ], @user.membership_type),
+                    {},
+                    { class: "form-select" } %>
+                <div class="form-text">Members receive discounts on classes and events</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :membership_discount, "Membership Discount (%)", class: "form-label fw-medium" %>
+                <%= form.number_field :membership_discount, 
+                    class: "form-control",
+                    min: 0, max: 100, step: 0.1 %>
+                <div class="form-text">Percentage discount applied to class prices</div>
+              </div>
+            </div>
+
+            <!-- Waiver Status -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-file-signature me-2"></i>Legal Requirements
+                </h6>
+              </div>
+              
+              <div class="col-12 mb-3">
+                <div class="form-check">
+                  <%= form.check_box :waiver_signed, class: "form-check-input" %>
+                  <%= form.label :waiver_signed, "Waiver has been signed", class: "form-check-label" %>
+                </div>
+                <% if @user.waiver_signed_at %>
+                  <div class="form-text text-success">
+                    <i class="fas fa-check me-1"></i>
+                    Waiver signed on <%= @user.waiver_signed_at.strftime("%B %d, %Y at %I:%M %p") %>
+                  </div>
+                <% else %>
+                  <div class="form-text">Liability waiver must be signed before participating in classes</div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Current Status Display -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-info-circle me-2"></i>Current Status
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <div class="card bg-light">
+                  <div class="card-body py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted">Member Since:</span>
+                      <span class="fw-medium"><%= @user.created_at.strftime("%B %d, %Y") %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <div class="card bg-light">
+                  <div class="card-body py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted">Last Updated:</span>
+                      <span class="fw-medium"><%= @user.updated_at.strftime("%B %d, %Y") %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row">
+              <div class="col-12">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <%= link_to "Cancel", user_path(@user), class: "btn btn-outline-secondary" %>
+                    <%= link_to "View Profile", user_path(@user), class: "btn btn-outline-info ms-2" %>
+                  </div>
+                  
+                  <div>
+                    <%= form.submit "Update Profile", 
+                        class: "btn btn-primary",
+                        data: { disable_with: "Updating Profile..." } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="card card-ballroom border-danger mt-4">
+        <div class="card-header bg-danger text-white">
+          <h6 class="mb-0">
+            <i class="fas fa-exclamation-triangle me-2"></i>Danger Zone
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="text-danger mb-1">Delete User Account</h6>
+              <p class="text-muted small mb-0">
+                This action cannot be undone. All user data, progress, and bookings will be permanently deleted.
+              </p>
+            </div>
+            <div>
+              <%= link_to user_path(@user), 
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  data: { 
+                    confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone.",
+                    method: :delete 
+                  } do %>
+                <i class="fas fa-trash me-1"></i>Delete Account
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+
+.border-bottom {
+  border-color: #e9ecef !important;
+}
+
+.was-validated .form-control:valid {
+  border-color: #198754;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+</style>

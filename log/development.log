@@ -4255,3 +4255,143 @@ Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached
   [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
   [1m[36mUser Pluck (0.3ms)[0m  [1m[34mSELECT "users"."first_name", "users"."last_name" FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
   [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+Started GET "/" for 127.0.0.1 at 2025-07-27 10:01:16 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.7ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.4ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.4ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 198.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 210.6ms | GC: 0.0ms)
+Completed 200 OK in 509ms (Views: 163.6ms | ActiveRecord: 51.0ms (22 queries, 1 cached) | GC: 101.9ms)
+
+
+Started GET "/users?id=eee89c28-6db7-4682-a5bf-f7ca945300f3&vscodeBrowserReqId=1753635686739" for 127.0.0.1 at 2025-07-27 10:01:27 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"id"=>"eee89c28-6db7-4682-a5bf-f7ca945300f3", "vscodeBrowserReqId"=>"1753635686739"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.1ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (1.4ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (1.3ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 80.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 83.9ms | GC: 0.0ms)
+Completed 200 OK in 112ms (Views: 65.7ms | ActiveRecord: 25.9ms (12 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2025-07-27 10:01:33 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"sign_in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:82:in `set_user'
+Completed 404 Not Found in 7ms (ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=sign_in):
+  
+app/controllers/users_controller.rb:82:in `set_user'
+Started GET "/users/" for 127.0.0.1 at 2025-07-27 10:01:37 -0700
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.3ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (0.7ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (0.9ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 25.4ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 28.6ms | GC: 1.2ms)
+Completed 200 OK in 48ms (Views: 24.9ms | ActiveRecord: 9.4ms (12 queries, 1 cached) | GC: 1.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 10:01:37 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+

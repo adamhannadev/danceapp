@@ -60,4 +60,69 @@ module ApplicationHelper
     end
     content_for?(:title) ? content_for(:title) : "Ballroom Dancing CRM"
   end
+
+  def user_role_color(role)
+    case role.to_s
+    when 'admin'
+      'danger'
+    when 'instructor'
+      'warning'
+    when 'student'
+      'primary'
+    else
+      'secondary'
+    end
+  end
+
+  def user_role_icon(role)
+    case role.to_s
+    when 'admin'
+      'crown'
+    when 'instructor'
+      'chalkboard-teacher'
+    when 'student'
+      'graduation-cap'
+    else
+      'user'
+    end
+  end
+
+  def user_role_display(role)
+    case role.to_s
+    when 'admin'
+      'Administrator'
+    when 'instructor'
+      'Instructor'
+    when 'student'
+      'Student'
+    else
+      role.to_s.humanize
+    end
+  end
+
+  def membership_badge_class(membership_type)
+    case membership_type.to_s
+    when 'annual'
+      'success'
+    when 'monthly'
+      'info'
+    when 'none'
+      'secondary'
+    else
+      'secondary'
+    end
+  end
+
+  def membership_display(membership_type)
+    case membership_type.to_s
+    when 'annual'
+      'Annual Member'
+    when 'monthly'
+      'Monthly Member'
+    when 'none'
+      'Drop-in'
+    else
+      'No Membership'
+    end
+  end
 end
