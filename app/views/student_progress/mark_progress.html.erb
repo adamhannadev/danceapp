@@ -1,2 +1,300 @@
-<h1>StudentProgress#mark_progress</h1>
-<p>Find me in app/views/student_progress/mark_progress.html.erb</p>
+<% content_for :title, "Mark Progress - #{@student_progress.figure.name}" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "My Progress", student_progress_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to @student_progress.figure.name, student_progress_path(@student_progress) %></li>
+          <li class="breadcrumb-item active" aria-current="page">Mark Progress</li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <h1 class="h3 mb-1">
+          <i class="fas fa-tasks me-2 text-primary"></i>
+          Mark Progress
+        </h1>
+        <p class="text-muted mb-0">
+          Update your learning progress for <strong><%= @student_progress.figure.name %></strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Current Progress Overview -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header text-center">
+          <h5 class="mb-0">Current Progress</h5>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <div class="progress-circle mx-auto mb-3" style="width: 120px; height: 120px;">
+              <svg width="120" height="120">
+                <circle cx="60" cy="60" r="50" stroke="#e9ecef" stroke-width="8" fill="transparent"/>
+                <circle cx="60" cy="60" r="50" stroke="#0d6efd" stroke-width="8" 
+                        fill="transparent" 
+                        stroke-dasharray="<%= 314 * @student_progress.completion_percentage / 100 %> 314"
+                        stroke-dashoffset="0" 
+                        transform="rotate(-90 60 60)"/>
+              </svg>
+              <div class="position-absolute top-50 start-50 translate-middle">
+                <div class="fs-4 fw-bold text-primary"><%= @student_progress.completion_percentage %>%</div>
+                <div class="small text-muted">Complete</div>
+              </div>
+            </div>
+            
+            <h4 class="mb-2"><%= @student_progress.figure.name %></h4>
+            <p class="text-muted">
+              <%= @student_progress.figure.dance_style.name %> • 
+              <%= @student_progress.figure.dance_level.name %> • 
+              Figure <%= @student_progress.figure.figure_number %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Components Form -->
+      <%= form_with model: @student_progress, url: student_progress_path(@student_progress), 
+          method: :patch, local: true, class: "needs-validation", novalidate: true do |form| %>
+        
+        <div class="card card-ballroom mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-check-square me-2"></i>Progress Components
+            </h5>
+          </div>
+          <div class="card-body">
+            <!-- Movement Component -->
+            <div class="row mb-4 align-items-center">
+              <div class="col-md-2 text-center">
+                <i class="fas fa-running fs-1 text-primary mb-2"></i>
+              </div>
+              <div class="col-md-7">
+                <h5 class="mb-1">Movement</h5>
+                <p class="text-muted mb-0">
+                  Body positioning, footwork, and proper execution of the figure's movements
+                </p>
+                <small class="text-muted">
+                  Demonstrates correct posture, foot placement, and smooth transitions
+                </small>
+              </div>
+              <div class="col-md-3 text-end">
+                <div class="form-check form-switch d-inline-block">
+                  <%= form.check_box :movement_passed, 
+                      class: "form-check-input fs-4", 
+                      style: "cursor: pointer;",
+                      data: { bs_toggle: "tooltip", title: "Toggle movement progress" } %>
+                  <label class="form-check-label ms-2" for="student_progress_movement_passed">
+                    <span class="badge bg-<%= @student_progress.movement_passed? ? 'success' : 'secondary' %>">
+                      <%= @student_progress.movement_passed? ? 'Passed' : 'Not Passed' %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Timing Component -->
+            <div class="row mb-4 align-items-center">
+              <div class="col-md-2 text-center">
+                <i class="fas fa-metronome fs-1 text-warning mb-2"></i>
+              </div>
+              <div class="col-md-7">
+                <h5 class="mb-1">Timing</h5>
+                <p class="text-muted mb-0">
+                  Musical timing, rhythm coordination, and tempo maintenance
+                </p>
+                <small class="text-muted">
+                  Stays on beat, maintains proper rhythm, and matches the music's tempo
+                </small>
+              </div>
+              <div class="col-md-3 text-end">
+                <div class="form-check form-switch d-inline-block">
+                  <%= form.check_box :timing_passed, 
+                      class: "form-check-input fs-4", 
+                      style: "cursor: pointer;",
+                      data: { bs_toggle: "tooltip", title: "Toggle timing progress" } %>
+                  <label class="form-check-label ms-2" for="student_progress_timing_passed">
+                    <span class="badge bg-<%= @student_progress.timing_passed? ? 'success' : 'secondary' %>">
+                      <%= @student_progress.timing_passed? ? 'Passed' : 'Not Passed' %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Partnering Component -->
+            <div class="row mb-4 align-items-center">
+              <div class="col-md-2 text-center">
+                <i class="fas fa-handshake fs-1 text-info mb-2"></i>
+              </div>
+              <div class="col-md-7">
+                <h5 class="mb-1">Partnering</h5>
+                <p class="text-muted mb-0">
+                  Connection with partner, leading/following, and frame maintenance
+                </p>
+                <small class="text-muted">
+                  Maintains proper connection, clear communication, and good frame throughout
+                </small>
+              </div>
+              <div class="col-md-3 text-end">
+                <div class="form-check form-switch d-inline-block">
+                  <%= form.check_box :partnering_passed, 
+                      class: "form-check-input fs-4", 
+                      style: "cursor: pointer;",
+                      data: { bs_toggle: "tooltip", title: "Toggle partnering progress" } %>
+                  <label class="form-check-label ms-2" for="student_progress_partnering_passed">
+                    <span class="badge bg-<%= @student_progress.partnering_passed? ? 'success' : 'secondary' %>">
+                      <%= @student_progress.partnering_passed? ? 'Passed' : 'Not Passed' %>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="card card-ballroom mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-sticky-note me-2"></i>Notes & Observations
+            </h5>
+          </div>
+          <div class="card-body">
+            <%= form.label :notes, "Progress Notes", class: "form-label fw-medium" %>
+            <%= form.text_area :notes, 
+                class: "form-control", 
+                rows: 5,
+                placeholder: "Add notes about your progress, what you've learned, areas that need improvement, instructor feedback, etc." %>
+            <div class="form-text">
+              These notes will help you track your learning journey and remember important feedback.
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="card card-ballroom">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <%= link_to student_progress_path(@student_progress), 
+                    class: "btn btn-outline-secondary w-100" do %>
+                  <i class="fas fa-arrow-left me-2"></i>Cancel
+                <% end %>
+              </div>
+              <div class="col-md-6">
+                <%= form.submit "Update Progress", 
+                    class: "btn btn-primary w-100",
+                    data: { disable_with: "Updating..." } do %>
+                  <i class="fas fa-save me-2"></i>Update Progress
+                <% end %>
+              </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="text-center mt-3">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-success btn-sm" onclick="markAllPassed()">
+                  <i class="fas fa-check-double me-1"></i>Mark All Passed
+                </button>
+                <button type="button" class="btn btn-outline-warning btn-sm" onclick="clearAll()">
+                  <i class="fas fa-eraser me-1"></i>Clear All
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+// Initialize tooltips
+document.addEventListener('DOMContentLoaded', function() {
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  // Update badge text when checkboxes change
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      const label = this.parentElement.querySelector('.badge');
+      if (this.checked) {
+        label.className = 'badge bg-success';
+        label.textContent = 'Passed';
+      } else {
+        label.className = 'badge bg-secondary';
+        label.textContent = 'Not Passed';
+      }
+    });
+  });
+});
+
+function markAllPassed() {
+  if (confirm('Mark all components as passed?')) {
+    document.getElementById('student_progress_movement_passed').checked = true;
+    document.getElementById('student_progress_timing_passed').checked = true;
+    document.getElementById('student_progress_partnering_passed').checked = true;
+    
+    // Trigger change events to update badges
+    document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+      checkbox.dispatchEvent(new Event('change'));
+    });
+  }
+}
+
+function clearAll() {
+  if (confirm('Clear all progress components?')) {
+    document.getElementById('student_progress_movement_passed').checked = false;
+    document.getElementById('student_progress_timing_passed').checked = false;
+    document.getElementById('student_progress_partnering_passed').checked = false;
+    
+    // Trigger change events to update badges
+    document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+      checkbox.dispatchEvent(new Event('change'));
+    });
+  }
+}
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-circle {
+  position: relative;
+}
+
+.form-check-input:checked {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+}
+
+.form-switch .form-check-input {
+  border-radius: 1rem;
+}
+
+hr {
+  border-color: #e9ecef;
+  opacity: 0.5;
+}
+</style>

@@ -1,2 +1,262 @@
-<h1>StudentProgress#index</h1>
-<p>Find me in app/views/student_progress/index.html.erb</p>
+<% content_for :title, "My Progress" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h3 mb-1">
+            <i class="fas fa-chart-line me-2 text-primary"></i>
+            My Dance Progress
+          </h1>
+          <p class="text-muted mb-0">Track your learning journey across all dance styles and levels</p>
+        </div>
+        
+        <!-- Overall Progress Badge -->
+        <div class="text-end">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body py-2 px-3">
+              <div class="d-flex align-items-center">
+                <div class="me-3">
+                  <i class="fas fa-trophy text-warning fs-4"></i>
+                </div>
+                <div>
+                  <div class="fw-bold text-primary fs-5"><%= @overall_completion %>%</div>
+                  <small class="text-muted">Overall Progress</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card card-ballroom h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-list-ol text-info fs-2 mb-2"></i>
+          <h5 class="card-title"><%= @total_figures %></h5>
+          <p class="card-text text-muted">Total Figures</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-ballroom h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-check-circle text-success fs-2 mb-2"></i>
+          <h5 class="card-title"><%= @completed_figures %></h5>
+          <p class="card-text text-muted">Completed</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-ballroom h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-clock text-warning fs-2 mb-2"></i>
+          <h5 class="card-title"><%= @total_figures - @completed_figures %></h5>
+          <p class="card-text text-muted">In Progress</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-ballroom h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-percentage text-primary fs-2 mb-2"></i>
+          <h5 class="card-title"><%= @overall_completion %>%</h5>
+          <p class="card-text text-muted">Completion Rate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-filter me-2"></i>Filter Progress
+          </h6>
+        </div>
+        <div class="card-body">
+          <%= form_with url: student_progress_index_path, method: :get, local: true, class: "row g-3" do |form| %>
+            <div class="col-md-4">
+              <%= form.select :dance_style_id, 
+                  options_from_collection_for_select(DanceStyle.all, :id, :name, @selected_style&.id),
+                  { prompt: "All Dance Styles" },
+                  { class: "form-select" } %>
+            </div>
+            <div class="col-md-4">
+              <%= form.select :dance_level_id,
+                  options_from_collection_for_select(DanceLevel.ordered, :id, :name, @selected_level&.id),
+                  { prompt: "All Levels" },
+                  { class: "form-select" } %>
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex gap-2">
+                <%= form.submit "Apply Filters", class: "btn btn-primary" %>
+                <%= link_to "Clear", student_progress_index_path, class: "btn btn-outline-secondary" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress by Dance Style -->
+  <% if @progresses_by_style.any? %>
+    <% @progresses_by_style.each do |dance_style, progresses| %>
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card card-ballroom">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="fas fa-music me-2"></i>
+                  <%= dance_style.name %>
+                  <span class="badge bg-primary ms-2"><%= progresses.count %> figures</span>
+                </h5>
+                <div>
+                  <% completed_count = progresses.count(&:completed?) %>
+                  <% completion_percentage = progresses.count > 0 ? (completed_count.to_f / progresses.count * 100).round(1) : 0 %>
+                  <span class="badge bg-success"><%= completion_percentage %>% Complete</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Progress Bar for Style -->
+              <div class="mb-3">
+                <div class="progress" style="height: 10px;">
+                  <div class="progress-bar bg-success" role="progressbar" 
+                       style="width: <%= completion_percentage %>%" 
+                       aria-valuenow="<%= completion_percentage %>" 
+                       aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+              <!-- Figures Grid -->
+              <div class="row">
+                <% progresses.group_by { |sp| sp.figure.dance_level }.each do |level, level_progresses| %>
+                  <div class="col-12 mb-4">
+                    <h6 class="text-muted mb-3">
+                      <i class="fas fa-layer-group me-2"></i>
+                      <%= level.name %>
+                    </h6>
+                    <div class="row">
+                      <% level_progresses.each do |progress| %>
+                        <div class="col-md-6 col-lg-4 mb-3">
+                          <div class="card figure-progress-card h-100 <%= 'border-success' if progress.completed? %>">
+                            <div class="card-body">
+                              <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="card-title mb-0">
+                                  <%= link_to progress.figure.name, student_progress_path(progress), 
+                                      class: "text-decoration-none #{'text-success' if progress.completed?}" %>
+                                </h6>
+                                <% if progress.completed? %>
+                                  <i class="fas fa-check-circle text-success"></i>
+                                <% end %>
+                              </div>
+                              
+                              <p class="card-text text-muted small">
+                                Figure <%= progress.figure.figure_number %>
+                              </p>
+                              
+                              <!-- Progress Components -->
+                              <div class="mb-2">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                  <small class="text-muted">Progress</small>
+                                  <small class="text-muted"><%= progress.completion_percentage %>%</small>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                  <div class="progress-bar bg-primary" role="progressbar" 
+                                       style="width: <%= progress.completion_percentage %>%" 
+                                       aria-valuenow="<%= progress.completion_percentage %>" 
+                                       aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                              </div>
+                              
+                              <!-- Component Indicators -->
+                              <div class="d-flex justify-content-between mt-2">
+                                <small class="<%= progress.movement_passed? ? 'text-success' : 'text-muted' %>">
+                                  <i class="fas fa-<%= progress.movement_passed? ? 'check' : 'times' %>"></i> Movement
+                                </small>
+                                <small class="<%= progress.timing_passed? ? 'text-success' : 'text-muted' %>">
+                                  <i class="fas fa-<%= progress.timing_passed? ? 'check' : 'times' %>"></i> Timing
+                                </small>
+                                <small class="<%= progress.partnering_passed? ? 'text-success' : 'text-muted' %>">
+                                  <i class="fas fa-<%= progress.partnering_passed? ? 'check' : 'times' %>"></i> Partnering
+                                </small>
+                              </div>
+                              
+                              <div class="mt-3">
+                                <%= link_to "View Details", student_progress_path(progress), 
+                                    class: "btn btn-sm btn-outline-primary" %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <!-- Empty State -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-ballroom">
+          <div class="card-body text-center py-5">
+            <i class="fas fa-graduation-cap text-muted fs-1 mb-3"></i>
+            <h4 class="text-muted">No Progress to Show</h4>
+            <p class="text-muted mb-4">
+              <% if @selected_style || @selected_level %>
+                No progress found for the selected filters. Try adjusting your filters or clear them to see all progress.
+              <% else %>
+                You haven't started learning any figures yet. Contact your instructor to begin your dance journey!
+              <% end %>
+            </p>
+            <% if @selected_style || @selected_level %>
+              <%= link_to "Clear Filters", student_progress_index_path, class: "btn btn-primary" %>
+            <% else %>
+              <%= link_to "View All Figures", figures_path, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<style>
+.figure-progress-card {
+  transition: all 0.2s ease;
+}
+
+.figure-progress-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress {
+  border-radius: 10px;
+}
+
+.progress-bar {
+  border-radius: 10px;
+}
+</style>

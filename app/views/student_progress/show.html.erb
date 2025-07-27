@@ -1,2 +1,362 @@
-<h1>StudentProgress#show</h1>
-<p>Find me in app/views/student_progress/show.html.erb</p>
+<% content_for :title, "#{@figure.name} Progress" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "My Progress", student_progress_index_path %></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= @figure.name %></li>
+        </ol>
+      </nav>
+      
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h1 class="h3 mb-1">
+            <i class="fas fa-chart-line me-2 text-primary"></i>
+            <%= @figure.name %>
+          </h1>
+          <p class="text-muted mb-0">
+            <%= @dance_style.name %> • <%= @dance_level.name %> • Figure <%= @figure.figure_number %>
+          </p>
+        </div>
+        
+        <!-- Completion Status -->
+        <div class="text-end">
+          <% if @student_progress.completed? %>
+            <span class="badge bg-success fs-6 px-3 py-2">
+              <i class="fas fa-check-circle me-2"></i>Completed
+            </span>
+            <div class="text-muted small mt-1">
+              Completed on <%= @student_progress.completed_at.strftime("%B %d, %Y") %>
+            </div>
+          <% else %>
+            <span class="badge bg-warning fs-6 px-3 py-2">
+              <i class="fas fa-clock me-2"></i>In Progress
+            </span>
+            <div class="text-muted small mt-1">
+              <%= @student_progress.completion_percentage %>% Complete
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Left Column: Progress Tracking -->
+    <div class="col-lg-8">
+      <!-- Overall Progress -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-tasks me-2"></i>Progress Overview
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-medium">Overall Completion</span>
+              <span class="text-primary fw-bold"><%= @student_progress.completion_percentage %>%</span>
+            </div>
+            <div class="progress" style="height: 12px;">
+              <div class="progress-bar bg-primary" role="progressbar" 
+                   style="width: <%= @student_progress.completion_percentage %>%" 
+                   aria-valuenow="<%= @student_progress.completion_percentage %>" 
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <!-- Component Progress Cards -->
+          <div class="row">
+            <!-- Movement Component -->
+            <div class="col-md-4 mb-3">
+              <div class="card h-100 <%= @student_progress.movement_passed? ? 'border-success bg-light' : 'border-secondary' %>">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                    <i class="fas fa-running fs-1 <%= @student_progress.movement_passed? ? 'text-success' : 'text-muted' %>"></i>
+                  </div>
+                  <h6 class="card-title">Movement</h6>
+                  <p class="card-text small text-muted mb-3">
+                    Body positioning, footwork, and figure execution
+                  </p>
+                  <%= link_to mark_progress_student_progress_path(@student_progress, component: 'movement'), 
+                      method: :patch, 
+                      class: "btn btn-sm #{ @student_progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' }",
+                      data: { confirm: @student_progress.movement_passed? ? 'Mark as not passed?' : 'Mark as passed?' } do %>
+                    <i class="fas fa-<%= @student_progress.movement_passed? ? 'check' : 'plus' %> me-1"></i>
+                    <%= @student_progress.movement_passed? ? 'Passed' : 'Mark Passed' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timing Component -->
+            <div class="col-md-4 mb-3">
+              <div class="card h-100 <%= @student_progress.timing_passed? ? 'border-success bg-light' : 'border-secondary' %>">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                    <i class="fas fa-metronome fs-1 <%= @student_progress.timing_passed? ? 'text-success' : 'text-muted' %>"></i>
+                  </div>
+                  <h6 class="card-title">Timing</h6>
+                  <p class="card-text small text-muted mb-3">
+                    Musical timing, rhythm, and tempo coordination
+                  </p>
+                  <%= link_to mark_progress_student_progress_path(@student_progress, component: 'timing'), 
+                      method: :patch, 
+                      class: "btn btn-sm #{ @student_progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' }",
+                      data: { confirm: @student_progress.timing_passed? ? 'Mark as not passed?' : 'Mark as passed?' } do %>
+                    <i class="fas fa-<%= @student_progress.timing_passed? ? 'check' : 'plus' %> me-1"></i>
+                    <%= @student_progress.timing_passed? ? 'Passed' : 'Mark Passed' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Partnering Component -->
+            <div class="col-md-4 mb-3">
+              <div class="card h-100 <%= @student_progress.partnering_passed? ? 'border-success bg-light' : 'border-secondary' %>">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                    <i class="fas fa-handshake fs-1 <%= @student_progress.partnering_passed? ? 'text-success' : 'text-muted' %>"></i>
+                  </div>
+                  <h6 class="card-title">Partnering</h6>
+                  <p class="card-text small text-muted mb-3">
+                    Connection, leading/following, and frame
+                  </p>
+                  <%= link_to mark_progress_student_progress_path(@student_progress, component: 'partnering'), 
+                      method: :patch, 
+                      class: "btn btn-sm #{ @student_progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' }",
+                      data: { confirm: @student_progress.partnering_passed? ? 'Mark as not passed?' : 'Mark as passed?' } do %>
+                    <i class="fas fa-<%= @student_progress.partnering_passed? ? 'check' : 'plus' %> me-1"></i>
+                    <%= @student_progress.partnering_passed? ? 'Passed' : 'Mark Passed' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes Section -->
+          <div class="mt-4">
+            <%= form_with model: @student_progress, url: student_progress_path(@student_progress), 
+                method: :patch, local: true, class: "needs-validation", novalidate: true do |form| %>
+              <div class="mb-3">
+                <%= form.label :notes, "Personal Notes", class: "form-label fw-medium" %>
+                <%= form.text_area :notes, 
+                    class: "form-control", 
+                    rows: 4,
+                    placeholder: "Add your notes about this figure, what you've learned, areas to improve, etc." %>
+                <div class="form-text">Keep track of your thoughts and insights about this figure.</div>
+              </div>
+              <div class="text-end">
+                <%= form.submit "Save Notes", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Figure Details -->
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-info-circle me-2"></i>Figure Details
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <dl class="row">
+                <dt class="col-sm-4">Figure Number:</dt>
+                <dd class="col-sm-8"><%= @figure.figure_number %></dd>
+                
+                <dt class="col-sm-4">Measures:</dt>
+                <dd class="col-sm-8"><%= @figure.measures %></dd>
+                
+                <dt class="col-sm-4">Type:</dt>
+                <dd class="col-sm-8">
+                  <span class="badge bg-<%= @figure.core_figure? ? 'primary' : 'secondary' %>">
+                    <%= @figure.core_figure? ? 'Core Figure' : 'Variation' %>
+                  </span>
+                </dd>
+              </dl>
+            </div>
+            <div class="col-md-6">
+              <dl class="row">
+                <dt class="col-sm-4">Dance Style:</dt>
+                <dd class="col-sm-8"><%= @dance_style.name %></dd>
+                
+                <dt class="col-sm-4">Level:</dt>
+                <dd class="col-sm-8"><%= @dance_level.name %></dd>
+                
+                <dt class="col-sm-4">Category:</dt>
+                <dd class="col-sm-8"><%= @dance_style.category %></dd>
+              </dl>
+            </div>
+          </div>
+          
+          <% if @figure.components.present? %>
+            <div class="mt-3">
+              <h6>Components:</h6>
+              <p class="text-muted"><%= @figure.components %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    <div class="col-lg-4">
+      <!-- Instructor Information -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-user-tie me-2"></i>Instructor
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                 style="width: 50px; height: 50px;">
+              <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+              <h6 class="mb-0"><%= @instructor.full_name %></h6>
+              <small class="text-muted">Dance Instructor</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-bolt me-2"></i>Quick Actions
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <%= link_to student_progress_index_path, class: "btn btn-outline-primary" do %>
+              <i class="fas fa-arrow-left me-2"></i>Back to Progress
+            <% end %>
+            
+            <%= link_to figure_path(@figure), class: "btn btn-outline-info" do %>
+              <i class="fas fa-eye me-2"></i>View Figure Details
+            <% end %>
+            
+            <% unless @student_progress.completed? %>
+              <button type="button" class="btn btn-outline-success" 
+                      onclick="markAllPassed()">
+                <i class="fas fa-check-double me-2"></i>Mark All Passed
+              </button>
+            <% else %>
+              <%= link_to mark_progress_student_progress_path(@student_progress, component: 'reset'), 
+                  method: :patch, 
+                  class: "btn btn-outline-warning",
+                  data: { confirm: 'Are you sure you want to reset your progress on this figure?' } do %>
+                <i class="fas fa-undo me-2"></i>Reset Progress
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress History -->
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-history me-2"></i>Progress Timeline
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="timeline">
+            <% if @student_progress.completed_at %>
+              <div class="timeline-item">
+                <div class="timeline-marker bg-success"></div>
+                <div class="timeline-content">
+                  <h6 class="text-success">Figure Completed!</h6>
+                  <small class="text-muted">
+                    <%= @student_progress.completed_at.strftime("%B %d, %Y at %I:%M %p") %>
+                  </small>
+                </div>
+              </div>
+            <% end %>
+            
+            <div class="timeline-item">
+              <div class="timeline-marker bg-info"></div>
+              <div class="timeline-content">
+                <h6>Progress Started</h6>
+                <small class="text-muted">
+                  <%= @student_progress.created_at.strftime("%B %d, %Y") %>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function markAllPassed() {
+  if (confirm('Mark all components as passed?')) {
+    // This would be handled via AJAX in a real implementation
+    // For now, we'll redirect to update all components
+    window.location.href = '<%= student_progress_path(@student_progress) %>?mark_all=true';
+  }
+}
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress {
+  border-radius: 10px;
+}
+
+.progress-bar {
+  border-radius: 10px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -22px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 8px;
+  bottom: 0;
+  width: 2px;
+  background: #e9ecef;
+}
+
+.timeline-content h6 {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+</style>
