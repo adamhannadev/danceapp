@@ -172,32 +172,32 @@ if File.exist?(csv_file_path)
 else
   puts "⚠️  CSV file not found at #{csv_file_path}, creating sample figures instead..."
   
-  # Fallback to sample figures if CSV doesn't exist
-  waltz = DanceStyle.find_by(name: 'Waltz')
-  bronze1 = DanceLevel.find_by(name: 'Bronze 1')
+#   # Fallback to sample figures if CSV doesn't exist
+#   waltz = DanceStyle.find_by(name: 'Waltz')
+#   bronze1 = DanceLevel.find_by(name: 'Bronze 1')
 
-  if waltz && bronze1
-    sample_figures = [
-      { number: '1', name: 'Box Step', measures: 2, core: true, components: 'Forward, Side, Together, Back, Side, Together' },
-      { number: '2', name: 'Progressive Basic', measures: 2, core: true, components: 'Forward, Side, Together, Forward, Side, Together' },
-      { number: '3', name: 'Left Turn', measures: 2, core: true, components: 'Forward, Side, Together, Turn, Side, Together' },
-      { number: '1a', name: 'Box Step with Underarm Turn', measures: 2, core: false, components: 'Box Step, Lead Underarm Turn' }
-    ]
+#   if waltz && bronze1
+#     sample_figures = [
+#       { number: '1', name: 'Box Step', measures: 2, core: true, components: 'Forward, Side, Together, Back, Side, Together' },
+#       { number: '2', name: 'Progressive Basic', measures: 2, core: true, components: 'Forward, Side, Together, Forward, Side, Together' },
+#       { number: '3', name: 'Left Turn', measures: 2, core: true, components: 'Forward, Side, Together, Turn, Side, Together' },
+#       { number: '1a', name: 'Box Step with Underarm Turn', measures: 2, core: false, components: 'Box Step, Lead Underarm Turn' }
+#     ]
 
-    sample_figures.each do |fig|
-      Figure.find_or_create_by!(
-        figure_number: fig[:number],
-        dance_style: waltz,
-        dance_level: bronze1
-      ) do |figure|
-        figure.name = fig[:name]
-        figure.measures = fig[:measures]
-        figure.is_core = fig[:core]
-        figure.components = fig[:components]
-      end
-    end
-  end
-end
+#     sample_figures.each do |fig|
+#       Figure.find_or_create_by!(
+#         figure_number: fig[:number],
+#         dance_style: waltz,
+#         dance_level: bronze1
+#       ) do |figure|
+#         figure.name = fig[:name]
+#         figure.measures = fig[:measures]
+#         figure.is_core = fig[:core]
+#         figure.components = fig[:components]
+#       end
+#     end
+#   end
+# end
 
 puts "✅ Seeding completed successfully!"
 puts ""
