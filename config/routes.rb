@@ -37,6 +37,10 @@ Rails.application.routes.draw do
         get :mark_progress
         patch :mark_progress
       end
+      collection do
+        get :enroll
+        post :enroll
+      end
     end
   end
 

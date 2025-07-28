@@ -1,5 +1,5 @@
 class StudentProgressController < ApplicationController
-  before_action :set_user, only: [:index, :show, :update, :mark_progress]
+  before_action :set_user, only: [:index, :show, :update, :mark_progress, :enroll]
   before_action :set_student_progress, only: [:show, :update, :mark_progress]
 
   def index
@@ -149,6 +149,55 @@ class StudentProgressController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @student_progress }
       format.json { render json: { success: true, completed: @student_progress.completed? } }
+    end
+  end
+
+  def enroll
+    authorize_instructor_access!
+    
+    if params[:user_id].present?
+      @student = User.find(params[:user_id])
+    else
+      redirect_to users_path, alert: "Please select a student to enroll." and return
+    end
+    
+    @dance_styles = DanceStyle.all.order(:name)
+    @dance_levels = DanceLevel.all.order(:level_number)
+    
+    if request.post?
+      dance_style = DanceStyle.find(params[:dance_style_id])
+      dance_level = DanceLevel.find(params[:dance_level_id])
+      
+      # Find all figures for this style and level
+      figures = Figure.where(dance_style: dance_style, dance_level: dance_level)
+      
+      if figures.empty?
+        flash[:warning] = "No figures found for #{dance_style.name} #{dance_level.name}"
+        return
+      end
+      
+      # Create progress records for figures that don't already exist
+      created_count = 0
+      figures.each do |figure|
+        unless @student.student_progresses.exists?(figure: figure)
+          @student.student_progresses.create!(
+            figure: figure,
+            instructor: current_user,
+            movement_passed: false,
+            timing_passed: false,
+            partnering_passed: false,
+            notes: "Enrolled in #{dance_style.name} #{dance_level.name}"
+          )
+          created_count += 1
+        end
+      end
+      
+      if created_count > 0
+        flash[:success] = "Successfully enrolled #{@student.full_name} in #{dance_style.name} #{dance_level.name}. Added #{created_count} figures to their progress."
+        redirect_to user_student_progress_index_path(@student)
+      else
+        flash[:info] = "#{@student.full_name} is already enrolled in all figures for #{dance_style.name} #{dance_level.name}"
+      end
     end
   end
 

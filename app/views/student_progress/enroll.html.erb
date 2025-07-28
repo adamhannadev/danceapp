@@ -1,0 +1,175 @@
+<% content_for :title, "Enroll #{@student.full_name} in Dance Style & Level" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "All Students", all_students_student_progress_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "#{@student.full_name}'s Progress", user_student_progress_index_path(@student) %></li>
+          <li class="breadcrumb-item active" aria-current="page">Enroll in Style & Level</li>
+        </ol>
+      </nav>
+      
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h3 mb-1">
+            <i class="fas fa-user-plus me-2 text-primary"></i>
+            Enroll Student in Dance Style & Level
+          </h1>
+          <p class="text-muted mb-0">
+            Add figures to <strong><%= @student.full_name %></strong>'s progress by enrolling them in a specific dance style and level
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Student Info Card -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-user me-2"></i>Student Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-muted mb-1">Name</h6>
+              <p class="mb-2"><%= @student.full_name %></p>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-muted mb-1">Email</h6>
+              <p class="mb-2"><%= @student.email %></p>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-muted mb-1">Membership Type</h6>
+              <p class="mb-2">
+                <span class="badge <%= @student.membership_type == 'monthly' ? 'bg-success' : 'bg-secondary' %>">
+                  <%= @student.membership_type.humanize %>
+                </span>
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-muted mb-1">Current Progress Count</h6>
+              <p class="mb-2">
+                <span class="badge bg-primary">
+                  <%= @student.student_progresses.count %> figures
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enrollment Form -->
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-graduation-cap me-2"></i>Select Dance Style & Level
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= form_with url: enroll_user_student_progress_index_path(@student), method: :post, local: true, class: "needs-validation", novalidate: true do |form| %>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :dance_style_id, "Dance Style", class: "form-label fw-medium" %>
+                <%= form.select :dance_style_id, 
+                    options_from_collection_for_select(@dance_styles, :id, :name),
+                    { prompt: "Choose a dance style..." },
+                    { class: "form-select", required: true, id: "dance_style_select" } %>
+                <div class="invalid-feedback">Please select a dance style.</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :dance_level_id, "Dance Level", class: "form-label fw-medium" %>
+                <%= form.select :dance_level_id, 
+                    options_from_collection_for_select(@dance_levels, :id, :name),
+                    { prompt: "Choose a dance level..." },
+                    { class: "form-select", required: true, id: "dance_level_select" } %>
+                <div class="invalid-feedback">Please select a dance level.</div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>What happens when you enroll:</strong>
+                <ul class="mb-0 mt-2">
+                  <li>All figures for the selected style and level will be added to the student's progress</li>
+                  <li>Progress will be initially set to "not passed" for all components (Movement, Timing, Partnering)</li>
+                  <li>You can then individually mark progress for each figure</li>
+                  <li>If the student is already enrolled in some figures, only new figures will be added</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <%= link_to user_student_progress_index_path(@student), 
+                          class: "btn btn-outline-secondary me-md-2" do %>
+                <i class="fas fa-arrow-left me-2"></i>Cancel
+              <% end %>
+              
+              <%= form.submit "Enroll Student", 
+                  class: "btn btn-primary",
+                  data: { 
+                    confirm: "Are you sure you want to enroll #{@student.full_name} in the selected dance style and level? This will add all figures for that level to their progress." 
+                  } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Current Enrollments Preview -->
+      <div class="card card-ballroom mt-4">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-list me-2"></i>Current Enrollments
+          </h6>
+        </div>
+        <div class="card-body">
+          <% current_enrollments = @student.student_progresses.joins(figure: [:dance_style, :dance_level])
+                                           .group('dance_styles.name, dance_levels.name')
+                                           .count %>
+          <% if current_enrollments.any? %>
+            <div class="row">
+              <% current_enrollments.each do |(style, level), count| %>
+                <div class="col-md-6 mb-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span><strong><%= style %></strong> - <%= level %></span>
+                    <span class="badge bg-secondary"><%= count %> figures</span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted mb-0">
+              <i class="fas fa-info-circle me-2"></i>
+              No current enrollments. This will be the student's first dance style and level.
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add form validation
+  const forms = document.querySelectorAll('.needs-validation');
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    });
+  });
+});
+</script>
