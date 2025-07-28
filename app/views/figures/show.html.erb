@@ -61,7 +61,7 @@
             <div class="col-md-6 mb-3">
               <h6 class="text-muted mb-1">Dance Level</h6>
               <p class="mb-0">
-                <span class="badge bg-<%= dance_level_badge_class(@figure.dance_level.name) %> fs-6">
+                <span class="badge <%= dance_level_badge_class(@figure.dance_level) %> fs-6">
                   <%= @figure.dance_level.name %>
                 </span>
               </p>

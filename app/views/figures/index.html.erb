@@ -191,12 +191,12 @@
                         <% end %>
                       </td>
                       <td>
-                        <span class="badge bg-<%= dance_style_category_class(figure.dance_style.category) %>">
+                        <span class="badge bg-secondary">
                           <%= figure.dance_style.name %>
                         </span>
                       </td>
                       <td>
-                        <span class="badge bg-<%= dance_level_badge_class(figure.dance_level.name) %>">
+                        <span class="badge <%= dance_level_badge_class(figure.dance_level) %>">
                           <%= figure.dance_level.name %>
                         </span>
                       </td>
@@ -278,6 +278,67 @@
 
 .badge {
   font-size: 0.75em;
+}
+
+/* Dance Level Badge Colors */
+.dance-level-bronze-1 {
+  background-color: #cd7f32 !important;
+  color: white !important;
+}
+
+.dance-level-bronze-2 {
+  background-color: #b8722c !important;
+  color: white !important;
+}
+
+.dance-level-bronze-3 {
+  background-color: #a36427 !important;
+  color: white !important;
+}
+
+.dance-level-bronze-4 {
+  background-color: #8e5621 !important;
+  color: white !important;
+}
+
+.dance-level-silver-1 {
+  background-color: #c0c0c0 !important;
+  color: #333 !important;
+}
+
+.dance-level-silver-2 {
+  background-color: #b8b8b8 !important;
+  color: #333 !important;
+}
+
+.dance-level-silver-3 {
+  background-color: #a8a8a8 !important;
+  color: white !important;
+}
+
+.dance-level-silver-4 {
+  background-color: #909090 !important;
+  color: white !important;
+}
+
+.dance-level-gold-1 {
+  background-color: #ffd700 !important;
+  color: #333 !important;
+}
+
+.dance-level-gold-2 {
+  background-color: #ffcc00 !important;
+  color: #333 !important;
+}
+
+.dance-level-gold-3 {
+  background-color: #e6b800 !important;
+  color: white !important;
+}
+
+.dance-level-gold-4 {
+  background-color: #cc9900 !important;
+  color: white !important;
 }
 
 .btn-group-sm .btn {

@@ -13,7 +13,15 @@ class Figure < ApplicationRecord
   # Scopes
   scope :core_figures, -> { where(is_core: true) }
   scope :variations, -> { where(is_core: false) }
-  scope :by_number, -> { order(:figure_number) }
+  scope :by_number, -> { 
+    order(
+      Arel.sql("
+        CAST(REGEXP_REPLACE(figure_number, '[^0-9].*', '', 'g') AS INTEGER),
+        CASE WHEN figure_number ~ '^[0-9]+$' THEN 0 ELSE 1 END,
+        figure_number
+      ")
+    )
+  }
 
   # Instance methods
   def to_s
