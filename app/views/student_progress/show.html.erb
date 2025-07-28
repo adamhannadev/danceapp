@@ -6,7 +6,7 @@
     <div class="col-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
           <li class="breadcrumb-item"><%= link_to "My Progress", student_progress_index_path %></li>
           <li class="breadcrumb-item active" aria-current="page"><%= @figure.name %></li>
         </ol>
@@ -83,9 +83,8 @@
                     Body positioning, footwork, and figure execution
                   </p>
                   <%= link_to mark_progress_student_progress_path(@student_progress, component: 'movement'), 
-                      method: :patch, 
-                      class: "btn btn-sm #{ @student_progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' }",
-                      data: { confirm: @student_progress.movement_passed? ? 'Mark as not passed?' : 'Mark as passed?' } do %>
+                      data: { "turbo-method": :patch, confirm: @student_progress.movement_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
+                      class: "btn btn-sm #{ @student_progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
                     <i class="fas fa-<%= @student_progress.movement_passed? ? 'check' : 'plus' %> me-1"></i>
                     <%= @student_progress.movement_passed? ? 'Passed' : 'Mark Passed' %>
                   <% end %>
@@ -105,9 +104,8 @@
                     Musical timing, rhythm, and tempo coordination
                   </p>
                   <%= link_to mark_progress_student_progress_path(@student_progress, component: 'timing'), 
-                      method: :patch, 
-                      class: "btn btn-sm #{ @student_progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' }",
-                      data: { confirm: @student_progress.timing_passed? ? 'Mark as not passed?' : 'Mark as passed?' } do %>
+                      data: { "turbo-method": :patch, confirm: @student_progress.timing_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
+                      class: "btn btn-sm #{ @student_progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
                     <i class="fas fa-<%= @student_progress.timing_passed? ? 'check' : 'plus' %> me-1"></i>
                     <%= @student_progress.timing_passed? ? 'Passed' : 'Mark Passed' %>
                   <% end %>
@@ -127,9 +125,8 @@
                     Connection, leading/following, and frame
                   </p>
                   <%= link_to mark_progress_student_progress_path(@student_progress, component: 'partnering'), 
-                      method: :patch, 
-                      class: "btn btn-sm #{ @student_progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' }",
-                      data: { confirm: @student_progress.partnering_passed? ? 'Mark as not passed?' : 'Mark as passed?' } do %>
+                      data: { "turbo-method": :patch, confirm: @student_progress.partnering_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
+                      class: "btn btn-sm #{ @student_progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
                     <i class="fas fa-<%= @student_progress.partnering_passed? ? 'check' : 'plus' %> me-1"></i>
                     <%= @student_progress.partnering_passed? ? 'Passed' : 'Mark Passed' %>
                   <% end %>
@@ -254,9 +251,8 @@
               </button>
             <% else %>
               <%= link_to mark_progress_student_progress_path(@student_progress, component: 'reset'), 
-                  method: :patch, 
-                  class: "btn btn-outline-warning",
-                  data: { confirm: 'Are you sure you want to reset your progress on this figure?' } do %>
+                  data: { "turbo-method": :patch, confirm: 'Are you sure you want to reset your progress on this figure?' },
+                  class: "btn btn-outline-warning" do %>
                 <i class="fas fa-undo me-2"></i>Reset Progress
               <% end %>
             <% end %>

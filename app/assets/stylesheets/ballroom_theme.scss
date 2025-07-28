@@ -58,6 +58,28 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+// Ensure dropdown functionality works properly
+.navbar .dropdown-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+
+.navbar .dropdown-menu {
+  border: 1px solid rgba(0,0,0,.15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+}
+
+.navbar .dropdown-item {
+  transition: all 0.2s ease;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+  background-color: var(--light-purple);
+  color: white;
+}
+
 // Card styling
 .card-ballroom {
   border: none;

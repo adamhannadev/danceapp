@@ -82,6 +82,7 @@ end
 puts "Creating Admin User..."
 admin = User.find_or_create_by!(email: "admin@danceapp.com") do |user|
   user.password = "password123"
+  user.password_confirmation = "password123"
   user.first_name = "Admin"
   user.last_name = "User"
   user.phone = "(555) 123-4567"
@@ -96,6 +97,7 @@ end
 puts "Creating Sample Instructors..."
 instructor1 = User.find_or_create_by!(email: "instructor1@danceapp.com") do |user|
   user.password = "password123"
+  user.password_confirmation = "password123"
   user.first_name = "Maria"
   user.last_name = "Rodriguez"
   user.phone = "(555) 234-5678"
@@ -108,6 +110,7 @@ end
 
 instructor2 = User.find_or_create_by!(email: "instructor2@danceapp.com") do |user|
   user.password = "password123"
+  user.password_confirmation = "password123"
   user.first_name = "James"
   user.last_name = "Thompson"
   user.phone = "(555) 345-6789"
@@ -123,6 +126,7 @@ puts "Creating Sample Students..."
 5.times do |i|
   User.find_or_create_by!(email: "student#{i+1}@example.com") do |user|
     user.password = "password123"
+    user.password_confirmation = "password123"
     user.first_name = "Student#{i+1}"
     user.last_name = "Example"
     user.phone = "(555) #{100+i}#{200+i}-#{300+i}#{400+i}"

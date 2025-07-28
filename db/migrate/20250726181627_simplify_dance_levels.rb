@@ -54,12 +54,16 @@ class SimplifyDanceLevels < ActiveRecord::Migration[7.2]
     SQL
     
     # Step 3: Remove the foreign key constraint and dance_style_id column
-    remove_foreign_key :dance_levels, :dance_styles if foreign_key_exists?(:dance_levels, :dance_styles)
-    remove_column :dance_levels, :dance_style_id
+    if foreign_key_exists?(:dance_levels, :dance_styles)
+      remove_foreign_key :dance_levels, :dance_styles 
+    end
+    if column_exists?(:dance_levels, :dance_style_id)
+      remove_column :dance_levels, :dance_style_id
+    end
     
     # Step 4: Add unique constraint on name
-    add_index :dance_levels, :name, unique: true
-    add_index :dance_levels, :level_number, unique: true
+    add_index :dance_levels, :name, unique: true unless index_exists?(:dance_levels, :name, unique: true)
+    add_index :dance_levels, :level_number, unique: true unless index_exists?(:dance_levels, :level_number, unique: true)
   end
   
   def down

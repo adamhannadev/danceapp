@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   # Student progress tracking
   resources :student_progress, only: [:index, :show, :update] do
     member do
+      get :mark_progress
       patch :mark_progress
     end
   end

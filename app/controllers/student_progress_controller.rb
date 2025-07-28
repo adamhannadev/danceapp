@@ -42,6 +42,18 @@ class StudentProgressController < ApplicationController
   end
 
   def update
+    # Handle mark_all parameter from JavaScript
+    if params[:mark_all] == 'true'
+      @student_progress.update!(
+        movement_passed: true,
+        timing_passed: true,
+        partnering_passed: true
+      )
+      @student_progress.mark_completed! if @student_progress.completed?
+      flash[:success] = "All components marked as passed! Congratulations on completing #{@student_progress.figure.name}!"
+      redirect_to @student_progress and return
+    end
+    
     if @student_progress.update(student_progress_params)
       # Check if all components are now passed and mark as completed
       if @student_progress.completed? && @student_progress.completed_at.nil?
@@ -59,6 +71,16 @@ class StudentProgressController < ApplicationController
   end
 
   def mark_progress
+    # Handle GET request - show the mark progress form
+    if request.get?
+      @figure = @student_progress.figure
+      @dance_style = @figure.dance_style
+      @dance_level = @figure.dance_level
+      @instructor = @student_progress.instructor
+      return
+    end
+    
+    # Handle PATCH request - update progress
     component = params[:component]
     
     case component
@@ -68,6 +90,15 @@ class StudentProgressController < ApplicationController
       @student_progress.toggle!(:timing_passed)
     when 'partnering'
       @student_progress.toggle!(:partnering_passed)
+    when 'reset'
+      @student_progress.update!(
+        movement_passed: false,
+        timing_passed: false,
+        partnering_passed: false,
+        completed_at: nil
+      )
+      flash[:warning] = "Progress has been reset for #{@student_progress.figure.name}."
+      redirect_to @student_progress and return
     end
     
     # Check if all components are now passed
