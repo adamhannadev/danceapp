@@ -44,8 +44,8 @@
                   <i class="fas fa-tachometer-alt me-1"></i>Dashboard
                 <% end %>
               </li>
-              <li class="nav-item dropdown" data-controller="dropdown">
-                <a class="nav-link dropdown-toggle #{'active' if controller_name == 'users'}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle #{'active' if controller_name == 'users'}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-users me-1"></i>People
                 </a>
                 <ul class="dropdown-menu">
@@ -61,8 +61,8 @@
                   <% end %></li>
                 </ul>
               </li>
-              <li class="nav-item dropdown" data-controller="dropdown">
-                <a class="nav-link dropdown-toggle #{'active' if ['dance_classes', 'figures'].include?(controller_name)}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle #{'active' if ['dance_classes', 'figures'].include?(controller_name)}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-music me-1"></i>Classes & Steps
                 </a>
                 <ul class="dropdown-menu">
@@ -78,8 +78,8 @@
                   <% end %></li>
                 </ul>
               </li>
-              <li class="nav-item dropdown" data-controller="dropdown">
-                <a class="nav-link dropdown-toggle #{'active' if controller_name == 'student_progress'}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle #{'active' if controller_name == 'student_progress'}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-chart-line me-1"></i>Progress
                 </a>
                 <ul class="dropdown-menu">
@@ -94,23 +94,26 @@
                   <% end %>
                 </ul>
               </li>
-              <li class="nav-item dropdown" data-controller="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
-                  <i class="fas fa-cog me-1"></i>More
+                            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h me-1"></i>More
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "#", class: "dropdown-item" do %>
-                    <i class="fas fa-calendar-check me-2"></i>Bookings
+                    <i class="fas fa-calendar me-2"></i>Schedule
                   <% end %></li>
                   <li><%= link_to "#", class: "dropdown-item" do %>
-                    <i class="fas fa-trophy me-2"></i>Events
+                    <i class="fas fa-trophy me-2"></i>Competitions
                   <% end %></li>
                   <li><%= link_to "#", class: "dropdown-item" do %>
-                    <i class="fas fa-dollar-sign me-2"></i>Payments
+                    <i class="fas fa-money-bill-wave me-2"></i>Billing
                   <% end %></li>
-                  <li><%= link_to "#", class: "dropdown-item" do %>
-                    <i class="fas fa-map-marker-alt me-2"></i>Locations
-                  <% end %></li>
+                  <% if current_user&.admin? %>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><%= link_to users_path, class: "dropdown-item" do %>
+                      <i class="fas fa-users-cog me-2"></i>Manage Users
+                    <% end %></li>
+                  <% end %>
                 </ul>
               </li>
             <% end %>
