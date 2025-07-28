@@ -6,9 +6,9 @@
     <div class="col-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
           <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
-          <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+          <li class="breadcrumb-item active" aria-current="page">New User</li>
         </ol>
       </nav>
       
@@ -100,7 +100,7 @@
               
               <div class="col-md-6 mb-3">
                 <%= form.label :phone, "Phone Number", class: "form-label fw-medium" %>
-                <%= form.tel_field :phone, 
+                <%= form.telephone_field :phone, 
                     class: "form-control",
                     placeholder: "(555) 123-4567" %>
                 <div class="form-text">Optional - for class reminders and notifications</div>

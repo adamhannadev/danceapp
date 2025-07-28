@@ -4395,3 +4395,1855 @@ Processing by Rails::PwaController#manifest as JSON
 Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/users/" for 127.0.0.1 at 2025-07-27 18:52:22 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 1 pending migration:
+
+db/migrate/20250726181216_remove_dance_style_from_dance_levels.rb
+
+
+):
+  
+activerecord (7.2.2.1) lib/active_record/migration.rb:756:in `check_pending_migrations'
+activerecord (7.2.2.1) lib/active_record/migration.rb:663:in `block (2 levels) in call'
+activesupport (7.2.2.1) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.2.2.1) lib/active_record/migration.rb:668:in `block in call'
+activerecord (7.2.2.1) lib/active_record/migration.rb:660:in `synchronize'
+activerecord (7.2.2.1) lib/active_record/migration.rb:660:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.2.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.2.1) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.1.16) lib/rack/method_override.rb:28:in `call'
+rack (3.1.16) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.16) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.2.2.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.2.1) lib/rails/engine.rb:535:in `call'
+puma (6.6.0) lib/puma/configuration.rb:279:in `call'
+puma (6.6.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.6.0) lib/puma/thread_pool.rb:390:in `with_force_shutdown'
+puma (6.6.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.6.0) lib/puma/server.rb:472:in `process_client'
+puma (6.6.0) lib/puma/server.rb:254:in `block in run'
+puma (6.6.0) lib/puma/thread_pool.rb:167:in `block in spawn_thread'
+  [1m[35m (13.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(41327430569650470)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to RemoveDanceStyleFromDanceLevels (20250726181216)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.4ms)[0m  [1m[34mSELECT id, name, level_number, dance_style_id FROM dance_levels ORDER BY id[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(41327430569650470)[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(41327430569650470)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to RemoveDanceStyleFromDanceLevels (20250726181216)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.0ms)[0m  [1m[31mDELETE FROM dance_levels[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(41327430569650470)[0m
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(41327430569650470)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to RemoveDanceStyleFromDanceLevels (20250726181216)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.3ms)[0m  [1m[34mSELECT COUNT(*) as count FROM dance_levels WHERE name = 'Bronze 1'[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250726181216') RETURNING "version"[0m
+  [1m[36mTRANSACTION (4.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT pg_advisory_unlock(41327430569650470)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/users/" for 127.0.0.1 at 2025-07-27 18:58:47 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.4ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (1.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (0.9ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 91.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 122.9ms | GC: 15.7ms)
+Completed 200 OK in 776ms (Views: 112.6ms | ActiveRecord: 55.0ms (12 queries, 1 cached) | GC: 141.9ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 18:58:48 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.9ms | GC: 0.2ms)
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/users?search=&role=student&commit=Search" for 127.0.0.1 at 2025-07-27 18:59:07 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"search"=>"", "role"=>"student", "commit"=>"Search"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."role" = $1 LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m  [["role", "student"]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (0.9ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (0.6ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (0.8ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 26.5ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.3ms | GC: 0.7ms)
+Completed 200 OK in 46ms (Views: 26.0ms | ActiveRecord: 7.8ms (12 queries, 1 cached) | GC: 1.3ms)
+
+
+Started GET "/users?search=&role=admin&commit=Search" for 127.0.0.1 at 2025-07-27 18:59:11 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"search"=>"", "role"=>"admin", "commit"=>"Search"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."role" = $1 LIMIT $2[0m  [["role", "admin"], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m  [["role", "admin"]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (0.6ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (0.5ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (0.4ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" = $1[0m  [["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 21.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.8ms | GC: 0.0ms)
+Completed 200 OK in 48ms (Views: 21.5ms | ActiveRecord: 8.1ms (12 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/users?search=adam.s.hanna%40gmail.com&role=admin&commit=Search" for 127.0.0.1 at 2025-07-27 18:59:16 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"search"=>"adam.s.hanna@gmail.com", "role"=>"admin", "commit"=>"Search"}
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Count (9.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1 AND (first_name ILIKE $2 OR last_name ILIKE $3 OR email ILIKE $4)[0m  [["role", "admin"], [nil, "%adam.s.hanna@gmail.com%"], [nil, "%adam.s.hanna@gmail.com%"], [nil, "%adam.s.hanna@gmail.com%"]]
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."role" = $1 AND (first_name ILIKE $2 OR last_name ILIKE $3 OR email ILIKE $4) LIMIT $5[0m  [["role", "admin"], [nil, "%adam.s.hanna@gmail.com%"], [nil, "%adam.s.hanna@gmail.com%"], [nil, "%adam.s.hanna@gmail.com%"], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  Rendered users/index.html.erb within layouts/application (Duration: 23.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.6ms | GC: 0.0ms)
+Completed 200 OK in 65ms (Views: 19.1ms | ActiveRecord: 21.3ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-07-27 18:59:18 -0700
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.4ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (1.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (1.3ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 29.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 33.9ms | GC: 0.0ms)
+Completed 200 OK in 56ms (Views: 29.0ms | ActiveRecord: 11.3ms (12 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2025-07-27 18:59:22 -0700
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 60.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 61.5ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 67ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `dashboard_index_path' for #<ActionView::Base:0x00000000015c70>
+Did you mean?  dashboard_path):
+
+Causes:
+NameError (undefined local variable or method `dashboard_index_path' for #<ActionView::Base:0x00000000015c70>
+Did you mean?  dashboard_path)
+     6:     <div class="col-12">
+     7:       <nav aria-label="breadcrumb">
+     8:         <ol class="breadcrumb">
+     9:           <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_index_path %></li>
+    10:           <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+    11:           <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+    12:         </ol>
+  
+app/views/users/new.html.erb:9
+Started GET "/users/new?id=c6ea84f7-d30b-48f3-acf0-2afd5e09982e&vscodeBrowserReqId=1753668070791" for ::1 at 2025-07-27 19:01:10 -0700
+Processing by UsersController#new as HTML
+  Parameters: {"id"=>"c6ea84f7-d30b-48f3-acf0-2afd5e09982e", "vscodeBrowserReqId"=>"1753668070791"}
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 2.4ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.8ms | GC: 0.2ms)
+Completed 500 Internal Server Error in 34ms (ActiveRecord: 8.3ms (0 queries, 0 cached) | GC: 1.3ms)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <% con      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">New User</li>
+        </ol>
+      </nav>r :title, "Add New User" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <h1 class="h3 mb-1">
+          <i class="fas fa-user-plus me-2 text-primary"></i>
+          Add New User
+        </h1>
+        <p class="text-muted mb-0">Create a new account for a student, instructor, or administrator</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-form me-2"></i>User Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @user, local: true, class: "needs-validation", novalidate: true do |form| %>
+            
+            <!-- Error Messages -->
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger mb-4">
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Please correct the following errors:</h6>
+                <ul class="mb-0">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- Personal Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-user me-2"></i>Personal Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :first_name, "First Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :first_name, 
+                    class: "form-control #{'is-invalid' if @user.errors[:first_name].any?}",
+                    required: true %>
+                <% if @user.errors[:first_name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:first_name].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :last_name, "Last Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :last_name, 
+                    class: "form-control #{'is-invalid' if @user.errors[:last_name].any?}",
+                    required: true %>
+                <% if @user.errors[:last_name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:last_name].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-envelope me-2"></i>Contact Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :email, "Email Address *", class: "form-label fw-medium" %>
+                <%= form.email_field :email, 
+                    class: "form-control #{'is-invalid' if @user.errors[:email].any?}",
+                    required: true %>
+                <% if @user.errors[:email].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:email].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :phone, "Phone Number", class: "form-label fw-medium" %>
+                <%= form.tel_field :phone, 
+                    class: "form-control",
+                    placeholder: "(555) 123-4567" %>
+                <div class="form-text">Optional - for class reminders and notifications</div>
+              </div>
+            </div>
+
+            <!-- Account Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-key me-2"></i>Account Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password, "Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
+                    required: true %>
+                <% if @user.errors[:password].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Minimum 6 characters</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password_confirmation, "Confirm Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password_confirmation, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
+                    required: true %>
+                <% if @user.errors[:password_confirmation].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password_confirmation].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Role and Permissions -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-user-tag me-2"></i>Role and Permissions
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :role, "User Role *", class: "form-label fw-medium" %>
+                <%= form.select :role, 
+                    options_for_select([
+                      ['Student', 'student'],
+                      ['Instructor', 'instructor'],
+                      ['Administrator', 'admin']
+                    ], @user.role),
+                    { prompt: "Select a role..." },
+                    { class: "form-select #{'is-invalid' if @user.errors[:role].any?}", required: true } %>
+                <% if @user.errors[:role].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:role].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Determines access level and permissions</div>
+              </div>
+            </div>
+
+            <!-- Membership Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-crown me-2"></i>Membership Information
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :membership_type, "Membership Type", class: "form-label fw-medium" %>
+                <%= form.select :membership_type, 
+                    options_for_select([
+                      ['No Membership', 'none'],
+                      ['Monthly Membership', 'monthly'],
+                      ['Annual Membership', 'annual']
+                    ], @user.membership_type || 'none'),
+                    {},
+                    { class: "form-select" } %>
+                <div class="form-text">Members receive discounts on classes and events</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :membership_discount, "Membership Discount (%)", class: "form-label fw-medium" %>
+                <%= form.number_field :membership_discount, 
+                    class: "form-control",
+                    min: 0, max: 100, step: 0.1,
+                    value: @user.membership_discount || 0 %>
+                <div class="form-text">Percentage discount applied to class prices</div>
+              </div>
+            </div>
+
+            <!-- Waiver -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-file-signature me-2"></i>Legal Requirements
+                </h6>
+              </div>
+              
+              <div class="col-12 mb-3">
+                <div class="form-check">
+                  <%= form.check_box :waiver_signed, class: "form-check-input" %>
+                  <%= form.label :waiver_signed, "Waiver has been signed", class: "form-check-label" %>
+                </div>
+                <div class="form-text">Liability waiver must be signed before participating in classes</div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row">
+              <div class="col-12">
+                <div class="d-flex justify-content-between">
+                  <%= link_to "Cancel", users_path, class: "btn btn-outline-secondary" %>
+                  
+                  <div>
+                    <button type="button" class="btn btn-outline-info me-2" onclick="fillSampleData()">
+                      <i class="fas fa-magic me-1"></i>Fill Sample Data
+                    </button>
+                    <%= form.submit "Create User", 
+                        class: "btn btn-primary",
+                        data: { disable_with: "Creating User..." } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+// Sample data filler for testing
+function fillSampleData() {
+  if (confirm('Fill form with sample data?')) {
+    document.getElementById('user_first_name').value = 'Jane';
+    document.getElementById('user_last_name').value = 'Smith';
+    document.getElementById('user_email').value = 'jane.smith@example.com';
+    document.getElementById('user_phone').value = '(555) 987-6543';
+    document.getElementById('user_password').value = 'password123';
+    document.getElementById('user_password_confirmation').value = 'password123';
+    document.getElementById('user_role').value = 'student';
+    document.getElementById('user_membership_type').value = 'monthly';
+    document.getElementById('user_membership_discount').value = '10';
+    document.getElementById('user_waiver_signed').checked = true;
+  }
+}
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+
+.border-bottom {
+  border-color: #e9ecef !important;
+}
+
+.was-validated .form-control:valid {
+  border-color: #198754;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+</style>
+
+):
+
+Causes:
+ActiveSupport::SyntaxErrorProxy (/home/adam/projects/danceapp/app/views/users/new.html.erb:1: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+...ml.erb -->'; con      <nav aria-label="breadcrumb">
+...                           ^~~~
+/home/adam/projects/danceapp/app/views/users/new.html.erb:2: syntax error, unexpected '<'
+        <ol class="breadcrumb">
+        ^
+/home/adam/projects/danceapp/app/views/users/new.html.erb:3: syntax error, unexpected '<'
+          <li class="breadcrumb-item"><%...
+          ^
+/home/adam/projects/danceapp/app/views/users/new.html.erb:3: syntax error, unexpected '<'
+...  <li class="breadcrumb-item"><%= link_to "Dashboard", dashb...
+...                              ^
+)
+1:    <% con      <nav aria-label="breadcrumb">
+2:            <ol class="breadcrumb">
+3:              <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+4:              <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+5:              <li class="breadcrumb-item active" aria-current="page">New User</li>
+6:            </ol>
+7:          </nav>r :title, "Add New User" %>
+8:    
+9:    <div class="container-fluid">
+10:      <!-- Header Section -->
+11:      <div class="row mb-4">
+12:        <div class="col-12">
+13:          <nav aria-label="breadcrumb">
+14:            <ol class="breadcrumb">
+15:              <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+16:              <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+17:              <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+18:            </ol>
+19:          </nav>
+20:          
+21:          <div class="text-center">
+22:            <h1 class="h3 mb-1">
+23:              <i class="fas fa-user-plus me-2 text-primary"></i>
+24:              Add New User
+25:            </h1>
+26:            <p class="text-muted mb-0">Create a new account for a student, instructor, or administrator</p>
+27:          </div>
+28:        </div>
+29:      </div>
+30:    
+31:      <div class="row justify-content-center">
+32:        <div class="col-lg-8">
+33:          <div class="card card-ballroom">
+34:            <div class="card-header">
+35:              <h5 class="mb-0">
+36:                <i class="fas fa-form me-2"></i>User Information
+37:              </h5>
+38:            </div>
+39:            <div class="card-body">
+40:              <%= form_with model: @user, local: true, class: "needs-validation", novalidate: true do |form| %>
+41:                
+42:                <!-- Error Messages -->
+43:                <% if @user.errors.any? %>
+44:                  <div class="alert alert-danger mb-4">
+45:                    <h6><i class="fas fa-exclamation-triangle me-2"></i>Please correct the following errors:</h6>
+46:                    <ul class="mb-0">
+47:                      <% @user.errors.full_messages.each do |message| %>
+48:                        <li><%= message %></li>
+49:                      <% end %>
+50:                    </ul>
+51:                  </div>
+52:                <% end %>
+53:    
+54:                <!-- Personal Information -->
+55:                <div class="row mb-4">
+56:                  <div class="col-12">
+57:                    <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+58:                      <i class="fas fa-user me-2"></i>Personal Information
+59:                    </h6>
+60:                  </div>
+61:                  
+62:                  <div class="col-md-6 mb-3">
+63:                    <%= form.label :first_name, "First Name *", class: "form-label fw-medium" %>
+64:                    <%= form.text_field :first_name, 
+65:                        class: "form-control #{'is-invalid' if @user.errors[:first_name].any?}",
+66:                        required: true %>
+67:                    <% if @user.errors[:first_name].any? %>
+68:                      <div class="invalid-feedback">
+69:                        <%= @user.errors[:first_name].first %>
+70:                      </div>
+71:                    <% end %>
+72:                  </div>
+73:                  
+74:                  <div class="col-md-6 mb-3">
+75:                    <%= form.label :last_name, "Last Name *", class: "form-label fw-medium" %>
+76:                    <%= form.text_field :last_name, 
+77:                        class: "form-control #{'is-invalid' if @user.errors[:last_name].any?}",
+78:                        required: true %>
+79:                    <% if @user.errors[:last_name].any? %>
+80:                      <div class="invalid-feedback">
+81:                        <%= @user.errors[:last_name].first %>
+82:                      </div>
+83:                    <% end %>
+84:                  </div>
+85:                </div>
+86:    
+87:                <!-- Contact Information -->
+88:                <div class="row mb-4">
+89:                  <div class="col-12">
+90:                    <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+91:                      <i class="fas fa-envelope me-2"></i>Contact Information
+92:                    </h6>
+93:                  </div>
+94:                  
+95:                  <div class="col-md-6 mb-3">
+96:                    <%= form.label :email, "Email Address *", class: "form-label fw-medium" %>
+97:                    <%= form.email_field :email, 
+98:                        class: "form-control #{'is-invalid' if @user.errors[:email].any?}",
+99:                        required: true %>
+100:                    <% if @user.errors[:email].any? %>
+101:                      <div class="invalid-feedback">
+102:                        <%= @user.errors[:email].first %>
+103:                      </div>
+104:                    <% end %>
+105:                  </div>
+106:                  
+107:                  <div class="col-md-6 mb-3">
+108:                    <%= form.label :phone, "Phone Number", class: "form-label fw-medium" %>
+109:                    <%= form.tel_field :phone, 
+110:                        class: "form-control",
+111:                        placeholder: "(555) 123-4567" %>
+112:                    <div class="form-text">Optional - for class reminders and notifications</div>
+113:                  </div>
+114:                </div>
+115:    
+116:                <!-- Account Information -->
+117:                <div class="row mb-4">
+118:                  <div class="col-12">
+119:                    <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+120:                      <i class="fas fa-key me-2"></i>Account Information
+121:                    </h6>
+122:                  </div>
+123:                  
+124:                  <div class="col-md-6 mb-3">
+125:                    <%= form.label :password, "Password *", class: "form-label fw-medium" %>
+126:                    <%= form.password_field :password, 
+127:                        class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
+128:                        required: true %>
+129:                    <% if @user.errors[:password].any? %>
+130:                      <div class="invalid-feedback">
+131:                        <%= @user.errors[:password].first %>
+132:                      </div>
+133:                    <% end %>
+134:                    <div class="form-text">Minimum 6 characters</div>
+135:                  </div>
+136:                  
+137:                  <div class="col-md-6 mb-3">
+138:                    <%= form.label :password_confirmation, "Confirm Password *", class: "form-label fw-medium" %>
+139:                    <%= form.password_field :password_confirmation, 
+140:                        class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
+141:                        required: true %>
+142:                    <% if @user.errors[:password_confirmation].any? %>
+143:                      <div class="invalid-feedback">
+144:                        <%= @user.errors[:password_confirmation].first %>
+145:                      </div>
+146:                    <% end %>
+147:                  </div>
+148:                </div>
+149:    
+150:                <!-- Role and Permissions -->
+151:                <div class="row mb-4">
+152:                  <div class="col-12">
+153:                    <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+154:                      <i class="fas fa-user-tag me-2"></i>Role and Permissions
+155:                    </h6>
+156:                  </div>
+157:                  
+158:                  <div class="col-md-6 mb-3">
+159:                    <%= form.label :role, "User Role *", class: "form-label fw-medium" %>
+160:                    <%= form.select :role, 
+161:                        options_for_select([
+162:                          ['Student', 'student'],
+163:                          ['Instructor', 'instructor'],
+164:                          ['Administrator', 'admin']
+165:                        ], @user.role),
+166:                        { prompt: "Select a role..." },
+167:                        { class: "form-select #{'is-invalid' if @user.errors[:role].any?}", required: true } %>
+168:                    <% if @user.errors[:role].any? %>
+169:                      <div class="invalid-feedback">
+170:                        <%= @user.errors[:role].first %>
+171:                      </div>
+172:                    <% end %>
+173:                    <div class="form-text">Determines access level and permissions</div>
+174:                  </div>
+175:                </div>
+176:    
+177:                <!-- Membership Information -->
+178:                <div class="row mb-4">
+179:                  <div class="col-12">
+180:                    <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+181:                      <i class="fas fa-crown me-2"></i>Membership Information
+182:                    </h6>
+183:                  </div>
+184:                  
+185:                  <div class="col-md-6 mb-3">
+186:                    <%= form.label :membership_type, "Membership Type", class: "form-label fw-medium" %>
+187:                    <%= form.select :membership_type, 
+188:                        options_for_select([
+189:                          ['No Membership', 'none'],
+190:                          ['Monthly Membership', 'monthly'],
+191:                          ['Annual Membership', 'annual']
+192:                        ], @user.membership_type || 'none'),
+193:                        {},
+194:                        { class: "form-select" } %>
+195:                    <div class="form-text">Members receive discounts on classes and events</div>
+196:                  </div>
+197:                  
+198:                  <div class="col-md-6 mb-3">
+199:                    <%= form.label :membership_discount, "Membership Discount (%)", class: "form-label fw-medium" %>
+200:                    <%= form.number_field :membership_discount, 
+201:                        class: "form-control",
+202:                        min: 0, max: 100, step: 0.1,
+203:                        value: @user.membership_discount || 0 %>
+204:                    <div class="form-text">Percentage discount applied to class prices</div>
+205:                  </div>
+206:                </div>
+207:    
+208:                <!-- Waiver -->
+209:                <div class="row mb-4">
+210:                  <div class="col-12">
+211:                    <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+212:                      <i class="fas fa-file-signature me-2"></i>Legal Requirements
+213:                    </h6>
+214:                  </div>
+215:                  
+216:                  <div class="col-12 mb-3">
+217:                    <div class="form-check">
+218:                      <%= form.check_box :waiver_signed, class: "form-check-input" %>
+219:                      <%= form.label :waiver_signed, "Waiver has been signed", class: "form-check-label" %>
+220:                    </div>
+221:                    <div class="form-text">Liability waiver must be signed before participating in classes</div>
+222:                  </div>
+223:                </div>
+224:    
+225:                <!-- Action Buttons -->
+226:                <div class="row">
+227:                  <div class="col-12">
+228:                    <div class="d-flex justify-content-between">
+229:                      <%= link_to "Cancel", users_path, class: "btn btn-outline-secondary" %>
+230:                      
+231:                      <div>
+232:                        <button type="button" class="btn btn-outline-info me-2" onclick="fillSampleData()">
+233:                          <i class="fas fa-magic me-1"></i>Fill Sample Data
+234:                        </button>
+235:                        <%= form.submit "Create User", 
+236:                            class: "btn btn-primary",
+237:                            data: { disable_with: "Creating User..." } %>
+238:                      </div>
+239:                    </div>
+240:                  </div>
+241:                </div>
+242:              <% end %>
+243:            </div>
+244:          </div>
+245:        </div>
+246:      </div>
+247:    </div>
+248:    
+249:    <script>
+250:    // Form validation
+251:    (function() {
+252:      'use strict';
+253:      window.addEventListener('load', function() {
+254:        var forms = document.getElementsByClassName('needs-validation');
+255:        var validation = Array.prototype.filter.call(forms, function(form) {
+256:          form.addEventListener('submit', function(event) {
+257:            if (form.checkValidity() === false) {
+258:              event.preventDefault();
+259:              event.stopPropagation();
+260:            }
+261:            form.classList.add('was-validated');
+262:          }, false);
+263:        });
+264:      }, false);
+265:    })();
+266:    
+267:    // Sample data filler for testing
+268:    function fillSampleData() {
+269:      if (confirm('Fill form with sample data?')) {
+270:        document.getElementById('user_first_name').value = 'Jane';
+271:        document.getElementById('user_last_name').value = 'Smith';
+272:        document.getElementById('user_email').value = 'jane.smith@example.com';
+273:        document.getElementById('user_phone').value = '(555) 987-6543';
+274:        document.getElementById('user_password').value = 'password123';
+275:        document.getElementById('user_password_confirmation').value = 'password123';
+276:        document.getElementById('user_role').value = 'student';
+277:        document.getElementById('user_membership_type').value = 'monthly';
+278:        document.getElementById('user_membership_discount').value = '10';
+279:        document.getElementById('user_waiver_signed').checked = true;
+280:      }
+281:    }
+282:    </script>
+283:    
+284:    <style>
+285:    .card-ballroom {
+286:      border: none;
+287:      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+288:    }
+289:    
+290:    .form-label.fw-medium {
+291:      font-weight: 500;
+292:    }
+293:    
+294:    .border-bottom {
+295:      border-color: #e9ecef !important;
+296:    }
+297:    
+298:    .was-validated .form-control:valid {
+299:      border-color: #198754;
+300:    }
+301:    
+302:    .was-validated .form-control:invalid {
+303:      border-color: #dc3545;
+304:    }
+305:    </style>
+  
+app/views/users/new.html.erb:1: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+app/views/users/new.html.erb:2: syntax error, unexpected '<'
+app/views/users/new.html.erb:3: syntax error, unexpected '<'
+app/views/users/new.html.erb:3: syntax error, unexpected '<'
+Started GET "/users/new?id=c6ea84f7-d30b-48f3-acf0-2afd5e09982e&vscodeBrowserReqId=1753668208236" for ::1 at 2025-07-27 19:03:28 -0700
+Processing by UsersController#new as HTML
+  Parameters: {"id"=>"c6ea84f7-d30b-48f3-acf0-2afd5e09982e", "vscodeBrowserReqId"=>"1753668208236"}
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 23.5ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.4ms | GC: 0.3ms)
+Completed 500 Internal Server Error in 51ms (ActiveRecord: 5.4ms (0 queries, 0 cached) | GC: 3.5ms)
+
+
+  
+ActionView::Template::Error (undefined method `tel_field' for #<ActionView::Helpers::FormBuilder:0x000072e0701d4f20 @nested_child_index={}, @options={:allow_method_names_outside_object=>true, :skip_default_ids=>false, :local=>true, :class=>"needs-validation", :novalidate=>true}, @template=#<ActionView::Base:0x0000000002d500>, @object=#<User id: nil, email: nil, password_digest: nil, first_name: nil, last_name: nil, phone: nil, role: nil, membership_type: nil, membership_discount: nil, waiver_signed: nil, waiver_signed_at: nil, created_at: nil, updated_at: nil>, @object_name="user", @default_options={:skip_default_ids=>false, :allow_method_names_outside_object=>true}, @default_html_options={}, @multipart=nil, @index=nil>
+Did you mean?  text_field
+               date_field
+               url_field):
+
+Causes:
+NoMethodError (undefined method `tel_field' for #<ActionView::Helpers::FormBuilder:0x000072e0701d4f20 @nested_child_index={}, @options={:allow_method_names_outside_object=>true, :skip_default_ids=>false, :local=>true, :class=>"needs-validation", :novalidate=>true}, @template=#<ActionView::Base:0x0000000002d500>, @object=#<User id: nil, email: nil, password_digest: nil, first_name: nil, last_name: nil, phone: nil, role: nil, membership_type: nil, membership_discount: nil, waiver_signed: nil, waiver_signed_at: nil, created_at: nil, updated_at: nil>, @object_name="user", @default_options={:skip_default_ids=>false, :allow_method_names_outside_object=>true}, @default_html_options={}, @multipart=nil, @index=nil>
+Did you mean?  text_field
+               date_field
+               url_field)
+    100:               
+    101:               <div class="col-md-6 mb-3">
+    102:                 <%= form.label :phone, "Phone Number", class: "form-label fw-medium" %>
+    103:                 <%= form.tel_field :phone, 
+    104:                     class: "form-control",
+    105:                     placeholder: "(555) 123-4567" %>
+    106:                 <div class="form-text">Optional - for class reminders and notifications</div>
+  
+app/views/users/new.html.erb:103
+app/views/users/new.html.erb:34
+Started GET "/users/new?id=c6ea84f7-d30b-48f3-acf0-2afd5e09982e&vscodeBrowserReqId=1753668279014" for ::1 at 2025-07-27 19:04:39 -0700
+Processing by UsersController#new as HTML
+  Parameters: {"id"=>"c6ea84f7-d30b-48f3-acf0-2afd5e09982e", "vscodeBrowserReqId"=>"1753668279014"}
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 33.1ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 38.1ms | GC: 1.0ms)
+Completed 200 OK in 62ms (Views: 40.4ms | ActiveRecord: 5.6ms (0 queries, 0 cached) | GC: 2.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2025-07-27 19:05:39 -0700
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 6.3ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.5ms | GC: 0.4ms)
+Completed 200 OK in 12ms (Views: 10.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 19:05:39 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-07-27 19:06:08 -0700
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.0ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (1.4ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (1.4ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 129.5ms | GC: 3.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 136.0ms | GC: 4.2ms)
+Completed 200 OK in 166ms (Views: 110.4ms | ActiveRecord: 33.5ms (12 queries, 1 cached) | GC: 4.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:06:15 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (3.9ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.9ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.4ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (1.1ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 212.2ms | GC: 6.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 216.8ms | GC: 7.3ms)
+Completed 200 OK in 223ms (Views: 168.1ms | ActiveRecord: 51.6ms (22 queries, 1 cached) | GC: 7.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:06:15 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.7ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 93.6ms | GC: 2.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 97.7ms | GC: 3.2ms)
+Completed 200 OK in 101ms (Views: 81.1ms | ActiveRecord: 19.0ms (22 queries, 1 cached) | GC: 3.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-07-27 19:06:31 -0700
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.0ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (0.7ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (0.9ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 27.2ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 30.4ms | GC: 1.2ms)
+Completed 200 OK in 56ms (Views: 26.9ms | ActiveRecord: 9.5ms (12 queries, 1 cached) | GC: 2.2ms)
+
+
+Started GET "/users?role=instructor" for 127.0.0.1 at 2025-07-27 19:06:35 -0700
+Processing by UsersController#index as HTML
+  Parameters: {"role"=>"instructor"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:87:in `set_current_user'
+  [1m[36mUser Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:23:in `index'
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."role" = $1 LIMIT $2[0m  [["role", "instructor"], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m  [["role", "instructor"]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.0ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2)[0m  [["user_id", 2], ["user_id", 3]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (0.9ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2)[0m  [["user_id", 2], ["user_id", 3]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (1.2ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2)[0m  [["student_id", 2], ["student_id", 3]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 26.5ms | GC: 0.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.5ms | GC: 0.7ms)
+Completed 200 OK in 51ms (Views: 25.7ms | ActiveRecord: 9.5ms (12 queries, 1 cached) | GC: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:06:41 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.6ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.2ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 79.1ms | GC: 2.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 82.4ms | GC: 2.5ms)
+Completed 200 OK in 85ms (Views: 68.1ms | ActiveRecord: 15.3ms (22 queries, 1 cached) | GC: 2.5ms)
+
+
+Started GET "/student_progress" for 127.0.0.1 at 2025-07-27 19:06:46 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (2.7ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (1.2ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (2.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (1.1ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 23.3ms | GC: 0.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.2ms | GC: 0.8ms)
+Completed 200 OK in 97ms (Views: 27.3ms | ActiveRecord: 12.2ms (16 queries, 6 cached) | GC: 3.0ms)
+
+
+Started GET "/student_progress/1" for 127.0.0.1 at 2025-07-27 19:06:50 -0700
+Processing by StudentProgressController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+  
+NoMethodError (undefined method `student_progresses' for nil:NilClass
+
+    @student_progress = current_user.student_progresses.find(params[:id])
+                                    ^^^^^^^^^^^^^^^^^^^):
+  
+app/controllers/student_progress_controller.rb:81:in `set_student_progress'
+Started GET "/student_progress" for 127.0.0.1 at 2025-07-27 19:06:54 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (1.9ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (0.8ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.1ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 17.5ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.7ms | GC: 0.6ms)
+Completed 200 OK in 62ms (Views: 18.0ms | ActiveRecord: 9.9ms (16 queries, 6 cached) | GC: 2.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 19:06:54 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/student_progress" for 127.0.0.1 at 2025-07-27 19:07:05 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (2.5ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (1.2ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (1.3ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (1.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (1.1ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 27.1ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 30.2ms | GC: 0.9ms)
+Completed 200 OK in 86ms (Views: 28.5ms | ActiveRecord: 12.6ms (16 queries, 6 cached) | GC: 2.8ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 19:07:05 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:07:09 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.7ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 84.8ms | GC: 3.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 87.8ms | GC: 3.4ms)
+Completed 200 OK in 90ms (Views: 70.2ms | ActiveRecord: 18.6ms (22 queries, 1 cached) | GC: 3.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:07:09 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.8ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (1.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 104.2ms | GC: 2.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 107.3ms | GC: 3.0ms)
+Completed 200 OK in 110ms (Views: 86.9ms | ActiveRecord: 21.4ms (22 queries, 1 cached) | GC: 3.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:07:12 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.6ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (1.3ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 86.0ms | GC: 1.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 88.9ms | GC: 2.1ms)
+Completed 200 OK in 91ms (Views: 72.7ms | ActiveRecord: 17.1ms (22 queries, 1 cached) | GC: 2.1ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 19:07:12 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/student_progress" for 127.0.0.1 at 2025-07-27 19:07:17 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (1.3ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (0.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 17.5ms | GC: 0.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.8ms | GC: 0.7ms)
+Completed 200 OK in 53ms (Views: 18.6ms | ActiveRecord: 8.3ms (16 queries, 6 cached) | GC: 1.7ms)
+
+
+Started GET "/dance_classes" for 127.0.0.1 at 2025-07-27 19:07:25 -0700
+Processing by DanceClassesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.8ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mLocation Load (0.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 66.0ms | GC: 2.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 69.7ms | GC: 2.2ms)
+Completed 200 OK in 78ms (Views: 60.8ms | ActiveRecord: 11.8ms (7 queries, 0 cached) | GC: 2.4ms)
+
+
+Started GET "/dance_classes/1" for 127.0.0.1 at 2025-07-27 19:07:37 -0700
+Processing by DanceClassesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mDanceClass Load (1.0ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" WHERE "dance_classes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/dance_classes_controller.rb:85:in `set_dance_class'
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:73
+  [1m[36mLocation Load (0.8ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:87
+  [1m[36mClassSchedule Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) LIMIT $3[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:37.434900"], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:120
+  [1m[36mClassSchedule Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1[0m  [["dance_class_id", 1]]
+  ↳ app/views/dance_classes/show.html.erb:215
+  [1m[36mClassSchedule Count (2.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) ORDER BY "class_schedules"."start_datetime" ASC LIMIT $3) subquery_for_count[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:37.434900"], ["LIMIT", 5]]
+  ↳ app/views/dance_classes/show.html.erb:219
+  Rendered dance_classes/show.html.erb within layouts/application (Duration: 52.8ms | GC: 13.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 56.4ms | GC: 13.3ms)
+Completed 200 OK in 79ms (Views: 49.3ms | ActiveRecord: 14.7ms (8 queries, 0 cached) | GC: 13.8ms)
+
+
+Started GET "/dance_classes/1" for 127.0.0.1 at 2025-07-27 19:07:37 -0700
+Processing by DanceClassesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mDanceClass Load (0.9ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" WHERE "dance_classes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/dance_classes_controller.rb:85:in `set_dance_class'
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:73
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:87
+  [1m[36mClassSchedule Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) LIMIT $3[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:38.003675"], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:120
+  [1m[36mClassSchedule Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1[0m  [["dance_class_id", 1]]
+  ↳ app/views/dance_classes/show.html.erb:215
+  [1m[36mClassSchedule Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) ORDER BY "class_schedules"."start_datetime" ASC LIMIT $3) subquery_for_count[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:38.003675"], ["LIMIT", 5]]
+  ↳ app/views/dance_classes/show.html.erb:219
+  Rendered dance_classes/show.html.erb within layouts/application (Duration: 31.7ms | GC: 1.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 34.6ms | GC: 1.1ms)
+Completed 200 OK in 43ms (Views: 29.4ms | ActiveRecord: 7.0ms (8 queries, 0 cached) | GC: 1.5ms)
+
+
+Started GET "/dance_classes/1" for 127.0.0.1 at 2025-07-27 19:07:40 -0700
+Processing by DanceClassesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mDanceClass Load (0.8ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" WHERE "dance_classes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/dance_classes_controller.rb:85:in `set_dance_class'
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:73
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:87
+  [1m[36mClassSchedule Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) LIMIT $3[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:40.630355"], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:120
+  [1m[36mClassSchedule Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1[0m  [["dance_class_id", 1]]
+  ↳ app/views/dance_classes/show.html.erb:215
+  [1m[36mClassSchedule Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) ORDER BY "class_schedules"."start_datetime" ASC LIMIT $3) subquery_for_count[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:40.630355"], ["LIMIT", 5]]
+  ↳ app/views/dance_classes/show.html.erb:219
+  Rendered dance_classes/show.html.erb within layouts/application (Duration: 35.6ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.5ms | GC: 1.4ms)
+Completed 200 OK in 46ms (Views: 33.5ms | ActiveRecord: 7.6ms (8 queries, 0 cached) | GC: 1.6ms)
+
+
+Started GET "/dance_classes/1" for 127.0.0.1 at 2025-07-27 19:07:51 -0700
+Processing by DanceClassesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mDanceClass Load (0.8ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" WHERE "dance_classes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/dance_classes_controller.rb:85:in `set_dance_class'
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:73
+  [1m[36mLocation Load (0.6ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:87
+  [1m[36mClassSchedule Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) LIMIT $3[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:51.676227"], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:120
+  [1m[36mClassSchedule Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1[0m  [["dance_class_id", 1]]
+  ↳ app/views/dance_classes/show.html.erb:215
+  [1m[36mClassSchedule Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) ORDER BY "class_schedules"."start_datetime" ASC LIMIT $3) subquery_for_count[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:51.676227"], ["LIMIT", 5]]
+  ↳ app/views/dance_classes/show.html.erb:219
+  Rendered dance_classes/show.html.erb within layouts/application (Duration: 31.3ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 34.6ms | GC: 1.1ms)
+Completed 200 OK in 43ms (Views: 29.4ms | ActiveRecord: 6.8ms (8 queries, 0 cached) | GC: 1.1ms)
+
+
+Started GET "/student_progress" for 127.0.0.1 at 2025-07-27 19:07:56 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (2.3ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (1.0ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.4ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 20.1ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.9ms | GC: 0.9ms)
+Completed 200 OK in 69ms (Views: 21.3ms | ActiveRecord: 10.1ms (16 queries, 6 cached) | GC: 2.6ms)
+
+
+Started GET "/dance_classes/1" for 127.0.0.1 at 2025-07-27 19:07:57 -0700
+Processing by DanceClassesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mDanceClass Load (1.1ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" WHERE "dance_classes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/dance_classes_controller.rb:85:in `set_dance_class'
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:9
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:73
+  [1m[36mLocation Load (0.9ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:87
+  [1m[36mClassSchedule Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) LIMIT $3[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:57.485573"], ["LIMIT", 1]]
+  ↳ app/views/dance_classes/show.html.erb:120
+  [1m[36mClassSchedule Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1[0m  [["dance_class_id", 1]]
+  ↳ app/views/dance_classes/show.html.erb:215
+  [1m[36mClassSchedule Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "class_schedules" WHERE "class_schedules"."dance_class_id" = $1 AND (start_datetime > $2) ORDER BY "class_schedules"."start_datetime" ASC LIMIT $3) subquery_for_count[0m  [["dance_class_id", 1], [nil, "2025-07-28 02:07:57.485573"], ["LIMIT", 5]]
+  ↳ app/views/dance_classes/show.html.erb:219
+  Rendered dance_classes/show.html.erb within layouts/application (Duration: 35.5ms | GC: 0.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 38.2ms | GC: 0.8ms)
+Completed 200 OK in 47ms (Views: 33.5ms | ActiveRecord: 7.3ms (8 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 19:07:57 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-07-27 19:08:00 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.6ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 95.1ms | GC: 2.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 98.7ms | GC: 2.8ms)
+Completed 200 OK in 103ms (Views: 82.9ms | ActiveRecord: 18.8ms (22 queries, 1 cached) | GC: 3.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-07-27 19:08:00 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
