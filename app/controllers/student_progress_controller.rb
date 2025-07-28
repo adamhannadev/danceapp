@@ -19,14 +19,6 @@ class StudentProgressController < ApplicationController
                                        .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
     end
     
-    # If no progress exists, create some sample progress for demonstration
-    if @student_progresses.empty? && Figure.exists?
-      create_sample_progress_for_user(@viewing_user)
-      @student_progresses = @viewing_user.student_progresses.includes(:figure, :instructor)
-                                         .joins(figure: [:dance_style, :dance_level])
-                                         .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
-    end
-    
     # Get all available dance styles for the filter dropdown
     @available_dance_styles = DanceStyle.joins(:figures)
                                        .joins("JOIN student_progresses sp ON sp.figure_id = figures.id")
@@ -253,37 +245,5 @@ class StudentProgressController < ApplicationController
 
   def student_progress_params
     params.require(:student_progress).permit(:movement_passed, :timing_passed, :partnering_passed, :notes)
-  end
-
-  def create_sample_progress_for_user(user)
-    # Ensure we have an instructor
-    instructor = User.instructors.first
-    
-    if instructor.nil?
-      # Create a demo instructor if none exists
-      instructor = User.create!(
-        first_name: "Demo",
-        last_name: "Instructor",
-        email: "demo.instructor@example.com",
-        password: "password123",
-        password_confirmation: "password123",
-        role: "instructor",
-        membership_type: "none",
-        waiver_signed: true,
-        waiver_signed_at: Time.current
-      )
-    end
-    
-    # Create sample progress for the first few figures if they exist
-    Figure.limit(5).each do |figure|
-      user.student_progresses.create!(
-        figure: figure,
-        instructor: instructor,
-        movement_passed: [true, false].sample,
-        timing_passed: [true, false].sample,
-        partnering_passed: [true, false].sample,
-        notes: "Sample progress notes for #{figure.name}"
-      )
-    end
   end
 end
