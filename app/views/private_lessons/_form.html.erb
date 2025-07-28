@@ -1,0 +1,319 @@
+<% content_for :title, @private_lesson.new_record? ? "Book New Private Lesson" : "Edit Private Lesson" %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+          <i class="fas fa-user-graduate me-2"></i>
+          <%= @private_lesson.new_record? ? "Book New Private Lesson" : "Edit Private Lesson" %>
+        </h1>
+        <%= link_to private_lessons_path, class: "btn btn-outline-secondary" do %>
+          <i class="fas fa-arrow-left me-1"></i>Back to Lessons
+        <% end %>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-calendar-plus me-2"></i>Lesson Details
+              </h5>
+            </div>
+            <div class="card-body">
+              <%= form_with model: @private_lesson, local: true, class: "needs-validation", novalidate: true do |f| %>
+                <% if @private_lesson.errors.any? %>
+                  <div class="alert alert-danger">
+                    <h6><i class="fas fa-exclamation-triangle me-2"></i>Please fix the following errors:</h6>
+                    <ul class="mb-0">
+                      <% @private_lesson.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <%= f.label :student_id, class: "form-label fw-bold" %>
+                      <% if current_user.student? %>
+                        <%= f.hidden_field :student_id, value: current_user.id %>
+                        <div class="form-control-plaintext">
+                          <div class="d-flex align-items-center">
+                            <div class="avatar-circle bg-light-purple text-white me-2">
+                              <%= current_user.first_name.first.upcase %>
+                            </div>
+                            <div>
+                              <div class="fw-bold"><%= current_user.full_name %></div>
+                              <small class="text-muted"><%= current_user.email %></small>
+                            </div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <%= f.select :student_id, 
+                              options_from_collection_for_select(@students, :id, :full_name, @private_lesson.student_id),
+                              { prompt: "Select a student..." },
+                              { class: "form-select", required: true } %>
+                      <% end %>
+                    </div>
+
+                    <div class="mb-3">
+                      <%= f.label :instructor_id, class: "form-label fw-bold" %>
+                      <% if current_user.instructor? %>
+                        <%= f.hidden_field :instructor_id, value: current_user.id %>
+                        <div class="form-control-plaintext">
+                          <div class="d-flex align-items-center">
+                            <div class="avatar-circle bg-gold text-white me-2">
+                              <%= current_user.first_name.first.upcase %>
+                            </div>
+                            <div>
+                              <div class="fw-bold"><%= current_user.full_name %></div>
+                              <small class="text-muted">$<%= current_user.hourly_rate %>/hour</small>
+                            </div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <%= f.select :instructor_id, 
+                              options_from_collection_for_select(@instructors, :id, lambda { |i| "#{i.full_name} ($#{i.hourly_rate}/hr)" }, @private_lesson.instructor_id),
+                              { prompt: "Select an instructor..." },
+                              { class: "form-select", required: true, id: "instructor_select" } %>
+                      <% end %>
+                    </div>
+
+                    <div class="mb-3">
+                      <%= f.label :dance_style_id, class: "form-label fw-bold" %>
+                      <%= f.select :dance_style_id, 
+                            options_from_collection_for_select(@dance_styles, :id, :name, @private_lesson.dance_style_id),
+                            { prompt: "Select dance style..." },
+                            { class: "form-select", required: true, id: "dance_style_select" } %>
+                    </div>
+
+                    <div class="mb-3">
+                      <%= f.label :dance_level_id, class: "form-label fw-bold" %>
+                      <%= f.select :dance_level_id, 
+                            options_from_collection_for_select(@dance_levels, :id, :name, @private_lesson.dance_level_id),
+                            { prompt: "Select level..." },
+                            { class: "form-select", required: true, id: "dance_level_select" } %>
+                    </div>
+
+                    <div class="mb-3">
+                      <%= f.label :location_id, class: "form-label fw-bold" %>
+                      <%= f.select :location_id, 
+                            options_from_collection_for_select(@locations, :id, :name, @private_lesson.location_id),
+                            { prompt: "Select location..." },
+                            { class: "form-select", required: true } %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <%= f.label :scheduled_at, "Date & Time", class: "form-label fw-bold" %>
+                      <%= f.datetime_local_field :scheduled_at, 
+                            class: "form-control", 
+                            required: true,
+                            min: Time.current.strftime("%Y-%m-%dT%H:%M") %>
+                      <div class="form-text">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Lessons must be scheduled at least 24 hours in advance
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <%= f.label :duration, "Duration (minutes)", class: "form-label fw-bold" %>
+                      <%= f.select :duration,
+                            options_for_select([
+                              ['30 minutes', 30],
+                              ['45 minutes', 45],
+                              ['60 minutes', 60],
+                              ['90 minutes', 90],
+                              ['120 minutes', 120]
+                            ], @private_lesson.duration),
+                            { prompt: "Select duration..." },
+                            { class: "form-select", required: true, id: "duration_select" } %>
+                    </div>
+
+                    <% if current_user.admin? || current_user.instructor? %>
+                      <div class="mb-3">
+                        <%= f.label :status, class: "form-label fw-bold" %>
+                        <%= f.select :status,
+                              options_for_select([
+                                ['Requested', 'requested'],
+                                ['Scheduled', 'scheduled'],
+                                ['Completed', 'completed'],
+                                ['Cancelled', 'cancelled']
+                              ], @private_lesson.status),
+                              {},
+                              { class: "form-select" } %>
+                      </div>
+
+                      <div class="mb-3">
+                        <%= f.label :cost, "Lesson Cost ($)", class: "form-label fw-bold" %>
+                        <%= f.number_field :cost, 
+                              step: 0.01, 
+                              class: "form-control", 
+                              id: "cost_field",
+                              readonly: @private_lesson.new_record? %>
+                        <div class="form-text">
+                          <i class="fas fa-calculator me-1"></i>
+                          Cost will be calculated automatically based on instructor rate and duration
+                        </div>
+                      </div>
+                    <% end %>
+
+                    <div class="mb-3">
+                      <%= f.label :focus_areas, class: "form-label fw-bold" %>
+                      <%= f.text_area :focus_areas, 
+                            class: "form-control", 
+                            rows: 3,
+                            placeholder: "What would you like to focus on in this lesson? (e.g., Basic steps, Timing, Leading/Following, Specific figures)" %>
+                    </div>
+
+                    <div class="mb-3">
+                      <%= f.label :notes, class: "form-label fw-bold" %>
+                      <%= f.text_area :notes, 
+                            class: "form-control", 
+                            rows: 3,
+                            placeholder: "Any additional notes or special requirements..." %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                  <%= f.submit (@private_lesson.new_record? ? "Book Lesson" : "Update Lesson"), class: "btn btn-primary" %>
+                  
+                  <%= link_to private_lessons_path, class: "btn btn-secondary" do %>
+                    <i class="fas fa-times me-1"></i>Cancel
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar with helpful information -->
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-lightbulb me-2"></i>Booking Guidelines
+              </h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-clock text-warning me-2"></i>
+                  <strong>24-Hour Notice:</strong> Lessons must be booked at least 24 hours in advance
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-calendar-times text-danger me-2"></i>
+                  <strong>Cancellation:</strong> Free cancellation up to 24 hours before the lesson
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-percentage text-success me-2"></i>
+                  <strong>Member Discount:</strong> Monthly/Annual members receive automatic 5% discount
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-credit-card text-primary me-2"></i>
+                  <strong>Payment:</strong> Payment is due before or at the time of the lesson
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" id="cost_breakdown" style="display: none;">
+            <div class="card-header bg-success text-white">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-calculator me-2"></i>Cost Breakdown
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-12 mb-3">
+                  <div class="fs-2 fw-bold text-primary" id="total_cost">$0.00</div>
+                  <small class="text-muted">Total Cost</small>
+                </div>
+              </div>
+              
+              <div class="border-top pt-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Base Rate:</span>
+                  <span id="base_rate">$0.00/hr</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Duration:</span>
+                  <span id="duration_display">0 minutes</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Subtotal:</span>
+                  <span id="subtotal">$0.00</span>
+                </div>
+                <div class="d-flex justify-content-between text-success" id="discount_row" style="display: none;">
+                  <span>Membership Discount:</span>
+                  <span id="discount_amount">-$0.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const instructorSelect = document.getElementById('instructor_select');
+  const durationSelect = document.getElementById('duration_select');
+  const costField = document.getElementById('cost_field');
+  const costBreakdown = document.getElementById('cost_breakdown');
+  
+  // Calculate cost when instructor or duration changes
+  function calculateCost() {
+    const instructorOption = instructorSelect?.options[instructorSelect.selectedIndex];
+    const duration = durationSelect?.value;
+    
+    if (instructorOption && duration && instructorOption.value) {
+      // Extract hourly rate from option text (format: "Name ($100/hr)")
+      const rateMatch = instructorOption.text.match(/\$(\d+(?:\.\d+)?)/);
+      const hourlyRate = rateMatch ? parseFloat(rateMatch[1]) : 0;
+      
+      if (hourlyRate > 0) {
+        const durationHours = duration / 60;
+        const subtotal = hourlyRate * durationHours;
+        
+        // Apply membership discount if applicable (you'd need to pass this from the server)
+        // For now, we'll assume no discount in the calculation
+        const total = subtotal;
+        
+        // Update form field
+        if (costField) {
+          costField.value = total.toFixed(2);
+        }
+        
+        // Update cost breakdown
+        updateCostBreakdown(hourlyRate, duration, subtotal, total);
+      }
+    }
+  }
+  
+  function updateCostBreakdown(hourlyRate, duration, subtotal, total) {
+    document.getElementById('base_rate').textContent = `$${hourlyRate.toFixed(2)}/hr`;
+    document.getElementById('duration_display').textContent = `${duration} minutes`;
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('total_cost').textContent = `$${total.toFixed(2)}`;
+    
+    costBreakdown.style.display = 'block';
+  }
+  
+  // Attach event listeners
+  instructorSelect?.addEventListener('change', calculateCost);
+  durationSelect?.addEventListener('change', calculateCost);
+  
+  // Calculate on page load if values are already selected
+  if (instructorSelect?.value && durationSelect?.value) {
+    calculateCost();
+  }
+});
+</script>

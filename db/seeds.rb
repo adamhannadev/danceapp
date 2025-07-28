@@ -218,6 +218,78 @@ if File.exist?(csv_file_path)
 #   end
 end
 
+# Create sample private lessons
+puts "Creating sample private lessons..."
+if User.students.any? && User.instructors.any? && DanceStyle.any? && DanceLevel.any? && Location.any?
+  students = User.students.limit(3)
+  instructors = User.instructors.limit(2)
+  
+  sample_lessons = [
+    {
+      scheduled_at: 2.days.from_now.change(hour: 14, min: 0),
+      duration: 60,
+      status: 'scheduled',
+      focus_areas: 'Basic timing and posture',
+      notes: 'Student is new to ballroom dancing'
+    },
+    {
+      scheduled_at: 3.days.from_now.change(hour: 16, min: 30),
+      duration: 45,
+      status: 'requested',
+      focus_areas: 'Improve leading technique',
+      notes: 'Focus on connection and frame'
+    },
+    {
+      scheduled_at: 5.days.from_now.change(hour: 10, min: 0),
+      duration: 90,
+      status: 'scheduled',
+      focus_areas: 'Competition preparation',
+      notes: 'Working on Silver level figures'
+    },
+    {
+      scheduled_at: 1.week.from_now.change(hour: 18, min: 0),
+      duration: 60,
+      status: 'requested',
+      focus_areas: 'Footwork and timing',
+      notes: 'Student struggling with complex patterns'
+    }
+  ]
+
+  sample_lessons.each_with_index do |lesson_attrs, index|
+    student = students[index % students.count]
+    instructor = instructors[index % instructors.count]
+    dance_style = DanceStyle.offset(index % DanceStyle.count).first
+    dance_level = DanceLevel.where(name: ['Bronze 1', 'Bronze 2', 'Silver 1'].sample).first || DanceLevel.first
+    location = Location.first
+    
+    # Calculate cost based on instructor rate and duration
+    cost = (instructor.hourly_rate * (lesson_attrs[:duration] / 60.0)).round(2)
+    
+    # Apply membership discount if student has one
+    if student.membership_type != 'none'
+      discount = student.membership_discount / 100.0
+      cost *= (1 - discount)
+      cost = cost.round(2)
+    end
+
+    PrivateLesson.find_or_create_by!(
+      student: student,
+      instructor: instructor,
+      scheduled_at: lesson_attrs[:scheduled_at]
+    ) do |lesson|
+      lesson.dance_style = dance_style
+      lesson.dance_level = dance_level
+      lesson.location = location
+      lesson.duration = lesson_attrs[:duration]
+      lesson.status = lesson_attrs[:status]
+      lesson.focus_areas = lesson_attrs[:focus_areas]
+      lesson.notes = lesson_attrs[:notes]
+      lesson.cost = cost
+      lesson.confirmed_at = lesson_attrs[:status] == 'scheduled' ? 1.day.ago : nil
+    end
+  end
+end
+
 puts "✅ Seeding completed successfully!"
 puts ""
 puts "📊 Summary:"
@@ -225,6 +297,7 @@ puts "Dance Styles: #{DanceStyle.count}"
 puts "Dance Levels: #{DanceLevel.count}"
 puts "Figures: #{Figure.count}"
 puts "Locations: #{Location.count}"
+puts "Private Lessons: #{PrivateLesson.count}"
 puts "Users: #{User.count}"
 puts "  - Admins: #{User.admins.count}"
 puts "  - Instructors: #{User.instructors.count}"

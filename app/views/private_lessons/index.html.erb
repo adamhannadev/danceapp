@@ -1,0 +1,247 @@
+<% content_for :title, "Private Lessons" %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+          <i class="fas fa-user-graduate me-2"></i>Private Lessons
+        </h1>
+        <%= link_to new_private_lesson_path, class: "btn btn-primary" do %>
+          <i class="fas fa-plus me-1"></i>Book New Lesson
+        <% end %>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title"><%= @stats[:total].count %></h4>
+                  <p class="card-text">Total Lessons</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-graduation-cap fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title"><%= @stats[:upcoming].count %></h4>
+                  <p class="card-text">Upcoming</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-clock fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title"><%= @stats[:completed].count %></h4>
+                  <p class="card-text">Completed</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-check-circle fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card bg-danger text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title"><%= @stats[:cancelled].count %></h4>
+                  <p class="card-text">Cancelled</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-times-circle fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= form_with url: private_lessons_path, method: :get, local: true, class: "row g-3" do |f| %>
+            <div class="col-md-3">
+              <%= f.select :status, 
+                    options_for_select([
+                      ['All Statuses', ''],
+                      ['Requested', 'requested'],
+                      ['Scheduled', 'scheduled'],
+                      ['Completed', 'completed'],
+                      ['Cancelled', 'cancelled']
+                    ], params[:status]), 
+                    {}, 
+                    { class: "form-select" } %>
+            </div>
+            <div class="col-md-3">
+              <%= f.date_field :start_date, value: params[:start_date], class: "form-control", placeholder: "Start Date" %>
+            </div>
+            <div class="col-md-3">
+              <%= f.date_field :end_date, value: params[:end_date], class: "form-control", placeholder: "End Date" %>
+            </div>
+            <div class="col-md-3">
+              <%= f.submit "Filter", class: "btn btn-outline-primary me-2" %>
+              <%= link_to "Clear", private_lessons_path, class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Private Lessons Table -->
+      <div class="card">
+        <div class="card-body">
+          <% if @private_lessons.any? %>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="table-light">
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Student</th>
+                    <th>Instructor</th>
+                    <th>Dance Style</th>
+                    <th>Duration</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Cost</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @private_lessons.each do |lesson| %>
+                    <tr>
+                      <td>
+                        <div class="fw-bold">
+                          <%= lesson.scheduled_at.strftime("%B %d, %Y") %>
+                        </div>
+                        <small class="text-muted">
+                          <%= lesson.scheduled_at.strftime("%I:%M %p") %> - 
+                          <%= lesson.end_time.strftime("%I:%M %p") %>
+                        </small>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-circle bg-light-purple text-white me-2">
+                            <%= lesson.student.first_name.first.upcase %>
+                          </div>
+                          <div>
+                            <div class="fw-bold"><%= lesson.student.full_name %></div>
+                            <small class="text-muted"><%= lesson.student.email %></small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-circle bg-gold text-white me-2">
+                            <%= lesson.instructor.first_name.first.upcase %>
+                          </div>
+                          <div>
+                            <div class="fw-bold"><%= lesson.instructor.full_name %></div>
+                            <small class="text-muted">$<%= lesson.instructor.hourly_rate %>/hr</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="fw-bold"><%= lesson.dance_style.name %></div>
+                        <small class="text-muted"><%= lesson.dance_level.name %></small>
+                      </td>
+                      <td><%= lesson.formatted_duration %></td>
+                      <td><%= lesson.location.name %></td>
+                      <td>
+                        <span class="badge bg-<%= lesson.status_color %>">
+                          <%= lesson.status_text %>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="fw-bold">$<%= lesson.cost %></div>
+                      </td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <%= link_to private_lesson_path(lesson), 
+                                class: "btn btn-sm btn-outline-primary", 
+                                title: "View Details" do %>
+                            <i class="fas fa-eye"></i>
+                          <% end %>
+                          
+                          <% if current_user.admin? || current_user == lesson.instructor || (current_user == lesson.student && lesson.status == 'requested') %>
+                            <%= link_to edit_private_lesson_path(lesson), 
+                                  class: "btn btn-sm btn-outline-warning", 
+                                  title: "Edit" do %>
+                              <i class="fas fa-edit"></i>
+                            <% end %>
+                          <% end %>
+                          
+                          <% if lesson.can_be_confirmed? && (current_user.instructor? || current_user.admin?) %>
+                            <%= link_to confirm_private_lesson_path(lesson), 
+                                  method: :patch, 
+                                  class: "btn btn-sm btn-outline-success", 
+                                  title: "Confirm",
+                                  data: { 
+                                    confirm: "Confirm this lesson?" 
+                                  } do %>
+                              <i class="fas fa-check"></i>
+                            <% end %>
+                          <% end %>
+                          
+                          <% if lesson.can_be_cancelled? %>
+                            <%= link_to cancel_private_lesson_path(lesson), 
+                                  method: :patch, 
+                                  class: "btn btn-sm btn-outline-danger", 
+                                  title: "Cancel",
+                                  data: { 
+                                    confirm: "Cancel this lesson? This action cannot be undone." 
+                                  } do %>
+                              <i class="fas fa-times"></i>
+                            <% end %>
+                          <% end %>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4">
+              <%= paginate @private_lessons %>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <i class="fas fa-user-graduate fa-4x text-muted mb-3"></i>
+              <h4 class="text-muted">No Private Lessons Found</h4>
+              <p class="text-muted">
+                <% if params[:status].present? || params[:start_date].present? %>
+                  No lessons match your current filters.
+                <% else %>
+                  Get started by booking your first private lesson!
+                <% end %>
+              </p>
+              <%= link_to new_private_lesson_path, class: "btn btn-primary" do %>
+                <i class="fas fa-plus me-1"></i>Book New Lesson
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

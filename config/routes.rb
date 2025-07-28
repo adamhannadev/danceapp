@@ -61,7 +61,12 @@ Rails.application.routes.draw do
   end
 
   # Private lessons
-  resources :private_lessons
+  resources :private_lessons do
+    member do
+      patch :cancel
+      patch :confirm
+    end
+  end
 
   # Bookings
   resources :bookings do
