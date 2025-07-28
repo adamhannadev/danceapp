@@ -1,35 +1,236 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% content_for :title, "Edit Profile" %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", root_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+        </ol>
+      </nav>
+      
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h3 mb-1">
+            <i class="fas fa-user-edit me-2 text-primary"></i>
+            Edit Profile
+          </h1>
+          <p class="text-muted mb-0">
+            Update your account information and preferences
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Profile Information Card -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-user me-2"></i>Profile Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "needs-validation", novalidate: true }) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= f.input :first_name, 
+                    required: true, 
+                    autofocus: true,
+                    input_html: { class: "form-control" },
+                    wrapper_html: { class: "mb-3" } %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= f.input :last_name, 
+                    required: true,
+                    input_html: { class: "form-control" },
+                    wrapper_html: { class: "mb-3" } %>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <%= f.input :email, 
+                  required: true,
+                  input_html: { class: "form-control" },
+                  wrapper_html: { class: "mb-3" } %>
+              
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div class="alert alert-warning mt-2">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  Currently waiting confirmation for: <strong><%= resource.unconfirmed_email %></strong>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.input :phone,
+                  label: "Phone Number",
+                  input_html: { class: "form-control", placeholder: "(555) 123-4567" },
+                  wrapper_html: { class: "mb-3" } %>
+            </div>
+
+            <div class="d-grid">
+              <%= f.button :submit, "Update Profile", 
+                  class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Change Password Card -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-lock me-2"></i>Change Password
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "needs-validation", novalidate: true }) do |f| %>
+            <div class="mb-3">
+              <%= f.input :password,
+                  label: "New Password",
+                  hint: "Leave blank if you don't want to change it",
+                  required: false,
+                  input_html: { 
+                    class: "form-control", 
+                    autocomplete: "new-password",
+                    placeholder: "Enter new password" 
+                  },
+                  wrapper_html: { class: "mb-3" } %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.input :password_confirmation,
+                  label: "Confirm New Password",
+                  required: false,
+                  input_html: { 
+                    class: "form-control", 
+                    autocomplete: "new-password",
+                    placeholder: "Confirm new password" 
+                  },
+                  wrapper_html: { class: "mb-3" } %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.input :current_password,
+                  label: "Current Password",
+                  hint: "We need your current password to confirm changes",
+                  required: true,
+                  input_html: { 
+                    class: "form-control", 
+                    autocomplete: "current-password",
+                    placeholder: "Enter current password" 
+                  },
+                  wrapper_html: { class: "mb-3" } %>
+            </div>
+
+            <div class="d-grid">
+              <%= f.button :submit, "Update Password", 
+                  class: "btn btn-warning" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Account Actions Card -->
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-cog me-2"></i>Account Actions
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= link_to user_path(current_user), 
+                  class: "btn btn-outline-info w-100" do %>
+                <i class="fas fa-eye me-2"></i>View Profile
+              <% end %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= link_to root_path, 
+                  class: "btn btn-outline-secondary w-100" do %>
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+              <% end %>
+            </div>
+          </div>
+          
+          <hr>
+          
+          <div class="text-center">
+            <h6 class="text-danger mb-3">Danger Zone</h6>
+            <p class="text-muted mb-3">
+              Once you delete your account, there is no going back. Please be certain.
+            </p>
+            <%= button_to "Delete Account", 
+                registration_path(resource_name), 
+                method: :delete,
+                class: "btn btn-outline-danger",
+                data: { 
+                  confirm: "Are you absolutely sure? This action cannot be undone.",
+                  turbo_confirm: "Are you absolutely sure? This will permanently delete your account and all associated data." 
+                } do %>
+              <i class="fas fa-trash me-2"></i>Delete My Account
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
 
-<h3>Cancel my account</h3>
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+.form-control:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+}
 
-<%= link_to "Back", :back %>
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-1px);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: none;
+  color: white;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #ee82e9 0%, #f34559 100%);
+  transform: translateY(-1px);
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  transform: translateY(-1px);
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+  color: #856404;
+}
+</style>
