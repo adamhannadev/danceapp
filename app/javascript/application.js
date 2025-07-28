@@ -8,38 +8,15 @@ window.bootstrap = bootstrap
 
 // Initialize Bootstrap components on page load
 document.addEventListener('turbo:load', () => {
-  console.log('Turbo loaded, checking Bootstrap availability...');
-  
-  if (typeof bootstrap === 'undefined') {
-    console.error('Bootstrap is not available!');
-    return;
-  }
-  
-  console.log('Bootstrap is available, initializing components...');
-  
   // Initialize Bootstrap dropdowns
   const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-  console.log('Found dropdown toggles:', dropdownElementList.length);
-  
-  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => {
-    const dropdown = new bootstrap.Dropdown(dropdownToggleEl);
-    console.log('Initialized dropdown:', dropdownToggleEl);
-    return dropdown;
-  });
+  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
 
   // Initialize Bootstrap collapses
   const collapseElementList = document.querySelectorAll('.collapse');
-  console.log('Found collapse elements:', collapseElementList.length);
-  
-  const collapseList = [...collapseElementList].map(collapseEl => {
-    const collapse = new bootstrap.Collapse(collapseEl, {
-      toggle: false
-    });
-    console.log('Initialized collapse:', collapseEl);
-    return collapse;
-  });
-  
-  console.log('Bootstrap initialization complete');
+  const collapseList = [...collapseElementList].map(collapseEl => new bootstrap.Collapse(collapseEl, {
+    toggle: false
+  }));
 });
 
 // Clean up Bootstrap components before caching

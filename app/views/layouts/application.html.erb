@@ -121,8 +121,8 @@
           
           <ul class="navbar-nav">
             <% if user_signed_in? %>
-              <li class="nav-item dropdown" data-controller="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-user-circle me-1"></i>
                   <%= current_user.full_name %>
                   <span class="badge bg-light text-dark ms-2"><%= current_user.role.humanize %></span>
