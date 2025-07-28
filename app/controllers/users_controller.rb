@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_current_user, except: [:new, :create]
+  before_action :check_authorization, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all.includes(:student_progresses, :bookings, :private_lessons_as_student)
@@ -80,6 +80,13 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def check_authorization
+    unless current_user.admin? || current_user == @user
+      flash[:error] = "You are not authorized to perform this action."
+      redirect_to root_path
+    end
   end
 
   def user_params
