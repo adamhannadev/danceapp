@@ -27,24 +27,36 @@ class StudentProgressController < ApplicationController
                                          .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
     end
     
-    # Group by dance style for better organization
-    @progresses_by_style = @student_progresses.group_by { |sp| sp.figure.dance_style }
+    # Get all available dance styles for the filter dropdown
+    @available_dance_styles = DanceStyle.joins(:figures)
+                                       .joins("JOIN student_progresses sp ON sp.figure_id = figures.id")
+                                       .where("sp.user_id = ?", @viewing_user.id)
+                                       .distinct
+                                       .order(:name)
     
-    # Calculate overall statistics
-    @total_figures = @student_progresses.count
-    @completed_figures = @student_progresses.completed.count
-    @overall_completion = @total_figures > 0 ? (@completed_figures.to_f / @total_figures * 100).round(1) : 0
-    
-    # Filter parameters
+    # Filter by dance style if selected
     @selected_style = params[:dance_style_id].present? ? DanceStyle.find(params[:dance_style_id]) : nil
     @selected_level = params[:dance_level_id].present? ? DanceLevel.find(params[:dance_level_id]) : nil
     
-    if @selected_style || @selected_level
-      @student_progresses = @student_progresses.joins(figure: [:dance_style, :dance_level])
-      @student_progresses = @student_progresses.where(figures: { dance_style_id: @selected_style.id }) if @selected_style
-      @student_progresses = @student_progresses.where(figures: { dance_level_id: @selected_level.id }) if @selected_level
-      @progresses_by_style = @student_progresses.group_by { |sp| sp.figure.dance_style }
+    # Apply filters
+    filtered_progresses = @student_progresses
+    if @selected_style
+      filtered_progresses = filtered_progresses.where(figures: { dance_style_id: @selected_style.id })
     end
+    if @selected_level
+      filtered_progresses = filtered_progresses.where(figures: { dance_level_id: @selected_level.id })
+    end
+    
+    # Paginate the filtered results
+    @student_progresses_paginated = filtered_progresses.page(params[:page]).per(20)
+    
+    # Group by dance style for better organization (only for current page)
+    @progresses_by_style = @student_progresses_paginated.group_by { |sp| sp.figure.dance_style }
+    
+    # Calculate overall statistics (based on all progresses, not just current page)
+    @total_figures = filtered_progresses.count
+    @completed_figures = filtered_progresses.completed.count
+    @overall_completion = @total_figures > 0 ? (@completed_figures.to_f / @total_figures * 100).round(1) : 0
   end
 
   def all_students
@@ -148,7 +160,13 @@ class StudentProgressController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to @student_progress }
-      format.json { render json: { success: true, completed: @student_progress.completed? } }
+      format.json { 
+        render json: { 
+          success: true, 
+          completed: @student_progress.completed?,
+          completion_percentage: @student_progress.completion_percentage
+        } 
+      }
     end
   end
 

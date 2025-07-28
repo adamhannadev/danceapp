@@ -114,6 +114,27 @@
     </div>
   </div>
 
+  <!-- Quick Dance Style Navigation -->
+  <% if @available_dance_styles.any? %>
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <span class="text-muted me-2">Quick Filter:</span>
+          <%= link_to "All Styles", 
+                      params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path,
+                      class: "btn #{'btn-primary' unless @selected_style} #{'btn-outline-primary' if @selected_style} btn-sm" %>
+          <% @available_dance_styles.each do |style| %>
+            <%= link_to style.name,
+                        params[:user_id].present? ? 
+                          user_student_progress_index_path(@viewing_user, dance_style_id: style.id) :
+                          student_progress_index_path(dance_style_id: style.id),
+                        class: "btn #{'btn-primary' if @selected_style == style} #{'btn-outline-primary' unless @selected_style == style} btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <!-- Filters -->
   <div class="row mb-4">
     <div class="col-12">
@@ -124,10 +145,14 @@
           </h6>
         </div>
         <div class="card-body">
-          <%= form_with url: student_progress_index_path, method: :get, local: true, class: "row g-3" do |form| %>
+          <%= form_with url: params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path, 
+                        method: :get, local: true, class: "row g-3" do |form| %>
+            <% if params[:user_id].present? %>
+              <%= form.hidden_field :user_id, value: params[:user_id] %>
+            <% end %>
             <div class="col-md-4">
               <%= form.select :dance_style_id, 
-                  options_from_collection_for_select(DanceStyle.all, :id, :name, @selected_style&.id),
+                  options_from_collection_for_select(@available_dance_styles, :id, :name, @selected_style&.id),
                   { prompt: "All Dance Styles" },
                   { class: "form-select" } %>
             </div>
@@ -140,7 +165,8 @@
             <div class="col-md-4">
               <div class="d-flex gap-2">
                 <%= form.submit "Apply Filters", class: "btn btn-primary" %>
-                <%= link_to "Clear", student_progress_index_path_for(@viewing_user), class: "btn btn-outline-secondary" %>
+                <%= link_to "Clear", params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path, 
+                            class: "btn btn-outline-secondary" %>
               </div>
             </div>
           <% end %>
@@ -149,148 +175,298 @@
     </div>
   </div>
 
-  <!-- Progress by Dance Style -->
-  <% if @progresses_by_style.any? %>
-    <% @progresses_by_style.each do |dance_style, progresses| %>
-      <div class="row mb-4">
-        <div class="col-12">
-          <div class="card card-ballroom">
-            <div class="card-header">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">
-                  <i class="fas fa-music me-2"></i>
-                  <%= dance_style.name %>
-                  <span class="badge bg-primary ms-2"><%= progresses.count %> figures</span>
-                </h5>
-                <div>
-                  <% completed_count = progresses.count(&:completed?) %>
-                  <% completion_percentage = progresses.count > 0 ? (completed_count.to_f / progresses.count * 100).round(1) : 0 %>
-                  <span class="badge bg-success"><%= completion_percentage %>% Complete</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Progress Bar for Style -->
-              <div class="mb-3">
-                <div class="progress" style="height: 10px;">
-                  <div class="progress-bar bg-success" role="progressbar" 
-                       style="width: <%= completion_percentage %>%"
-                       aria-valuenow="<%= completion_percentage %>" 
-                       aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-
-              <!-- Figures Grid -->
-              <div class="row">
-                <% progresses.group_by { |sp| sp.figure.dance_level }.each do |level, level_progresses| %>
-                  <div class="col-12 mb-4">
-                    <h6 class="text-muted mb-3">
-                      <i class="fas fa-layer-group me-2"></i>
-                      <%= level.name %>
-                    </h6>
-                    <div class="row">
-                      <% level_progresses.each do |progress| %>
-                        <div class="col-md-6 col-lg-4 mb-3">
-                          <div class="card figure-progress-card h-100 <%= 'border-success' if progress.completed? %>">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h6 class="card-title mb-0">
-                                  <%= link_to progress.figure.name, student_progress_path_for(progress, @viewing_user), 
-                                      class: "text-decoration-none #{'text-success' if progress.completed?}" %>
-                                </h6>
-                                <% if progress.completed? %>
-                                  <i class="fas fa-check-circle text-success"></i>
-                                <% end %>
-                              </div>
-                              
-                              <p class="card-text text-muted small">
-                                Figure <%= progress.figure.figure_number %>
-                              </p>
-                              
-                              <!-- Progress Components -->
-                              <div class="mb-2">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                  <small class="text-muted">Progress</small>
-                                  <small class="text-muted"><%= progress.completion_percentage %>%</small>
-                                </div>
-                                <div class="progress" style="height: 6px;">
-                                  <div class="progress-bar bg-primary" role="progressbar" 
-                                       style="width: <%= progress.completion_percentage %>%"
-                                       aria-valuenow="<%= progress.completion_percentage %>" 
-                                       aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                              </div>
-                              
-                              <!-- Component Indicators -->
-                              <div class="d-flex justify-content-between mt-2">
-                                <small class="<%= progress.movement_passed? ? 'text-success' : 'text-muted' %>">
-                                  <i class="fas fa-<%= progress.movement_passed? ? 'check' : 'times' %>"></i> Movement
-                                </small>
-                                <small class="<%= progress.timing_passed? ? 'text-success' : 'text-muted' %>">
-                                  <i class="fas fa-<%= progress.timing_passed? ? 'check' : 'times' %>"></i> Timing
-                                </small>
-                                <small class="<%= progress.partnering_passed? ? 'text-success' : 'text-muted' %>">
-                                  <i class="fas fa-<%= progress.partnering_passed? ? 'check' : 'times' %>"></i> Partnering
-                                </small>
-                              </div>
-                              
-                              <div class="mt-3">
-                                <%= link_to "View Details", student_progress_path_for(progress, @viewing_user), 
-                                    class: "btn btn-sm btn-outline-primary" %>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            </div>
+  <!-- Progress Table -->
+  <% if @student_progresses_paginated.any? %>
+    <div class="card card-ballroom">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">
+            <i class="fas fa-list me-2"></i>
+            Progress Overview
+            <% if @selected_style %>
+              - <%= @selected_style.name %>
+            <% end %>
+            <% if @selected_level %>
+              - <%= @selected_level.name %>
+            <% end %>
+          </h5>
+          <div>
+            <span class="badge bg-primary"><%= @total_figures %> Total</span>
+            <span class="badge bg-success"><%= @completed_figures %> Completed</span>
+            <span class="badge bg-warning"><%= @total_figures - @completed_figures %> In Progress</span>
           </div>
         </div>
       </div>
-    <% end %>
-  <% else %>
-    <!-- Empty State -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card card-ballroom">
-          <div class="card-body text-center py-5">
-            <i class="fas fa-graduation-cap text-muted fs-1 mb-3"></i>
-            <h4 class="text-muted">No Progress to Show</h4>
-            <p class="text-muted mb-4">
-              <% if @selected_style || @selected_level %>
-                No progress found for the selected filters. Try adjusting your filters or clear them to see all progress.
-              <% else %>
-                You haven't started learning any figures yet. Contact your instructor to begin your dance journey!
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Figure</th>
+                <th>Style & Level</th>
+                <th>Type</th>
+                <th class="text-center">Movement</th>
+                <th class="text-center">Timing</th>
+                <th class="text-center">Partnering</th>
+                <th class="text-center">Progress</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @progresses_by_style.each do |dance_style, progresses| %>
+                <% progresses.group_by { |sp| sp.figure.dance_level }.each do |level, level_progresses| %>
+                  <% group_by_core_figures(level_progresses).each do |core_number, group| %>
+                    <!-- Core Figure -->
+                    <% if group[:core] %>
+                      <% progress = group[:core] %>
+                      <tr class="<%= 'table-success' if progress.completed? %> core-figure-row">
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <span class="badge bg-primary me-2"><%= progress.figure.figure_number %></span>
+                            <div>
+                              <strong><%= progress.figure.name %></strong>
+                              <% if progress.figure.components.present? %>
+                                <br><small class="text-muted"><%= truncate(progress.figure.components, length: 60) %></small>
+                              <% end %>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span class="badge bg-secondary"><%= dance_style.name %></span>
+                            <br><span class="badge <%= dance_level_badge_class(level) %> mt-1"><%= level.name %></span>
+                          </div>
+                        </td>
+                        <td>
+                          <span class="badge bg-success"><i class="fas fa-star me-1"></i>Core</span>
+                        </td>
+                        <td class="text-center">
+                          <% if current_user.admin? || current_user.instructor? %>
+                            <button class="btn btn-sm component-toggle <%= progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' %>"
+                                    data-progress-id="<%= progress.id %>"
+                                    data-component="movement"
+                                    data-passed="<%= progress.movement_passed? %>">
+                              <i class="fas fa-<%= progress.movement_passed? ? 'check' : 'times' %>"></i>
+                            </button>
+                          <% else %>
+                            <span class="badge <%= progress.movement_passed? ? 'bg-success' : 'bg-secondary' %>">
+                              <i class="fas fa-<%= progress.movement_passed? ? 'check' : 'clock' %>"></i>
+                            </span>
+                          <% end %>
+                        </td>
+                        <td class="text-center">
+                          <% if current_user.admin? || current_user.instructor? %>
+                            <button class="btn btn-sm component-toggle <%= progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' %>"
+                                    data-progress-id="<%= progress.id %>"
+                                    data-component="timing"
+                                    data-passed="<%= progress.timing_passed? %>">
+                              <i class="fas fa-<%= progress.timing_passed? ? 'check' : 'times' %>"></i>
+                            </button>
+                          <% else %>
+                            <span class="badge <%= progress.timing_passed? ? 'bg-success' : 'bg-secondary' %>">
+                              <i class="fas fa-<%= progress.timing_passed? ? 'check' : 'clock' %>"></i>
+                            </span>
+                          <% end %>
+                        </td>
+                        <td class="text-center">
+                          <% if current_user.admin? || current_user.instructor? %>
+                            <button class="btn btn-sm component-toggle <%= progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' %>"
+                                    data-progress-id="<%= progress.id %>"
+                                    data-component="partnering"
+                                    data-passed="<%= progress.partnering_passed? %>">
+                              <i class="fas fa-<%= progress.partnering_passed? ? 'check' : 'times' %>"></i>
+                            </button>
+                          <% else %>
+                            <span class="badge <%= progress.partnering_passed? ? 'bg-success' : 'bg-secondary' %>">
+                              <i class="fas fa-<%= progress.partnering_passed? ? 'check' : 'clock' %>"></i>
+                            </span>
+                          <% end %>
+                        </td>
+                        <td class="text-center">
+                          <div class="progress" style="width: 60px; height: 8px;">
+                            <div class="progress-bar bg-success" style="width: <%= progress.completion_percentage %>%"></div>
+                          </div>
+                          <small class="text-muted"><%= progress.completion_percentage %>%</small>
+                        </td>
+                        <td>
+                          <div class="btn-group btn-group-sm">
+                            <% show_url = params[:user_id].present? ? 
+                                user_student_progress_path(@viewing_user, progress) : 
+                                student_progress_path(progress) %>
+                            <%= link_to show_url, class: "btn btn-outline-primary btn-sm", title: "View Details" do %>
+                              <i class="fas fa-eye"></i>
+                            <% end %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                    
+                    <!-- Variations -->
+                    <% group[:variations].each do |progress| %>
+                      <tr class="<%= 'table-success' if progress.completed? %> variation-row">
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <span class="badge bg-info me-2"><%= progress.figure.figure_number %></span>
+                            <div>
+                              <strong><%= progress.figure.name %></strong>
+                              <% if progress.figure.components.present? %>
+                                <br><small class="text-muted"><%= truncate(progress.figure.components, length: 60) %></small>
+                              <% end %>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <span class="badge bg-secondary"><%= dance_style.name %></span>
+                            <br><span class="badge <%= dance_level_badge_class(level) %> mt-1"><%= level.name %></span>
+                          </div>
+                        </td>
+                        <td>
+                          <span class="badge bg-info"><i class="fas fa-plus me-1"></i>Variation</span>
+                        </td>
+                        <td class="text-center">
+                          <% if current_user.admin? || current_user.instructor? %>
+                            <button class="btn btn-sm component-toggle <%= progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' %>"
+                                    data-progress-id="<%= progress.id %>"
+                                    data-component="movement"
+                                    data-passed="<%= progress.movement_passed? %>">
+                              <i class="fas fa-<%= progress.movement_passed? ? 'check' : 'times' %>"></i>
+                            </button>
+                          <% else %>
+                            <span class="badge <%= progress.movement_passed? ? 'bg-success' : 'bg-secondary' %>">
+                              <i class="fas fa-<%= progress.movement_passed? ? 'check' : 'clock' %>"></i>
+                            </span>
+                          <% end %>
+                        </td>
+                        <td class="text-center">
+                          <% if current_user.admin? || current_user.instructor? %>
+                            <button class="btn btn-sm component-toggle <%= progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' %>"
+                                    data-progress-id="<%= progress.id %>"
+                                    data-component="timing"
+                                    data-passed="<%= progress.timing_passed? %>">
+                              <i class="fas fa-<%= progress.timing_passed? ? 'check' : 'times' %>"></i>
+                            </button>
+                          <% else %>
+                            <span class="badge <%= progress.timing_passed? ? 'bg-success' : 'bg-secondary' %>">
+                              <i class="fas fa-<%= progress.timing_passed? ? 'check' : 'clock' %>"></i>
+                            </span>
+                          <% end %>
+                        </td>
+                        <td class="text-center">
+                          <% if current_user.admin? || current_user.instructor? %>
+                            <button class="btn btn-sm component-toggle <%= progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' %>"
+                                    data-progress-id="<%= progress.id %>"
+                                    data-component="partnering"
+                                    data-passed="<%= progress.partnering_passed? %>">
+                              <i class="fas fa-<%= progress.partnering_passed? ? 'check' : 'times' %>"></i>
+                            </button>
+                          <% else %>
+                            <span class="badge <%= progress.partnering_passed? ? 'bg-success' : 'bg-secondary' %>">
+                              <i class="fas fa-<%= progress.partnering_passed? ? 'check' : 'clock' %>"></i>
+                            </span>
+                          <% end %>
+                        </td>
+                        <td class="text-center">
+                          <div class="progress" style="width: 60px; height: 8px;">
+                            <div class="progress-bar bg-success" style="width: <%= progress.completion_percentage %>%"></div>
+                          </div>
+                          <small class="text-muted"><%= progress.completion_percentage %>%</small>
+                        </td>
+                        <td>
+                          <div class="btn-group btn-group-sm">
+                            <% show_url = params[:user_id].present? ? 
+                                user_student_progress_path(@viewing_user, progress) : 
+                                student_progress_path(progress) %>
+                            <%= link_to show_url, class: "btn btn-outline-primary btn-sm", title: "View Details" do %>
+                              <i class="fas fa-eye"></i>
+                            <% end %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                <% end %>
               <% end %>
-            </p>
-            <% if @selected_style || @selected_level %>
-              <%= link_to "Clear Filters", student_progress_index_path_for(@viewing_user), class: "btn btn-primary" %>
-            <% else %>
-              <%= link_to "View All Figures", figures_path, class: "btn btn-primary" %>
-            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Pagination -->
+      <% if @student_progresses_paginated.respond_to?(:total_pages) && @student_progresses_paginated.total_pages > 1 %>
+        <div class="card-footer">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="text-muted">
+              Showing <%= (@student_progresses_paginated.current_page - 1) * @student_progresses_paginated.limit_value + 1 %>
+              to <%= [@student_progresses_paginated.current_page * @student_progresses_paginated.limit_value, @total_figures].min %>
+              of <%= @total_figures %> figures
+            </div>
+            <div>
+              <%= paginate @student_progresses_paginated, 
+                          params: { dance_style_id: params[:dance_style_id], dance_level_id: params[:dance_level_id], user_id: params[:user_id] },
+                          theme: 'bootstrap-5' %>
+            </div>
           </div>
         </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="card card-ballroom">
+      <div class="card-body text-center py-5">
+        <i class="fas fa-music fa-3x text-muted mb-3"></i>
+        <h5 class="text-muted">No Progress Found</h5>
+        <p class="text-muted mb-4">
+          <% if params[:user_id].present? %>
+            <%= @viewing_user.full_name %> hasn't been enrolled in any dance figures yet.
+          <% else %>
+            You haven't been enrolled in any dance figures yet.
+          <% end %>
+        </p>
+        <% if current_user.admin? || current_user.instructor? %>
+          <% if params[:user_id].present? %>
+            <%= link_to enroll_user_student_progress_index_path(@viewing_user), 
+                        class: "btn btn-primary" do %>
+              <i class="fas fa-user-plus me-2"></i>Enroll Student
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>
 </div>
 
 <style>
-.figure-progress-card {
-  transition: all 0.2s ease;
-}
-
-.figure-progress-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
 .card-ballroom {
   border: none;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.core-figure-row {
+  background-color: #f8f9ff;
+  border-left: 3px solid #0d6efd;
+}
+
+.variation-row {
+  background-color: #f8f9fa;
+  border-left: 3px solid #6c757d;
+}
+
+.component-toggle {
+  min-width: 35px;
+  transition: all 0.2s ease;
+}
+
+.component-toggle:hover {
+  transform: scale(1.1);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0,0,0,.075);
+}
+
+.table th {
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
 }
 
 .progress {
@@ -300,4 +476,161 @@
 .progress-bar {
   border-radius: 10px;
 }
+
+/* Dance Level Badge Colors */
+.dance-level-bronze-1 {
+  background-color: #cd7f32 !important;
+  color: white !important;
+}
+
+.dance-level-bronze-2 {
+  background-color: #b8722c !important;
+  color: white !important;
+}
+
+.dance-level-bronze-3 {
+  background-color: #a36427 !important;
+  color: white !important;
+}
+
+.dance-level-bronze-4 {
+  background-color: #8e5621 !important;
+  color: white !important;
+}
+
+.dance-level-silver-1 {
+  background-color: #c0c0c0 !important;
+  color: #333 !important;
+}
+
+.dance-level-silver-2 {
+  background-color: #b8b8b8 !important;
+  color: #333 !important;
+}
+
+.dance-level-silver-3 {
+  background-color: #a8a8a8 !important;
+  color: white !important;
+}
+
+.dance-level-silver-4 {
+  background-color: #909090 !important;
+  color: white !important;
+}
+
+.dance-level-gold-1 {
+  background-color: #ffd700 !important;
+  color: #333 !important;
+}
+
+.dance-level-gold-2 {
+  background-color: #ffcc00 !important;
+  color: #333 !important;
+}
+
+.dance-level-gold-3 {
+  background-color: #e6b800 !important;
+  color: white !important;
+}
+
+.dance-level-gold-4 {
+  background-color: #cc9900 !important;
+  color: white !important;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle component toggle buttons
+  document.querySelectorAll('.component-toggle').forEach(button => {
+    button.addEventListener('click', function() {
+      const progressId = this.dataset.progressId;
+      const component = this.dataset.component;
+      const currentlyPassed = this.dataset.passed === 'true';
+      
+      // Show loading state
+      const originalContent = this.innerHTML;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      this.disabled = true;
+      
+      // Build the URL based on whether we're viewing a specific user or current user
+      let baseUrl = '<%= params[:user_id].present? ? "/users/#{@viewing_user.id}/student_progress" : "/student_progress" %>';
+      let url = `${baseUrl}/${progressId}/mark_progress`;
+      
+      // Make the AJAX request
+      fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ component: component })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Update button state
+          const newPassed = !currentlyPassed;
+          this.dataset.passed = newPassed;
+          
+          if (newPassed) {
+            this.className = 'btn btn-sm component-toggle btn-success';
+            this.innerHTML = '<i class="fas fa-check"></i>';
+          } else {
+            this.className = 'btn btn-sm component-toggle btn-outline-secondary';
+            this.innerHTML = '<i class="fas fa-times"></i>';
+          }
+          
+          // Update the row background if completed
+          const row = this.closest('tr');
+          if (data.completed) {
+            row.classList.add('table-success');
+            // Flash success message
+            showToast('Figure completed! 🎉', 'success');
+          } else {
+            row.classList.remove('table-success');
+          }
+          
+          // Update progress bar
+          const progressBar = row.querySelector('.progress-bar');
+          const progressText = row.querySelector('.progress + small');
+          if (progressBar && progressText) {
+            progressBar.style.width = data.completion_percentage + '%';
+            progressText.textContent = data.completion_percentage + '%';
+          }
+        } else {
+          throw new Error(data.error || 'Failed to update progress');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        this.innerHTML = originalContent;
+        showToast('Failed to update progress. Please try again.', 'error');
+      })
+      .finally(() => {
+        this.disabled = false;
+      });
+    });
+  });
+  
+  // Toast notification function
+  function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `alert alert-${type === 'error' ? 'danger' : type} position-fixed top-0 end-0 m-3`;
+    toast.style.zIndex = '9999';
+    toast.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+    `;
+    document.body.appendChild(toast);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+      if (toast.parentElement) {
+        toast.remove();
+      }
+    }, 3000);
+  }
+});
+</script>

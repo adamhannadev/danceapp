@@ -16,6 +16,38 @@ module StudentProgressHelper
     end
   end
 
+  # Group student progress by core figures and their variations
+  def group_by_core_figures(progresses)
+    grouped = {}
+    
+    progresses.each do |progress|
+      figure_number = progress.figure.figure_number
+      
+      # Extract the core number (e.g., "1" from "1a", "2" from "2b", or "1" from "1")
+      core_number = figure_number.match(/^(\d+)/)[1]
+      
+      # Determine if it's a core figure (only digits) or variation (has letters)
+      is_core = figure_number.match?(/^\d+$/)
+      
+      # Initialize the group if it doesn't exist
+      grouped[core_number] ||= { core: nil, variations: [] }
+      
+      if is_core
+        grouped[core_number][:core] = progress
+      else
+        grouped[core_number][:variations] << progress
+      end
+    end
+    
+    # Sort variations within each group by figure number
+    grouped.each do |core_number, group|
+      group[:variations].sort_by! { |p| p.figure.figure_number }
+    end
+    
+    # Return sorted by core number
+    grouped.sort_by { |core_number, _| core_number.to_i }
+  end
+
   def progress_percentage_color(percentage)
     case percentage
     when 0...25
