@@ -15492,3 +15492,783 @@ Processing by StudentProgressController#index as HTML
 Completed 200 OK in 81ms (Views: 21.9ms | ActiveRecord: 11.5ms (19 queries, 7 cached) | GC: 2.6ms)
 
 
+Started GET "/" for ::1 at 2025-07-27 21:19:38 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  [1m[36mCACHE Figure Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 76.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 140.3ms | GC: 0.0ms)
+Completed 200 OK in 453ms (Views: 125.0ms | ActiveRecord: 44.6ms (20 queries, 2 cached) | GC: 97.9ms)
+
+
+Started GET "/figures" for ::1 at 2025-07-27 21:19:45 -0700
+Processing by FiguresController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/controllers/figures_controller.rb:37:in `index'
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", true]]
+  ↳ app/controllers/figures_controller.rb:38:in `index'
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", false]]
+  ↳ app/controllers/figures_controller.rb:39:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  [1m[36mDanceStyle Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_styles"[0m
+  ↳ app/views/figures/index.html.erb:97
+  [1m[36mDanceStyle Load (1.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/index.html.erb:121
+  [1m[36mDanceLevel Load (1.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/index.html.erb:128
+  [1m[36mFigure Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2) subquery_for_count[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:151
+  [1m[36mFigure Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:166
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mStudentProgress Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 2]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 3]]
+  ↳ app/views/figures/index.html.erb:216
+  Rendered figures/index.html.erb within layouts/application (Duration: 112.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 117.0ms | GC: 0.0ms)
+Completed 200 OK in 150ms (Views: 97.5ms | ActiveRecord: 28.5ms (16 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/4" for ::1 at 2025-07-27 21:19:51 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFigure Load (0.5ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.4ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (0.7ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3)[0m  [["id", 4], ["id", 2], ["id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mFigure Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:224
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 ORDER BY "figures"."figure_number" ASC LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 4], ["LIMIT", 5]]
+  ↳ app/views/figures/show.html.erb:226
+  Rendered figures/show.html.erb within layouts/application (Duration: 46.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 49.3ms | GC: 0.0ms)
+Completed 200 OK in 60ms (Views: 44.9ms | ActiveRecord: 6.4ms (10 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/4/edit" for ::1 at 2025-07-27 21:19:52 -0700
+Processing by FiguresController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/edit.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/edit.html.erb:99
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/edit.html.erb:112
+  [1m[36mStudentProgress Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/edit.html.erb:188
+  [1m[36mStudentProgress Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/edit.html.erb:246
+  [1m[36mCACHE StudentProgress Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/edit.html.erb:248
+  Rendered figures/edit.html.erb within layouts/application (Duration: 27.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 31.4ms | GC: 0.0ms)
+Completed 200 OK in 41ms (Views: 28.7ms | ActiveRecord: 4.9ms (7 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/4" for ::1 at 2025-07-27 21:20:12 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFigure Load (1.2ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (0.8ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3)[0m  [["id", 4], ["id", 2], ["id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mFigure Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:224
+  [1m[36mFigure Load (0.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 ORDER BY "figures"."figure_number" ASC LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 4], ["LIMIT", 5]]
+  ↳ app/views/figures/show.html.erb:226
+  Rendered figures/show.html.erb within layouts/application (Duration: 39.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 43.1ms | GC: 0.0ms)
+Completed 200 OK in 54ms (Views: 37.7ms | ActiveRecord: 8.3ms (10 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/4/edit" for ::1 at 2025-07-27 21:20:12 -0700
+Processing by FiguresController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/edit.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/edit.html.erb:99
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/edit.html.erb:112
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/edit.html.erb:188
+  [1m[36mStudentProgress Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/edit.html.erb:246
+  [1m[36mCACHE StudentProgress Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/edit.html.erb:248
+  Rendered figures/edit.html.erb within layouts/application (Duration: 20.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.9ms | GC: 0.0ms)
+Completed 200 OK in 35ms (Views: 21.2ms | ActiveRecord: 4.8ms (7 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/4" for ::1 at 2025-07-27 21:20:13 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.4ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (0.4ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3)[0m  [["id", 4], ["id", 2], ["id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mFigure Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:224
+  [1m[36mFigure Load (0.5ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 ORDER BY "figures"."figure_number" ASC LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 4], ["LIMIT", 5]]
+  ↳ app/views/figures/show.html.erb:226
+  Rendered figures/show.html.erb within layouts/application (Duration: 28.8ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 32.0ms | GC: 0.9ms)
+Completed 200 OK in 42ms (Views: 28.0ms | ActiveRecord: 5.7ms (10 queries, 0 cached) | GC: 1.6ms)
+
+
+Started GET "/student_progress/all_students" for ::1 at 2025-07-27 21:20:23 -0700
+Processing by StudentProgressController#all_students as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT DISTINCT "users".* FROM "users" INNER JOIN "student_progresses" ON "student_progresses"."user_id" = "users"."id" WHERE "users"."role" = $1 ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m  [["role", "student"]]
+  ↳ app/controllers/student_progress_controller.rb:61:in `all_students'
+  [1m[36mStudentProgress Load (0.7ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:61:in `all_students'
+  [1m[36mFigure Load (0.8ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:61:in `all_students'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:61:in `all_students'
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/student_progress_controller.rb:61:in `all_students'
+  [1m[36mDanceLevel Load (0.8ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/student_progress_controller.rb:61:in `all_students'
+  [1m[36mStudentProgress Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:62:in `block in all_students'
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:63:in `block in all_students'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/all_students.html.erb within layouts/application
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT DISTINCT "users".* FROM "users" INNER JOIN "student_progresses" ON "student_progresses"."user_id" = "users"."id" WHERE "users"."role" = $1 ORDER BY "users"."last_name" ASC, "users"."first_name" ASC) subquery_for_count[0m  [["role", "student"]]
+  ↳ app/views/student_progress/all_students.html.erb:31
+  [1m[36mStudentProgress Load (0.7ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."updated_at" IS NOT NULL ORDER BY "student_progresses"."updated_at" DESC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/views/student_progress/all_students.html.erb:143
+  Rendered student_progress/all_students.html.erb within layouts/application (Duration: 11.3ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.6ms | GC: 0.4ms)
+Completed 200 OK in 63ms (Views: 14.4ms | ActiveRecord: 9.3ms (11 queries, 0 cached) | GC: 1.7ms)
+
+
+Started GET "/users/4/progress_report" for ::1 at 2025-07-27 21:20:59 -0700
+Processing by UsersController#progress_report as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:129:in `set_user'
+  [1m[35mSQL (1.9ms)[0m  [1m[34mSELECT "student_progresses"."id" AS t0_r0, "student_progresses"."user_id" AS t0_r1, "student_progresses"."figure_id" AS t0_r2, "student_progresses"."movement_passed" AS t0_r3, "student_progresses"."timing_passed" AS t0_r4, "student_progresses"."partnering_passed" AS t0_r5, "student_progresses"."completed_at" AS t0_r6, "student_progresses"."instructor_id" AS t0_r7, "student_progresses"."created_at" AS t0_r8, "student_progresses"."updated_at" AS t0_r9, "student_progresses"."notes" AS t0_r10, "figures"."id" AS t1_r0, "figures"."figure_number" AS t1_r1, "figures"."name" AS t1_r2, "figures"."dance_style_id" AS t1_r3, "figures"."dance_level_id" AS t1_r4, "figures"."measures" AS t1_r5, "figures"."components" AS t1_r6, "figures"."is_core" AS t1_r7, "figures"."created_at" AS t1_r8, "figures"."updated_at" AS t1_r9, "dance_styles"."id" AS t2_r0, "dance_styles"."name" AS t2_r1, "dance_styles"."category" AS t2_r2, "dance_styles"."description" AS t2_r3, "dance_styles"."created_at" AS t2_r4, "dance_styles"."updated_at" AS t2_r5, "dance_levels"."id" AS t3_r0, "dance_levels"."name" AS t3_r1, "dance_levels"."level_number" AS t3_r2, "dance_levels"."description" AS t3_r3, "dance_levels"."created_at" AS t3_r4, "dance_levels"."updated_at" AS t3_r5 FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:92:in `group_by'
+  [1m[36mStudentProgress Count (1.1ms)[0m  [1m[34mSELECT COUNT(DISTINCT "student_progresses"."id") FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:95:in `progress_report'
+  [1m[36mStudentProgress Count (0.9ms)[0m  [1m[34mSELECT COUNT(DISTINCT "student_progresses"."id") FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:96:in `progress_report'
+  [1m[36mStudentProgress Count (1.4ms)[0m  [1m[34mSELECT COUNT(DISTINCT "student_progresses"."id") FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND NOT ("student_progresses"."movement_passed" = $2 AND "student_progresses"."timing_passed" = $3 AND "student_progresses"."partnering_passed" = $4) AND "student_progresses"."completed_at" IS NULL[0m  [["user_id", 4], ["movement_passed", false], ["timing_passed", false], ["partnering_passed", false]]
+  ↳ app/controllers/users_controller.rb:98:in `progress_report'
+  Rendering layout layouts/application.html.erb
+  Rendering users/progress_report.html.erb within layouts/application
+  Rendered users/progress_report.html.erb within layouts/application (Duration: 5.9ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.7ms | GC: 0.4ms)
+Completed 200 OK in 49ms (Views: 12.2ms | ActiveRecord: 6.4ms (6 queries, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/users/4" for ::1 at 2025-07-27 21:21:09 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:129:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mStudentProgress Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:175
+  [1m[36mStudentProgress Load (0.7ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" = $1 ORDER BY "student_progresses"."updated_at" DESC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 5]]
+  ↳ app/views/users/show.html.erb:177
+  [1m[36mFigure Load (0.4ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 4], ["id", 1], ["id", 3], ["id", 2]]
+  ↳ app/views/users/show.html.erb:177
+  [1m[36mDanceStyle Load (0.3ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mDanceLevel Load (0.2ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:187
+  [1m[36mBooking Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "bookings" INNER JOIN "class_schedules" ON "class_schedules"."id" = "bookings"."class_schedule_id" WHERE "bookings"."user_id" = $1 AND (class_schedules.start_datetime > $2) LIMIT $3[0m  [["user_id", 4], [nil, "2025-07-28 04:21:09.235413"], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:215
+  Rendered users/show.html.erb within layouts/application (Duration: 37.0ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.0ms | GC: 1.0ms)
+Completed 200 OK in 63ms (Views: 34.1ms | ActiveRecord: 12.5ms (14 queries, 6 cached) | GC: 1.8ms)
+
+
+Started GET "/student_progress" for ::1 at 2025-07-27 21:21:59 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mStudentProgress Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 LIMIT $2[0m  [["user_id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:23:in `index'
+  [1m[36mStudentProgress Load (1.5ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mFigure Load (0.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:34:in `index'
+  [1m[36mStudentProgress Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:35:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:123
+  [1m[36mDanceLevel Load (0.4ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:129
+  [1m[36mDanceLevel Load (0.4ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 17.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 78.4ms | GC: 0.0ms)
+Completed 200 OK in 561ms (Views: 78.5ms | ActiveRecord: 62.1ms (17 queries, 6 cached) | GC: 124.5ms)
+
+
+Started GET "/student_progress" for ::1 at 2025-07-27 21:26:45 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mStudentProgress Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 LIMIT $2[0m  [["user_id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:23:in `index'
+  [1m[36mStudentProgress Load (1.4ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mDanceStyle Load (0.3ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mStudentProgress Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:34:in `index'
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:35:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:123
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:129
+  [1m[36mDanceLevel Load (0.3ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 28.6ms | GC: 1.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.0ms | GC: 2.4ms)
+Completed 200 OK in 194ms (Views: 79.8ms | ActiveRecord: 29.9ms (17 queries, 6 cached) | GC: 40.7ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 21:26:45 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/edit" for ::1 at 2025-07-27 21:26:49 -0700
+Processing by Devise::RegistrationsController#edit as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/edit.html.erb within layouts/application
+  Rendered devise/registrations/edit.html.erb within layouts/application (Duration: 41.1ms | GC: 2.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 43.3ms | GC: 2.1ms)
+Completed 200 OK in 54ms (Views: 45.8ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 2.5ms)
+
+
+Started GET "/users/2" for ::1 at 2025-07-27 21:26:49 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:129:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mDanceClass Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" WHERE "dance_classes"."instructor_id" = $1 LIMIT $2[0m  [["instructor_id", 2], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:260
+  Rendered users/show.html.erb within layouts/application (Duration: 10.0ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.4ms | GC: 0.3ms)
+Completed 200 OK in 43ms (Views: 14.7ms | ActiveRecord: 7.6ms (3 queries, 0 cached) | GC: 0.6ms)
+
+
+Started DELETE "/users/sign_out?_method=delete" for ::1 at 2025-07-27 21:26:50 -0700
+Processing by Devise::SessionsController#destroy as TURBO_STREAM
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Completed 303 See Other in 12ms (ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 21:26:50 -0700
+Processing by DashboardController#index as TURBO_STREAM
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2025-07-27 21:26:50 -0700
+Processing by Devise::SessionsController#new as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 38.1ms | GC: 1.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 40.7ms | GC: 1.6ms)
+Completed 200 OK in 45ms (Views: 42.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.8ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-07-27 21:26:56 -0700
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Completed 303 See Other in 317ms (ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 21:26:56 -0700
+Processing by DashboardController#index as TURBO_STREAM
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  [1m[36mCACHE Figure Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 60.3ms | GC: 1.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 63.3ms | GC: 1.4ms)
+Completed 200 OK in 69ms (Views: 52.8ms | ActiveRecord: 12.2ms (20 queries, 2 cached) | GC: 1.6ms)
+
+
+Started GET "/student_progress" for ::1 at 2025-07-27 21:26:59 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mStudentProgress Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:23:in `index'
+  [1m[36mStudentProgress Load (1.5ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mFigure Load (0.4ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mStudentProgress Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:34:in `index'
+  [1m[36mStudentProgress Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:35:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:123
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:129
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 34.7ms | GC: 14.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 37.3ms | GC: 14.9ms)
+Completed 200 OK in 79ms (Views: 36.0ms | ActiveRecord: 10.5ms (17 queries, 6 cached) | GC: 15.7ms)
+
+
+Started GET "/student_progress/9" for ::1 at 2025-07-27 21:27:02 -0700
+Processing by StudentProgressController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mStudentProgress Load (0.5ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."id" = $2 LIMIT $3[0m  [["user_id", 4], ["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:168:in `set_student_progress'
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:73:in `show'
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:74:in `show'
+  [1m[36mDanceLevel Load (0.3ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:75:in `show'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:76:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/show.html.erb within layouts/application
+  Rendered student_progress/show.html.erb within layouts/application (Duration: 7.6ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.3ms | GC: 0.3ms)
+Completed 200 OK in 40ms (Views: 12.5ms | ActiveRecord: 3.3ms (6 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/figures/1" for ::1 at 2025-07-27 21:27:04 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mFigure Load (0.5ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.4ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 1], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (1.3ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3)[0m  [["id", 4], ["id", 2], ["id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mFigure Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:224
+  [1m[36mFigure Load (0.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 ORDER BY "figures"."figure_number" ASC LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 1], ["LIMIT", 5]]
+  ↳ app/views/figures/show.html.erb:226
+  Rendered figures/show.html.erb within layouts/application (Duration: 51.7ms | GC: 2.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 56.1ms | GC: 2.7ms)
+Completed 200 OK in 70ms (Views: 47.6ms | ActiveRecord: 10.9ms (10 queries, 0 cached) | GC: 3.1ms)
+
+
+Started GET "/student_progress" for ::1 at 2025-07-27 21:27:10 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mStudentProgress Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:23:in `index'
+  [1m[36mStudentProgress Load (2.2ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mFigure Load (0.9ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `group_by'
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:31:in `block in index'
+  [1m[36mStudentProgress Count (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:34:in `index'
+  [1m[36mStudentProgress Count (1.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:35:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:123
+  [1m[36mDanceLevel Load (1.3ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:129
+  [1m[36mDanceLevel Load (0.8ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.1ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:178
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 35.4ms | GC: 2.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.3ms | GC: 2.0ms)
+Completed 200 OK in 109ms (Views: 37.5ms | ActiveRecord: 14.6ms (17 queries, 6 cached) | GC: 3.9ms)
+
+
+Started GET "/users" for ::1 at 2025-07-27 21:27:23 -0700
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:24:in `index'
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/controllers/users_controller.rb:25:in `index'
+  [1m[36mUser Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/controllers/users_controller.rb:26:in `index'
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  ↳ app/controllers/users_controller.rb:27:in `index'
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."membership_type" != $1[0m  [["membership_type", "none"]]
+  ↳ app/controllers/users_controller.rb:28:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mCACHE User Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  ↳ app/views/users/index.html.erb:113
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:117
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."last_name" ASC, "users"."first_name" ASC[0m
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mStudentProgress Load (1.1ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mBooking Load (1.0ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."user_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["user_id", 4], ["user_id", 5], ["user_id", 6], ["user_id", 7], ["user_id", 8], ["user_id", 2], ["user_id", 3], ["user_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  [1m[36mPrivateLesson Load (1.1ms)[0m  [1m[34mSELECT "private_lessons".* FROM "private_lessons" WHERE "private_lessons"."student_id" IN ($1, $2, $3, $4, $5, $6, $7, $8)[0m  [["student_id", 4], ["student_id", 5], ["student_id", 6], ["student_id", 7], ["student_id", 8], ["student_id", 2], ["student_id", 3], ["student_id", 1]]
+  ↳ app/views/users/index.html.erb:132
+  Rendered users/index.html.erb within layouts/application (Duration: 70.6ms | GC: 2.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 73.4ms | GC: 2.2ms)
+Completed 200 OK in 102ms (Views: 59.5ms | ActiveRecord: 19.0ms (12 queries, 1 cached) | GC: 2.8ms)
+
+
+Started GET "/users/4/edit" for ::1 at 2025-07-27 21:27:28 -0700
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:129:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/edit.html.erb within layouts/application (Duration: 11.6ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.8ms | GC: 0.5ms)
+Completed 200 OK in 33ms (Views: 15.8ms | ActiveRecord: 1.3ms (2 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 21:27:38 -0700
+Processing by DashboardController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  [1m[36mCACHE Figure Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 63.8ms | GC: 2.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 67.3ms | GC: 2.9ms)
+Completed 200 OK in 75ms (Views: 55.0ms | ActiveRecord: 14.0ms (20 queries, 2 cached) | GC: 3.3ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 21:27:39 -0700
+Processing by DashboardController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (0.3ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  [1m[36mCACHE Figure Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 69.3ms | GC: 2.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 72.4ms | GC: 2.2ms)
+Completed 200 OK in 79ms (Views: 59.6ms | ActiveRecord: 14.6ms (20 queries, 2 cached) | GC: 2.7ms)
+
+

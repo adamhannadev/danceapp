@@ -88,14 +88,21 @@
                   <p class="card-text small text-muted mb-3">
                     Body positioning, footwork, and figure execution
                   </p>
-                  <% mark_progress_url = params[:user_id].present? ? 
-                      mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'movement') : 
-                      mark_progress_student_progress_path(@student_progress, component: 'movement') %>
-                  <%= link_to mark_progress_url, 
-                      data: { "turbo-method": :patch, confirm: @student_progress.movement_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
-                      class: "btn btn-sm #{ @student_progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
-                    <i class="fas fa-<%= @student_progress.movement_passed? ? 'check' : 'plus' %> me-1"></i>
-                    <%= @student_progress.movement_passed? ? 'Passed' : 'Mark Passed' %>
+                  <% if current_user.admin? || current_user.instructor? %>
+                    <% mark_progress_url = params[:user_id].present? ? 
+                        mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'movement') : 
+                        mark_progress_student_progress_path(@student_progress, component: 'movement') %>
+                    <%= link_to mark_progress_url, 
+                        data: { "turbo-method": :patch, confirm: @student_progress.movement_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
+                        class: "btn btn-sm #{ @student_progress.movement_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
+                      <i class="fas fa-<%= @student_progress.movement_passed? ? 'check' : 'plus' %> me-1"></i>
+                      <%= @student_progress.movement_passed? ? 'Passed' : 'Mark Passed' %>
+                    <% end %>
+                  <% else %>
+                    <span class="badge #{ @student_progress.movement_passed? ? 'bg-success' : 'bg-secondary' }">
+                      <i class="fas fa-<%= @student_progress.movement_passed? ? 'check' : 'clock' %> me-1"></i>
+                      <%= @student_progress.movement_passed? ? 'Passed' : 'Not Yet Passed' %>
+                    </span>
                   <% end %>
                 </div>
               </div>
@@ -112,14 +119,21 @@
                   <p class="card-text small text-muted mb-3">
                     Musical timing, rhythm, and tempo coordination
                   </p>
-                  <% mark_progress_url = params[:user_id].present? ? 
-                      mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'timing') : 
-                      mark_progress_student_progress_path(@student_progress, component: 'timing') %>
-                  <%= link_to mark_progress_url, 
-                      data: { "turbo-method": :patch, confirm: @student_progress.timing_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
-                      class: "btn btn-sm #{ @student_progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
-                    <i class="fas fa-<%= @student_progress.timing_passed? ? 'check' : 'plus' %> me-1"></i>
-                    <%= @student_progress.timing_passed? ? 'Passed' : 'Mark Passed' %>
+                  <% if current_user.admin? || current_user.instructor? %>
+                    <% mark_progress_url = params[:user_id].present? ? 
+                        mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'timing') : 
+                        mark_progress_student_progress_path(@student_progress, component: 'timing') %>
+                    <%= link_to mark_progress_url, 
+                        data: { "turbo-method": :patch, confirm: @student_progress.timing_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
+                        class: "btn btn-sm #{ @student_progress.timing_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
+                      <i class="fas fa-<%= @student_progress.timing_passed? ? 'check' : 'plus' %> me-1"></i>
+                      <%= @student_progress.timing_passed? ? 'Passed' : 'Mark Passed' %>
+                    <% end %>
+                  <% else %>
+                    <span class="badge #{ @student_progress.timing_passed? ? 'bg-success' : 'bg-secondary' }">
+                      <i class="fas fa-<%= @student_progress.timing_passed? ? 'check' : 'clock' %> me-1"></i>
+                      <%= @student_progress.timing_passed? ? 'Passed' : 'Not Yet Passed' %>
+                    </span>
                   <% end %>
                 </div>
               </div>
@@ -136,14 +150,21 @@
                   <p class="card-text small text-muted mb-3">
                     Connection, leading/following, and frame
                   </p>
-                  <% mark_progress_url = params[:user_id].present? ? 
-                      mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'partnering') : 
-                      mark_progress_student_progress_path(@student_progress, component: 'partnering') %>
-                  <%= link_to mark_progress_url, 
-                      data: { "turbo-method": :patch, confirm: @student_progress.partnering_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
-                      class: "btn btn-sm #{ @student_progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
-                    <i class="fas fa-<%= @student_progress.partnering_passed? ? 'check' : 'plus' %> me-1"></i>
-                    <%= @student_progress.partnering_passed? ? 'Passed' : 'Mark Passed' %>
+                  <% if current_user.admin? || current_user.instructor? %>
+                    <% mark_progress_url = params[:user_id].present? ? 
+                        mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'partnering') : 
+                        mark_progress_student_progress_path(@student_progress, component: 'partnering') %>
+                    <%= link_to mark_progress_url, 
+                        data: { "turbo-method": :patch, confirm: @student_progress.partnering_passed? ? 'Mark as not passed?' : 'Mark as passed?' },
+                        class: "btn btn-sm #{ @student_progress.partnering_passed? ? 'btn-success' : 'btn-outline-secondary' }" do %>
+                      <i class="fas fa-<%= @student_progress.partnering_passed? ? 'check' : 'plus' %> me-1"></i>
+                      <%= @student_progress.partnering_passed? ? 'Passed' : 'Mark Passed' %>
+                    <% end %>
+                  <% else %>
+                    <span class="badge #{ @student_progress.partnering_passed? ? 'bg-success' : 'bg-secondary' }">
+                      <i class="fas fa-<%= @student_progress.partnering_passed? ? 'check' : 'clock' %> me-1"></i>
+                      <%= @student_progress.partnering_passed? ? 'Passed' : 'Not Yet Passed' %>
+                    </span>
                   <% end %>
                 </div>
               </div>
@@ -152,20 +173,32 @@
 
           <!-- Notes Section -->
           <div class="mt-4">
-            <% form_url = params[:user_id].present? ? user_student_progress_path(@student_progress.user, @student_progress) : student_progress_path(@student_progress) %>
-            <%= form_with model: @student_progress, url: form_url, 
-                method: :patch, local: true, class: "needs-validation", novalidate: true do |form| %>
-              <div class="mb-3">
-                <%= form.label :notes, "Personal Notes", class: "form-label fw-medium" %>
-                <%= form.text_area :notes, 
-                    class: "form-control", 
-                    rows: 4,
-                    placeholder: "Add your notes about this figure, what you've learned, areas to improve, etc." %>
-                <div class="form-text">Keep track of your thoughts and insights about this figure.</div>
-              </div>
-              <div class="text-end">
-                <%= form.submit "Save Notes", class: "btn btn-primary" %>
-              </div>
+            <% if current_user.admin? || current_user.instructor? %>
+              <% form_url = params[:user_id].present? ? user_student_progress_path(@student_progress.user, @student_progress) : student_progress_path(@student_progress) %>
+              <%= form_with model: @student_progress, url: form_url, 
+                  method: :patch, local: true, class: "needs-validation", novalidate: true do |form| %>
+                <div class="mb-3">
+                  <%= form.label :notes, "Instructor Notes", class: "form-label fw-medium" %>
+                  <%= form.text_area :notes, 
+                      class: "form-control", 
+                      rows: 4,
+                      placeholder: "Add notes about the student's progress, areas for improvement, recommendations, etc." %>
+                  <div class="form-text">Add instructor observations and feedback about this figure.</div>
+                </div>
+                <div class="text-end">
+                  <%= form.submit "Save Notes", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            <% else %>
+              <% if @student_progress.notes.present? %>
+                <div class="mb-3">
+                  <label class="form-label fw-medium">Instructor Notes</label>
+                  <div class="form-control-plaintext border p-3 bg-light rounded">
+                    <%= simple_format(@student_progress.notes) %>
+                  </div>
+                  <div class="form-text">Notes from your instructor about this figure.</div>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -263,19 +296,21 @@
               <i class="fas fa-eye me-2"></i>View Figure Details
             <% end %>
             
-            <% unless @student_progress.completed? %>
-              <button type="button" class="btn btn-outline-success" 
-                      onclick="markAllPassed()">
-                <i class="fas fa-check-double me-2"></i>Mark All Passed
-              </button>
-            <% else %>
-              <% reset_url = params[:user_id].present? ? 
-                  mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'reset') : 
-                  mark_progress_student_progress_path(@student_progress, component: 'reset') %>
-              <%= link_to reset_url, 
-                  data: { "turbo-method": :patch, confirm: 'Are you sure you want to reset your progress on this figure?' },
-                  class: "btn btn-outline-warning" do %>
-                <i class="fas fa-undo me-2"></i>Reset Progress
+            <% if current_user.admin? || current_user.instructor? %>
+              <% unless @student_progress.completed? %>
+                <button type="button" class="btn btn-outline-success" 
+                        onclick="markAllPassed()">
+                  <i class="fas fa-check-double me-2"></i>Mark All Passed
+                </button>
+              <% else %>
+                <% reset_url = params[:user_id].present? ? 
+                    mark_progress_user_student_progress_path(@student_progress.user, @student_progress, component: 'reset') : 
+                    mark_progress_student_progress_path(@student_progress, component: 'reset') %>
+                <%= link_to reset_url, 
+                    data: { "turbo-method": :patch, confirm: 'Are you sure you want to reset the student\'s progress on this figure?' },
+                    class: "btn btn-outline-warning" do %>
+                  <i class="fas fa-undo me-2"></i>Reset Progress
+                <% end %>
               <% end %>
             <% end %>
           </div>

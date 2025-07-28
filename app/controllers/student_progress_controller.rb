@@ -177,9 +177,9 @@ class StudentProgressController < ApplicationController
   end
 
   def authorize_edit_access!
-    # Allow user to edit their own progress, or admin/instructor to edit any progress
-    unless @student_progress.user == current_user || current_user.admin? || current_user.instructor?
-      flash[:error] = "Access denied. You don't have permission to edit this progress."
+    # Only allow admin/instructor to edit student progress
+    unless current_user.admin? || current_user.instructor?
+      flash[:error] = "Access denied. Only instructors and administrators can edit student progress."
       redirect_to student_progress_index_path
     end
   end

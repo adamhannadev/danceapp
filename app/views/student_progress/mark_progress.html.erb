@@ -1,5 +1,16 @@
 <% content_for :title, "Mark Progress - #{@student_progress.figure.name}" %>
 
+<% unless current_user.admin? || current_user.instructor? %>
+  <div class="container-fluid">
+    <div class="alert alert-danger">
+      <h4>Access Denied</h4>
+      <p>Only instructors and administrators can edit student progress.</p>
+      <%= link_to "Return to Dashboard", dashboard_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+  <% return %>
+<% end %>
+
 <div class="container-fluid">
   <!-- Header Section -->
   <div class="row mb-4">
