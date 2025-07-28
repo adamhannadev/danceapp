@@ -82,19 +82,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def set_current_user
-    # Simple current_user simulation - in a real app this would be handled by Devise or similar
-    @current_user ||= User.first # For demo purposes
-  end
-
-  def current_user
-    @current_user
-  end
-  helper_method :current_user
-
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :email, :password, :password_confirmation,
+      :first_name, :last_name, :email,
       :phone, :role, :membership_type, :membership_discount, :waiver_signed
     )
   end

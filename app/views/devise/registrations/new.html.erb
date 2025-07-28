@@ -1,0 +1,174 @@
+<% content_for :title, "Join Our Dance Studio" %>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card card-ballroom mt-5">
+        <div class="card-header text-center">
+          <div class="d-flex justify-content-center align-items-center mb-3">
+            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                 style="width: 60px; height: 60px;">
+              <i class="fas fa-user-plus text-white fs-4"></i>
+            </div>
+            <div>
+              <h2 class="h4 mb-1">Join Our Dance Studio</h2>
+              <p class="text-muted mb-0">Create your account to start dancing</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), 
+                              html: { class: "needs-validation", novalidate: true }) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="form-inputs">
+              <!-- Personal Information -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                    <i class="fas fa-user me-2"></i>Personal Information
+                  </h6>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :first_name,
+                              required: true,
+                              input_html: { class: "form-control", placeholder: "Enter your first name" },
+                              label_html: { class: "form-label fw-medium" } %>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :last_name,
+                              required: true,
+                              input_html: { class: "form-control", placeholder: "Enter your last name" },
+                              label_html: { class: "form-label fw-medium" } %>
+                </div>
+              </div>
+
+              <!-- Contact Information -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                    <i class="fas fa-envelope me-2"></i>Contact Information
+                  </h6>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :email,
+                              required: true,
+                              autofocus: true,
+                              input_html: { autocomplete: "email", class: "form-control", placeholder: "your@email.com" },
+                              label_html: { class: "form-label fw-medium" } %>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :phone,
+                              input_html: { class: "form-control", placeholder: "(555) 123-4567" },
+                              label_html: { class: "form-label fw-medium" },
+                              hint: "Optional - for class reminders" %>
+                </div>
+              </div>
+
+              <!-- Account Security -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                    <i class="fas fa-lock me-2"></i>Account Security
+                  </h6>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :password,
+                              required: true,
+                              hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                              input_html: { autocomplete: "new-password", class: "form-control" },
+                              label_html: { class: "form-label fw-medium" } %>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :password_confirmation,
+                              required: true,
+                              input_html: { autocomplete: "new-password", class: "form-control" },
+                              label_html: { class: "form-label fw-medium" } %>
+                </div>
+              </div>
+
+              <!-- Dance Studio Settings -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                    <i class="fas fa-music me-2"></i>Dance Studio Settings
+                  </h6>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :role,
+                              collection: [['Student', 'student'], ['Instructor', 'instructor']],
+                              selected: 'student',
+                              input_html: { class: "form-select" },
+                              label_html: { class: "form-label fw-medium" },
+                              hint: "Choose your primary role at the studio" %>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <%= f.input :membership_type,
+                              collection: [['No Membership', 'none'], ['Monthly', 'monthly'], ['Annual', 'annual']],
+                              selected: 'none',
+                              input_html: { class: "form-select" },
+                              label_html: { class: "form-label fw-medium" },
+                              hint: "Select your membership preference" %>
+                </div>
+              </div>
+
+              <!-- Legal Requirements -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                    <i class="fas fa-file-signature me-2"></i>Legal Requirements
+                  </h6>
+                </div>
+                
+                <div class="col-12">
+                  <div class="form-check">
+                    <%= f.input :waiver_signed,
+                                as: :boolean,
+                                input_html: { class: "form-check-input" },
+                                label_html: { class: "form-check-label" },
+                                label: "I agree to the liability waiver and terms of service" %>
+                  </div>
+                  <small class="text-muted">Required to participate in dance classes and events</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit, "Create Account", 
+                          class: "btn btn-primary w-100 mb-3",
+                          data: { disable_with: "Creating Account..." } %>
+            </div>
+          <% end %>
+
+          <div class="text-center">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+
+.border-bottom {
+  border-color: #e9ecef !important;
+}
+</style>

@@ -107,40 +107,6 @@
               </div>
             </div>
 
-            <!-- Account Information -->
-            <div class="row mb-4">
-              <div class="col-12">
-                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
-                  <i class="fas fa-key me-2"></i>Account Information
-                </h6>
-              </div>
-              
-              <div class="col-md-6 mb-3">
-                <%= form.label :password, "Password *", class: "form-label fw-medium" %>
-                <%= form.password_field :password, 
-                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
-                    required: true %>
-                <% if @user.errors[:password].any? %>
-                  <div class="invalid-feedback">
-                    <%= @user.errors[:password].first %>
-                  </div>
-                <% end %>
-                <div class="form-text">Minimum 6 characters</div>
-              </div>
-              
-              <div class="col-md-6 mb-3">
-                <%= form.label :password_confirmation, "Confirm Password *", class: "form-label fw-medium" %>
-                <%= form.password_field :password_confirmation, 
-                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
-                    required: true %>
-                <% if @user.errors[:password_confirmation].any? %>
-                  <div class="invalid-feedback">
-                    <%= @user.errors[:password_confirmation].first %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-
             <!-- Role and Permissions -->
             <div class="row mb-4">
               <div class="col-12">
@@ -261,16 +227,13 @@
 // Sample data filler for testing
 function fillSampleData() {
   if (confirm('Fill form with sample data?')) {
-    document.getElementById('user_first_name').value = 'Jane';
-    document.getElementById('user_last_name').value = 'Smith';
-    document.getElementById('user_email').value = 'jane.smith@example.com';
-    document.getElementById('user_phone').value = '(555) 987-6543';
-    document.getElementById('user_password').value = 'password123';
-    document.getElementById('user_password_confirmation').value = 'password123';
-    document.getElementById('user_role').value = 'student';
-    document.getElementById('user_membership_type').value = 'monthly';
-    document.getElementById('user_membership_discount').value = '10';
-    document.getElementById('user_waiver_signed').checked = true;
+    document.getElementById('user_first_name').value = sample.first_name;
+    document.getElementById('user_last_name').value = sample.last_name;
+    document.getElementById('user_email').value = sample.email;
+    document.getElementById('user_phone').value = sample.phone;
+    document.getElementById('user_role').value = sample.role;
+    document.getElementById('user_membership_type').value = sample.membership_type;
+    document.getElementById('user_waiver_signed').checked = sample.waiver_signed;
   }
 }
 </script>

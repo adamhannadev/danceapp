@@ -13,6 +13,7 @@ class StudentProgress < ApplicationRecord
   scope :movement_passed, -> { where(movement_passed: true) }
   scope :timing_passed, -> { where(timing_passed: true) }
   scope :partnering_passed, -> { where(partnering_passed: true) }
+  scope :recent, -> { order(updated_at: :desc) }
 
   # Instance methods
   def completed?

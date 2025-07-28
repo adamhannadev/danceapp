@@ -1,2 +1,296 @@
-<h1>Figures#new</h1>
-<p>Find me in app/views/figures/new.html.erb</p>
+<% content_for :title, "Add New Figure" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Figures", figures_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">New Figure</li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <div class="d-flex justify-content-center align-items-center mb-3">
+          <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+               style="width: 60px; height: 60px;">
+            <i class="fas fa-music text-white fs-4"></i>
+          </div>
+          <div>
+            <h1 class="h3 mb-1">Add New Figure</h1>
+            <p class="text-muted mb-0">Create a new dance figure in the syllabus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-plus me-2"></i>Figure Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @figure, local: true, class: "needs-validation", novalidate: true do |form| %>
+            
+            <!-- Error Messages -->
+            <% if @figure.errors.any? %>
+              <div class="alert alert-danger mb-4">
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Please correct the following errors:</h6>
+                <ul class="mb-0">
+                  <% @figure.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- Basic Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-info-circle me-2"></i>Basic Information
+                </h6>
+              </div>
+              
+              <div class="col-md-4 mb-3">
+                <%= form.label :figure_number, "Figure Number *", class: "form-label fw-medium" %>
+                <%= form.text_field :figure_number, 
+                    class: "form-control #{'is-invalid' if @figure.errors[:figure_number].any?}",
+                    required: true,
+                    placeholder: "e.g., 1.1, 2.3, A1" %>
+                <% if @figure.errors[:figure_number].any? %>
+                  <div class="invalid-feedback">
+                    <%= @figure.errors[:figure_number].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Unique identifier for this figure</div>
+              </div>
+              
+              <div class="col-md-8 mb-3">
+                <%= form.label :name, "Figure Name *", class: "form-label fw-medium" %>
+                <%= form.text_field :name, 
+                    class: "form-control #{'is-invalid' if @figure.errors[:name].any?}",
+                    required: true,
+                    placeholder: "e.g., Natural Turn, Whisk, Promenade" %>
+                <% if @figure.errors[:name].any? %>
+                  <div class="invalid-feedback">
+                    <%= @figure.errors[:name].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Classification -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-tags me-2"></i>Classification
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :dance_style_id, "Dance Style *", class: "form-label fw-medium" %>
+                <%= form.select :dance_style_id, 
+                    options_from_collection_for_select(@dance_styles, :id, :name, @figure.dance_style_id),
+                    { prompt: "Select Dance Style" },
+                    { class: "form-select #{'is-invalid' if @figure.errors[:dance_style_id].any?}", required: true } %>
+                <% if @figure.errors[:dance_style_id].any? %>
+                  <div class="invalid-feedback">
+                    <%= @figure.errors[:dance_style_id].first %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :dance_level_id, "Dance Level *", class: "form-label fw-medium" %>
+                <%= form.select :dance_level_id, 
+                    options_from_collection_for_select(@dance_levels, :id, :name, @figure.dance_level_id),
+                    { prompt: "Select Dance Level" },
+                    { class: "form-select #{'is-invalid' if @figure.errors[:dance_level_id].any?}", required: true } %>
+                <% if @figure.errors[:dance_level_id].any? %>
+                  <div class="invalid-feedback">
+                    <%= @figure.errors[:dance_level_id].first %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-cogs me-2"></i>Technical Details
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :measures, "Number of Measures *", class: "form-label fw-medium" %>
+                <%= form.number_field :measures, 
+                    class: "form-control #{'is-invalid' if @figure.errors[:measures].any?}",
+                    required: true,
+                    min: 1,
+                    placeholder: "e.g., 2, 4, 6" %>
+                <% if @figure.errors[:measures].any? %>
+                  <div class="invalid-feedback">
+                    <%= @figure.errors[:measures].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">How many measures of music this figure takes</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-medium">Figure Type</label>
+                <div class="form-check">
+                  <%= form.check_box :is_core, class: "form-check-input" %>
+                  <%= form.label :is_core, "Core Figure", class: "form-check-label" %>
+                </div>
+                <div class="form-text">Check if this is a core figure (required for level completion)</div>
+              </div>
+            </div>
+
+            <!-- Components -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-list me-2"></i>Components & Description
+                </h6>
+              </div>
+              
+              <div class="col-12 mb-3">
+                <%= form.label :components, "Components", class: "form-label fw-medium" %>
+                <%= form.text_area :components, 
+                    class: "form-control",
+                    rows: 4,
+                    placeholder: "List the components or steps of this figure, separated by commas or line breaks" %>
+                <div class="form-text">
+                  Describe the individual components, steps, or elements that make up this figure
+                </div>
+              </div>
+            </div>
+
+            <!-- Sample Data Helper -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="card bg-light">
+                  <div class="card-body">
+                    <h6 class="text-muted mb-2">
+                      <i class="fas fa-lightbulb me-2"></i>Quick Fill Sample Data
+                    </h6>
+                    <p class="small text-muted mb-3">
+                      Click below to populate the form with sample figure data for testing
+                    </p>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="fillSampleData">
+                      <i class="fas fa-magic me-2"></i>Fill Sample Data
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row">
+              <div class="col-12">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <%= link_to "Cancel", figures_path, class: "btn btn-outline-secondary" %>
+                  </div>
+                  
+                  <div>
+                    <%= form.submit "Create Figure", 
+                        class: "btn btn-primary",
+                        data: { disable_with: "Creating Figure..." } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+// Sample data filler
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('fillSampleData')?.addEventListener('click', function() {
+    const sampleData = [
+      {
+        figure_number: '1.1',
+        name: 'Natural Turn',
+        measures: 2,
+        components: 'RF forward, LF to side, RF closes to LF, LF back, RF to side, LF closes to RF',
+        is_core: true
+      },
+      {
+        figure_number: '1.2',
+        name: 'Reverse Turn',
+        measures: 2,
+        components: 'LF forward, RF to side, LF closes to RF, RF back, LF to side, RF closes to LF',
+        is_core: true
+      },
+      {
+        figure_number: '2.1',
+        name: 'Whisk',
+        measures: 1,
+        components: 'RF forward, LF to side, RF crosses behind LF in PP',
+        is_core: false
+      }
+    ];
+    
+    const sample = sampleData[Math.floor(Math.random() * sampleData.length)];
+    
+    document.getElementById('figure_figure_number').value = sample.figure_number;
+    document.getElementById('figure_name').value = sample.name;
+    document.getElementById('figure_measures').value = sample.measures;
+    document.getElementById('figure_components').value = sample.components;
+    document.getElementById('figure_is_core').checked = sample.is_core;
+  });
+});
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+
+.border-bottom {
+  border-color: #e9ecef !important;
+}
+
+.was-validated .form-control:valid {
+  border-color: #198754;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+</style>

@@ -54,6 +54,21 @@ module ApplicationHelper
     end
   end
 
+  def flash_class(type)
+    case type.to_s
+    when 'notice'
+      'info'
+    when 'alert'
+      'warning'
+    when 'error'
+      'danger'
+    when 'success'
+      'success'
+    else
+      'info'
+    end
+  end
+
   def page_title(title = nil)
     if title
       content_for(:title, title)

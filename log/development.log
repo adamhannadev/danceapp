@@ -6247,3 +6247,1602 @@ Processing by Rails::PwaController#manifest as JSON
 Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for ::1 at 2025-07-27 19:09:03 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (1.0ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (1.2ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 302.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 313.3ms | GC: 0.0ms)
+Completed 200 OK in 896ms (Views: 253.4ms | ActiveRecord: 69.4ms (22 queries, 1 cached) | GC: 108.9ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 19:09:04 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 3.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/student_progress" for ::1 at 2025-07-27 19:09:10 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (2.8ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (1.5ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (1.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.8ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 58.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 81.3ms | GC: 0.0ms)
+Completed 200 OK in 198ms (Views: 80.9ms | ActiveRecord: 22.5ms (16 queries, 6 cached) | GC: 0.0ms)
+
+
+Started GET "/dance_classes" for ::1 at 2025-07-27 19:09:19 -0700
+Processing by DanceClassesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.3ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (0.8ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 64.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 68.5ms | GC: 0.0ms)
+Completed 200 OK in 74ms (Views: 56.1ms | ActiveRecord: 14.0ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures" for ::1 at 2025-07-27 19:09:19 -0700
+Processing by FiguresController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  Rendered figures/index.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 6.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dance_classes" for ::1 at 2025-07-27 19:09:20 -0700
+Processing by DanceClassesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dance_classes/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dance_classes/index.html.erb:27
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dance_classes/index.html.erb:33
+  [1m[36mDanceClass Load (1.1ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" ORDER BY "dance_classes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 12], ["OFFSET", 0]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  [1m[36mLocation Load (1.0ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dance_classes/index.html.erb:47:in `each_with_index'
+  Rendered dance_classes/index.html.erb within layouts/application (Duration: 36.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 40.5ms | GC: 0.0ms)
+Completed 200 OK in 45ms (Views: 35.5ms | ActiveRecord: 6.2ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 19:09:23 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.9ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (1.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 110.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 114.4ms | GC: 0.0ms)
+Completed 200 OK in 117ms (Views: 90.8ms | ActiveRecord: 24.8ms (22 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/student_progress" for ::1 at 2025-07-27 19:09:28 -0700
+Processing by StudentProgressController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (2.7ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (1.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (1.4ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (1.2ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 29.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 32.8ms | GC: 0.0ms)
+Completed 200 OK in 84ms (Views: 30.2ms | ActiveRecord: 14.6ms (16 queries, 6 cached) | GC: 0.0ms)
+
+
+Started GET "/figures" for ::1 at 2025-07-27 19:09:34 -0700
+Processing by FiguresController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  Rendered figures/index.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 19:09:34 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures" for ::1 at 2025-07-27 19:22:55 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by FiguresController#index as HTML
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/controllers/figures_controller.rb:37:in `index'
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", true]]
+  ↳ app/controllers/figures_controller.rb:38:in `index'
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", false]]
+  ↳ app/controllers/figures_controller.rb:39:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  [1m[36mDanceStyle Count (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_styles"[0m
+  ↳ app/views/figures/index.html.erb:97
+  [1m[36mDanceStyle Load (1.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/index.html.erb:121
+  [1m[36mDanceLevel Load (1.1ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/index.html.erb:128
+  [1m[36mFigure Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2) subquery_for_count[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:151
+  [1m[36mFigure Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:166
+  [1m[36mFigure Load (0.9ms)[0m  [1m[34mSELECT "figures".* FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceLevel Load (0.3ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mStudentProgress Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 2]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 3]]
+  ↳ app/views/figures/index.html.erb:216
+  Rendered figures/index.html.erb within layouts/application (Duration: 154.9ms | GC: 16.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 171.4ms | GC: 16.2ms)
+Completed 200 OK in 893ms (Views: 151.0ms | ActiveRecord: 50.1ms (15 queries, 0 cached) | GC: 129.5ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 19:22:57 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/new" for ::1 at 2025-07-27 19:23:02 -0700
+Processing by FiguresController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering figures/new.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.2ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/new.html.erb:100
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/new.html.erb:113
+  Rendered figures/new.html.erb within layouts/application (Duration: 41.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 44.8ms | GC: 0.0ms)
+Completed 200 OK in 49ms (Views: 44.0ms | ActiveRecord: 1.9ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 19:23:30 -0700
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (2.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (3.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceClass Load (0.7ms)[0m  [1m[34mSELECT "dance_classes".* FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/views/dashboard/index.html.erb:114
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 126.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 129.3ms | GC: 0.0ms)
+Completed 200 OK in 134ms (Views: 100.3ms | ActiveRecord: 30.6ms (22 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/figures" for ::1 at 2025-07-27 19:23:31 -0700
+Processing by FiguresController#index as HTML
+  [1m[36mFigure Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/controllers/figures_controller.rb:37:in `index'
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", true]]
+  ↳ app/controllers/figures_controller.rb:38:in `index'
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", false]]
+  ↳ app/controllers/figures_controller.rb:39:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  [1m[36mDanceStyle Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_styles"[0m
+  ↳ app/views/figures/index.html.erb:97
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/index.html.erb:121
+  [1m[36mDanceLevel Load (1.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/index.html.erb:128
+  [1m[36mFigure Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2) subquery_for_count[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:151
+  [1m[36mFigure Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:166
+  [1m[36mFigure Load (0.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceLevel Load (0.9ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mStudentProgress Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 2]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 3]]
+  ↳ app/views/figures/index.html.erb:216
+  Rendered figures/index.html.erb within layouts/application (Duration: 58.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 61.5ms | GC: 0.0ms)
+Completed 200 OK in 77ms (Views: 52.3ms | ActiveRecord: 13.0ms (15 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/figures/4" for ::1 at 2025-07-27 19:23:32 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mFigure Load (0.8ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (1.2ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (2.9ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 4], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (1.2ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  Rendered figures/show.html.erb within layouts/application (Duration: 99.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 100.6ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 115ms (ActiveRecord: 9.0ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `new_student_progress_path' for #<ActionView::Base:0x00000000015bf8>
+Did you mean?  new_event_path):
+
+Causes:
+NoMethodError (undefined method `new_student_progress_path' for #<ActionView::Base:0x00000000015bf8>
+Did you mean?  new_event_path)
+    191:               <i class="fas fa-edit me-2"></i>Edit Figure
+    192:             <% end %>
+    193:             
+    194:             <%= link_to new_student_progress_path(figure_id: @figure.id), 
+    195:                 class: "btn btn-outline-success btn-sm" do %>
+    196:               <i class="fas fa-plus me-2"></i>Add Student Progress
+    197:             <% end %>
+  
+app/views/figures/show.html.erb:194
+Started GET "/figures/1" for ::1 at 2025-07-27 19:23:33 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mFigure Load (0.9ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.2ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (2.5ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 1], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (1.9ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  Rendered figures/show.html.erb within layouts/application (Duration: 63.5ms | GC: 1.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 65.3ms | GC: 1.8ms)
+Completed 500 Internal Server Error in 75ms (ActiveRecord: 9.1ms (7 queries, 0 cached) | GC: 2.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `new_student_progress_path' for #<ActionView::Base:0x00000000015ce8>
+Did you mean?  new_event_path):
+
+Causes:
+NoMethodError (undefined method `new_student_progress_path' for #<ActionView::Base:0x00000000015ce8>
+Did you mean?  new_event_path)
+    191:               <i class="fas fa-edit me-2"></i>Edit Figure
+    192:             <% end %>
+    193:             
+    194:             <%= link_to new_student_progress_path(figure_id: @figure.id), 
+    195:                 class: "btn btn-outline-success btn-sm" do %>
+    196:               <i class="fas fa-plus me-2"></i>Add Student Progress
+    197:             <% end %>
+  
+app/views/figures/show.html.erb:194
+Started GET "/figures?id=ff3a7890-6984-48ee-8fd3-8138d0feb8d5&vscodeBrowserReqId=1753669461906" for ::1 at 2025-07-27 19:24:21 -0700
+Processing by FiguresController#index as HTML
+  Parameters: {"id"=>"ff3a7890-6984-48ee-8fd3-8138d0feb8d5", "vscodeBrowserReqId"=>"1753669461906"}
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/controllers/figures_controller.rb:37:in `index'
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", true]]
+  ↳ app/controllers/figures_controller.rb:38:in `index'
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."is_core" = $1[0m  [["is_core", false]]
+  ↳ app/controllers/figures_controller.rb:39:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/index.html.erb within layouts/application
+  [1m[36mDanceStyle Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_styles"[0m
+  ↳ app/views/figures/index.html.erb:97
+  [1m[36mDanceStyle Load (1.1ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/index.html.erb:121
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/index.html.erb:128
+  [1m[36mFigure Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2) subquery_for_count[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:151
+  [1m[36mFigure Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:166
+  [1m[36mFigure Load (0.8ms)[0m  [1m[34mSELECT "figures".* FROM "figures" ORDER BY "figures"."figure_number" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/figures/index.html.erb:182
+  [1m[36mStudentProgress Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 4]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 2]]
+  ↳ app/views/figures/index.html.erb:216
+  [1m[36mStudentProgress Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 3]]
+  ↳ app/views/figures/index.html.erb:216
+  Rendered figures/index.html.erb within layouts/application (Duration: 99.3ms | GC: 14.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 104.8ms | GC: 15.1ms)
+Completed 200 OK in 135ms (Views: 85.9ms | ActiveRecord: 28.7ms (15 queries, 0 cached) | GC: 15.7ms)
+
+
+Started GET "/figures/1" for ::1 at 2025-07-27 19:24:33 -0700
+Processing by FiguresController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mFigure Load (0.9ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/show.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/figure.rb:36:in `full_description'
+  [1m[36mStudentProgress Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/show.html.erb:93
+  [1m[36mStudentProgress Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 1], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:123
+  [1m[36mStudentProgress Load (0.8ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 ORDER BY "student_progresses"."updated_at" DESC[0m  [["figure_id", 1]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 4]]
+  ↳ app/views/figures/show.html.erb:142
+  [1m[36mFigure Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/views/figures/show.html.erb:224
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."dance_style_id" = $1 AND "figures"."dance_level_id" = $2 AND "figures"."id" != $3 ORDER BY "figures"."figure_number" ASC LIMIT $4[0m  [["dance_style_id", 1], ["dance_level_id", 1], ["id", 1], ["LIMIT", 5]]
+  ↳ app/views/figures/show.html.erb:226
+  Rendered figures/show.html.erb within layouts/application (Duration: 72.9ms | GC: 3.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 75.7ms | GC: 3.2ms)
+Completed 200 OK in 86ms (Views: 64.6ms | ActiveRecord: 12.6ms (9 queries, 0 cached) | GC: 3.6ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 19:24:33 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.9ms | GC: 0.1ms)
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/figures/1/edit" for ::1 at 2025-07-27 19:24:42 -0700
+Processing by FiguresController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mFigure Load (1.1ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/figures_controller.rb:95:in `set_figure'
+  Rendering layout layouts/application.html.erb
+  Rendering figures/edit.html.erb within layouts/application
+  [1m[36mDanceStyle Load (1.4ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" ORDER BY "dance_styles"."name" ASC[0m
+  ↳ app/views/figures/edit.html.erb:99
+  [1m[36mDanceLevel Load (1.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/figures/edit.html.erb:112
+  [1m[36mStudentProgress Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/edit.html.erb:188
+  [1m[36mStudentProgress Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1 LIMIT $2[0m  [["figure_id", 1], ["LIMIT", 1]]
+  ↳ app/views/figures/edit.html.erb:246
+  [1m[36mCACHE StudentProgress Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" WHERE "student_progresses"."figure_id" = $1[0m  [["figure_id", 1]]
+  ↳ app/views/figures/edit.html.erb:248
+  Rendered figures/edit.html.erb within layouts/application (Duration: 34.2ms | GC: 1.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 36.5ms | GC: 1.7ms)
+Completed 200 OK in 46ms (Views: 32.1ms | ActiveRecord: 6.2ms (6 queries, 1 cached) | GC: 1.7ms)
+
+
+Started GET "/student_progress?figure_id=1" for ::1 at 2025-07-27 19:24:42 -0700
+Processing by StudentProgressController#index as HTML
+  Parameters: {"figure_id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:90:in `ensure_current_user'
+  [1m[36mStudentProgress Load (2.4ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mFigure Load (1.1ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `group_by'
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `block in index'
+  [1m[36mStudentProgress Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:14:in `index'
+  [1m[36mStudentProgress Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (1.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 21.3ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 25.6ms | GC: 1.0ms)
+Completed 200 OK in 83ms (Views: 26.1ms | ActiveRecord: 10.5ms (16 queries, 6 cached) | GC: 2.5ms)
+
+
+Started GET "/student_progress/1" for ::1 at 2025-07-27 19:24:53 -0700
+Processing by StudentProgressController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+  
+NoMethodError (undefined method `student_progresses' for nil:NilClass
+
+    @student_progress = current_user.student_progresses.find(params[:id])
+                                    ^^^^^^^^^^^^^^^^^^^):
+  
+app/controllers/student_progress_controller.rb:81:in `set_student_progress'
+Started GET "/student_progress/1" for ::1 at 2025-07-27 19:24:54 -0700
+Processing by StudentProgressController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+  
+NoMethodError (undefined method `student_progresses' for nil:NilClass
+
+    @student_progress = current_user.student_progresses.find(params[:id])
+                                    ^^^^^^^^^^^^^^^^^^^):
+  
+app/controllers/student_progress_controller.rb:81:in `set_student_progress'
+Started GET "/student_progress?id=ff3a7890-6984-48ee-8fd3-8138d0feb8d5&vscodeBrowserReqId=1753669588999" for ::1 at 2025-07-27 19:26:29 -0700
+Processing by StudentProgressController#index as HTML
+  Parameters: {"id"=>"ff3a7890-6984-48ee-8fd3-8138d0feb8d5", "vscodeBrowserReqId"=>"1753669588999"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."role" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["role", "student"], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:98:in `ensure_current_user'
+  [1m[36mStudentProgress Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:11:in `index'
+  [1m[36mStudentProgress Load (1.4ms)[0m  [1m[34mSELECT "student_progresses".* FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 ORDER BY dance_styles.name, dance_levels.level_number, figures.figure_number[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `group_by'
+  [1m[36mFigure Load (0.6ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 4], ["id", 2], ["id", 3]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `group_by'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `group_by'
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `block in index'
+  [1m[36mCACHE DanceStyle Load (0.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/student_progress_controller.rb:19:in `block in index'
+  [1m[36mStudentProgress Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:22:in `index'
+  [1m[36mStudentProgress Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "student_progresses" INNER JOIN "figures" ON "figures"."id" = "student_progresses"."figure_id" INNER JOIN "dance_styles" ON "dance_styles"."id" = "figures"."dance_style_id" INNER JOIN "dance_levels" ON "dance_levels"."id" = "figures"."dance_level_id" WHERE "student_progresses"."user_id" = $1 AND "student_progresses"."completed_at" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/student_progress_controller.rb:23:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering student_progress/index.html.erb within layouts/application
+  [1m[36mDanceStyle Load (3.0ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/student_progress/index.html.erb:89
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" ORDER BY "dance_levels"."level_number" ASC[0m
+  ↳ app/views/student_progress/index.html.erb:95
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  [1m[36mCACHE DanceLevel Load (0.0ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/student_progress/index.html.erb:144
+  Rendered student_progress/index.html.erb within layouts/application (Duration: 39.1ms | GC: 1.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 45.6ms | GC: 2.1ms)
+Completed 200 OK in 173ms (Views: 44.6ms | ActiveRecord: 30.1ms (17 queries, 6 cached) | GC: 6.8ms)
+
+
+Started GET "/student_progress/1" for ::1 at 2025-07-27 19:27:12 -0700
+Processing by StudentProgressController#show as HTML
+  Parameters: {"id"=>"1"}
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+  
+NoMethodError (undefined method `student_progresses' for nil:NilClass
+
+    @student_progress = current_user.student_progresses.find(params[:id])
+                                    ^^^^^^^^^^^^^^^^^^^):
+  
+app/controllers/student_progress_controller.rb:89:in `set_student_progress'
+Started GET "/favicon.ico" for ::1 at 2025-07-27 19:27:12 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+  [1m[35m (3.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(41327430569650470)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to AddDeviseToUsers (20250728022854)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.8ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp(6)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp(6)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "users" ALTER COLUMN "email" SET NOT NULL[0m
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "users" DROP COLUMN "password_digest"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250728022854') RETURNING "version"[0m
+  [1m[36mTRANSACTION (4.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT pg_advisory_unlock(41327430569650470)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2025-07-27 19:42:50 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+Completed 401 Unauthorized in 20ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2025-07-27 19:42:51 -0700
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 115.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 121.7ms | GC: 0.0ms)
+Completed 200 OK in 186ms (Views: 129.6ms | ActiveRecord: 19.3ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 19:42:51 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.7ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-07-27 19:43:11 -0700
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (14.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 48ms (ActiveRecord: 15.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Devise::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 22.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 25.5ms | GC: 0.0ms)
+Completed 200 OK in 377ms (Views: 26.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-07-27 19:43:18 -0700
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 6ms (ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Devise::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 22.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.8ms | GC: 0.0ms)
+Completed 200 OK in 365ms (Views: 25.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2025-07-27 19:43:20 -0700
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 67.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 69.2ms | GC: 0.0ms)
+Completed 200 OK in 74ms (Views: 70.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mUser Load (27.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started GET "/users/sign_up" for ::1 at 2025-07-27 19:44:25 -0700
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 83.9ms | GC: 26.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 86.1ms | GC: 26.7ms)
+Completed 200 OK in 91ms (Views: 86.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 26.7ms)
+
+
+Started GET "/users/password/new" for ::1 at 2025-07-27 19:44:25 -0700
+Processing by Devise::PasswordsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/passwords/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered devise/passwords/new.html.erb within layouts/application (Duration: 13.3ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.6ms | GC: 0.5ms)
+Completed 200 OK in 21ms (Views: 18.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2025-07-27 19:44:32 -0700
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 58.0ms | GC: 3.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 60.2ms | GC: 3.4ms)
+Completed 200 OK in 64ms (Views: 61.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.8ms)
+
+
+Started POST "/users" for ::1 at 2025-07-27 19:45:03 -0700
+Processing by Devise::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"first_name"=>"Adam", "last_name"=>"Hanna", "email"=>"[FILTERED]", "phone"=>"250-480-9246", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "role"=>"instructor", "membership_type"=>"none", "waiver_signed"=>"1"}, "commit"=>"Create Account"}
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 46.8ms | GC: 2.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 50.3ms | GC: 2.4ms)
+Completed 422 Unprocessable Content in 412ms (Views: 52.0ms | ActiveRecord: 3.7ms (2 queries, 1 cached) | GC: 3.3ms)
+
+
+Started POST "/users" for ::1 at 2025-07-27 19:45:15 -0700
+Processing by Devise::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"first_name"=>"Adam", "last_name"=>"Hanna", "email"=>"[FILTERED]", "phone"=>"250-480-9246", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "role"=>"student", "membership_type"=>"none", "waiver_signed"=>"1"}, "commit"=>"Create Account"}
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (4.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 51.2ms | GC: 9.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 52.9ms | GC: 9.2ms)
+Completed 422 Unprocessable Content in 73ms (Views: 53.4ms | ActiveRecord: 5.3ms (2 queries, 1 cached) | GC: 9.6ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2025-07-27 19:46:18 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 40.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 46.2ms | GC: 0.0ms)
+Completed 200 OK in 429ms (Views: 373.9ms | ActiveRecord: 16.0ms (0 queries, 0 cached) | GC: 118.5ms)
+
+
+Started GET "/manifest.json" for ::1 at 2025-07-27 19:46:19 -0700
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-07-27 19:46:29 -0700
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 19ms (ActiveRecord: 1.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Devise::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 23.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 25.4ms | GC: 0.0ms)
+Completed 200 OK in 372ms (Views: 26.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-07-27 19:46:51 -0700
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 10ms (ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Devise::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 20.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.8ms | GC: 0.0ms)
+Completed 200 OK in 362ms (Views: 23.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (5059.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "danceapp_development"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (138.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "danceapp_development"[0m
+  [1m[35m (108.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "danceapp_test"[0m
+  [1m[35m (678.2ms)[0m  [1m[35mCREATE DATABASE "danceapp_development" ENCODING = 'unicode'[0m
+  [1m[35m (415.6ms)[0m  [1m[35mCREATE DATABASE "danceapp_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (28.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "bookings" CASCADE[0m
+  [1m[35m (38.2ms)[0m  [1m[35mCREATE TABLE "bookings" ("id" bigserial primary key, "user_id" bigint NOT NULL, "class_schedule_id" bigint NOT NULL, "booking_type" character varying, "status" character varying, "booked_at" timestamp(6), "cancelled_at" timestamp(6), "payment_status" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE INDEX "index_bookings_on_class_schedule_id" ON "bookings" ("class_schedule_id")[0m
+  [1m[35m (12.4ms)[0m  [1m[35mCREATE INDEX "index_bookings_on_user_id" ON "bookings" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "class_schedules" CASCADE[0m
+  [1m[35m (24.9ms)[0m  [1m[35mCREATE TABLE "class_schedules" ("id" bigserial primary key, "dance_class_id" bigint NOT NULL, "start_datetime" timestamp(6), "end_datetime" timestamp(6), "recurring" boolean, "recurrence_pattern" text, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE INDEX "index_class_schedules_on_dance_class_id" ON "class_schedules" ("dance_class_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "dance_classes" CASCADE[0m
+  [1m[35m (20.4ms)[0m  [1m[35mCREATE TABLE "dance_classes" ("id" bigserial primary key, "name" character varying, "dance_style_id" bigint NOT NULL, "dance_level_id" bigint NOT NULL, "instructor_id" bigint NOT NULL, "location_id" bigint NOT NULL, "duration_minutes" integer, "max_capacity" integer, "price" decimal, "description" text, "class_type" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_dance_level_id" ON "dance_classes" ("dance_level_id")[0m
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_dance_style_id" ON "dance_classes" ("dance_style_id")[0m
+  [1m[35m (11.1ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_instructor_id" ON "dance_classes" ("instructor_id")[0m
+  [1m[35m (10.4ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_location_id" ON "dance_classes" ("location_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "dance_levels" CASCADE[0m
+  [1m[35m (21.3ms)[0m  [1m[35mCREATE TABLE "dance_levels" ("id" bigserial primary key, "name" character varying, "level_number" integer, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_dance_levels_on_level_number" ON "dance_levels" ("level_number")[0m
+  [1m[35m (11.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_dance_levels_on_name" ON "dance_levels" ("name")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "dance_styles" CASCADE[0m
+  [1m[35m (24.6ms)[0m  [1m[35mCREATE TABLE "dance_styles" ("id" bigserial primary key, "name" character varying, "category" character varying, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "event_registrations" CASCADE[0m
+  [1m[35m (22.5ms)[0m  [1m[35mCREATE TABLE "event_registrations" ("id" bigserial primary key, "user_id" bigint NOT NULL, "event_id" bigint NOT NULL, "registration_date" timestamp(6), "payment_status" character varying, "notes" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE INDEX "index_event_registrations_on_event_id" ON "event_registrations" ("event_id")[0m
+  [1m[35m (10.7ms)[0m  [1m[35mCREATE INDEX "index_event_registrations_on_user_id" ON "event_registrations" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  [1m[35m (20.0ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "name" character varying, "event_type" character varying, "location_id" bigint NOT NULL, "start_date" date, "end_date" date, "registration_deadline" date, "price" decimal, "max_participants" integer, "description" text, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (9.3ms)[0m  [1m[35mCREATE INDEX "index_events_on_location_id" ON "events" ("location_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "figures" CASCADE[0m
+  [1m[35m (20.8ms)[0m  [1m[35mCREATE TABLE "figures" ("id" bigserial primary key, "figure_number" character varying, "name" character varying, "dance_style_id" bigint NOT NULL, "dance_level_id" bigint NOT NULL, "measures" integer, "components" text, "is_core" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE INDEX "index_figures_on_dance_level_id" ON "figures" ("dance_level_id")[0m
+  [1m[35m (8.8ms)[0m  [1m[35mCREATE INDEX "index_figures_on_dance_style_id" ON "figures" ("dance_style_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "instructor_availabilities" CASCADE[0m
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE TABLE "instructor_availabilities" ("id" bigserial primary key, "instructor_id" bigint NOT NULL, "location_id" bigint NOT NULL, "day_of_week" integer, "start_time" time, "end_time" time, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE INDEX "index_instructor_availabilities_on_instructor_id" ON "instructor_availabilities" ("instructor_id")[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE INDEX "index_instructor_availabilities_on_location_id" ON "instructor_availabilities" ("location_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "locations" CASCADE[0m
+  [1m[35m (26.9ms)[0m  [1m[35mCREATE TABLE "locations" ("id" bigserial primary key, "name" character varying, "address" text, "phone" character varying, "capacity" integer, "operating_hours" text, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "payments" CASCADE[0m
+  [1m[35m (23.3ms)[0m  [1m[35mCREATE TABLE "payments" ("id" bigserial primary key, "user_id" bigint NOT NULL, "amount" decimal, "payment_method" character varying, "transaction_id" character varying, "status" character varying, "payment_date" timestamp(6), "invoice_number" character varying, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE INDEX "index_payments_on_user_id" ON "payments" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "private_lessons" CASCADE[0m
+  [1m[35m (24.1ms)[0m  [1m[35mCREATE TABLE "private_lessons" ("id" bigserial primary key, "student_id" bigint NOT NULL, "instructor_id" bigint NOT NULL, "dance_style_id" bigint NOT NULL, "dance_level_id" bigint NOT NULL, "location_id" bigint NOT NULL, "scheduled_at" timestamp(6), "duration_minutes" integer, "price" decimal, "status" character varying, "notes" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.3ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_dance_level_id" ON "private_lessons" ("dance_level_id")[0m
+  [1m[35m (12.0ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_dance_style_id" ON "private_lessons" ("dance_style_id")[0m
+  [1m[35m (17.2ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_instructor_id" ON "private_lessons" ("instructor_id")[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_location_id" ON "private_lessons" ("location_id")[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_student_id" ON "private_lessons" ("student_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "student_progresses" CASCADE[0m
+  [1m[35m (16.6ms)[0m  [1m[35mCREATE TABLE "student_progresses" ("id" bigserial primary key, "user_id" bigint NOT NULL, "figure_id" bigint NOT NULL, "movement_passed" boolean, "timing_passed" boolean, "partnering_passed" boolean, "completed_at" timestamp(6), "instructor_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "notes" text)[0m
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE INDEX "index_student_progresses_on_figure_id" ON "student_progresses" ("figure_id")[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE INDEX "index_student_progresses_on_instructor_id" ON "student_progresses" ("instructor_id")[0m
+  [1m[35m (12.0ms)[0m  [1m[35mCREATE INDEX "index_student_progresses_on_user_id" ON "student_progresses" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (23.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "first_name" character varying, "last_name" character varying, "phone" character varying, "role" character varying, "membership_type" character varying, "membership_discount" decimal, "waiver_signed" boolean, "waiver_signed_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6))[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "waitlists" CASCADE[0m
+  [1m[35m (14.9ms)[0m  [1m[35mCREATE TABLE "waitlists" ("id" bigserial primary key, "user_id" bigint NOT NULL, "class_schedule_id" bigint NOT NULL, "position" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE INDEX "index_waitlists_on_class_schedule_id" ON "waitlists" ("class_schedule_id")[0m
+  [1m[35m (11.1ms)[0m  [1m[35mCREATE INDEX "index_waitlists_on_user_id" ON "waitlists" ("user_id")[0m
+  [1m[35m (9.2ms)[0m  [1m[35mALTER TABLE "bookings" ADD CONSTRAINT "fk_rails_aadbe610d8"
+FOREIGN KEY ("class_schedule_id")
+  REFERENCES "class_schedules" ("id")
+[0m
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "bookings" ADD CONSTRAINT "fk_rails_ef0571f117"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.5ms)[0m  [1m[35mALTER TABLE "class_schedules" ADD CONSTRAINT "fk_rails_32228f05a6"
+FOREIGN KEY ("dance_class_id")
+  REFERENCES "dance_classes" ("id")
+[0m
+  [1m[35m (5.1ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_65c8b59898"
+FOREIGN KEY ("dance_level_id")
+  REFERENCES "dance_levels" ("id")
+[0m
+  [1m[35m (4.3ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_df9b40f2d1"
+FOREIGN KEY ("dance_style_id")
+  REFERENCES "dance_styles" ("id")
+[0m
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_a4c6fa7390"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (3.7ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_6fdf62e9f5"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "event_registrations" ADD CONSTRAINT "fk_rails_23148f43c2"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+[0m
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "event_registrations" ADD CONSTRAINT "fk_rails_9d37217e35"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (3.8ms)[0m  [1m[35mALTER TABLE "events" ADD CONSTRAINT "fk_rails_3d0bd29ec6"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (4.1ms)[0m  [1m[35mALTER TABLE "figures" ADD CONSTRAINT "fk_rails_c5b05ccfd6"
+FOREIGN KEY ("dance_level_id")
+  REFERENCES "dance_levels" ("id")
+[0m
+  [1m[35m (4.5ms)[0m  [1m[35mALTER TABLE "figures" ADD CONSTRAINT "fk_rails_9044f49b9f"
+FOREIGN KEY ("dance_style_id")
+  REFERENCES "dance_styles" ("id")
+[0m
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "instructor_availabilities" ADD CONSTRAINT "fk_rails_490c691837"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (3.9ms)[0m  [1m[35mALTER TABLE "instructor_availabilities" ADD CONSTRAINT "fk_rails_cb5b2d6374"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.0ms)[0m  [1m[35mALTER TABLE "payments" ADD CONSTRAINT "fk_rails_081dc04a02"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_5442b7064d"
+FOREIGN KEY ("dance_level_id")
+  REFERENCES "dance_levels" ("id")
+[0m
+  [1m[35m (4.3ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_85df92a20c"
+FOREIGN KEY ("dance_style_id")
+  REFERENCES "dance_styles" ("id")
+[0m
+  [1m[35m (4.0ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_4c3886b7de"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (5.1ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_dde479cf02"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.1ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_8a3da0fef8"
+FOREIGN KEY ("student_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "student_progresses" ADD CONSTRAINT "fk_rails_0f484aaa53"
+FOREIGN KEY ("figure_id")
+  REFERENCES "figures" ("id")
+[0m
+  [1m[35m (5.7ms)[0m  [1m[35mALTER TABLE "student_progresses" ADD CONSTRAINT "fk_rails_17926af2a6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.5ms)[0m  [1m[35mALTER TABLE "student_progresses" ADD CONSTRAINT "fk_rails_514f7e5a93"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (5.2ms)[0m  [1m[35mALTER TABLE "waitlists" ADD CONSTRAINT "fk_rails_168f873b0a"
+FOREIGN KEY ("class_schedule_id")
+  REFERENCES "class_schedules" ("id")
+[0m
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "waitlists" ADD CONSTRAINT "fk_rails_0ed579a160"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (23.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (3.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250728022854)[0m
+  [1m[35m (3.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250727164511),
+(20250726181627),
+(20250726181216),
+(20250726162150),
+(20250726162139),
+(20250726161819),
+(20250726161548),
+(20250726161337),
+(20250726161153),
+(20250726161124),
+(20250726161012),
+(20250726161000),
+(20250726160920),
+(20250726160716),
+(20250726160701),
+(20250726160649),
+(20250726160640),
+(20250726160622);[0m
+  [1m[35m (20.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (3.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-07-28 02:47:52.211455', '2025-07-28 02:47:52.211462') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (3.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'bde6c2e3893cf5122cc37b5f5a0d3cbc289ced2d', '2025-07-28 02:47:52.223401', '2025-07-28 02:47:52.223515') RETURNING "key"[0m
+  [1m[35mSQL (42.7ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "bookings" CASCADE[0m
+  [1m[35m (33.8ms)[0m  [1m[35mCREATE TABLE "bookings" ("id" bigserial primary key, "user_id" bigint NOT NULL, "class_schedule_id" bigint NOT NULL, "booking_type" character varying, "status" character varying, "booked_at" timestamp(6), "cancelled_at" timestamp(6), "payment_status" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE INDEX "index_bookings_on_class_schedule_id" ON "bookings" ("class_schedule_id")[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE INDEX "index_bookings_on_user_id" ON "bookings" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "class_schedules" CASCADE[0m
+  [1m[35m (20.5ms)[0m  [1m[35mCREATE TABLE "class_schedules" ("id" bigserial primary key, "dance_class_id" bigint NOT NULL, "start_datetime" timestamp(6), "end_datetime" timestamp(6), "recurring" boolean, "recurrence_pattern" text, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE INDEX "index_class_schedules_on_dance_class_id" ON "class_schedules" ("dance_class_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "dance_classes" CASCADE[0m
+  [1m[35m (21.7ms)[0m  [1m[35mCREATE TABLE "dance_classes" ("id" bigserial primary key, "name" character varying, "dance_style_id" bigint NOT NULL, "dance_level_id" bigint NOT NULL, "instructor_id" bigint NOT NULL, "location_id" bigint NOT NULL, "duration_minutes" integer, "max_capacity" integer, "price" decimal, "description" text, "class_type" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (8.8ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_dance_level_id" ON "dance_classes" ("dance_level_id")[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_dance_style_id" ON "dance_classes" ("dance_style_id")[0m
+  [1m[35m (9.5ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_instructor_id" ON "dance_classes" ("instructor_id")[0m
+  [1m[35m (11.1ms)[0m  [1m[35mCREATE INDEX "index_dance_classes_on_location_id" ON "dance_classes" ("location_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "dance_levels" CASCADE[0m
+  [1m[35m (18.3ms)[0m  [1m[35mCREATE TABLE "dance_levels" ("id" bigserial primary key, "name" character varying, "level_number" integer, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_dance_levels_on_level_number" ON "dance_levels" ("level_number")[0m
+  [1m[35m (11.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_dance_levels_on_name" ON "dance_levels" ("name")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "dance_styles" CASCADE[0m
+  [1m[35m (19.2ms)[0m  [1m[35mCREATE TABLE "dance_styles" ("id" bigserial primary key, "name" character varying, "category" character varying, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "event_registrations" CASCADE[0m
+  [1m[35m (18.3ms)[0m  [1m[35mCREATE TABLE "event_registrations" ("id" bigserial primary key, "user_id" bigint NOT NULL, "event_id" bigint NOT NULL, "registration_date" timestamp(6), "payment_status" character varying, "notes" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE INDEX "index_event_registrations_on_event_id" ON "event_registrations" ("event_id")[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE INDEX "index_event_registrations_on_user_id" ON "event_registrations" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  [1m[35m (25.0ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "name" character varying, "event_type" character varying, "location_id" bigint NOT NULL, "start_date" date, "end_date" date, "registration_deadline" date, "price" decimal, "max_participants" integer, "description" text, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE INDEX "index_events_on_location_id" ON "events" ("location_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "figures" CASCADE[0m
+  [1m[35m (26.8ms)[0m  [1m[35mCREATE TABLE "figures" ("id" bigserial primary key, "figure_number" character varying, "name" character varying, "dance_style_id" bigint NOT NULL, "dance_level_id" bigint NOT NULL, "measures" integer, "components" text, "is_core" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE INDEX "index_figures_on_dance_level_id" ON "figures" ("dance_level_id")[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE INDEX "index_figures_on_dance_style_id" ON "figures" ("dance_style_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "instructor_availabilities" CASCADE[0m
+  [1m[35m (14.7ms)[0m  [1m[35mCREATE TABLE "instructor_availabilities" ("id" bigserial primary key, "instructor_id" bigint NOT NULL, "location_id" bigint NOT NULL, "day_of_week" integer, "start_time" time, "end_time" time, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (11.0ms)[0m  [1m[35mCREATE INDEX "index_instructor_availabilities_on_instructor_id" ON "instructor_availabilities" ("instructor_id")[0m
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE INDEX "index_instructor_availabilities_on_location_id" ON "instructor_availabilities" ("location_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "locations" CASCADE[0m
+  [1m[35m (19.0ms)[0m  [1m[35mCREATE TABLE "locations" ("id" bigserial primary key, "name" character varying, "address" text, "phone" character varying, "capacity" integer, "operating_hours" text, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "payments" CASCADE[0m
+  [1m[35m (20.5ms)[0m  [1m[35mCREATE TABLE "payments" ("id" bigserial primary key, "user_id" bigint NOT NULL, "amount" decimal, "payment_method" character varying, "transaction_id" character varying, "status" character varying, "payment_date" timestamp(6), "invoice_number" character varying, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE INDEX "index_payments_on_user_id" ON "payments" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "private_lessons" CASCADE[0m
+  [1m[35m (22.2ms)[0m  [1m[35mCREATE TABLE "private_lessons" ("id" bigserial primary key, "student_id" bigint NOT NULL, "instructor_id" bigint NOT NULL, "dance_style_id" bigint NOT NULL, "dance_level_id" bigint NOT NULL, "location_id" bigint NOT NULL, "scheduled_at" timestamp(6), "duration_minutes" integer, "price" decimal, "status" character varying, "notes" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (10.5ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_dance_level_id" ON "private_lessons" ("dance_level_id")[0m
+  [1m[35m (11.0ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_dance_style_id" ON "private_lessons" ("dance_style_id")[0m
+  [1m[35m (11.6ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_instructor_id" ON "private_lessons" ("instructor_id")[0m
+  [1m[35m (10.9ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_location_id" ON "private_lessons" ("location_id")[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE INDEX "index_private_lessons_on_student_id" ON "private_lessons" ("student_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "student_progresses" CASCADE[0m
+  [1m[35m (21.9ms)[0m  [1m[35mCREATE TABLE "student_progresses" ("id" bigserial primary key, "user_id" bigint NOT NULL, "figure_id" bigint NOT NULL, "movement_passed" boolean, "timing_passed" boolean, "partnering_passed" boolean, "completed_at" timestamp(6), "instructor_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "notes" text)[0m
+  [1m[35m (10.1ms)[0m  [1m[35mCREATE INDEX "index_student_progresses_on_figure_id" ON "student_progresses" ("figure_id")[0m
+  [1m[35m (10.6ms)[0m  [1m[35mCREATE INDEX "index_student_progresses_on_instructor_id" ON "student_progresses" ("instructor_id")[0m
+  [1m[35m (12.4ms)[0m  [1m[35mCREATE INDEX "index_student_progresses_on_user_id" ON "student_progresses" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (24.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "first_name" character varying, "last_name" character varying, "phone" character varying, "role" character varying, "membership_type" character varying, "membership_discount" decimal, "waiver_signed" boolean, "waiver_signed_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6))[0m
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "waitlists" CASCADE[0m
+  [1m[35m (14.7ms)[0m  [1m[35mCREATE TABLE "waitlists" ("id" bigserial primary key, "user_id" bigint NOT NULL, "class_schedule_id" bigint NOT NULL, "position" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE INDEX "index_waitlists_on_class_schedule_id" ON "waitlists" ("class_schedule_id")[0m
+  [1m[35m (10.4ms)[0m  [1m[35mCREATE INDEX "index_waitlists_on_user_id" ON "waitlists" ("user_id")[0m
+  [1m[35m (6.6ms)[0m  [1m[35mALTER TABLE "bookings" ADD CONSTRAINT "fk_rails_aadbe610d8"
+FOREIGN KEY ("class_schedule_id")
+  REFERENCES "class_schedules" ("id")
+[0m
+  [1m[35m (5.8ms)[0m  [1m[35mALTER TABLE "bookings" ADD CONSTRAINT "fk_rails_ef0571f117"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "class_schedules" ADD CONSTRAINT "fk_rails_32228f05a6"
+FOREIGN KEY ("dance_class_id")
+  REFERENCES "dance_classes" ("id")
+[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_65c8b59898"
+FOREIGN KEY ("dance_level_id")
+  REFERENCES "dance_levels" ("id")
+[0m
+  [1m[35m (5.3ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_df9b40f2d1"
+FOREIGN KEY ("dance_style_id")
+  REFERENCES "dance_styles" ("id")
+[0m
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_a4c6fa7390"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (4.1ms)[0m  [1m[35mALTER TABLE "dance_classes" ADD CONSTRAINT "fk_rails_6fdf62e9f5"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "event_registrations" ADD CONSTRAINT "fk_rails_23148f43c2"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+[0m
+  [1m[35m (5.4ms)[0m  [1m[35mALTER TABLE "event_registrations" ADD CONSTRAINT "fk_rails_9d37217e35"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (3.6ms)[0m  [1m[35mALTER TABLE "events" ADD CONSTRAINT "fk_rails_3d0bd29ec6"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "figures" ADD CONSTRAINT "fk_rails_c5b05ccfd6"
+FOREIGN KEY ("dance_level_id")
+  REFERENCES "dance_levels" ("id")
+[0m
+  [1m[35m (3.8ms)[0m  [1m[35mALTER TABLE "figures" ADD CONSTRAINT "fk_rails_9044f49b9f"
+FOREIGN KEY ("dance_style_id")
+  REFERENCES "dance_styles" ("id")
+[0m
+  [1m[35m (6.8ms)[0m  [1m[35mALTER TABLE "instructor_availabilities" ADD CONSTRAINT "fk_rails_490c691837"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (5.1ms)[0m  [1m[35mALTER TABLE "instructor_availabilities" ADD CONSTRAINT "fk_rails_cb5b2d6374"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "payments" ADD CONSTRAINT "fk_rails_081dc04a02"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.0ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_5442b7064d"
+FOREIGN KEY ("dance_level_id")
+  REFERENCES "dance_levels" ("id")
+[0m
+  [1m[35m (4.4ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_85df92a20c"
+FOREIGN KEY ("dance_style_id")
+  REFERENCES "dance_styles" ("id")
+[0m
+  [1m[35m (4.1ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_4c3886b7de"
+FOREIGN KEY ("location_id")
+  REFERENCES "locations" ("id")
+[0m
+  [1m[35m (3.4ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_dde479cf02"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "private_lessons" ADD CONSTRAINT "fk_rails_8a3da0fef8"
+FOREIGN KEY ("student_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "student_progresses" ADD CONSTRAINT "fk_rails_0f484aaa53"
+FOREIGN KEY ("figure_id")
+  REFERENCES "figures" ("id")
+[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "student_progresses" ADD CONSTRAINT "fk_rails_17926af2a6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (4.2ms)[0m  [1m[35mALTER TABLE "student_progresses" ADD CONSTRAINT "fk_rails_514f7e5a93"
+FOREIGN KEY ("instructor_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (6.0ms)[0m  [1m[35mALTER TABLE "waitlists" ADD CONSTRAINT "fk_rails_168f873b0a"
+FOREIGN KEY ("class_schedule_id")
+  REFERENCES "class_schedules" ("id")
+[0m
+  [1m[35m (4.5ms)[0m  [1m[35mALTER TABLE "waitlists" ADD CONSTRAINT "fk_rails_0ed579a160"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (22.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (3.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250728022854)[0m
+  [1m[35m (2.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250727164511),
+(20250726181627),
+(20250726181216),
+(20250726162150),
+(20250726162139),
+(20250726161819),
+(20250726161548),
+(20250726161337),
+(20250726161153),
+(20250726161124),
+(20250726161012),
+(20250726161000),
+(20250726160920),
+(20250726160716),
+(20250726160701),
+(20250726160649),
+(20250726160640),
+(20250726160622);[0m
+  [1m[35m (22.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (3.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-07-28 02:47:53.270630', '2025-07-28 02:47:53.270636') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (4.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2025-07-28 02:47:53.279974' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (3.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'bde6c2e3893cf5122cc37b5f5a0d3cbc289ced2d', '2025-07-28 02:47:53.288143', '2025-07-28 02:47:53.288148') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Waltz"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Waltz"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (1.4ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Waltz"], ["category", "American Smooth"], ["description", "Waltz - American Smooth"], ["created_at", "2025-07-28 02:47:53.390949"], ["updated_at", "2025-07-28 02:47:53.390949"]]
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Tango"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.2ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Tango"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Tango"], ["category", "American Smooth"], ["description", "Tango - American Smooth"], ["created_at", "2025-07-28 02:47:53.410432"], ["updated_at", "2025-07-28 02:47:53.410432"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Foxtrot"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.8ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Foxtrot"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (1.0ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Foxtrot"], ["category", "American Smooth"], ["description", "Foxtrot - American Smooth"], ["created_at", "2025-07-28 02:47:53.428768"], ["updated_at", "2025-07-28 02:47:53.428768"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.8ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Cha Cha"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Cha Cha"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Cha Cha"], ["category", "American Rhythm"], ["description", "Cha Cha - American Rhythm"], ["created_at", "2025-07-28 02:47:53.446160"], ["updated_at", "2025-07-28 02:47:53.446160"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Rumba"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.2ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Rumba"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Rumba"], ["category", "American Rhythm"], ["description", "Rumba - American Rhythm"], ["created_at", "2025-07-28 02:47:53.462617"], ["updated_at", "2025-07-28 02:47:53.462617"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Swing"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Swing"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.9ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Swing"], ["category", "American Rhythm"], ["description", "Swing - American Rhythm"], ["created_at", "2025-07-28 02:47:53.478287"], ["updated_at", "2025-07-28 02:47:53.478287"]]
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "West Coast Swing"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "West Coast Swing"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.9ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "West Coast Swing"], ["category", "Social"], ["description", "West Coast Swing - Social"], ["created_at", "2025-07-28 02:47:53.494666"], ["updated_at", "2025-07-28 02:47:53.494666"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Salsa"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.2ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Salsa"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Salsa"], ["category", "Social"], ["description", "Salsa - Social"], ["created_at", "2025-07-28 02:47:53.510609"], ["updated_at", "2025-07-28 02:47:53.510609"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Bachata"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Bachata"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bachata"], ["category", "Social"], ["description", "Bachata - Social"], ["created_at", "2025-07-28 02:47:53.525308"], ["updated_at", "2025-07-28 02:47:53.525308"]]
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.5ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Argentine Tango"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Argentine Tango"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.7ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Argentine Tango"], ["category", "Social"], ["description", "Argentine Tango - Social"], ["created_at", "2025-07-28 02:47:53.539383"], ["updated_at", "2025-07-28 02:47:53.539383"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.6ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Kizomba"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceStyle Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Kizomba"], ["LIMIT", 1]]
+  [1m[36mDanceStyle Create (0.7ms)[0m  [1m[32mINSERT INTO "dance_styles" ("name", "category", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Kizomba"], ["category", "Social"], ["description", "Kizomba - Social"], ["created_at", "2025-07-28 02:47:53.554112"], ["updated_at", "2025-07-28 02:47:53.554112"]]
+  [1m[36mTRANSACTION (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.8ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Bronze 1"], ["level_number", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Bronze 1"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 1], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (1.7ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bronze 1"], ["level_number", 1], ["description", "Bronze 1 difficulty level"], ["created_at", "2025-07-28 02:47:53.586774"], ["updated_at", "2025-07-28 02:47:53.586774"]]
+  [1m[36mTRANSACTION (5.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.8ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Bronze 2"], ["level_number", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Bronze 2"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 2], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bronze 2"], ["level_number", 2], ["description", "Bronze 2 difficulty level"], ["created_at", "2025-07-28 02:47:53.621001"], ["updated_at", "2025-07-28 02:47:53.621001"]]
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Bronze 3"], ["level_number", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (3.9ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Bronze 3"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 3], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bronze 3"], ["level_number", 3], ["description", "Bronze 3 difficulty level"], ["created_at", "2025-07-28 02:47:53.642285"], ["updated_at", "2025-07-28 02:47:53.642285"]]
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Bronze 4"], ["level_number", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Bronze 4"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 4], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.6ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bronze 4"], ["level_number", 4], ["description", "Bronze 4 difficulty level"], ["created_at", "2025-07-28 02:47:53.660373"], ["updated_at", "2025-07-28 02:47:53.660373"]]
+  [1m[36mTRANSACTION (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Silver 1"], ["level_number", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.3ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Silver 1"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 5], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.7ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Silver 1"], ["level_number", 5], ["description", "Silver 1 difficulty level"], ["created_at", "2025-07-28 02:47:53.676060"], ["updated_at", "2025-07-28 02:47:53.676060"]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.4ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Silver 2"], ["level_number", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.4ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Silver 2"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 6], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Silver 2"], ["level_number", 6], ["description", "Silver 2 difficulty level"], ["created_at", "2025-07-28 02:47:53.692844"], ["updated_at", "2025-07-28 02:47:53.692844"]]
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Silver 3"], ["level_number", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.9ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Silver 3"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 7], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Silver 3"], ["level_number", 7], ["description", "Silver 3 difficulty level"], ["created_at", "2025-07-28 02:47:53.710710"], ["updated_at", "2025-07-28 02:47:53.710710"]]
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Silver 4"], ["level_number", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Silver 4"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 8], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.5ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Silver 4"], ["level_number", 8], ["description", "Silver 4 difficulty level"], ["created_at", "2025-07-28 02:47:53.727549"], ["updated_at", "2025-07-28 02:47:53.727549"]]
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Gold 1"], ["level_number", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Gold 1"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 9], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.8ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Gold 1"], ["level_number", 9], ["description", "Gold 1 difficulty level"], ["created_at", "2025-07-28 02:47:53.743509"], ["updated_at", "2025-07-28 02:47:53.743509"]]
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.6ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Gold 2"], ["level_number", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Gold 2"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 10], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.9ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Gold 2"], ["level_number", 10], ["description", "Gold 2 difficulty level"], ["created_at", "2025-07-28 02:47:53.763070"], ["updated_at", "2025-07-28 02:47:53.763070"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Gold 3"], ["level_number", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Gold 3"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 11], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.9ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Gold 3"], ["level_number", 11], ["description", "Gold 3 difficulty level"], ["created_at", "2025-07-28 02:47:53.783103"], ["updated_at", "2025-07-28 02:47:53.783103"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceLevel Load (0.5ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 AND "dance_levels"."level_number" = $2 LIMIT $3[0m  [["name", "Gold 4"], ["level_number", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDanceLevel Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Gold 4"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_levels" WHERE "dance_levels"."level_number" = $1 LIMIT $2[0m  [["level_number", 12], ["LIMIT", 1]]
+  [1m[36mDanceLevel Create (0.7ms)[0m  [1m[32mINSERT INTO "dance_levels" ("name", "level_number", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Gold 4"], ["level_number", 12], ["description", "Gold 4 difficulty level"], ["created_at", "2025-07-28 02:47:53.801742"], ["updated_at", "2025-07-28 02:47:53.801742"]]
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLocation Load (0.7ms)[0m  [1m[34mSELECT "locations".* FROM "locations" WHERE "locations"."name" = $1 LIMIT $2[0m  [["name", "Main Studio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "locations" WHERE "locations"."name" = $1 LIMIT $2[0m  [["name", "Main Studio"], ["LIMIT", 1]]
+  [1m[36mLocation Create (1.6ms)[0m  [1m[32mINSERT INTO "locations" ("name", "address", "phone", "capacity", "operating_hours", "active", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Main Studio"], ["address", "123 Dance Street, Dance City, DC 12345"], ["phone", "(555) 123-DANCE"], ["capacity", 20], ["operating_hours", "Monday-Friday: 10am-5pm, Saturday: 9am-6pm, Sunday: Closed"], ["active", true], ["created_at", "2025-07-28 02:47:53.836435"], ["updated_at", "2025-07-28 02:47:53.836435"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Admin"], ["last_name", "User"], ["phone", "(555) 123-4567"], ["role", "admin"], ["membership_type", "none"], ["membership_discount", "0.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:54.233066"], ["created_at", "2025-07-28 02:47:54.238742"], ["updated_at", "2025-07-28 02:47:54.238742"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (10.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Maria"], ["last_name", "Rodriguez"], ["phone", "(555) 234-5678"], ["role", "instructor"], ["membership_type", "none"], ["membership_discount", "0.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:54.611670"], ["created_at", "2025-07-28 02:47:54.618108"], ["updated_at", "2025-07-28 02:47:54.618108"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (15.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "James"], ["last_name", "Thompson"], ["phone", "(555) 345-6789"], ["role", "instructor"], ["membership_type", "none"], ["membership_discount", "0.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:54.970622"], ["created_at", "2025-07-28 02:47:54.978315"], ["updated_at", "2025-07-28 02:47:54.978315"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (15.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Student1"], ["last_name", "Example"], ["phone", "(555) 100200-300400"], ["role", "student"], ["membership_type", "monthly"], ["membership_discount", "5.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:55.374916"], ["created_at", "2025-07-28 02:47:55.381563"], ["updated_at", "2025-07-28 02:47:55.381563"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Student2"], ["last_name", "Example"], ["phone", "(555) 101201-301401"], ["role", "student"], ["membership_type", "none"], ["membership_discount", "0.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:55.737130"], ["created_at", "2025-07-28 02:47:55.744017"], ["updated_at", "2025-07-28 02:47:55.744017"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Student3"], ["last_name", "Example"], ["phone", "(555) 102202-302402"], ["role", "student"], ["membership_type", "monthly"], ["membership_discount", "5.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:56.096956"], ["created_at", "2025-07-28 02:47:56.103304"], ["updated_at", "2025-07-28 02:47:56.103304"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (14.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Student4"], ["last_name", "Example"], ["phone", "(555) 103203-303403"], ["role", "student"], ["membership_type", "none"], ["membership_discount", "0.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:56.451174"], ["created_at", "2025-07-28 02:47:56.457194"], ["updated_at", "2025-07-28 02:47:56.457194"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (14.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "phone", "role", "membership_type", "membership_discount", "waiver_signed", "waiver_signed_at", "created_at", "updated_at", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Student5"], ["last_name", "Example"], ["phone", "(555) 104204-304404"], ["role", "student"], ["membership_type", "monthly"], ["membership_discount", "5.0"], ["waiver_signed", true], ["waiver_signed_at", "2025-07-28 02:47:56.818944"], ["created_at", "2025-07-28 02:47:56.826005"], ["updated_at", "2025-07-28 02:47:56.826005"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (15.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Load (0.7ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles" WHERE "dance_styles"."name" = $1 LIMIT $2[0m  [["name", "Waltz"], ["LIMIT", 1]]
+  [1m[36mDanceLevel Load (0.7ms)[0m  [1m[34mSELECT "dance_levels".* FROM "dance_levels" WHERE "dance_levels"."name" = $1 LIMIT $2[0m  [["name", "Bronze 1"], ["LIMIT", 1]]
+  [1m[36mFigure Load (1.1ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "1"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFigure Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "1"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mFigure Create (2.2ms)[0m  [1m[32mINSERT INTO "figures" ("figure_number", "name", "dance_style_id", "dance_level_id", "measures", "components", "is_core", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["figure_number", "1"], ["name", "Box Step"], ["dance_style_id", 1], ["dance_level_id", 1], ["measures", 2], ["components", "Forward, Side, Together, Back, Side, Together"], ["is_core", true], ["created_at", "2025-07-28 02:47:56.901240"], ["updated_at", "2025-07-28 02:47:56.901240"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mFigure Load (0.7ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "2"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFigure Exists? (3.6ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "2"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mFigure Create (1.1ms)[0m  [1m[32mINSERT INTO "figures" ("figure_number", "name", "dance_style_id", "dance_level_id", "measures", "components", "is_core", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["figure_number", "2"], ["name", "Progressive Basic"], ["dance_style_id", 1], ["dance_level_id", 1], ["measures", 2], ["components", "Forward, Side, Together, Forward, Side, Together"], ["is_core", true], ["created_at", "2025-07-28 02:47:56.920956"], ["updated_at", "2025-07-28 02:47:56.920956"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mFigure Load (0.9ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "3"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFigure Exists? (4.5ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "3"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mFigure Create (0.9ms)[0m  [1m[32mINSERT INTO "figures" ("figure_number", "name", "dance_style_id", "dance_level_id", "measures", "components", "is_core", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["figure_number", "3"], ["name", "Left Turn"], ["dance_style_id", 1], ["dance_level_id", 1], ["measures", 2], ["components", "Forward, Side, Together, Turn, Side, Together"], ["is_core", true], ["created_at", "2025-07-28 02:47:56.947415"], ["updated_at", "2025-07-28 02:47:56.947415"]]
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mFigure Load (0.9ms)[0m  [1m[34mSELECT "figures".* FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "1a"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFigure Exists? (3.3ms)[0m  [1m[34mSELECT 1 AS one FROM "figures" WHERE "figures"."figure_number" = $1 AND "figures"."dance_style_id" = $2 AND "figures"."dance_level_id" = $3 LIMIT $4[0m  [["figure_number", "1a"], ["dance_style_id", 1], ["dance_level_id", 1], ["LIMIT", 1]]
+  [1m[36mFigure Create (1.1ms)[0m  [1m[32mINSERT INTO "figures" ("figure_number", "name", "dance_style_id", "dance_level_id", "measures", "components", "is_core", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["figure_number", "1a"], ["name", "Box Step with Underarm Turn"], ["dance_style_id", 1], ["dance_level_id", 1], ["measures", 2], ["components", "Box Step, Lead Underarm Turn"], ["is_core", false], ["created_at", "2025-07-28 02:47:56.967673"], ["updated_at", "2025-07-28 02:47:56.967673"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDanceStyle Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_styles"[0m
+  [1m[36mDanceLevel Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_levels"[0m
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  [1m[36mLocation Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "locations"[0m
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "admin"]]
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  [1m[36mUser Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+Started GET "/" for ::1 at 2025-07-27 19:48:12 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+Completed 401 Unauthorized in 32ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2025-07-27 19:48:13 -0700
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 68.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 75.6ms | GC: 0.0ms)
+Completed 200 OK in 137ms (Views: 89.0ms | ActiveRecord: 20.9ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-07-27 19:48:20 -0700
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Completed 303 See Other in 382ms (ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-07-27 19:48:20 -0700
+Processing by DashboardController#index as TURBO_STREAM
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "student"]]
+  ↳ app/views/dashboard/index.html.erb:29
+  [1m[36mUser Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."role" = $1[0m  [["role", "instructor"]]
+  ↳ app/views/dashboard/index.html.erb:41
+  [1m[36mDanceClass Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:53
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:65
+  [1m[36mDanceClass Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "dance_classes" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.erb:112
+  [1m[36mDanceStyle Load (0.9ms)[0m  [1m[34mSELECT "dance_styles".* FROM "dance_styles"[0m
+  ↳ app/views/dashboard/index.html.erb:166:in `group_by'
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 1]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 2]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 3]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 4]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 5]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 6]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 7]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 8]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 9]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 10]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mFigure Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures" WHERE "figures"."dance_style_id" = $1[0m  [["dance_style_id", 11]]
+  ↳ app/views/dashboard/index.html.erb:178
+  [1m[36mCACHE DanceClass Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "dance_classes"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  [1m[36mCACHE Figure Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "figures"[0m
+  ↳ app/views/dashboard/index.html.erb:194
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 101.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 104.3ms | GC: 0.0ms)
+Completed 200 OK in 119ms (Views: 85.5ms | ActiveRecord: 21.8ms (20 queries, 2 cached) | GC: 0.0ms)
+
+

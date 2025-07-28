@@ -1,11 +1,18 @@
 class StudentProgressController < ApplicationController
   before_action :set_student_progress, only: [:show, :update, :mark_progress]
-  before_action :ensure_current_user
 
   def index
     @student_progresses = current_user.student_progresses.includes(:figure, :instructor)
                                      .joins(figure: [:dance_style, :dance_level])
                                      .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
+    
+    # If no progress exists, create some sample progress for demonstration
+    if @student_progresses.empty? && Figure.exists?
+      create_sample_progress_for_user(current_user)
+      @student_progresses = current_user.student_progresses.includes(:figure, :instructor)
+                                       .joins(figure: [:dance_style, :dance_level])
+                                       .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
+    end
     
     # Group by dance style for better organization
     @progresses_by_style = @student_progresses.group_by { |sp| sp.figure.dance_style }
@@ -85,13 +92,45 @@ class StudentProgressController < ApplicationController
     params.require(:student_progress).permit(:movement_passed, :timing_passed, :partnering_passed, :notes)
   end
 
-  def ensure_current_user
-    # Simple current_user simulation - in a real app this would be handled by Devise or similar
-    @current_user ||= User.students.first # For demo purposes
+  private
+
+  def set_student_progress
+    @student_progress = current_user.student_progresses.find(params[:id])
   end
 
-  def current_user
-    @current_user
+  def student_progress_params
+    params.require(:student_progress).permit(:movement_passed, :timing_passed, :partnering_passed, :notes)
   end
-  helper_method :current_user
+
+  def create_sample_progress_for_user(user)
+    # Ensure we have an instructor
+    instructor = User.instructors.first
+    
+    if instructor.nil?
+      # Create a demo instructor if none exists
+      instructor = User.create!(
+        first_name: "Demo",
+        last_name: "Instructor",
+        email: "demo.instructor@example.com",
+        password: "password123",
+        password_confirmation: "password123",
+        role: "instructor",
+        membership_type: "none",
+        waiver_signed: true,
+        waiver_signed_at: Time.current
+      )
+    end
+    
+    # Create sample progress for the first few figures if they exist
+    Figure.limit(5).each do |figure|
+      user.student_progresses.create!(
+        figure: figure,
+        instructor: instructor,
+        movement_passed: [true, false].sample,
+        timing_passed: [true, false].sample,
+        partnering_passed: [true, false].sample,
+        notes: "Sample progress notes for #{figure.name}"
+      )
+    end
+  end
 end

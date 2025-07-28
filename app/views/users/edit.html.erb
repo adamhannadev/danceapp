@@ -113,39 +113,6 @@
               </div>
             </div>
 
-            <!-- Password Change (Optional) -->
-            <div class="row mb-4">
-              <div class="col-12">
-                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
-                  <i class="fas fa-key me-2"></i>Change Password (Optional)
-                </h6>
-                <p class="text-muted small mb-3">Leave blank to keep current password</p>
-              </div>
-              
-              <div class="col-md-6 mb-3">
-                <%= form.label :password, "New Password", class: "form-label fw-medium" %>
-                <%= form.password_field :password, 
-                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}" %>
-                <% if @user.errors[:password].any? %>
-                  <div class="invalid-feedback">
-                    <%= @user.errors[:password].first %>
-                  </div>
-                <% end %>
-                <div class="form-text">Minimum 6 characters if changing</div>
-              </div>
-              
-              <div class="col-md-6 mb-3">
-                <%= form.label :password_confirmation, "Confirm New Password", class: "form-label fw-medium" %>
-                <%= form.password_field :password_confirmation, 
-                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}" %>
-                <% if @user.errors[:password_confirmation].any? %>
-                  <div class="invalid-feedback">
-                    <%= @user.errors[:password_confirmation].first %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-
             <!-- Role and Permissions -->
             <div class="row mb-4">
               <div class="col-12">

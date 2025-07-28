@@ -1,2 +1,283 @@
-<h1>Figures#show</h1>
-<p>Find me in app/views/figures/show.html.erb</p>
+<% content_for :title, @figure.name %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Figures", figures_path %></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= @figure.name %></li>
+        </ol>
+      </nav>
+      
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h3 mb-1">
+            <span class="badge bg-secondary me-2"><%= @figure.figure_number %></span>
+            <%= @figure.name %>
+          </h1>
+          <p class="text-muted mb-0"><%= @figure.full_description %></p>
+        </div>
+        
+        <div>
+          <%= link_to edit_figure_path(@figure), class: "btn btn-warning me-2" do %>
+            <i class="fas fa-edit me-2"></i>Edit Figure
+          <% end %>
+          <%= link_to figures_path, class: "btn btn-outline-secondary" do %>
+            <i class="fas fa-arrow-left me-2"></i>Back to Figures
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Figure Details -->
+    <div class="col-lg-8">
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-info-circle me-2"></i>Figure Details
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <h6 class="text-muted mb-1">Figure Number</h6>
+              <p class="mb-0"><span class="badge bg-secondary fs-6"><%= @figure.figure_number %></span></p>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <h6 class="text-muted mb-1">Dance Style</h6>
+              <p class="mb-0">
+                <span class="badge bg-<%= dance_style_category_class(@figure.dance_style.category) %> fs-6">
+                  <%= @figure.dance_style.name %>
+                </span>
+              </p>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <h6 class="text-muted mb-1">Dance Level</h6>
+              <p class="mb-0">
+                <span class="badge bg-<%= dance_level_badge_class(@figure.dance_level.name) %> fs-6">
+                  <%= @figure.dance_level.name %>
+                </span>
+              </p>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <h6 class="text-muted mb-1">Measures</h6>
+              <p class="mb-0"><%= @figure.measures %> measures</p>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <h6 class="text-muted mb-1">Figure Type</h6>
+              <p class="mb-0">
+                <% if @figure.is_core? %>
+                  <span class="badge bg-success fs-6">
+                    <i class="fas fa-star me-1"></i>Core Figure
+                  </span>
+                <% else %>
+                  <span class="badge bg-info fs-6">
+                    <i class="fas fa-magic me-1"></i>Variation
+                  </span>
+                <% end %>
+              </p>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <h6 class="text-muted mb-1">Students Learning</h6>
+              <p class="mb-0">
+                <% progress_count = @figure.student_progresses.count %>
+                <% if progress_count > 0 %>
+                  <span class="badge bg-primary fs-6"><%= progress_count %> students</span>
+                <% else %>
+                  <span class="text-muted">No students currently learning</span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+          
+          <% if @figure.components.present? %>
+            <div class="mt-4">
+              <h6 class="text-muted mb-2">Components</h6>
+              <div class="bg-light p-3 rounded">
+                <% if @figure.components_list %>
+                  <ul class="mb-0">
+                    <% @figure.components_list.each do |component| %>
+                      <li><%= component %></li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <p class="mb-0"><%= @figure.components %></p>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Student Progress -->
+      <% if @student_progresses.any? %>
+        <div class="card card-ballroom">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-chart-line me-2"></i>Student Progress
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Started</th>
+                    <th>Progress</th>
+                    <th>Last Update</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @student_progresses.each do |progress| %>
+                    <tr>
+                      <td>
+                        <%= link_to progress.user.full_name, 
+                            user_path(progress.user), 
+                            class: "text-decoration-none" %>
+                      </td>
+                      <td><%= progress.created_at.strftime("%b %d, %Y") %></td>
+                      <td>
+                        <div class="progress" style="height: 20px;">
+                          <div class="progress-bar bg-success" 
+                               role="progressbar" 
+                               style="width: <%= progress.completion_percentage %>%"
+                               aria-valuenow="<%= progress.completion_percentage %>" 
+                               aria-valuemin="0" 
+                               aria-valuemax="100">
+                            <%= progress.completion_percentage %>%
+                          </div>
+                        </div>
+                      </td>
+                      <td><%= time_ago_in_words(progress.updated_at) %> ago</td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="text-center mt-3">
+              <%= link_to "View All Progress", 
+                  student_progress_index_path(figure_id: @figure.id), 
+                  class: "btn btn-outline-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Quick Actions -->
+      <div class="card card-ballroom mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-cogs me-2"></i>Quick Actions
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <%= link_to edit_figure_path(@figure), class: "btn btn-outline-warning btn-sm" do %>
+              <i class="fas fa-edit me-2"></i>Edit Figure
+            <% end %>
+            
+            <%= link_to student_progress_index_path(figure_id: @figure.id), 
+                class: "btn btn-outline-success btn-sm" do %>
+              <i class="fas fa-chart-line me-2"></i>View Progress
+            <% end %>
+            
+            <%= link_to figures_path(dance_style_id: @figure.dance_style_id), 
+                class: "btn btn-outline-info btn-sm" do %>
+              <i class="fas fa-list me-2"></i>View Style Figures
+            <% end %>
+            
+            <%= link_to figures_path(dance_level_id: @figure.dance_level_id), 
+                class: "btn btn-outline-primary btn-sm" do %>
+              <i class="fas fa-layer-group me-2"></i>View Level Figures
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Figures -->
+      <div class="card card-ballroom">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-link me-2"></i>Related Figures
+          </h6>
+        </div>
+        <div class="card-body">
+          <% related_figures = Figure.where(dance_style: @figure.dance_style, dance_level: @figure.dance_level)
+                                     .where.not(id: @figure.id)
+                                     .by_number.limit(5) %>
+          
+          <% if related_figures.any? %>
+            <div class="list-group list-group-flush">
+              <% related_figures.each do |related_figure| %>
+                <div class="list-group-item list-group-item-action p-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <small class="badge bg-secondary me-2"><%= related_figure.figure_number %></small>
+                      <%= link_to related_figure.name, 
+                          figure_path(related_figure), 
+                          class: "text-decoration-none small" %>
+                    </div>
+                    <% if related_figure.is_core? %>
+                      <i class="fas fa-star text-warning small"></i>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="text-center mt-3">
+              <%= link_to "View All in #{@figure.dance_style.name}", 
+                  figures_path(dance_style_id: @figure.dance_style_id), 
+                  class: "btn btn-outline-secondary btn-sm" %>
+            </div>
+          <% else %>
+            <p class="text-muted mb-0">No related figures found.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress {
+  background-color: #e9ecef;
+}
+
+.fs-6 {
+  font-size: 0.875rem;
+}
+
+.list-group-item {
+  border-left: none;
+  border-right: none;
+}
+
+.list-group-item:first-child {
+  border-top: none;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+</style>

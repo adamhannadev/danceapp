@@ -1,0 +1,90 @@
+<% content_for :title, "Sign In to Dance Studio" %>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-5">
+      <div class="card card-ballroom mt-5">
+        <div class="card-header text-center">
+          <div class="d-flex justify-content-center align-items-center mb-3">
+            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                 style="width: 60px; height: 60px;">
+              <i class="fas fa-sign-in-alt text-white fs-4"></i>
+            </div>
+            <div>
+              <h2 class="h4 mb-1">Welcome Back</h2>
+              <p class="text-muted mb-0">Sign in to continue your dance journey</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),
+                              html: { class: "needs-validation", novalidate: true }) do |f| %>
+            <div class="form-inputs">
+              <div class="mb-3">
+                <%= f.input :email,
+                            required: false,
+                            autofocus: true,
+                            input_html: { autocomplete: "email", class: "form-control", placeholder: "your@email.com" },
+                            label_html: { class: "form-label fw-medium" } %>
+              </div>
+              
+              <div class="mb-3">
+                <%= f.input :password,
+                            required: false,
+                            input_html: { autocomplete: "current-password", class: "form-control", placeholder: "Enter your password" },
+                            label_html: { class: "form-label fw-medium" } %>
+              </div>
+              
+              <% if devise_mapping.rememberable? %>
+                <div class="mb-3">
+                  <div class="form-check">
+                    <%= f.input :remember_me, 
+                                as: :boolean,
+                                input_html: { class: "form-check-input" },
+                                label_html: { class: "form-check-label" },
+                                label: "Remember me on this device" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit, "Sign In", 
+                          class: "btn btn-primary w-100 mb-3",
+                          data: { disable_with: "Signing In..." } %>
+            </div>
+          <% end %>
+
+          <div class="text-center">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Demo Login Helper -->
+      <div class="card card-ballroom mt-3">
+        <div class="card-body text-center">
+          <h6 class="text-muted mb-2">
+            <i class="fas fa-info-circle me-2"></i>Demo Access
+          </h6>
+          <p class="small text-muted mb-3">
+            For testing purposes, you can create a new account or use the registration form.
+          </p>
+          <%= link_to "Create New Account", new_user_registration_path, class: "btn btn-outline-primary btn-sm" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+</style>
