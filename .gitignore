@@ -13,8 +13,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
-/tmp/*
 !/log/.keep
+/tmp/*
 !/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
@@ -47,8 +47,9 @@ yarn-debug.log*
 # Ignore byebug command history file.
 .byebug_history
 
-# Ignore node_modules
+# Ignore node_modules EVERYWHERE (critical!)
 node_modules/
+**/node_modules/
 
 # Ignore yarn files
 .yarn-cache/
@@ -56,6 +57,7 @@ node_modules/
 
 # Ignore npm files
 npm-debug.log*
+package-lock.json
 
 # Ignore Mac files
 .DS_Store
@@ -94,6 +96,7 @@ Thumbs.db
 
 # Ignore bootsnap cache
 /tmp/bootsnap*
+/tmp/cache/
 
 # Ignore cache files
 /tmp/cache/*
@@ -176,5 +179,17 @@ __pycache__/
 # Ignore Webpack files
 /public/packs
 /public/packs-test
-/node_modules
 yarn-error.log
+
+# Critical Security Files
+config/master.key
+.env*
+
+# All log files
+*.log
+/log/
+log/
+
+# All temporary files
+/tmp/
+tmp/
