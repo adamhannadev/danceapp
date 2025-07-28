@@ -121,21 +121,40 @@ instructor2 = User.find_or_create_by!(email: "tyna@danceapp.com") do |user|
   user.waiver_signed_at = Time.current
 end
 
-# Create Sample Students
-puts "Creating Sample Students..."
-5.times do |i|
-  User.find_or_create_by!(email: "student#{i+1}@example.com") do |user|
-    user.password = "password123"
-    user.password_confirmation = "password123"
-    user.first_name = "Student#{i+1}"
-    user.last_name = "Example"
-    user.phone = "(555) #{100+i}#{200+i}-#{300+i}#{400+i}"
-    user.role = "student"
-    user.membership_type = i.even? ? "monthly" : "none"
-    user.membership_discount = i.even? ? 5.0 : 0
-    user.waiver_signed = true
-    user.waiver_signed_at = Time.current
+# Create Students from CSV Data
+puts "Creating Students from CSV data..."
+require 'csv'
+
+student_csv_file_path = Rails.root.join('db', 'data', 'student_list.csv')
+
+if File.exist?(student_csv_file_path)
+  CSV.foreach(student_csv_file_path, headers: true) do |row|
+    # Skip rows with missing essential data
+    next if row['email'].blank? || row['first_name'].blank? || row['last_name'].blank?
+    
+    # Clean up the email and name fields
+    email = row['email'].strip.downcase
+    first_name = row['first_name'].strip
+    last_name = row['last_name'].strip
+    phone = row['phone'].present? ? row['phone'].strip : nil
+    
+    # Create the student user
+    User.find_or_create_by!(email: email) do |user|
+      user.password = "password123"
+      user.password_confirmation = "password123"
+      user.first_name = first_name
+      user.last_name = last_name
+      user.phone = phone
+      user.role = "student"
+      user.membership_type = "none"
+      user.membership_discount = 0
+      user.waiver_signed = false
+      user.waiver_signed_at = nil
+    end
   end
+  puts "✅ Students loaded from CSV successfully!"
+else
+  puts "⚠️  Student CSV file not found at #{student_csv_file_path}, skipping student creation..."
 end
 
 # Create Figures from CSV Data
@@ -169,8 +188,8 @@ if File.exist?(csv_file_path)
     end
   end
   puts "✅ Figures loaded from CSV successfully!"
-else
-  puts "⚠️  CSV file not found at #{csv_file_path}, creating sample figures instead..."
+# else
+#   puts "⚠️  CSV file not found at #{csv_file_path}, creating sample figures instead..."
   
 #   # Fallback to sample figures if CSV doesn't exist
 #   waltz = DanceStyle.find_by(name: 'Waltz')
@@ -197,7 +216,7 @@ else
 #       end
 #     end
 #   end
-# end
+end
 
 puts "✅ Seeding completed successfully!"
 puts ""
@@ -215,4 +234,4 @@ puts "🔑 Login Credentials:"
 puts "Admin: admin@danceapp.com / password123"
 puts "Instructor 1: adam@danceapp.com / password123"
 puts "Instructor 2: tyna@danceapp.com / password123"
-puts "Students: student1@example.com through student5@example.com / password123"
+puts "Students: All students from CSV with password123 (waiver not signed)"
