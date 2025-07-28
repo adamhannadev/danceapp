@@ -1,0 +1,24 @@
+{
+  "figures": [
+    {
+      "dance_style": "Waltz",
+      "dance_level": "Bronze 1",
+      "figure_number": "1",
+      "name": "Box Step",
+      "measures": 2,
+      "is_core": true,
+      "components": "Forward, Side, Together, Back, Side, Together",
+      "description": "Basic box step pattern"
+    },
+    {
+      "dance_style": "Waltz",
+      "dance_level": "Bronze 1",
+      "figure_number": "2",
+      "name": "Progressive Basic",
+      "measures": 2,
+      "is_core": true,
+      "components": "Forward, Side, Together, Forward, Side, Together",
+      "description": "Moving box step"
+    }
+  ]
+}

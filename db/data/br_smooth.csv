@@ -1,0 +1,95 @@
+﻿dance_style,dance_level,figure_number,name,measures,components
+Waltz,Bronze 1,1,Box Step,2,Box Step Forward and Back
+Waltz,Bronze 1,1a,Left Turning Box,4,Left Box Turn x 4
+Waltz,Bronze 1,1b,Right Turning Box,4,"LF Forward Change, Right Turning Box x 3"
+Waltz,Bronze 1,2,Side Hesitations,4,"Side Hesitations, Side Balance Steps"
+Waltz,Bronze 1,2a,Forward and Back Hesitations,4,Forward and Back Hesitations x 2
+Waltz,Bronze 1,2b,Promenade and Counter Promenade Breaks,4,Promenade and Counter Promenade Breaks
+Waltz,Bronze 1,2c,Open Break and Underarm Turn,4,"Forward Change, Open Break and UATR, RF Hesitation"
+Waltz,Bronze 1,3,Slow Underarm Turn Right,4,Box with Slow Underarm Turn Right
+Waltz,Bronze 1,3a,Left Side Twinkle,4,"Left Box Turn to Left Side Twinkle, Left Turning Box x 2"
+Waltz,Bronze 1,3b,Left Side Forward Hesitations,8,"Slow Underarm Turn x 2, Left Side Forward Hesitations, Left Side Closed Twinkle, Left Turning Box x 3"
+Waltz,Bronze 2,4,Forward Change Steps,4,Forward Change Steps x 4
+Waltz,Bronze 2,4a,Right Outside Partner Twinkles,4,Right Outside Partner Twinkle and Closed Twinkle x 2
+Waltz,Bronze 2,4b,Back Change Steps,8,"Left Box Turn x 2, Back Change Steps x 2, Right Box Turn x 2, Underarm Turn Right and Hesitation"
+Waltz,Bronze 2,5,Right Side Twinkle,4,"Change Step x 1, Right Box Turn to Right Side Twinkle, Open Facing Twinkle"
+Waltz,Bronze 2,5a,Outside Underarm Switch Turn,8,"Change Step x 1, Right Box Turn to Right Side Twinkle, Outside Undearm Switch Turn,Open Facing Twinkle, Open Break with UATL"
+Waltz,Bronze 2,5b,Back Outside Partner Twinkle,8,"Change Step x 1, Right Box to Right Side Twinkle, Open Facing Twinkle, Left Box Turn x 1, Reverse Corte, Back Outside Partner Twinkle, RF Hesitation"
+Waltz,Bronze 2,6,Promenade Twinkle,2,Promenade Twinkle
+Waltz,Bronze 2,6a,Right and Left Side Twinkles,8,"Left Box Turn x 2, Turning Right and Left Side Twinkles, Promenade Twinkle (Leader Turn), Closed Finish, Balance and Box"
+Waltz,Bronze 2,6b,Forward Left Side Twinkles,6,"Promenade Twinkle, Promenade Crossbody Check to LSP, Forward Left Side Twinkles, Left Side to Promenade Twinkle Follower's Turn, Closed Finish"
+Waltz,Bronze 3,7,Reverse Turn,2,Reverse Turn
+Waltz,Bronze 3,7a,Cross Body Lead,4,"Forward Half of Reverse Turn, Cross Body Lead, Box Step x 2"
+Waltz,Bronze 3,7b,Half Grapevine Forward,4,"Half Grapevine Forward, Back Half of Reverse Turn with Underarm Turn Left, Reverse Turn"
+Waltz,Bronze 3,7c,Reverse Corte,4,"Reverse Turn x 1, Reverse Corte, Back Twinkle with Follower's Inside Underarm Turn, Closed Finish"
+Waltz,Bronze 3,8,Progressive Outside Partner Twinkles,4,Progressive Outside Partner Twinkles x 4 (Handshake)
+Waltz,Bronze 3,8a,Cross Lead and Twinkle,4,"Reverse Turn x 1, Cross Body Lead to OPL, Outside Partner Twinkle, Closed Finish with Follower's Underarm Turn Right"
+Waltz,Bronze 3,8b,Twinkle Connection from OPL,4,"Progressive Outside Partner Twinkles x 2, Twinkle Connection from OPL, Closed Finish"
+Waltz,Bronze 3,9,Natural Turn,2,Natural Turn
+Waltz,Bronze 3,9a,Natural Turn with Underarm Turn Right,4,"Forward Change Step, Natural Turn with Underarm Turn Right, Forward Change Step"
+Waltz,Bronze 3,9b,Open Break and Back Spot Turn,4,"Change Step, Open Break, Back Spot Turn, Balance Step to Right"
+Waltz,Bronze 4,10,Promenade to Counter Promenade Twinkle,4,"Promenade Twinkle to Counter Promenade Twinkles with Follower's Turn, Closed Finish"
+Waltz,Bronze 4,10a,Flip Flop,4,"Promenade Twinkle to Counter Promenade Twinkles with Leaders and Follower's Turn, Closed Finish"
+Waltz,Bronze 4,11,Pivot from PP,8,"Promenade Hesitation, Promenade Chasse, Pivot from Promenade to CP, Back Progressive Outside Partner Twinkles, Back Promenade Chasse, Closed Finish"
+Waltz,Bronze 4,11a,Waterfall,8,"Promenade Twinkle, Promenade Chasse, Cross Body Check to LSP, Waterfall, Promenade Chasse, Closed Finish"
+Tango,Bronze 1,1,Tango Basic,2,"2 Walks, Tango Close"
+Tango,Bronze 1,1a,Curving Basic,4,Curving Basic x 2
+Tango,Bronze 1,1b,Outside Partner Basic,4,"Tango Basic, Outside Partner Basic"
+Tango,Bronze 1,2,Corte,2,"Corte, Tango Close"
+Tango,Bronze 1,2a,Back Corte,2,"Corte, Back Tango Close, Turn to Promenade in Place"
+Tango,Bronze 1,2b,Rock Turn,4,"Walk, Rock Turn, Back Tango Close, Forward Tango Close"
+Tango,Bronze 1,3,Promenade Left Turn,2,"Promenade Left Turn, Tango Close"
+Tango,Bronze 1,3a,Promenade Right Turn,2,"Promenade Right Turn, Tango Close"
+Tango,Bronze 1,3b,Check to Left Side,4,"Promenade Left Turn, Check to Left Side, Left Side Walks, Left Side Tango Close"
+Tango,Bronze 1,3c,Left Side Underarm Turn,2,Left Side Curve Basic with Underarm Turn
+Tango,Bronze 2,4,Running Steps,4,"2 Walks, Progressive Side Step, 2 Walks, Progressive Side Step, Tango Close"
+Tango,Bronze 2,4a,Progressive Rocks,4,"2 Walks, LF Forward Rocks, RF Forward Rocks, Tango Close"
+Tango,Bronze 2,4b,Basic to Outside Partner Fans,4,"2 Walks, Outside Partner Fans, Tango Close from OPL, Tango Close"
+Tango,Bronze 2,4c,Progressive Side Step Reverse Turn,6,"2 Walks, Progressive Side Step Reverse Turn, LF Back Rock, RF Back Rock, Back Corte, Back Tango Close "
+Tango,Bronze 2,5,Left Side Promenade to Closed Fan,4,"Promenade Link, Check to LSP, Left Side Promenade to Closed Fan"
+Tango,Bronze 2,5a,Change of Places: Chasse with Turn,6,"Promenade Link, Check to LSP, Change of Places: Chasse with Turn (Leader or Follower), Left Side Promenade to Closed Fan: Leaders Turn"
+Tango,Bronze 2,5b,Promenade Turning Right to Left Side,4,"Promenade Turning Right to Left Side, Left Side Underarm Turn"
+Tango,Bronze 3,6,Reverse Turn,2,"Forward Half of Reverse Turn, Back Tango Close"
+Tango,Bronze 3,6a,Reverse to Back Outside Partner Fans,4,"Forward Half of Reverse Turn, Back Outside Partner Fans, Back Tango Close from OPL, 2 Walks"
+Tango,Bronze 3,6b,Rock with Switch Underarm Turn,6,"Forward Half of Reverse Turn, Rock with Switch Underarm Turn to Left Side, Slow Rock with Switch Underarm Turn Left, Promenade Fan and Link, Tango Close"
+Tango,Bronze 3,7,Turning Left Rock and Corte,4,"Turning Left Rock to Corte and Recover x 2, Tango Close"
+Tango,Bronze 3,7a,Open Reverse Follower In Line,2,"Open Reverse Follower In Line, Back Tango Close"
+Tango,Bronze 3,8,Cross Body to Left Side,4,"Cross Body Lead to Left Side, Left Side Fan to Underarm Turn, Tango Close from OPL"
+Tango,Bronze 3,8a,Shadow Walks,6,"Cross Body Lead to Left Side, Left Side Tango Close with Turn to Shadow, Shadow Walks, Roll Out to OFP, Brush Tap"
+Tango,Bronze 3,8b,Shadow Change of Places,4,"Check to Left Side, Change of Places to Shadow, Change of Places to Left Side, Tango Close"
+Tango,Bronze 4,9,Continuous Left Rock Turn,4,"2 Walks, Contra Rock and Wind Up, Continuous Left Rock Turn, Back Tango Close"
+Tango,Bronze 4,9a,Reverse to Back Promenade Fan,4,"Reverse to Outside Swivel, Contra Rock, Progressive Link"
+Tango,Bronze 4,10,Shadow Rocks,6,"Left Side Rock with Turn to Shadow, Shadow Rocks, Roll Out to OFP, Tango Close"
+Tango,Bronze 4,10a,Curving Locks,6,"Left Side Curve Basic with Underarm Turn to Shadow, Shadow  Curving Locks, Change Of Places to Left Side, Tango Close"
+Tango,Bronze 4,11,Natural Promeande Turn,4,"2 Walks, Progressive Link, Natural Promenade Turn, Promenade Link"
+Tango,Bronze 4,11a,Natural Twist Turn,4,"Natural Twist Turn, Closed Promenade, Progressive Link"
+Foxtrot,Bronze 1,1,Basic Step Forward,1.5,Basic Step Forward
+Foxtrot,Bronze 1,1a,Quarter Turn Inline,3.5,"Quarter Turn to Right, Quarter Turn to Left"
+Foxtrot,Bronze 1,1b,Quarter Turn Outside Partner,3.5,"Quarter Turn to Right Outside Partner, Quarter Turn to Left Outside Partner"
+Foxtrot,Bronze 1,2,Promenade,1.5,Promenade
+Foxtrot,Bronze 1,2a,Promenade Outside Turn,3.5,"Promenade, Promenade with Outside Turn"
+Foxtrot,Bronze 1,2b,Promenade Check,3.5,"Promenade Check to RSP, Left Side Quarter Turn"
+Foxtrot,Bronze 1,3,Rock Turn Left,1.5,Rock Turn Left
+Foxtrot,Bronze 1,3a,Rock Turn Right,3.5,"Basic Step, Right Rock Turn"
+Foxtrot,Bronze 1,3b,Left Box Turn,4,Left Box Turn x 4
+Foxtrot,Bronze 2,4,Sway Step,3.5,"Basic to Facing Wall, Sway Step"
+Foxtrot,Bronze 2,4a,Extended Sway Steps,4,"Extended Sway Step Left, Extended Sway Step Right"
+Foxtrot,Bronze 2,4b,Sway Step with Underarm Turn,3.5,"Sway Step with Underarm Turn, Promenade"
+Foxtrot,Bronze 2,5,Promenade Twinkle,1.5,Promenade Twinkle
+Foxtrot,Bronze 2,5a,Outside Partner Twinkle Right,4,"Outside Partner Twinkle Right, Closed Finish x 2"
+Foxtrot,Bronze 2,6,Left Side Single Steps,6,"Left Box to Left Side Twinkle, Left Side Single Steps x 4, Left Side to Open Facing Twinkle, Back Box Step"
+Foxtrot,Bronze 2,6a,Left and Right Side Twinkles,6,"Left Box to Left Side Twinkle, Left and Right Side Twinkles, Promenade Twinkle Leader's Turn, Closed Finish"
+Foxtrot,Bronze 2,6b,Left Side Forward Twinkles,6,"Back Right Box to Left Side Twinkle, Left Side Forward Twinkles, Promenade Twinkle Follower's Turn, Closed Finish"
+Foxtrot,Bronze 3,7,Grapevine,3.5,"2 Walks, Grapevine, Chasse"
+Foxtrot,Bronze 3,7a,Half Grapevine Forward,2,"Forward Half Grapevine, Closed Finish"
+Foxtrot,Bronze 3,7b,Extended Sway Step Left With Underarm Turn,6,"Extended Sway with Underarm Turn, Forward Left Side Twinkle, Promenade Twinkle, Promenade Chasse, Closed Finish"
+Foxtrot,Bronze 3,8,Back Outside Partner Rock,4,"Promenade to Outside Partner Twinkle, Back Outside Partner Rock, Chasse"
+Foxtrot,Bronze 3,8a,Progressive Outside Partner Twinkles,4,Progressive Outside Partner Twinkle x 4
+Foxtrot,Bronze 3,8b,Promenade Twinkle from OPL,4,"Progressive Outside Partner Twinkle x 2, Promenade Twinkle from OPL"
+Foxtrot,Bronze 3,9,Promenade Cross Body Check to Left Side,6,"Promenade Cross Body Check to Left Side, Change of Places: Chasse Pass and Turn, Open Facing Twinkle Follower's Turn, Forward Change Step"
+Foxtrot,Bronze 3,9a,Change of Places: Half Turn in Place,6,"Left Box Turn, Switch Underarm Turn, Half Turns in Place x 2s, Promenade Twinkle with Follower's Loop, Closed Finish"
+Foxtrot,Bronze 4,10,Back Outside Partner Rock with Underarm Turn,4,"Half Grapevine Forward, Back Twinkle to OPR, Back Rock Outside Partner with Underarm Turn, Chasse"
+Foxtrot,Bronze 4,10a,Follower's Loop,4,"Promenade Twinkle to Outside Partner Twinkle with Turn, Back Twinkle with Turn and Follower's Loop, Closed Finish "
+Foxtrot,Bronze 4,11,Pivot from Promenade,3,"Promenade Pivot, Promenade"
+Foxtrot,Bronze 4,11a,Promenade Cross Body Twist,4,"Promenade Cross Body Twist to OPL, Grapevine, Left Rock Turn from OPL"
+Foxtrot,Bronze 4,11b,Promenade Chasse,8,"Promenade Twinkle, Promenade Chasse, Turning Left Side Twinkle, Closed Finish, Extended Sway Step Right with Outside Turn, Promenade, Chasse"

@@ -95,11 +95,11 @@ end
 
 # Create Sample Instructors
 puts "Creating Sample Instructors..."
-instructor1 = User.find_or_create_by!(email: "instructor1@danceapp.com") do |user|
+instructor1 = User.find_or_create_by!(email: "adam@danceapp.com") do |user|
   user.password = "password123"
   user.password_confirmation = "password123"
-  user.first_name = "Maria"
-  user.last_name = "Rodriguez"
+  user.first_name = "Adam"
+  user.last_name = "Hanna"
   user.phone = "(555) 234-5678"
   user.role = "instructor"
   user.membership_type = "none"
@@ -108,11 +108,11 @@ instructor1 = User.find_or_create_by!(email: "instructor1@danceapp.com") do |use
   user.waiver_signed_at = Time.current
 end
 
-instructor2 = User.find_or_create_by!(email: "instructor2@danceapp.com") do |user|
+instructor2 = User.find_or_create_by!(email: "tyna@danceapp.com") do |user|
   user.password = "password123"
   user.password_confirmation = "password123"
-  user.first_name = "James"
-  user.last_name = "Thompson"
+  user.first_name = "Tyna"
+  user.last_name = "Kottova"
   user.phone = "(555) 345-6789"
   user.role = "instructor"
   user.membership_type = "none"
@@ -138,29 +138,63 @@ puts "Creating Sample Students..."
   end
 end
 
-# Create Sample Figures for Waltz Bronze 1
-puts "Creating Sample Figures..."
-waltz = DanceStyle.find_by(name: 'Waltz')
-bronze1 = DanceLevel.find_by(name: 'Bronze 1')
+# Create Figures from CSV Data
+puts "Creating Figures from CSV data..."
+require 'csv'
 
-if waltz && bronze1
-  sample_figures = [
-    { number: '1', name: 'Box Step', measures: 2, core: true, components: 'Forward, Side, Together, Back, Side, Together' },
-    { number: '2', name: 'Progressive Basic', measures: 2, core: true, components: 'Forward, Side, Together, Forward, Side, Together' },
-    { number: '3', name: 'Left Turn', measures: 2, core: true, components: 'Forward, Side, Together, Turn, Side, Together' },
-    { number: '1a', name: 'Box Step with Underarm Turn', measures: 2, core: false, components: 'Box Step, Lead Underarm Turn' }
-  ]
+csv_file_path = Rails.root.join('db', 'data', 'br_smooth.csv')
 
-  sample_figures.each do |fig|
-    Figure.find_or_create_by!(
-      figure_number: fig[:number],
-      dance_style: waltz,
-      dance_level: bronze1
-    ) do |figure|
-      figure.name = fig[:name]
-      figure.measures = fig[:measures]
-      figure.is_core = fig[:core]
-      figure.components = fig[:components]
+if File.exist?(csv_file_path)
+  CSV.foreach(csv_file_path, headers: true) do |row|
+    dance_style = DanceStyle.find_by(name: row['dance_style'])
+    dance_level = DanceLevel.find_by(name: row['dance_level'])
+    
+    if dance_style && dance_level
+      # Determine if figure is core based on figure_number
+      # Core figures have only numbers (1, 2, 3), non-core have letters (1a, 1b, 2a, etc.)
+      is_core = row['figure_number'].match?(/^\d+$/)
+      
+      Figure.find_or_create_by!(
+        figure_number: row['figure_number'],
+        dance_style: dance_style,
+        dance_level: dance_level
+      ) do |figure|
+        figure.name = row['name']
+        figure.measures = row['measures'].to_i
+        figure.is_core = is_core
+        figure.components = row['components']
+      end
+    else
+      puts "Warning: Could not find dance style '#{row['dance_style']}' or dance level '#{row['dance_level']}' for figure #{row['figure_number']}"
+    end
+  end
+  puts "✅ Figures loaded from CSV successfully!"
+else
+  puts "⚠️  CSV file not found at #{csv_file_path}, creating sample figures instead..."
+  
+  # Fallback to sample figures if CSV doesn't exist
+  waltz = DanceStyle.find_by(name: 'Waltz')
+  bronze1 = DanceLevel.find_by(name: 'Bronze 1')
+
+  if waltz && bronze1
+    sample_figures = [
+      { number: '1', name: 'Box Step', measures: 2, core: true, components: 'Forward, Side, Together, Back, Side, Together' },
+      { number: '2', name: 'Progressive Basic', measures: 2, core: true, components: 'Forward, Side, Together, Forward, Side, Together' },
+      { number: '3', name: 'Left Turn', measures: 2, core: true, components: 'Forward, Side, Together, Turn, Side, Together' },
+      { number: '1a', name: 'Box Step with Underarm Turn', measures: 2, core: false, components: 'Box Step, Lead Underarm Turn' }
+    ]
+
+    sample_figures.each do |fig|
+      Figure.find_or_create_by!(
+        figure_number: fig[:number],
+        dance_style: waltz,
+        dance_level: bronze1
+      ) do |figure|
+        figure.name = fig[:name]
+        figure.measures = fig[:measures]
+        figure.is_core = fig[:core]
+        figure.components = fig[:components]
+      end
     end
   end
 end
@@ -179,6 +213,6 @@ puts "  - Students: #{User.students.count}"
 puts ""
 puts "🔑 Login Credentials:"
 puts "Admin: admin@danceapp.com / password123"
-puts "Instructor 1: instructor1@danceapp.com / password123"
-puts "Instructor 2: instructor2@danceapp.com / password123"
+puts "Instructor 1: adam@danceapp.com / password123"
+puts "Instructor 2: tyna@danceapp.com / password123"
 puts "Students: student1@example.com through student5@example.com / password123"
