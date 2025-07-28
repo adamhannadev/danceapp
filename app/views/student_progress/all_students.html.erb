@@ -1,0 +1,232 @@
+<% content_for :title, "All Student Progress" %>
+
+<div class="container-fluid mt-4">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="text-primary mb-0">
+            <i class="fas fa-chart-line me-2"></i>
+            All Student Progress
+          </h2>
+          <p class="text-muted mb-0">Monitor and track progress across all students</p>
+        </div>
+        <div>
+          <%= link_to student_progress_index_path, class: "btn btn-outline-primary" do %>
+            <i class="fas fa-arrow-left me-2"></i>
+            Back to My Progress
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Overview -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-users fa-2x mb-2"></i>
+          <h4><%= @users_with_progress.count %></h4>
+          <p class="mb-0">Active Students</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-trophy fa-2x mb-2"></i>
+          <h4><%= @progress_stats.values.sum { |s| s[:completed] } %></h4>
+          <p class="mb-0">Total Completed</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-tasks fa-2x mb-2"></i>
+          <h4><%= @progress_stats.values.sum { |s| s[:total] } %></h4>
+          <p class="mb-0">Total Figures</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-percentage fa-2x mb-2"></i>
+          <h4>
+            <%= @progress_stats.values.any? ? 
+                (@progress_stats.values.sum { |s| s[:percentage] } / @progress_stats.count).round(1) : 0 %>%
+          </h4>
+          <p class="mb-0">Average Progress</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Progress Table -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">
+            <i class="fas fa-list me-2"></i>
+            Student Progress Overview
+          </h5>
+        </div>
+        <div class="card-body">
+          <% if @users_with_progress.any? %>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Progress</th>
+                    <th>Completed</th>
+                    <th>Total Figures</th>
+                    <th>Last Activity</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @users_with_progress.each do |user| %>
+                    <% stats = @progress_stats[user.id] %>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-circle bg-primary text-white me-3">
+                            <%= user.first_name[0].upcase %><%= user.last_name[0].upcase %>
+                          </div>
+                          <div>
+                            <strong><%= user.full_name %></strong>
+                            <br>
+                            <small class="text-muted">
+                              <i class="fas fa-star me-1"></i>
+                              <%= user.membership_type.humanize %>
+                            </small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <a href="mailto:<%= user.email %>" class="text-decoration-none">
+                          <%= user.email %>
+                        </a>
+                      </td>
+                      <td>
+                        <div class="progress" style="height: 25px;">
+                          <div class="progress-bar 
+                                      <%= stats[:percentage] >= 75 ? 'bg-success' : 
+                                          stats[:percentage] >= 50 ? 'bg-info' : 
+                                          stats[:percentage] >= 25 ? 'bg-warning' : 'bg-danger' %>" 
+                               role="progressbar" 
+                               style="width: <%= stats[:percentage] %>%"
+                               aria-valuenow="<%= stats[:percentage] %>"
+                               aria-valuemin="0"
+                               aria-valuemax="100">
+                            <%= stats[:percentage] %>%
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-success fs-6">
+                          <%= stats[:completed] %>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="badge bg-info fs-6">
+                          <%= stats[:total] %>
+                        </span>
+                      </td>
+                      <td>
+                        <% last_progress = user.student_progresses.where.not(updated_at: nil).order(updated_at: :desc).first %>
+                        <% if last_progress %>
+                          <small class="text-muted">
+                            <%= time_ago_in_words(last_progress.updated_at) %> ago
+                          </small>
+                        <% else %>
+                          <small class="text-muted">No activity</small>
+                        <% end %>
+                      </td>
+                      <td>
+                        <div class="btn-group btn-group-sm">
+                          <%= link_to user_student_progress_index_path(user), 
+                                      class: "btn btn-outline-primary btn-sm",
+                                      title: "View Progress" do %>
+                            <i class="fas fa-eye"></i>
+                          <% end %>
+                          
+                          <%= link_to progress_report_user_path(user), 
+                                      class: "btn btn-outline-info btn-sm",
+                                      title: "Progress Report" do %>
+                            <i class="fas fa-chart-bar"></i>
+                          <% end %>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <i class="fas fa-users fa-3x text-muted mb-3"></i>
+              <h4 class="text-muted">No Student Progress Found</h4>
+              <p class="text-muted">
+                No students have started tracking their progress yet.<br>
+                Students will appear here once they begin working on figures.
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.progress {
+  border-radius: 12px;
+}
+
+.progress-bar {
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+}
+
+.btn-group-sm .btn {
+  padding: 0.25rem 0.5rem;
+}
+</style>

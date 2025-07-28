@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :progress_report, :toggle_membership]
   before_action :check_authorization, only: [:edit, :update, :destroy]
+  before_action :check_admin_authorization, only: [:toggle_membership]
 
   def index
     @users = User.all.includes(:student_progresses, :bookings, :private_lessons_as_student)
@@ -31,8 +32,8 @@ class UsersController < ApplicationController
     @recent_progress = @user.student_progresses.includes(:figure)
                            .order(updated_at: :desc).limit(5) if @user.student?
     @upcoming_bookings = @user.bookings.includes(:class_schedule)
-                             .joins(:class_schedule).where('class_schedules.start_time > ?', Time.current)
-                             .order('class_schedules.start_time').limit(5) if @user.student?
+                             .joins(:class_schedule).where('class_schedules.start_datetime > ?', Time.current)
+                             .order('class_schedules.start_datetime').limit(5) if @user.student?
     @teaching_classes = @user.dance_classes.includes(:dance_style, :dance_level).limit(5) if @user.instructor?
   end
 
@@ -76,6 +77,52 @@ class UsersController < ApplicationController
     end
   end
 
+  def progress_report
+    # Generate a detailed progress report for the user
+    unless current_user.admin? || current_user.instructor? || current_user == @user
+      flash[:error] = "You are not authorized to view this progress report."
+      redirect_to root_path
+      return
+    end
+
+    @progress_data = @user.student_progresses.includes(figure: [:dance_style, :dance_level])
+                          .joins(figure: [:dance_style, :dance_level])
+                          .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
+    
+    @progress_by_style = @progress_data.group_by { |sp| sp.figure.dance_style }
+    
+    @overall_stats = {
+      total_figures: @progress_data.count,
+      completed_figures: @progress_data.completed.count,
+      in_progress: @progress_data.where.not(movement_passed: false, timing_passed: false, partnering_passed: false)
+                                .where(completed_at: nil).count
+    }
+    
+    @overall_stats[:completion_percentage] = @overall_stats[:total_figures] > 0 ? 
+      (@overall_stats[:completed_figures].to_f / @overall_stats[:total_figures] * 100).round(1) : 0
+  end
+
+  def toggle_membership
+    current_membership = @user.membership_type
+    
+    case current_membership
+    when 'none'
+      @user.update!(membership_type: 'monthly', membership_discount: 5.0)
+      flash[:success] = "#{@user.full_name} now has a monthly membership with 5% discount."
+    when 'monthly'
+      @user.update!(membership_type: 'unlimited', membership_discount: 15.0)
+      flash[:success] = "#{@user.full_name} upgraded to unlimited membership with 15% discount."
+    when 'unlimited'
+      @user.update!(membership_type: 'none', membership_discount: 0)
+      flash[:success] = "#{@user.full_name}'s membership has been cancelled."
+    else
+      @user.update!(membership_type: 'monthly', membership_discount: 5.0)
+      flash[:success] = "#{@user.full_name} now has a monthly membership."
+    end
+    
+    redirect_to @user
+  end
+
   private
 
   def set_user
@@ -84,6 +131,13 @@ class UsersController < ApplicationController
 
   def check_authorization
     unless current_user.admin? || current_user == @user
+      flash[:error] = "You are not authorized to perform this action."
+      redirect_to root_path
+    end
+  end
+
+  def check_admin_authorization
+    unless current_user.admin?
       flash[:error] = "You are not authorized to perform this action."
       redirect_to root_path
     end

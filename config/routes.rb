@@ -17,13 +17,6 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index"
 
   # User management
-  resources :users do
-    member do
-      patch :toggle_membership
-      get :progress_report
-    end
-  end
-
   # Figure management with import
   resources :figures do
     collection do
@@ -32,11 +25,29 @@ Rails.application.routes.draw do
     end
   end
 
+  # User management
+  resources :users do
+    member do
+      patch :toggle_membership
+      get :progress_report
+    end
+    # Nested student progress under users (for admin/instructor access)
+    resources :student_progress, only: [:index, :show, :update] do
+      member do
+        get :mark_progress
+        patch :mark_progress
+      end
+    end
+  end
+
   # Student progress tracking
   resources :student_progress, only: [:index, :show, :update] do
     member do
       get :mark_progress
       patch :mark_progress
+    end
+    collection do
+      get :all_students  # For admins/instructors to view all student progress
     end
   end
 

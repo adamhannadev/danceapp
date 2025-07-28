@@ -1,4 +1,4 @@
-<% content_for :title, "My Progress" %>
+<% content_for :title, params[:user_id].present? ? "#{@viewing_user.full_name}'s Progress" : "My Progress" %>
 
 <div class="container-fluid">
   <!-- Header Section -->
@@ -8,13 +8,47 @@
         <div>
           <h1 class="h3 mb-1">
             <i class="fas fa-chart-line me-2 text-primary"></i>
-            My Dance Progress
+            <% if params[:user_id].present? %>
+              <%= @viewing_user.full_name %>'s Dance Progress
+            <% else %>
+              My Dance Progress
+            <% end %>
           </h1>
-          <p class="text-muted mb-0">Track your learning journey across all dance styles and levels</p>
+          <p class="text-muted mb-0">
+            <% if params[:user_id].present? %>
+              Viewing progress for <%= @viewing_user.full_name %> (<%= @viewing_user.email %>)
+            <% else %>
+              Track your learning journey across all dance styles and levels
+            <% end %>
+          </p>
         </div>
         
-        <!-- Overall Progress Badge -->
+        <!-- Navigation for Admin/Instructor -->
         <div class="text-end">
+          <% if current_user.admin? || current_user.instructor? %>
+            <div class="btn-group me-3">
+              <%= link_to all_students_student_progress_index_path, 
+                          class: "btn btn-outline-secondary btn-sm" do %>
+                <i class="fas fa-users me-1"></i>
+                All Students
+              <% end %>
+              <% unless params[:user_id].present? %>
+                <%= link_to student_progress_index_path_for(current_user), 
+                            class: "btn btn-primary btn-sm" do %>
+                  <i class="fas fa-user me-1"></i>
+                  My Progress
+                <% end %>
+              <% else %>
+                <%= link_to student_progress_index_path_for(current_user), 
+                            class: "btn btn-outline-primary btn-sm" do %>
+                  <i class="fas fa-arrow-left me-1"></i>
+                  Back to My Progress
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+          
+          <!-- Overall Progress Badge -->
           <div class="card border-0 shadow-sm">
             <div class="card-body py-2 px-3">
               <div class="d-flex align-items-center">
@@ -99,7 +133,7 @@
             <div class="col-md-4">
               <div class="d-flex gap-2">
                 <%= form.submit "Apply Filters", class: "btn btn-primary" %>
-                <%= link_to "Clear", student_progress_index_path, class: "btn btn-outline-secondary" %>
+                <%= link_to "Clear", student_progress_index_path_for(@viewing_user), class: "btn btn-outline-secondary" %>
               </div>
             </div>
           <% end %>
@@ -133,7 +167,7 @@
               <div class="mb-3">
                 <div class="progress" style="height: 10px;">
                   <div class="progress-bar bg-success" role="progressbar" 
-                       style="width: <%= completion_percentage %>%" 
+                       style="width: <%= completion_percentage %>%"
                        aria-valuenow="<%= completion_percentage %>" 
                        aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
@@ -154,7 +188,7 @@
                             <div class="card-body">
                               <div class="d-flex justify-content-between align-items-start mb-2">
                                 <h6 class="card-title mb-0">
-                                  <%= link_to progress.figure.name, student_progress_path(progress), 
+                                  <%= link_to progress.figure.name, student_progress_path_for(progress, @viewing_user), 
                                       class: "text-decoration-none #{'text-success' if progress.completed?}" %>
                                 </h6>
                                 <% if progress.completed? %>
@@ -174,7 +208,7 @@
                                 </div>
                                 <div class="progress" style="height: 6px;">
                                   <div class="progress-bar bg-primary" role="progressbar" 
-                                       style="width: <%= progress.completion_percentage %>%" 
+                                       style="width: <%= progress.completion_percentage %>%"
                                        aria-valuenow="<%= progress.completion_percentage %>" 
                                        aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
@@ -194,7 +228,7 @@
                               </div>
                               
                               <div class="mt-3">
-                                <%= link_to "View Details", student_progress_path(progress), 
+                                <%= link_to "View Details", student_progress_path_for(progress, @viewing_user), 
                                     class: "btn btn-sm btn-outline-primary" %>
                               </div>
                             </div>
@@ -226,7 +260,7 @@
               <% end %>
             </p>
             <% if @selected_style || @selected_level %>
-              <%= link_to "Clear Filters", student_progress_index_path, class: "btn btn-primary" %>
+              <%= link_to "Clear Filters", student_progress_index_path_for(@viewing_user), class: "btn btn-primary" %>
             <% else %>
               <%= link_to "View All Figures", figures_path, class: "btn btn-primary" %>
             <% end %>

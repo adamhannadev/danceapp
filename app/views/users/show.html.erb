@@ -1,10 +1,4 @@
-<% con      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
-          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
-          <li class="breadcrumb-item active" aria-current="page"><%= @user.full_name %></li>
-        </ol>
-      </nav>r :title, @user.full_name %>
+<% content_for :title, @user.full_name %>
 
 <div class="container-fluid">
   <!-- Header Section -->
@@ -231,7 +225,7 @@
                         </p>
                         <small class="text-muted">
                           <i class="fas fa-clock me-1"></i>
-                          <%= booking.class_schedule.start_time.strftime("%B %d, %Y at %I:%M %p") %>
+                          <%= booking.class_schedule.start_datetime.strftime("%B %d, %Y at %I:%M %p") %>
                         </small>
                       </div>
                       <span class="badge bg-<%= booking_status_color(booking.status) %>">

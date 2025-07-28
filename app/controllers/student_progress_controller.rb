@@ -1,17 +1,30 @@
 class StudentProgressController < ApplicationController
+  before_action :set_user, only: [:index, :show, :update, :mark_progress]
   before_action :set_student_progress, only: [:show, :update, :mark_progress]
 
   def index
-    @student_progresses = current_user.student_progresses.includes(:figure, :instructor)
-                                     .joins(figure: [:dance_style, :dance_level])
-                                     .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
-    
-    # If no progress exists, create some sample progress for demonstration
-    if @student_progresses.empty? && Figure.exists?
-      create_sample_progress_for_user(current_user)
+    # Determine which user's progress to show
+    if params[:user_id].present?
+      # Admin/instructor viewing specific user's progress
+      authorize_instructor_access!
+      @viewing_user = User.find(params[:user_id])
+      @student_progresses = @viewing_user.student_progresses.includes(:figure, :instructor)
+                                         .joins(figure: [:dance_style, :dance_level])
+                                         .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
+    else
+      # User viewing their own progress
+      @viewing_user = current_user
       @student_progresses = current_user.student_progresses.includes(:figure, :instructor)
                                        .joins(figure: [:dance_style, :dance_level])
                                        .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
+    end
+    
+    # If no progress exists, create some sample progress for demonstration
+    if @student_progresses.empty? && Figure.exists?
+      create_sample_progress_for_user(@viewing_user)
+      @student_progresses = @viewing_user.student_progresses.includes(:figure, :instructor)
+                                         .joins(figure: [:dance_style, :dance_level])
+                                         .order('dance_styles.name, dance_levels.level_number, figures.figure_number')
     end
     
     # Group by dance style for better organization
@@ -34,6 +47,28 @@ class StudentProgressController < ApplicationController
     end
   end
 
+  def all_students
+    authorize_instructor_access!
+    
+    @users_with_progress = User.students
+                               .joins(:student_progresses)
+                               .includes(student_progresses: [{ figure: [:dance_style, :dance_level] }, :instructor])
+                               .distinct
+                               .order(:last_name, :first_name)
+    
+    # Calculate progress stats for each user
+    @progress_stats = {}
+    @users_with_progress.each do |user|
+      total = user.student_progresses.count
+      completed = user.student_progresses.completed.count
+      @progress_stats[user.id] = {
+        total: total,
+        completed: completed,
+        percentage: total > 0 ? (completed.to_f / total * 100).round(1) : 0
+      }
+    end
+  end
+
   def show
     @figure = @student_progress.figure
     @dance_style = @figure.dance_style
@@ -42,6 +77,8 @@ class StudentProgressController < ApplicationController
   end
 
   def update
+    authorize_edit_access!
+    
     # Handle mark_all parameter from JavaScript
     if params[:mark_all] == 'true'
       @student_progress.update!(
@@ -71,6 +108,8 @@ class StudentProgressController < ApplicationController
   end
 
   def mark_progress
+    authorize_edit_access!
+    
     # Handle GET request - show the mark progress form
     if request.get?
       @figure = @student_progress.figure
@@ -115,18 +154,34 @@ class StudentProgressController < ApplicationController
 
   private
 
-  def set_student_progress
-    @student_progress = current_user.student_progresses.find(params[:id])
+  def set_user
+    @user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
   end
 
-  def student_progress_params
-    params.require(:student_progress).permit(:movement_passed, :timing_passed, :partnering_passed, :notes)
+  def set_student_progress
+    if params[:user_id].present?
+      # Admin/instructor accessing specific user's progress
+      authorize_instructor_access!
+      @student_progress = @user.student_progresses.find(params[:id])
+    else
+      # User accessing their own progress
+      @student_progress = current_user.student_progresses.find(params[:id])
+    end
   end
 
-  private
+  def authorize_instructor_access!
+    unless current_user.admin? || current_user.instructor?
+      flash[:error] = "Access denied. You don't have permission to view this content."
+      redirect_to root_path
+    end
+  end
 
-  def set_student_progress
-    @student_progress = current_user.student_progresses.find(params[:id])
+  def authorize_edit_access!
+    # Allow user to edit their own progress, or admin/instructor to edit any progress
+    unless @student_progress.user == current_user || current_user.admin? || current_user.instructor?
+      flash[:error] = "Access denied. You don't have permission to edit this progress."
+      redirect_to student_progress_index_path
+    end
   end
 
   def student_progress_params

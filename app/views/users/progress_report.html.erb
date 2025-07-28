@@ -1,0 +1,265 @@
+<% content_for :title, "#{@user.full_name}'s Progress Report" %>
+
+<div class="container-fluid mt-4">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+          <li class="breadcrumb-item"><%= link_to @user.full_name, user_path(@user) %></li>
+          <li class="breadcrumb-item active" aria-current="page">Progress Report</li>
+        </ol>
+      </nav>
+      
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="text-primary mb-0">
+            <i class="fas fa-chart-bar me-2"></i>
+            Progress Report for <%= @user.full_name %>
+          </h2>
+          <p class="text-muted mb-0">Comprehensive learning progress and achievements</p>
+        </div>
+        
+        <div>
+          <%= link_to user_path(@user), class: "btn btn-outline-primary" do %>
+            <i class="fas fa-arrow-left me-2"></i>
+            Back to Profile
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overall Statistics -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-tasks fa-2x mb-2"></i>
+          <h4><%= @overall_stats[:total_figures] %></h4>
+          <p class="mb-0">Total Figures</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-check-circle fa-2x mb-2"></i>
+          <h4><%= @overall_stats[:completed_figures] %></h4>
+          <p class="mb-0">Completed</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-clock fa-2x mb-2"></i>
+          <h4><%= @overall_stats[:in_progress] %></h4>
+          <p class="mb-0">In Progress</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-percentage fa-2x mb-2"></i>
+          <h4><%= @overall_stats[:completion_percentage] %>%</h4>
+          <p class="mb-0">Overall Progress</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overall Progress Bar -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-chart-line me-2"></i>
+            Overall Learning Progress
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="progress" style="height: 30px;">
+            <div class="progress-bar bg-success" 
+                 role="progressbar" 
+                 style="width: <%= @overall_stats[:completion_percentage] %>%"
+                 aria-valuenow="<%= @overall_stats[:completion_percentage] %>" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+              <%= @overall_stats[:completion_percentage] %>% Complete
+            </div>
+          </div>
+          <div class="mt-2 text-muted">
+            <small>
+              <%= @overall_stats[:completed_figures] %> of <%= @overall_stats[:total_figures] %> figures completed
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress by Dance Style -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-music me-2"></i>
+            Progress by Dance Style
+          </h5>
+        </div>
+        <div class="card-body">
+          <% if @progress_by_style.any? %>
+            <% @progress_by_style.each do |dance_style, progresses| %>
+              <div class="mb-4">
+                <h6 class="text-primary">
+                  <i class="fas fa-dance me-2"></i>
+                  <%= dance_style.name %> 
+                  <span class="badge bg-secondary ms-2"><%= dance_style.category %></span>
+                </h6>
+                
+                <% completed_count = progresses.count(&:completed?) %>
+                <% total_count = progresses.count %>
+                <% style_percentage = total_count > 0 ? (completed_count.to_f / total_count * 100).round(1) : 0 %>
+                
+                <div class="row mb-3">
+                  <div class="col-md-8">
+                    <div class="progress" style="height: 20px;">
+                      <div class="progress-bar bg-info" 
+                           role="progressbar" 
+                           style="width: <%= style_percentage %>%"
+                           aria-valuenow="<%= style_percentage %>"
+                           aria-valuemin="0"
+                           aria-valuemax="100">
+                        <%= style_percentage %>%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-end">
+                    <small class="text-muted">
+                      <%= completed_count %>/<%= total_count %> figures completed
+                    </small>
+                  </div>
+                </div>
+                
+                <!-- Figure Details -->
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th>Figure</th>
+                        <th>Level</th>
+                        <th>Movement</th>
+                        <th>Timing</th>
+                        <th>Partnering</th>
+                        <th>Status</th>
+                        <th>Completed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% progresses.sort_by { |p| [p.figure.dance_level.level_number, p.figure.figure_number] }.each do |progress| %>
+                        <tr>
+                          <td>
+                            <%= link_to progress.figure.name, 
+                                        student_progress_path(progress), 
+                                        class: "text-decoration-none" %>
+                            <small class="text-muted d-block">#<%= progress.figure.figure_number %></small>
+                          </td>
+                          <td><%= progress.figure.dance_level.name %></td>
+                          <td>
+                            <% if progress.movement_passed? %>
+                              <i class="fas fa-check text-success"></i>
+                            <% else %>
+                              <i class="fas fa-times text-danger"></i>
+                            <% end %>
+                          </td>
+                          <td>
+                            <% if progress.timing_passed? %>
+                              <i class="fas fa-check text-success"></i>
+                            <% else %>
+                              <i class="fas fa-times text-danger"></i>
+                            <% end %>
+                          </td>
+                          <td>
+                            <% if progress.partnering_passed? %>
+                              <i class="fas fa-check text-success"></i>
+                            <% else %>
+                              <i class="fas fa-times text-danger"></i>
+                            <% end %>
+                          </td>
+                          <td>
+                            <% if progress.completed? %>
+                              <span class="badge bg-success">Completed</span>
+                            <% else %>
+                              <span class="badge bg-warning">In Progress</span>
+                            <% end %>
+                          </td>
+                          <td>
+                            <% if progress.completed_at %>
+                              <%= progress.completed_at.strftime("%m/%d/%Y") %>
+                            <% else %>
+                              <span class="text-muted">-</span>
+                            <% end %>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+            <% end %>
+          <% else %>
+            <div class="text-center py-5">
+              <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+              <h4 class="text-muted">No Progress Data</h4>
+              <p class="text-muted">
+                <%= @user.full_name %> hasn't started tracking progress on any figures yet.
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.progress {
+  border-radius: 10px;
+}
+
+.progress-bar {
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+}
+
+.badge {
+  font-size: 0.75rem;
+}
+
+.fas.fa-check {
+  font-size: 1.1em;
+}
+
+.fas.fa-times {
+  font-size: 1.1em;
+}
+</style>

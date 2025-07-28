@@ -38,69 +38,82 @@
         
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <%= link_to root_path, class: "nav-link #{'active' if current_page?(root_path)}" do %>
-                <i class="fas fa-tachometer-alt me-1"></i>Dashboard
-              <% end %>
-            </li>
-            <li class="nav-item dropdown" data-controller="dropdown">
-              <a class="nav-link dropdown-toggle #{'active' if controller_name == 'users'}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
-                <i class="fas fa-users me-1"></i>People
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to users_path, class: "dropdown-item" do %>
-                  <i class="fas fa-user-graduate me-2"></i>Students
-                <% end %></li>
-                <li><%= link_to users_path(role: 'instructor'), class: "dropdown-item" do %>
-                  <i class="fas fa-chalkboard-teacher me-2"></i>Instructors
-                <% end %></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><%= link_to new_user_path, class: "dropdown-item" do %>
-                  <i class="fas fa-user-plus me-2"></i>Add New Person
-                <% end %></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown" data-controller="dropdown">
-              <a class="nav-link dropdown-toggle #{'active' if ['dance_classes', 'figures'].include?(controller_name)}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
-                <i class="fas fa-music me-1"></i>Classes & Steps
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to dance_classes_path, class: "dropdown-item" do %>
-                  <i class="fas fa-calendar-alt me-2"></i>Dance Classes
-                <% end %></li>
-                <li><%= link_to figures_path, class: "dropdown-item" do %>
-                  <i class="fas fa-step-forward me-2"></i>Figures & Steps
-                <% end %></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><%= link_to new_dance_class_path, class: "dropdown-item" do %>
-                  <i class="fas fa-plus me-2"></i>New Class
-                <% end %></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <%= link_to student_progress_index_path, class: "nav-link #{'active' if controller_name == 'student_progress'}" do %>
-                <i class="fas fa-chart-line me-1"></i>Progress
-              <% end %>
-            </li>
-            <li class="nav-item dropdown" data-controller="dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
-                <i class="fas fa-cog me-1"></i>More
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "#", class: "dropdown-item" do %>
-                  <i class="fas fa-calendar-check me-2"></i>Bookings
-                <% end %></li>
-                <li><%= link_to "#", class: "dropdown-item" do %>
-                  <i class="fas fa-trophy me-2"></i>Events
-                <% end %></li>
-                <li><%= link_to "#", class: "dropdown-item" do %>
-                  <i class="fas fa-dollar-sign me-2"></i>Payments
-                <% end %></li>
-                <li><%= link_to "#", class: "dropdown-item" do %>
-                  <i class="fas fa-map-marker-alt me-2"></i>Locations
-                <% end %></li>
-              </ul>
-            </li>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to root_path, class: "nav-link #{'active' if current_page?(root_path)}" do %>
+                  <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                <% end %>
+              </li>
+              <li class="nav-item dropdown" data-controller="dropdown">
+                <a class="nav-link dropdown-toggle #{'active' if controller_name == 'users'}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+                  <i class="fas fa-users me-1"></i>People
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to users_path, class: "dropdown-item" do %>
+                    <i class="fas fa-user-graduate me-2"></i>Students
+                  <% end %></li>
+                  <li><%= link_to users_path(role: 'instructor'), class: "dropdown-item" do %>
+                    <i class="fas fa-chalkboard-teacher me-2"></i>Instructors
+                  <% end %></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to new_user_path, class: "dropdown-item" do %>
+                    <i class="fas fa-user-plus me-2"></i>Add New Person
+                  <% end %></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown" data-controller="dropdown">
+                <a class="nav-link dropdown-toggle #{'active' if ['dance_classes', 'figures'].include?(controller_name)}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+                  <i class="fas fa-music me-1"></i>Classes & Steps
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to dance_classes_path, class: "dropdown-item" do %>
+                    <i class="fas fa-calendar-alt me-2"></i>Dance Classes
+                  <% end %></li>
+                  <li><%= link_to figures_path, class: "dropdown-item" do %>
+                    <i class="fas fa-step-forward me-2"></i>Figures & Steps
+                  <% end %></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to new_dance_class_path, class: "dropdown-item" do %>
+                    <i class="fas fa-plus me-2"></i>New Class
+                  <% end %></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown" data-controller="dropdown">
+                <a class="nav-link dropdown-toggle #{'active' if controller_name == 'student_progress'}" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+                  <i class="fas fa-chart-line me-1"></i>Progress
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to student_progress_index_path, class: "dropdown-item" do %>
+                    <i class="fas fa-user me-2"></i>My Progress
+                  <% end %></li>
+                  <% if current_user&.admin? || current_user&.instructor? %>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><%= link_to all_students_student_progress_index_path, class: "dropdown-item" do %>
+                      <i class="fas fa-users me-2"></i>All Students
+                    <% end %></li>
+                  <% end %>
+                </ul>
+              </li>
+              <li class="nav-item dropdown" data-controller="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-action="click->dropdown#toggle">
+                  <i class="fas fa-cog me-1"></i>More
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "#", class: "dropdown-item" do %>
+                    <i class="fas fa-calendar-check me-2"></i>Bookings
+                  <% end %></li>
+                  <li><%= link_to "#", class: "dropdown-item" do %>
+                    <i class="fas fa-trophy me-2"></i>Events
+                  <% end %></li>
+                  <li><%= link_to "#", class: "dropdown-item" do %>
+                    <i class="fas fa-dollar-sign me-2"></i>Payments
+                  <% end %></li>
+                  <li><%= link_to "#", class: "dropdown-item" do %>
+                    <i class="fas fa-map-marker-alt me-2"></i>Locations
+                  <% end %></li>
+                </ul>
+              </li>
+            <% end %>
           </ul>
           
           <ul class="navbar-nav">

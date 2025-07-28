@@ -1,4 +1,21 @@
 module StudentProgressHelper
+  # Helper to generate correct path based on whether viewing nested user progress
+  def student_progress_index_path_for(user = nil)
+    if user && user != current_user && user_signed_in?
+      user_student_progress_index_path(user)
+    else
+      student_progress_index_path
+    end
+  end
+
+  def student_progress_path_for(progress, user = nil)
+    if user && user != current_user && user_signed_in?
+      user_student_progress_path(user, progress)
+    else
+      student_progress_path(progress)
+    end
+  end
+
   def progress_percentage_color(percentage)
     case percentage
     when 0...25
