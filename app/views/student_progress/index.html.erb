@@ -540,97 +540,126 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+function setupComponentToggleButtons() {
   // Handle component toggle buttons
   document.querySelectorAll('.component-toggle').forEach(button => {
-    button.addEventListener('click', function() {
-      const progressId = this.dataset.progressId;
-      const component = this.dataset.component;
-      const currentlyPassed = this.dataset.passed === 'true';
-      
-      // Show loading state
-      const originalContent = this.innerHTML;
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-      this.disabled = true;
-      
-      // Build the URL based on whether we're viewing a specific user or current user
-      let baseUrl = '<%= params[:user_id].present? ? "/users/#{@viewing_user.id}/student_progress" : "/student_progress" %>';
-      let url = `${baseUrl}/${progressId}/mark_progress`;
-      
-      // Make the AJAX request
-      fetch(url, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({ component: component })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Update button state
-          const newPassed = !currentlyPassed;
-          this.dataset.passed = newPassed;
-          
-          if (newPassed) {
-            this.className = 'btn btn-sm component-toggle btn-success';
-            this.innerHTML = '<i class="fas fa-check"></i>';
-          } else {
-            this.className = 'btn btn-sm component-toggle btn-outline-secondary';
-            this.innerHTML = '<i class="fas fa-times"></i>';
-          }
-          
-          // Update the row background if completed
-          const row = this.closest('tr');
-          if (data.completed) {
-            row.classList.add('table-success');
-            // Flash success message
-            showToast('Figure completed! 🎉', 'success');
-          } else {
-            row.classList.remove('table-success');
-          }
-          
-          // Update progress bar
-          const progressBar = row.querySelector('.progress-bar');
-          const progressText = row.querySelector('.progress + small');
-          if (progressBar && progressText) {
-            progressBar.style.width = data.completion_percentage + '%';
-            progressText.textContent = data.completion_percentage + '%';
-          }
-        } else {
-          throw new Error(data.error || 'Failed to update progress');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        this.innerHTML = originalContent;
-        showToast('Failed to update progress. Please try again.', 'error');
-      })
-      .finally(() => {
-        this.disabled = false;
-      });
-    });
+    // Remove any existing listeners to avoid duplicates
+    button.removeEventListener('click', handleComponentToggle);
+    // Add the event listener
+    button.addEventListener('click', handleComponentToggle);
   });
+}
+
+function handleComponentToggle() {
+  const progressId = this.dataset.progressId;
+  const component = this.dataset.component;
+  const currentlyPassed = this.dataset.passed === 'true';
   
-  // Toast notification function
-  function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
-    toast.className = `alert alert-${type === 'error' ? 'danger' : type} position-fixed top-0 end-0 m-3`;
-    toast.style.zIndex = '9999';
-    toast.innerHTML = `
-      ${message}
-      <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
-    `;
-    document.body.appendChild(toast);
-    
-    // Auto-remove after 3 seconds
-    setTimeout(() => {
-      if (toast.parentElement) {
-        toast.remove();
+  console.log('Button clicked:', { progressId, component, currentlyPassed });
+  
+  // Show loading state
+  const originalContent = this.innerHTML;
+  this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+  this.disabled = true;
+  
+  // Build the URL based on whether we're viewing a specific user or current user
+  let baseUrl = '<%= params[:user_id].present? ? "/users/#{@viewing_user.id}/student_progress" : "/student_progress" %>';
+  let url = `${baseUrl}/${progressId}/mark_progress`;
+  
+  console.log('Making request to:', url);
+      
+  // Make the AJAX request
+  fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ component: component })
+  })
+  .then(response => {
+    console.log('Response status:', response.status);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Response data:', data);
+    if (data.success) {
+      // Update button state
+      const newPassed = !currentlyPassed;
+      this.dataset.passed = newPassed;
+      
+      if (newPassed) {
+        this.className = 'btn btn-sm component-toggle btn-success';
+        this.innerHTML = '<i class="fas fa-check"></i>';
+      } else {
+        this.className = 'btn btn-sm component-toggle btn-outline-secondary';
+        this.innerHTML = '<i class="fas fa-times"></i>';
       }
-    }, 3000);
-  }
-});
+      
+      // Re-enable the button
+      this.disabled = false;
+      
+      // Update the row background if completed
+      const row = this.closest('tr');
+      if (data.completed) {
+        row.classList.add('table-success');
+        // Flash success message
+        if (typeof showToast === 'function') {
+          showToast('Figure completed! 🎉', 'success');
+        }
+      } else {
+        row.classList.remove('table-success');
+      }
+      
+      // Update progress bar
+      const progressBar = row.querySelector('.progress-bar');
+      const progressText = row.querySelector('.progress + small');
+      if (progressBar && progressText) {
+        progressBar.style.width = data.completion_percentage + '%';
+        progressText.textContent = data.completion_percentage + '%';
+      }
+    } else {
+      throw new Error(data.error || 'Failed to update progress');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    this.innerHTML = originalContent;
+    this.disabled = false;
+    // Use alert as fallback if showToast doesn't exist
+    if (typeof showToast === 'function') {
+      showToast('Failed to update progress. Please try again.', 'error');
+    } else {
+      alert('Failed to update progress. Please try again.');
+    }
+  });
+}
+
+// Set up event listeners on page load and Turbo navigation
+document.addEventListener('DOMContentLoaded', setupComponentToggleButtons);
+document.addEventListener('turbo:load', setupComponentToggleButtons);
+document.addEventListener('turbo:frame-load', setupComponentToggleButtons);
+
+// Toast notification function
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `alert alert-${type === 'error' ? 'danger' : type} position-fixed top-0 end-0 m-3`;
+  toast.style.zIndex = '9999';
+  toast.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+  `;
+  document.body.appendChild(toast);
+  
+  // Auto-remove after 3 seconds
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.remove();
+    }
+  }, 3000);
+}
 </script>
