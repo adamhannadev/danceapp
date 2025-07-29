@@ -32,6 +32,10 @@ class PrivateLessonsController < ApplicationController
   end
 
   def show
+    @previous_lesson = PrivateLesson.where(student_id: @private_lesson.student_id)
+                                .where('scheduled_at < ?', @private_lesson.scheduled_at)
+                                .order(scheduled_at: :desc)
+                                .first
   end
 
   def new
@@ -129,7 +133,7 @@ class PrivateLessonsController < ApplicationController
   end
 
   def private_lesson_params
-    params.require(:private_lesson).permit(:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status, :cost)
+    params.require(:private_lesson).permit(:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status)
   end
 
   def set_form_data

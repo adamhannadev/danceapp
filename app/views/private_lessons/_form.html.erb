@@ -134,18 +134,7 @@
                               { class: "form-select" } %>
                       </div>
 
-                      <div class="mb-3">
-                        <%= f.label :cost, "Lesson Cost ($)", class: "form-label fw-bold" %>
-                        <%= f.number_field :cost, 
-                              step: 0.01, 
-                              class: "form-control", 
-                              id: "cost_field",
-                              readonly: @private_lesson.new_record? %>
-                        <div class="form-text">
-                          <i class="fas fa-calculator me-1"></i>
-                          Cost will be calculated automatically based on instructor rate and duration
-                        </div>
-                      </div>
+                      <!-- Cost field removed; now calculated in controller -->
                     <% end %>
 
                     <div class="mb-3">
@@ -153,7 +142,7 @@
                       <%= f.text_area :notes, 
                             class: "form-control", 
                             rows: 3,
-                            placeholder: "Any additional notes or special requirements..." %>
+                            placeholder: "Lesson plan or any other notes..." %>
                     </div>
                   </div>
                 </div>

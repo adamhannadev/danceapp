@@ -19,10 +19,9 @@
           <% end %>
           
           <% if @private_lesson.can_be_confirmed? && (current_user.instructor? || current_user.admin?) %>
-            <%= link_to confirm_private_lesson_path(@private_lesson), 
-                  method: :patch, 
+            <%= link_to confirm_private_lesson_path(@private_lesson),
                   class: "btn btn-success me-2",
-                  data: { confirm: "Confirm this lesson?" } do %>
+                  data: { turbo_method: :patch, turbo_confirm: "Confirm this lesson?" } do %>
               <i class="fas fa-check me-1"></i>Confirm Lesson
             <% end %>
           <% end %>
@@ -39,7 +38,7 @@
 
       <div class="row">
         <!-- Main Lesson Information -->
-        <div class="col-lg-8">
+        <div class="col-lg-6">
           <div class="card mb-4">
             <div class="card-header bg-primary text-white">
               <h5 class="card-title mb-0">
@@ -136,38 +135,19 @@
           </div>
         </div>
 
-        <!-- Lesson Cost Information -->
-        <div class="col-lg-4">
+        <!-- Previous Lesson Notes -->
+        <div class="col-lg-6">
           <div class="card mb-4">
             <div class="card-header bg-success text-white">
               <h5 class="card-title mb-0">
-                <i class="fas fa-dollar-sign me-2"></i>Lesson Cost
+                <i class="fas fa-arrow-left me-2"></i>Previous Lesson Notes
               </h5>
             </div>
             <div class="card-body">
               <div class="row text-center mb-3">
                 <div class="col-12">
-                  <div class="fs-2 fw-bold text-primary">$<%= @private_lesson.cost %></div>
-                  <small class="text-muted">Total Lesson Cost</small>
+                    <%= @previous_lesson ? @previous_lesson.notes : "No previous lesson." %>
                 </div>
-              </div>
-
-              <% if @private_lesson.student.membership_type != 'none' %>
-                <div class="alert alert-info">
-                  <i class="fas fa-crown me-2"></i>
-                  <strong>Membership Discount Applied</strong><br>
-                  <small>
-                    <%= @private_lesson.student.membership_type.humanize %> member 
-                    (<%= @private_lesson.student.membership_discount %>% off)
-                  </small>
-                </div>
-              <% end %>
-
-              <div class="mt-3">
-                <small class="text-muted">
-                  <strong>Rate:</strong> $<%= @private_lesson.instructor.hourly_rate %>/hour × 
-                  <%= @private_lesson.formatted_duration %>
-                </small>
               </div>
             </div>
           </div>
@@ -189,10 +169,6 @@
                   <%= link_to "#", class: "btn btn-outline-info" do %>
                     <i class="fas fa-calendar-plus me-1"></i>Schedule Follow-up
                   <% end %>
-                <% end %>
-                
-                <%= link_to "#", class: "btn btn-outline-secondary" do %>
-                  <i class="fas fa-print me-1"></i>Print Details
                 <% end %>
                 
                 <% if current_user.admin? %>
