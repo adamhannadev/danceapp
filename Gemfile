@@ -44,7 +44,7 @@ gem "prawn-table"
 
 # Excel export capabilities
 gem "axlsx"
-gem "axlsx_rails"
+gem "caxlsx_rails"
 
 # Email notifications
 gem "mail"

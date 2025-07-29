@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   # User management
   resources :users do
+    resources :availabilities, controller: 'instructor_availabilities', except: [:show, :edit, :new]
     member do
       patch :toggle_membership
       get :progress_report
