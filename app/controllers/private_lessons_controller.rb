@@ -5,10 +5,10 @@ class PrivateLessonsController < ApplicationController
 
   def index
     @private_lessons = current_user.admin? ? 
-      PrivateLesson.includes(:student, :instructor, :dance_style, :dance_level, :location) :
+      PrivateLesson.includes(:student, :instructor, :location) :
       current_user.instructor? ?
-        current_user.private_lessons_as_instructor.includes(:student, :dance_style, :dance_level, :location) :
-        current_user.private_lessons_as_student.includes(:instructor, :dance_style, :dance_level, :location)
+        current_user.private_lessons_as_instructor.includes(:student, :location) :
+        current_user.private_lessons_as_student.includes(:instructor, :location)
     
     # Filter by status if specified
     @private_lessons = @private_lessons.where(status: params[:status]) if params[:status].present?
@@ -129,22 +129,14 @@ class PrivateLessonsController < ApplicationController
   end
 
   def private_lesson_params
-    params.require(:private_lesson).permit(:student_id, :instructor_id, :dance_style_id, :dance_level_id, 
-                                         :location_id, :scheduled_at, :duration, :notes, 
-                                         :status, :cost)
+    params.require(:private_lesson).permit(:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status, :cost)
   end
 
   def set_form_data
     @students = User.students.order(:first_name, :last_name)
     @instructors = User.instructors.order(:first_name, :last_name)
-    @dance_styles = DanceStyle.all.order(:name)
-    @dance_levels = DanceLevel.all.order(:order)
     @locations = Location.all.order(:name)
-    
-    # If editing, filter levels by selected style
-    if @private_lesson.dance_style.present?
-      @dance_levels = @private_lesson.dance_style.dance_levels.order(:order)
-    end
+    # Removed dance_styles and dance_levels from form data
   end
 
   def calculate_lesson_cost(lesson)

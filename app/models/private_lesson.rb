@@ -1,8 +1,7 @@
 class PrivateLesson < ApplicationRecord
   belongs_to :student, class_name: 'User'
   belongs_to :instructor, class_name: 'User'
-  belongs_to :dance_style
-  belongs_to :dance_level
+  # Removed dance_style and dance_level associations
   belongs_to :location
 
   # Validations
@@ -14,6 +13,7 @@ class PrivateLesson < ApplicationRecord
   validate :student_must_be_student
   validate :scheduled_at_must_be_future, on: :create
   validate :instructor_availability, if: :scheduled_at_changed?
+  # Removed dance_style_id and dance_level_id validations
 
   # Scopes
   scope :upcoming, -> { where(status: ['requested', 'scheduled']).where('scheduled_at > ?', Time.current) }

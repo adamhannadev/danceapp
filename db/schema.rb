@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_28_223258) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_29_010725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -160,8 +160,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_28_223258) do
   create_table "private_lessons", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "instructor_id", null: false
-    t.bigint "dance_style_id", null: false
-    t.bigint "dance_level_id", null: false
     t.bigint "location_id", null: false
     t.datetime "scheduled_at"
     t.integer "duration"
@@ -172,8 +170,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_28_223258) do
     t.datetime "updated_at", null: false
     t.datetime "confirmed_at"
     t.datetime "cancelled_at"
-    t.index ["dance_level_id"], name: "index_private_lessons_on_dance_level_id"
-    t.index ["dance_style_id"], name: "index_private_lessons_on_dance_style_id"
     t.index ["instructor_id"], name: "index_private_lessons_on_instructor_id"
     t.index ["location_id"], name: "index_private_lessons_on_location_id"
     t.index ["student_id"], name: "index_private_lessons_on_student_id"
@@ -241,8 +237,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_28_223258) do
   add_foreign_key "instructor_availabilities", "locations"
   add_foreign_key "instructor_availabilities", "users", column: "instructor_id"
   add_foreign_key "payments", "users"
-  add_foreign_key "private_lessons", "dance_levels"
-  add_foreign_key "private_lessons", "dance_styles"
   add_foreign_key "private_lessons", "locations"
   add_foreign_key "private_lessons", "users", column: "instructor_id"
   add_foreign_key "private_lessons", "users", column: "student_id"

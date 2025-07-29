@@ -117,7 +117,7 @@
                     <th>Date & Time</th>
                     <th>Student</th>
                     <th>Instructor</th>
-                    <th>Dance Style</th>
+                    <!-- Removed Dance Style column header -->
                     <th>Duration</th>
                     <th>Location</th>
                     <th>Status</th>
@@ -159,10 +159,7 @@
                           </div>
                         </div>
                       </td>
-                      <td>
-                        <div class="fw-bold"><%= lesson.dance_style.name %></div>
-                        <small class="text-muted"><%= lesson.dance_level.name %></small>
-                      </td>
+                      <!-- Removed dance_style and dance_level display -->
                       <td><%= lesson.formatted_duration %></td>
                       <td><%= lesson.location.name %></td>
                       <td>
@@ -202,13 +199,14 @@
                           <% end %>
                           
                           <% if lesson.can_be_cancelled? %>
-                            <%= link_to cancel_private_lesson_path(lesson), 
+                            <%= button_to cancel_private_lesson_path(lesson), 
                                   method: :patch, 
                                   class: "btn btn-sm btn-outline-danger", 
                                   title: "Cancel",
                                   data: { 
                                     confirm: "Cancel this lesson? This action cannot be undone." 
-                                  } do %>
+                                  },
+                                  form: { class: "d-inline" } do %>
                               <i class="fas fa-times"></i>
                             <% end %>
                           <% end %>

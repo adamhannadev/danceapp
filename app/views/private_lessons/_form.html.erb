@@ -82,21 +82,7 @@
                       <% end %>
                     </div>
 
-                    <div class="mb-3">
-                      <%= f.label :dance_style_id, class: "form-label fw-bold" %>
-                      <%= f.select :dance_style_id, 
-                            options_from_collection_for_select(@dance_styles, :id, :name, @private_lesson.dance_style_id),
-                            { prompt: "Select dance style..." },
-                            { class: "form-select", required: true, id: "dance_style_select" } %>
-                    </div>
-
-                    <div class="mb-3">
-                      <%= f.label :dance_level_id, class: "form-label fw-bold" %>
-                      <%= f.select :dance_level_id, 
-                            options_from_collection_for_select(@dance_levels, :id, :name, @private_lesson.dance_level_id),
-                            { prompt: "Select level..." },
-                            { class: "form-select", required: true, id: "dance_level_select" } %>
-                    </div>
+                    <!-- Removed dance_style and dance_level fields -->
 
                     <div class="mb-3">
                       <%= f.label :location_id, class: "form-label fw-bold" %>
