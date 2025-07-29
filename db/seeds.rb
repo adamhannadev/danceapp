@@ -70,9 +70,9 @@ end
 
 # Create Location
 puts "Creating Location..."
-main_location = Location.find_or_create_by!(name: "Main Studio") do |location|
-  location.address = "123 Dance Street, Dance City, DC 12345"
-  location.phone = "(555) 123-DANCE"
+main_location = Location.find_or_create_by!(name: "Trinity Presbyterian") do |location|
+  location.address = "2964 Tillicum Rd. Victoria BC. V8Z 2P8"
+  location.phone = "(250) 480-9246"
   location.capacity = 20
   location.operating_hours = "Monday-Friday: 10am-5pm, Saturday: 9am-6pm, Sunday: Closed"
   location.active = true
@@ -192,7 +192,7 @@ end
 
 # Create sample private lessons
 puts "Creating sample private lessons..."
-if User.students.any? && User.instructors.any? && DanceStyle.any? && DanceLevel.any? && Location.any?
+if User.students.any? && User.instructors.any? && Location.any?
   students = User.students.limit(3)
   instructors = User.instructors.limit(2)
   
@@ -226,8 +226,6 @@ if User.students.any? && User.instructors.any? && DanceStyle.any? && DanceLevel.
   sample_lessons.each_with_index do |lesson_attrs, index|
     student = students[index % students.count]
     instructor = instructors[index % instructors.count]
-    dance_style = DanceStyle.offset(index % DanceStyle.count).first
-    dance_level = DanceLevel.where(name: ['Bronze 1', 'Bronze 2', 'Silver 1'].sample).first || DanceLevel.first
     location = Location.first
     
     # Calculate cost based on instructor rate and duration
@@ -245,8 +243,6 @@ if User.students.any? && User.instructors.any? && DanceStyle.any? && DanceLevel.
       instructor: instructor,
       scheduled_at: lesson_attrs[:scheduled_at]
     ) do |lesson|
-      lesson.dance_style = dance_style
-      lesson.dance_level = dance_level
       lesson.location = location
       lesson.duration = lesson_attrs[:duration]
       lesson.status = lesson_attrs[:status]

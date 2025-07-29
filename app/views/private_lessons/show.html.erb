@@ -28,10 +28,9 @@
           <% end %>
           
           <% if @private_lesson.can_be_cancelled? %>
-            <%= link_to cancel_private_lesson_path(@private_lesson), 
-                  method: :patch, 
+            <%= link_to cancel_private_lesson_path(@private_lesson),
                   class: "btn btn-danger",
-                  data: { confirm: "Cancel this lesson? This action cannot be undone." } do %>
+                  data: { turbo_method: :patch, turbo_confirm: "Cancel this lesson? This action cannot be undone." } do %>
               <i class="fas fa-times me-1"></i>Cancel Lesson
             <% end %>
           <% end %>
@@ -197,11 +196,11 @@
                 <% end %>
                 
                 <% if current_user.admin? %>
-                  <%= link_to @private_lesson, 
-                        method: :delete, 
+                  <%= link_to @private_lesson,  
                         class: "btn btn-outline-danger",
                         data: { 
-                          confirm: "Are you sure? This will permanently delete this lesson and cannot be undone." 
+                            turbo_method: :delete,
+                          turbo_confirm: "Are you sure? This will permanently delete this lesson and cannot be undone." 
                         } do %>
                     <i class="fas fa-trash me-1"></i>Delete Lesson
                   <% end %>
