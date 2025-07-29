@@ -130,7 +130,7 @@ class PrivateLessonsController < ApplicationController
 
   def private_lesson_params
     params.require(:private_lesson).permit(:student_id, :instructor_id, :dance_style_id, :dance_level_id, 
-                                         :location_id, :scheduled_at, :duration, :notes, :focus_areas, 
+                                         :location_id, :scheduled_at, :duration, :notes, 
                                          :status, :cost)
   end
 

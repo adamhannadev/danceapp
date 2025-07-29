@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_28_222837) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_28_223258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -165,12 +165,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_28_222837) do
     t.bigint "location_id", null: false
     t.datetime "scheduled_at"
     t.integer "duration"
-    t.decimal "cost"
-    t.string "status"
+    t.decimal "cost", precision: 8, scale: 2
+    t.string "status", default: "requested"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "focus_areas"
     t.datetime "confirmed_at"
     t.datetime "cancelled_at"
     t.index ["dance_level_id"], name: "index_private_lessons_on_dance_level_id"

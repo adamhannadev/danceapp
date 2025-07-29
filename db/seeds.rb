@@ -188,34 +188,6 @@ if File.exist?(csv_file_path)
     end
   end
   puts "✅ Figures loaded from CSV successfully!"
-# else
-#   puts "⚠️  CSV file not found at #{csv_file_path}, creating sample figures instead..."
-  
-#   # Fallback to sample figures if CSV doesn't exist
-#   waltz = DanceStyle.find_by(name: 'Waltz')
-#   bronze1 = DanceLevel.find_by(name: 'Bronze 1')
-
-#   if waltz && bronze1
-#     sample_figures = [
-#       { number: '1', name: 'Box Step', measures: 2, core: true, components: 'Forward, Side, Together, Back, Side, Together' },
-#       { number: '2', name: 'Progressive Basic', measures: 2, core: true, components: 'Forward, Side, Together, Forward, Side, Together' },
-#       { number: '3', name: 'Left Turn', measures: 2, core: true, components: 'Forward, Side, Together, Turn, Side, Together' },
-#       { number: '1a', name: 'Box Step with Underarm Turn', measures: 2, core: false, components: 'Box Step, Lead Underarm Turn' }
-#     ]
-
-#     sample_figures.each do |fig|
-#       Figure.find_or_create_by!(
-#         figure_number: fig[:number],
-#         dance_style: waltz,
-#         dance_level: bronze1
-#       ) do |figure|
-#         figure.name = fig[:name]
-#         figure.measures = fig[:measures]
-#         figure.is_core = fig[:core]
-#         figure.components = fig[:components]
-#       end
-#     end
-#   end
 end
 
 # Create sample private lessons
@@ -229,29 +201,25 @@ if User.students.any? && User.instructors.any? && DanceStyle.any? && DanceLevel.
       scheduled_at: 2.days.from_now.change(hour: 14, min: 0),
       duration: 60,
       status: 'scheduled',
-      focus_areas: 'Basic timing and posture',
-      notes: 'Student is new to ballroom dancing'
+      notes: 'Student is new to ballroom dancing - focus on basic timing and posture'
     },
     {
       scheduled_at: 3.days.from_now.change(hour: 16, min: 30),
       duration: 45,
       status: 'requested',
-      focus_areas: 'Improve leading technique',
-      notes: 'Focus on connection and frame'
+      notes: 'Focus on improving leading technique and connection'
     },
     {
       scheduled_at: 5.days.from_now.change(hour: 10, min: 0),
       duration: 90,
       status: 'scheduled',
-      focus_areas: 'Competition preparation',
-      notes: 'Working on Silver level figures'
+      notes: 'Competition preparation - working on Silver level figures'
     },
     {
       scheduled_at: 1.week.from_now.change(hour: 18, min: 0),
       duration: 60,
       status: 'requested',
-      focus_areas: 'Footwork and timing',
-      notes: 'Student struggling with complex patterns'
+      notes: 'Student struggling with complex patterns - focus on footwork and timing'
     }
   ]
 
@@ -282,7 +250,6 @@ if User.students.any? && User.instructors.any? && DanceStyle.any? && DanceLevel.
       lesson.location = location
       lesson.duration = lesson_attrs[:duration]
       lesson.status = lesson_attrs[:status]
-      lesson.focus_areas = lesson_attrs[:focus_areas]
       lesson.notes = lesson_attrs[:notes]
       lesson.cost = cost
       lesson.confirmed_at = lesson_attrs[:status] == 'scheduled' ? 1.day.ago : nil

@@ -129,15 +129,6 @@
                 </div>
               </div>
 
-              <% if @private_lesson.focus_areas.present? %>
-                <div class="mb-3">
-                  <label class="form-label fw-bold text-muted">Focus Areas</label>
-                  <div class="border rounded p-3 bg-light">
-                    <%= simple_format(@private_lesson.focus_areas) %>
-                  </div>
-                </div>
-              <% end %>
-
               <% if @private_lesson.notes.present? %>
                 <div class="mb-3">
                   <label class="form-label fw-bold text-muted">Notes</label>
