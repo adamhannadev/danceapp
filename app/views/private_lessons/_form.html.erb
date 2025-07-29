@@ -136,17 +136,17 @@
 
                       <!-- Cost field removed; now calculated in controller -->
                     <% end %>
-
-                    <div class="mb-3">
+                  </div>
+                </div>
+<div class="row">
+<div class="col-md-12 mb-3">
                       <%= f.label :notes, class: "form-label fw-bold" %>
                       <%= f.text_area :notes, 
                             class: "form-control", 
                             rows: 3,
                             placeholder: "Lesson plan or any other notes..." %>
                     </div>
-                  </div>
-                </div>
-
+</div>
                 <div class="d-flex gap-2">
                   <%= f.submit (@private_lesson.new_record? ? "Book Lesson" : "Update Lesson"), class: "btn btn-primary" %>
                   
