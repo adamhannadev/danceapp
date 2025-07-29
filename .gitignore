@@ -162,7 +162,7 @@ config/application.yml
 /log/capistrano.log
 
 # Ignore docker files
-docker-compose.override.yml
+# docker-compose.override.yml
 
 # Ignore local development scripts
 bin/dev-*
