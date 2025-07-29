@@ -6,6 +6,10 @@ class DashboardController < ApplicationController
                       .distinct.order(:first_name, :last_name)
       @private_lessons = current_user.private_lessons_as_instructor.order(scheduled_at: :desc).limit(10)
       @dance_classes = current_user.dance_classes.order(:start_datetime).limit(10)
+    else
+      @students = User.where(role: "student")
+      @private_lessons = PrivateLesson.all
+      @dance_classes = DanceClass.all
     end
   end
 end
