@@ -125,7 +125,7 @@ end
 puts "Creating Students from CSV data..."
 require 'csv'
 
-student_csv_file_path = Rails.root.join('db', 'data', 'student_list.csv')
+student_csv_file_path = Rails.root.join('student_list.csv')
 
 if File.exist?(student_csv_file_path)
   CSV.foreach(student_csv_file_path, headers: true) do |row|

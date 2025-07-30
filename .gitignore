@@ -10,7 +10,7 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-*
-/db/data/student_list.csv
+student_list.csv
 
 # Ignore all logfiles and tempfiles.
 /log/*
