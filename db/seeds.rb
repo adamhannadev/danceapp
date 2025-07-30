@@ -122,40 +122,40 @@ instructor2 = User.find_or_create_by!(email: "tyna@danceapp.com") do |user|
 end
 
 # Create Students from CSV Data
-puts "Creating Students from CSV data..."
-require 'csv'
+# puts "Creating Students from CSV data..."
+# require 'csv'
 
-student_csv_file_path = Rails.root.join('student_list.csv')
+# student_csv_file_path = Rails.root.join('student_list.csv')
 
-if File.exist?(student_csv_file_path)
-  CSV.foreach(student_csv_file_path, headers: true) do |row|
-    # Skip rows with missing essential data
-    next if row['email'].blank? || row['first_name'].blank? || row['last_name'].blank?
+# if File.exist?(student_csv_file_path)
+#   CSV.foreach(student_csv_file_path, headers: true) do |row|
+#     # Skip rows with missing essential data
+#     next if row['email'].blank? || row['first_name'].blank? || row['last_name'].blank?
     
-    # Clean up the email and name fields
-    email = row['email'].strip.downcase
-    first_name = row['first_name'].strip
-    last_name = row['last_name'].strip
-    phone = row['phone'].present? ? row['phone'].strip : nil
+#     # Clean up the email and name fields
+#     email = row['email'].strip.downcase
+#     first_name = row['first_name'].strip
+#     last_name = row['last_name'].strip
+#     phone = row['phone'].present? ? row['phone'].strip : nil
     
-    # Create the student user
-    User.find_or_create_by!(email: email) do |user|
-      user.password = "password123"
-      user.password_confirmation = "password123"
-      user.first_name = first_name
-      user.last_name = last_name
-      user.phone = phone
-      user.role = "student"
-      user.membership_type = "none"
-      user.membership_discount = 0
-      user.waiver_signed = false
-      user.waiver_signed_at = nil
-    end
-  end
-  puts "✅ Students loaded from CSV successfully!"
-else
-  puts "⚠️  Student CSV file not found at #{student_csv_file_path}, skipping student creation..."
-end
+#     # Create the student user
+#     User.find_or_create_by!(email: email) do |user|
+#       user.password = "password123"
+#       user.password_confirmation = "password123"
+#       user.first_name = first_name
+#       user.last_name = last_name
+#       user.phone = phone
+#       user.role = "student"
+#       user.membership_type = "none"
+#       user.membership_discount = 0
+#       user.waiver_signed = false
+#       user.waiver_signed_at = nil
+#     end
+#   end
+#   puts "✅ Students loaded from CSV successfully!"
+# else
+#   puts "⚠️  Student CSV file not found at #{student_csv_file_path}, skipping student creation..."
+# end
 
 # Create Figures from CSV Data
 puts "Creating Figures from CSV data..."

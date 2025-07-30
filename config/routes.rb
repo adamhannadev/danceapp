@@ -100,6 +100,9 @@ Rails.application.routes.draw do
   # Instructor availability
   resources :instructor_availabilities, except: [:show]
 
+  # Students import
+  resources :students_imports, only: [:new, :create]
+
   # Waitlists
   resources :waitlists, only: [:index, :create, :destroy]
 
