@@ -14,43 +14,29 @@
       </div>
 
       <div class="row">
-        <!-- Step 1: Select Date, Duration, and Instructor -->
+        <!-- Step 1: Select Instructor and Duration -->
         <div class="col-lg-4">
           <div class="card">
             <div class="card-header bg-primary text-white">
               <h5 class="card-title mb-0">
-                <i class="fas fa-filter me-2"></i>Lesson Preferences
+                <i class="fas fa-filter me-2"></i>Step 1: Basic Preferences
               </h5>
             </div>
             <div class="card-body">
-              <%= form_with url: available_slots_private_lessons_path, method: :get, local: true, class: "needs-validation", id: "slot_filter_form" do |f| %>
-                <div class="mb-3">
-                  <%= f.label :date, "Preferred Date", class: "form-label fw-bold" %>
-                  <%= f.date_field :date, 
-                        value: @date.strftime("%Y-%m-%d"),
-                        class: "form-control", 
-                        required: true,
-                        min: Date.current.strftime("%Y-%m-%d") %>
-                  <div class="form-text">
-                    <i class="fas fa-info-circle me-1"></i>
-                    Select your preferred lesson date
+              <%= form_with url: available_slots_private_lessons_path, method: :get, local: true, class: "needs-validation", id: "instructor_selection_form" do |f| %>
+                <% unless current_user.student? %>
+                  <div class="mb-3">
+                    <%= f.label :student_id, "Student", class: "form-label fw-bold" %>
+                    <%= f.select :student_id, 
+                          options_from_collection_for_select(@students, :id, :full_name, params[:student_id]),
+                          { prompt: "Select a student..." },
+                          { class: "form-select", required: true } %>
+                    <div class="form-text">Choose which student this lesson is for</div>
                   </div>
-                </div>
-
-                <div class="mb-3">
-                  <%= f.label :duration, "Duration", class: "form-label fw-bold" %>
-                  <%= f.select :duration,
-                        options_for_select([
-                          ['30 minutes', 30],
-                          ['45 minutes', 45],
-                          ['60 minutes', 60],
-                          ['90 minutes', 90],
-                          ['120 minutes', 120]
-                        ], @duration),
-                        {},
-                        { class: "form-select", required: true, onchange: "this.form.submit();" } %>
-                </div>
-
+                <% else %>
+                  <%= f.hidden_field :student_id, value: current_user.id %>
+                <% end %>
+                
                 <div class="mb-3">
                   <%= f.label :instructor_id, "Instructor", class: "form-label fw-bold" %>
                   <% if current_user.instructor? %>
@@ -75,7 +61,21 @@
                 </div>
 
                 <div class="mb-3">
-                  <%= f.label :location_id, "Location", class: "form-label fw-bold" %>
+                  <%= f.label :duration, "Duration", class: "form-label fw-bold" %>
+                  <%= f.select :duration,
+                        options_for_select([
+                          ['30 minutes', 30],
+                          ['45 minutes', 45],
+                          ['60 minutes', 60],
+                          ['90 minutes', 90],
+                          ['120 minutes', 120]
+                        ], @duration),
+                        {},
+                        { class: "form-select", required: true, onchange: "this.form.submit();" } %>
+                </div>
+
+                <div class="mb-3">
+                  <%= f.label :location_id, "Location", class: "form-label fw-medium" %>
                   <%= f.select :location_id, 
                         options_from_collection_for_select(@locations, :id, :name, @location_id),
                         { prompt: "Select location..." },
@@ -84,7 +84,7 @@
 
                 <% unless @instructor_id %>
                   <button type="submit" class="btn btn-primary w-100">
-                    <i class="fas fa-search me-1"></i>Find Available Slots
+                    <i class="fas fa-search me-1"></i>Find Available Dates
                   </button>
                 <% end %>
               <% end %>
@@ -92,86 +92,47 @@
           </div>
         </div>
 
-        <!-- Step 2: Show Available Time Slots -->
-        <div class="col-lg-8">
-          <% if @instructor_id && @available_slots %>
+        <!-- Step 2: Select Available Date -->
+        <div class="col-lg-4">
+          <% if @instructor_id && @available_dates %>
             <div class="card">
               <div class="card-header bg-success text-white">
                 <h5 class="card-title mb-0">
-                  <i class="fas fa-clock me-2"></i>
-                  Available Slots for <%= @date.strftime("%A, %B %d, %Y") %>
+                  <i class="fas fa-calendar me-2"></i>Step 2: Choose Date
                 </h5>
               </div>
               <div class="card-body">
-                <% if @available_slots.any? %>
+                <% if @available_dates.any? %>
                   <div class="mb-3">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                      <div>
-                        <h6 class="mb-1">
-                          <i class="fas fa-user-tie me-1"></i>
-                          <%= @instructor.full_name %>
-                        </h6>
-                        <small class="text-muted">
-                          <%= pluralize(@duration, 'minute') %> lesson • 
-                          $<%= sprintf('%.2f', (@instructor.hourly_rate || 100) * (@duration / 60.0)) %>
-                        </small>
-                      </div>
-                      <span class="badge bg-info">
-                        <%= pluralize(@available_slots.count, 'slot') %> available
-                      </span>
-                    </div>
-                    <hr>
+                    <p class="mb-3">
+                      <strong><%= @instructor.full_name %></strong> has availability on these dates:
+                    </p>
                   </div>
 
-                  <div class="row">
-                    <% @available_slots.each do |slot| %>
-                      <div class="col-md-6 col-lg-4 mb-3">
-                        <%= form_with model: PrivateLesson.new, local: true, class: "slot-booking-form" do |f| %>
-                          <%= f.hidden_field :student_id, value: current_user.student? ? current_user.id : params[:student_id] %>
-                          <%= f.hidden_field :instructor_id, value: @instructor.id %>
-                          <%= f.hidden_field :location_id, value: @location_id %>
-                          <%= f.hidden_field :scheduled_at, value: slot[:start_time].iso8601 %>
-                          <%= f.hidden_field :duration, value: @duration %>
-                          <%= f.hidden_field :status, value: current_user.student? ? 'requested' : 'scheduled' %>
-                          
-                          <div class="card time-slot-card h-100">
-                            <div class="card-body text-center d-flex flex-column">
-                              <div class="mb-auto">
-                                <i class="fas fa-clock text-primary fs-3 mb-2"></i>
-                                <h6 class="fw-bold">
-                                  <%= slot[:formatted_time] %>
-                                </h6>
-                                <small class="text-muted">
-                                  to <%= slot[:formatted_end] %>
-                                </small>
-                              </div>
-                              
-                              <button type="submit" class="btn btn-outline-primary btn-sm mt-3">
-                                <i class="fas fa-calendar-plus me-1"></i>
-                                Book This Slot
-                              </button>
-                            </div>
-                          </div>
-                        <% end %>
-                      </div>
+                  <div class="available-dates-grid">
+                    <% @available_dates.each do |date| %>
+                      <%= form_with url: available_slots_private_lessons_path, method: :get, local: true, class: "date-selection-form" do |f| %>
+                        <%= f.hidden_field :student_id, value: current_user.student? ? current_user.id : @student_id %>
+                        <%= f.hidden_field :instructor_id, value: @instructor.id %>
+                        <%= f.hidden_field :duration, value: @duration %>
+                        <%= f.hidden_field :location_id, value: @location_id %>
+                        <%= f.hidden_field :date, value: date.strftime("%Y-%m-%d") %>
+                        
+                        <button type="submit" class="btn <%= @date == date ? 'btn-primary' : 'btn-outline-primary' %> w-100 mb-2 date-btn">
+                          <div class="fw-bold"><%= date.strftime("%a") %></div>
+                          <div><%= date.strftime("%b %d") %></div>
+                          <div class="small"><%= date.year %></div>
+                        </button>
+                      <% end %>
                     <% end %>
                   </div>
                 <% else %>
-                  <div class="text-center py-5">
+                  <div class="text-center py-4">
                     <i class="fas fa-calendar-times text-muted fs-1 mb-3"></i>
-                    <h5 class="text-muted">No Available Slots</h5>
-                    <p class="text-muted">
-                      <%= @instructor.full_name %> doesn't have any <%= @duration %>-minute slots available on 
-                      <%= @date.strftime("%A, %B %d, %Y") %>.
+                    <h6 class="text-muted">No Available Dates</h6>
+                    <p class="text-muted small">
+                      <%= @instructor.full_name %> doesn't have any <%= @duration %>-minute availability in the next 30 days.
                     </p>
-                    <div class="mt-4">
-                      <p class="mb-2"><strong>Try:</strong></p>
-                      <ul class="list-unstyled">
-                        <li><i class="fas fa-calendar me-2"></i>Selecting a different date</li>
-                        <li><i class="fas fa-clock me-2"></i>Choosing a shorter duration</li>
-                        <li><i class="fas fa-user-tie me-2"></i>Selecting a different instructor</li>
-                      </ul>
-                    </div>
                   </div>
                 <% end %>
               </div>
@@ -180,9 +141,74 @@
             <div class="card">
               <div class="card-body text-center py-5">
                 <i class="fas fa-arrow-left text-muted fs-1 mb-3"></i>
-                <h5 class="text-muted">Select Your Preferences</h5>
-                <p class="text-muted">
-                  Choose your preferred date, duration, and instructor to see available time slots.
+                <h6 class="text-muted">Select Instructor First</h6>
+                <p class="text-muted small">
+                  Choose an instructor and duration to see available dates.
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Step 3: Select Time Slot -->
+        <div class="col-lg-4">
+          <% if @instructor_id && @date && @available_slots %>
+            <div class="card">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="card-title mb-0">
+                  <i class="fas fa-clock me-2"></i>Step 3: Choose Time
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <div class="text-center mb-3">
+                    <h6 class="mb-1">
+                      <%= @date.strftime("%A, %B %d, %Y") %>
+                    </h6>
+                    <small class="text-muted">
+                      <%= pluralize(@duration, 'minute') %> lesson • 
+                      $<%= sprintf('%.2f', (@instructor.hourly_rate || 100) * (@duration / 60.0)) %>
+                    </small>
+                  </div>
+                  <hr>
+                </div>
+
+                <% if @available_slots.any? %>
+                  <div class="time-slots-grid">
+                    <% @available_slots.each do |slot| %>
+                      <%= form_with model: PrivateLesson.new, local: true, class: "slot-booking-form" do |f| %>
+                        <%= f.hidden_field :student_id, value: current_user.student? ? current_user.id : params[:student_id] %>
+                        <%= f.hidden_field :instructor_id, value: @instructor.id %>
+                        <%= f.hidden_field :location_id, value: @location_id %>
+                        <%= f.hidden_field :scheduled_at, value: slot[:start_time].iso8601 %>
+                        <%= f.hidden_field :duration, value: @duration %>
+                        <%= f.hidden_field :status, value: current_user.student? ? 'requested' : 'scheduled' %>
+                        
+                        <button type="submit" class="btn btn-outline-success w-100 mb-2 time-slot-btn">
+                          <div class="fw-bold"><%= slot[:formatted_time] %></div>
+                          <div class="small">to <%= slot[:formatted_end] %></div>
+                        </button>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="text-center py-4">
+                    <i class="fas fa-exclamation-triangle text-warning fs-3 mb-3"></i>
+                    <h6 class="text-muted">No Slots Available</h6>
+                    <p class="text-muted small">
+                      All slots are booked for this date. Please try another date.
+                    </p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <div class="card">
+              <div class="card-body text-center py-5">
+                <i class="fas fa-arrow-left text-muted fs-1 mb-3"></i>
+                <h6 class="text-muted">Select Date First</h6>
+                <p class="text-muted small">
+                  Choose a date to see available time slots.
                 </p>
               </div>
             </div>
@@ -204,8 +230,38 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.slot-booking-form .btn {
+.date-btn {
   transition: all 0.2s ease;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.time-slot-btn {
+  transition: all 0.2s ease;
+  min-height: 60px;
+}
+
+.time-slot-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.available-dates-grid {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.time-slots-grid {
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .avatar-circle {
@@ -226,29 +282,33 @@
 <script>
 // Auto-submit form when selections change
 document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('slot_filter_form');
-  const selects = form.querySelectorAll('select');
-  const dateInput = form.querySelector('input[type="date"]');
+  const instructorForm = document.getElementById('instructor_selection_form');
   
-  function autoSubmit() {
-    // Only submit if instructor is selected
-    const instructorSelect = form.querySelector('#instructor_id');
-    if (instructorSelect && instructorSelect.value) {
-      form.submit();
-    }
+  // Auto-submit when instructor or duration changes
+  if (instructorForm) {
+    const selects = instructorForm.querySelectorAll('select');
+    selects.forEach(select => {
+      select.addEventListener('change', function() {
+        // Only submit if instructor is selected
+        const instructorSelect = instructorForm.querySelector('[name="instructor_id"]');
+        if (instructorSelect && instructorSelect.value) {
+          instructorForm.submit();
+        }
+      });
+    });
   }
   
-  if (dateInput) {
-    dateInput.addEventListener('change', autoSubmit);
-  }
+  // Add hover effects to buttons
+  const dateButtons = document.querySelectorAll('.date-btn');
+  const timeButtons = document.querySelectorAll('.time-slot-btn');
   
-  // Time slot cards hover effect
-  const timeSlotCards = document.querySelectorAll('.time-slot-card');
-  timeSlotCards.forEach(card => {
-    card.addEventListener('click', function() {
-      const form = this.closest('.slot-booking-form');
-      const button = form.querySelector('button[type="submit"]');
-      button.click();
+  [...dateButtons, ...timeButtons].forEach(button => {
+    button.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-2px)';
+    });
+    
+    button.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
     });
   });
 });

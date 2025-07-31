@@ -44,32 +44,48 @@ class PrivateLessonsController < ApplicationController
   end
 
   def available_slots
-    # Step 1: User selects date, duration, and instructor
-    # Step 2: Show available time slots
+    # Step 1: User selects instructor and duration
+    # Step 2: Show available dates for that instructor/duration
+    # Step 3: Show available time slots for selected date
     
-    @date = params[:date] ? Date.parse(params[:date]) : Date.current + 1.day
     @duration = params[:duration]&.to_i || 60
     @instructor_id = params[:instructor_id]&.to_i
+    @student_id = params[:student_id]&.to_i
+    @date = params[:date] ? Date.parse(params[:date]) : nil
     @location_id = params[:location_id]&.to_i
     
     set_form_data
     
-    if @instructor_id && @date && @duration
+    if @instructor_id && @duration
       @instructor = User.find(@instructor_id)
-      @available_slots = calculate_available_slots(@instructor, @date, @duration)
+      @available_dates = get_available_dates(@instructor, @duration)
+      
+      if @date && @available_dates.include?(@date)
+        @available_slots = calculate_available_slots(@instructor, @date, @duration)
+      end
     end
   end
 
   def create
     @private_lesson = PrivateLesson.new(private_lesson_params)
     
-    # Set defaults based on user role
+    # Set defaults based on user role and form data
     if current_user.student?
       @private_lesson.student = current_user
       @private_lesson.status = 'requested'
     elsif current_user.instructor?
       @private_lesson.instructor = current_user
       @private_lesson.status = 'scheduled'
+      # For instructors, student must be selected from form
+      if params[:private_lesson][:student_id].present?
+        @private_lesson.student_id = params[:private_lesson][:student_id]
+      end
+    elsif current_user.admin?
+      @private_lesson.status = 'scheduled'
+      # For admins, both instructor and student can be selected from form
+      if params[:private_lesson][:student_id].present?
+        @private_lesson.student_id = params[:private_lesson][:student_id]
+      end
     end
     
     # Calculate cost based on instructor rates and lesson duration
@@ -83,8 +99,20 @@ class PrivateLessonsController < ApplicationController
       
       redirect_to @private_lesson, notice: 'Private lesson was successfully created.'
     else
-      set_form_data
-      render :new, status: :unprocessable_entity
+      # If coming from available_slots, redirect back with error
+      if request.referer&.include?('available_slots')
+        flash[:alert] = "Unable to book lesson: #{@private_lesson.errors.full_messages.join(', ')}"
+        redirect_to available_slots_private_lessons_path(
+          instructor_id: @private_lesson.instructor_id,
+          student_id: params[:private_lesson][:student_id],
+          duration: @private_lesson.duration,
+          date: @private_lesson.scheduled_at&.to_date,
+          location_id: @private_lesson.location_id
+        )
+      else
+        set_form_data
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
@@ -225,6 +253,60 @@ class PrivateLessonsController < ApplicationController
     end
     
     available_slots
+  end
+
+  def get_available_dates(instructor, duration_minutes)
+    # Get instructor availabilities for the next 30 days
+    start_date = Date.current
+    end_date = start_date + 30.days
+    
+    availabilities = instructor.instructor_availabilities
+                              .where('start_time >= ? AND start_time <= ?', 
+                                     start_date.beginning_of_day.utc, 
+                                     end_date.end_of_day.utc)
+    
+    # Get existing bookings for the period
+    existing_bookings = PrivateLesson.where(instructor: instructor)
+                                   .where('scheduled_at >= ? AND scheduled_at <= ?', 
+                                          start_date.beginning_of_day.utc, 
+                                          end_date.end_of_day.utc)
+                                   .where(status: ['scheduled', 'requested'])
+    
+    available_dates = Set.new
+    
+    availabilities.each do |availability|
+      local_start = availability.start_time.in_time_zone
+      local_end = availability.end_time.in_time_zone
+      availability_date = local_start.to_date
+      
+      # Check if this availability can accommodate the requested duration
+      if (local_end - local_start) >= duration_minutes.minutes
+        # Check if there are any time slots available on this date
+        current_time = local_start
+        end_boundary = local_end - duration_minutes.minutes
+        
+        while current_time <= end_boundary
+          slot_end = current_time + duration_minutes.minutes
+          
+          # Check if this slot conflicts with existing bookings
+          conflict = existing_bookings.any? do |booking|
+            booking_local_start = booking.scheduled_at.in_time_zone
+            booking_local_end = booking_local_start + booking.duration.minutes
+            # Check for overlap
+            (current_time < booking_local_end) && (slot_end > booking_local_start)
+          end
+          
+          unless conflict
+            available_dates.add(availability_date)
+            break # Found at least one available slot for this date
+          end
+          
+          current_time += 15.minutes
+        end
+      end
+    end
+    
+    available_dates.to_a.sort
   end
 
   def send_lesson_notification
