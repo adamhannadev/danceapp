@@ -1,1 +1,132 @@
-<%= render 'form' %>
+<% content_for :title, "Book New Private Lesson" %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+          <i class="fas fa-user-graduate me-2"></i>
+          Book New Private Lesson
+        </h1>
+        <%= link_to private_lessons_path, class: "btn btn-outline-secondary" do %>
+          <i class="fas fa-arrow-left me-1"></i>Back to Lessons
+        <% end %>
+      </div>
+
+      <!-- Booking Options -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-calendar-plus me-2"></i>Choose Your Booking Method
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <!-- New Slot-Based Booking (Recommended) -->
+                <div class="col-md-6">
+                  <div class="card h-100 border-success">
+                    <div class="card-body text-center d-flex flex-column">
+                      <div class="mb-3">
+                        <i class="fas fa-clock text-success fs-1 mb-3"></i>
+                        <h5 class="text-success">Smart Booking</h5>
+                        <span class="badge bg-success mb-3">Recommended</span>
+                      </div>
+                      
+                      <div class="mb-auto">
+                        <p class="text-muted">
+                          Select your preferred date and duration, then choose from available time slots 
+                          based on instructor availability.
+                        </p>
+                        
+                        <ul class="list-unstyled text-start mb-4">
+                          <li><i class="fas fa-check text-success me-2"></i>See real-time availability</li>
+                          <li><i class="fas fa-check text-success me-2"></i>No scheduling conflicts</li>
+                          <li><i class="fas fa-check text-success me-2"></i>Instant booking confirmation</li>
+                          <li><i class="fas fa-check text-success me-2"></i>Easy to use</li>
+                        </ul>
+                      </div>
+                      
+                      <%= link_to available_slots_private_lessons_path, class: "btn btn-success btn-lg w-100" do %>
+                        <i class="fas fa-calendar-check me-2"></i>
+                        Start Smart Booking
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Traditional Manual Booking -->
+                <div class="col-md-6">
+                  <div class="card h-100 border-secondary">
+                    <div class="card-body text-center d-flex flex-column">
+                      <div class="mb-3">
+                        <i class="fas fa-edit text-secondary fs-1 mb-3"></i>
+                        <h5 class="text-secondary">Manual Booking</h5>
+                        <span class="badge bg-secondary mb-3">Advanced</span>
+                      </div>
+                      
+                      <div class="mb-auto">
+                        <p class="text-muted">
+                          Manually select date, time, and other details using the traditional form. 
+                          Requires knowledge of instructor availability.
+                        </p>
+                        
+                        <ul class="list-unstyled text-start mb-4">
+                          <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>May cause conflicts</li>
+                          <li><i class="fas fa-clock text-secondary me-2"></i>Manual date/time entry</li>
+                          <li><i class="fas fa-cog text-secondary me-2"></i>More control over details</li>
+                          <li><i class="fas fa-user-tie text-secondary me-2"></i>Admin/instructor use</li>
+                        </ul>
+                      </div>
+                      
+                      <a href="#" onclick="showManualForm()" class="btn btn-outline-secondary btn-lg w-100">
+                        <i class="fas fa-edit me-2"></i>
+                        Use Manual Form
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manual Form (Hidden by default) -->
+          <div id="manual-form" class="card mt-4" style="display: none;">
+            <div class="card-header bg-warning text-dark">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-exclamation-triangle me-2"></i>Manual Booking Form
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-warning">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Note:</strong> This form doesn't check instructor availability. 
+                Please coordinate with the instructor before booking.
+              </div>
+              <%= render 'form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showManualForm() {
+  const manualForm = document.getElementById('manual-form');
+  manualForm.style.display = 'block';
+  manualForm.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Hide manual form if user clicks smart booking
+document.addEventListener('DOMContentLoaded', function() {
+  const smartBookingBtn = document.querySelector('a[href*="available_slots"]');
+  if (smartBookingBtn) {
+    smartBookingBtn.addEventListener('click', function() {
+      document.getElementById('manual-form').style.display = 'none';
+    });
+  }
+});
+</script>

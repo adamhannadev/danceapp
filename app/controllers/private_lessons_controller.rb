@@ -43,6 +43,23 @@ class PrivateLessonsController < ApplicationController
     set_form_data
   end
 
+  def available_slots
+    # Step 1: User selects date, duration, and instructor
+    # Step 2: Show available time slots
+    
+    @date = params[:date] ? Date.parse(params[:date]) : Date.current + 1.day
+    @duration = params[:duration]&.to_i || 60
+    @instructor_id = params[:instructor_id]&.to_i
+    @location_id = params[:location_id]&.to_i
+    
+    set_form_data
+    
+    if @instructor_id && @date && @duration
+      @instructor = User.find(@instructor_id)
+      @available_slots = calculate_available_slots(@instructor, @date, @duration)
+    end
+  end
+
   def create
     @private_lesson = PrivateLesson.new(private_lesson_params)
     
@@ -149,15 +166,65 @@ class PrivateLessonsController < ApplicationController
     # Base rate from instructor (you might want to add this field to User model)
     base_rate = lesson.instructor.hourly_rate || 100 # Default $100/hour
     duration_hours = lesson.duration / 60.0
-    total_cost = base_rate * duration_hours
     
-    # Apply membership discount if student has one
-    if lesson.student&.membership_type != 'none'
-      discount = lesson.student.membership_discount / 100.0
-      total_cost *= (1 - discount)
+    (base_rate * duration_hours).round(2)
+  end
+
+  def calculate_available_slots(instructor, date, duration_minutes)
+    # Convert the date to the proper timezone boundaries
+    start_of_day = date.beginning_of_day.in_time_zone
+    end_of_day = date.end_of_day.in_time_zone
+    
+    # Get instructor's availability for the date
+    availabilities = instructor.instructor_availabilities
+                              .where('start_time >= ? AND start_time <= ?', start_of_day.utc, end_of_day.utc)
+                              .order(:start_time)
+    
+    # Get existing bookings for the date
+    existing_bookings = PrivateLesson.where(instructor: instructor)
+                                   .where('scheduled_at >= ? AND scheduled_at <= ?', start_of_day.utc, end_of_day.utc)
+                                   .where(status: ['scheduled', 'requested'])
+    
+    available_slots = []
+    
+    availabilities.each do |availability|
+      # Convert UTC times to local timezone for calculation
+      local_start = availability.start_time.in_time_zone
+      local_end = availability.end_time.in_time_zone
+      
+      # Only process if this availability is on the requested date
+      next unless local_start.to_date == date
+      
+      # Generate 15-minute slots within this availability window
+      current_time = local_start
+      end_boundary = local_end - duration_minutes.minutes
+      
+      while current_time <= end_boundary
+        slot_end = current_time + duration_minutes.minutes
+        
+        # Check if this slot conflicts with existing bookings
+        conflict = existing_bookings.any? do |booking|
+          booking_local_start = booking.scheduled_at.in_time_zone
+          booking_local_end = booking_local_start + booking.duration.minutes
+          # Check for overlap
+          (current_time < booking_local_end) && (slot_end > booking_local_start)
+        end
+        
+        unless conflict
+          available_slots << {
+            start_time: current_time.utc, # Store as UTC for form submission
+            end_time: slot_end.utc,
+            formatted_time: current_time.strftime("%I:%M %p"),
+            formatted_end: slot_end.strftime("%I:%M %p")
+          }
+        end
+        
+        # Move to next 15-minute slot
+        current_time += 15.minutes
+      end
     end
     
-    total_cost.round(2)
+    available_slots
   end
 
   def send_lesson_notification

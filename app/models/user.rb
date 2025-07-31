@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Set default values
+  after_initialize :set_defaults, if: :new_record?
+
   # Associations
   has_many :student_progresses, dependent: :destroy
   has_many :figures, through: :student_progresses
@@ -54,5 +57,13 @@ class User < ApplicationRecord
 
   def membership_discount_decimal
     membership_discount / 100.0 if membership_discount
+  end
+
+  private
+
+  def set_defaults
+    self.membership_discount ||= 0
+    self.membership_type ||= 'none'
+    self.role ||= 'student'
   end
 end

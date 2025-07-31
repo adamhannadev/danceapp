@@ -18,9 +18,23 @@
         </div>
         
         <div class="card-body">
-          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), 
-                              html: { class: "needs-validation", novalidate: true }) do |f| %>
-            <%= f.error_notification %>
+          <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), 
+                       local: true, html: { class: "needs-validation", novalidate: true }) do |f| %>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            
+            <!-- Hidden fields for default values -->
+            <%= f.hidden_field :membership_discount, value: 0 %>
+            
+            <% if resource.errors.any? %>
+              <div class="alert alert-danger">
+                <h6><i class="fas fa-exclamation-triangle me-2"></i>Please fix the following errors:</h6>
+                <ul class="mb-0">
+                  <% resource.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <div class="form-inputs">
               <!-- Personal Information -->
@@ -32,17 +46,13 @@
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :first_name,
-                              required: true,
-                              input_html: { class: "form-control", placeholder: "Enter your first name" },
-                              label_html: { class: "form-label fw-medium" } %>
+                  <%= f.label :first_name, class: "form-label fw-medium" %>
+                  <%= f.text_field :first_name, class: "form-control", placeholder: "Enter your first name", required: true %>
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :last_name,
-                              required: true,
-                              input_html: { class: "form-control", placeholder: "Enter your last name" },
-                              label_html: { class: "form-label fw-medium" } %>
+                  <%= f.label :last_name, class: "form-label fw-medium" %>
+                  <%= f.text_field :last_name, class: "form-control", placeholder: "Enter your last name", required: true %>
                 </div>
               </div>
 
@@ -55,18 +65,16 @@
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :email,
-                              required: true,
-                              autofocus: true,
-                              input_html: { autocomplete: "email", class: "form-control", placeholder: "your@email.com" },
-                              label_html: { class: "form-label fw-medium" } %>
+                  <%= f.label :email, class: "form-label fw-medium" %>
+                  <%= f.email_field :email, class: "form-control", placeholder: "your@email.com", required: true, autofocus: true, autocomplete: "email" %>
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :phone,
-                              input_html: { class: "form-control", placeholder: "(555) 123-4567" },
-                              label_html: { class: "form-label fw-medium" },
-                              hint: "Optional - for class reminders" %>
+                  <%= f.label :phone, class: "form-label fw-medium" %>
+                  <%= f.telephone_field :phone, class: "form-control", placeholder: "(555) 123-4567" %>
+                  <div class="form-text">Optional - for class reminders</div>
+                </div>
+              </div>
                 </div>
               </div>
 
@@ -79,18 +87,16 @@
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :password,
-                              required: true,
-                              hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                              input_html: { autocomplete: "new-password", class: "form-control" },
-                              label_html: { class: "form-label fw-medium" } %>
+                  <%= f.label :password, class: "form-label fw-medium" %>
+                  <%= f.password_field :password, class: "form-control", required: true, autocomplete: "new-password" %>
+                  <% if @minimum_password_length %>
+                    <div class="form-text"><%= @minimum_password_length %> characters minimum</div>
+                  <% end %>
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :password_confirmation,
-                              required: true,
-                              input_html: { autocomplete: "new-password", class: "form-control" },
-                              label_html: { class: "form-label fw-medium" } %>
+                  <%= f.label :password_confirmation, class: "form-label fw-medium" %>
+                  <%= f.password_field :password_confirmation, class: "form-control", required: true, autocomplete: "new-password" %>
                 </div>
               </div>
 
@@ -103,21 +109,15 @@
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :role,
-                              collection: [['Student', 'student'], ['Instructor', 'instructor']],
-                              selected: 'student',
-                              input_html: { class: "form-select" },
-                              label_html: { class: "form-label fw-medium" },
-                              hint: "Choose your primary role at the studio" %>
+                  <%= f.label :role, class: "form-label fw-medium" %>
+                  <%= f.select :role, [['Student', 'student'], ['Instructor', 'instructor']], { selected: 'student' }, { class: "form-select" } %>
+                  <div class="form-text">Choose your primary role at the studio</div>
                 </div>
                 
                 <div class="col-md-6 mb-3">
-                  <%= f.input :membership_type,
-                              collection: [['No Membership', 'none'], ['Monthly', 'monthly'], ['Annual', 'annual']],
-                              selected: 'none',
-                              input_html: { class: "form-select" },
-                              label_html: { class: "form-label fw-medium" },
-                              hint: "Select your membership preference" %>
+                  <%= f.label :membership_type, class: "form-label fw-medium" %>
+                  <%= f.select :membership_type, [['No Membership', 'none'], ['Monthly', 'monthly'], ['Annual', 'annual']], { selected: 'none' }, { class: "form-select" } %>
+                  <div class="form-text">Optional - you can upgrade later</div>
                 </div>
               </div>
 
@@ -131,11 +131,8 @@
                 
                 <div class="col-12">
                   <div class="form-check">
-                    <%= f.input :waiver_signed,
-                                as: :boolean,
-                                input_html: { class: "form-check-input" },
-                                label_html: { class: "form-check-label" },
-                                label: "I agree to the liability waiver and terms of service" %>
+                    <%= f.check_box :waiver_signed, class: "form-check-input" %>
+                    <%= f.label :waiver_signed, "I agree to the liability waiver and terms of service", class: "form-check-label" %>
                   </div>
                   <small class="text-muted">Required to participate in dance classes and events</small>
                 </div>
@@ -143,9 +140,7 @@
             </div>
 
             <div class="form-actions">
-              <%= f.button :submit, "Create Account", 
-                          class: "btn btn-primary w-100 mb-3",
-                          data: { disable_with: "Creating Account..." } %>
+              <%= f.submit "Create Account", class: "btn btn-primary w-100 mb-3", data: { disable_with: "Creating Account..." } %>
             </div>
           <% end %>
 

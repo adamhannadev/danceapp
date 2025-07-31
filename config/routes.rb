@@ -63,6 +63,9 @@ Rails.application.routes.draw do
 
   # Private lessons
   resources :private_lessons do
+    collection do
+      get :available_slots
+    end
     member do
       patch :cancel
       patch :confirm
