@@ -63,25 +63,22 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle #{'active' if ['dance_classes', 'figures'].include?(controller_name)}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-music me-1"></i>Classes & Steps
+                  <i class="fas fa-music me-1"></i>Classes & Lessons
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to dance_classes_path, class: "dropdown-item" do %>
                     <i class="fas fa-calendar-alt me-2"></i>Dance Classes
-                  <% end %></li>
-                  <li><%= link_to figures_path, class: "dropdown-item" do %>
-                    <i class="fas fa-step-forward me-2"></i>Figures & Steps
-                  <% end %></li>
+                  <% end %></li>          
+                <li class="nav-item">
+                <%= link_to private_lessons_path, class: "dropdown-item" do %>
+                  <i class="fas fa-user-graduate me-1"></i>Private Lessons
+                <% end %>
+              </li>        
                   <li><hr class="dropdown-divider"></li>
                   <li><%= link_to new_dance_class_path, class: "dropdown-item" do %>
                     <i class="fas fa-plus me-2"></i>New Class
                   <% end %></li>
                 </ul>
-              </li>
-              <li class="nav-item">
-                <%= link_to private_lessons_path, class: "nav-link #{'active' if controller_name == 'private_lessons'}" do %>
-                  <i class="fas fa-user-graduate me-1"></i>Private Lessons
-                <% end %>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle #{'active' if controller_name == 'student_progress'}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -99,7 +96,31 @@
                   <% end %>
                 </ul>
               </li>
-                            <li class="nav-item dropdown">
+                            <% if current_user&.instructor? || current_user&.admin? %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle #{'active' if controller_name == 'instructor_availabilities'}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-calendar-check me-1"></i>Instructor Tools
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to user_availabilities_path(current_user), class: "dropdown-item" do %>
+                      <i class="fas fa-calendar-alt me-2"></i>My Availability
+                    <% end %></li>
+                  <li><%= link_to figures_path, class: "dropdown-item" do %>
+                    <i class="fas fa-step-forward me-2"></i>Figures & Steps
+                  <% end %></li>
+                    <% if current_user&.admin? %>
+                      <li><hr class="dropdown-divider"></li>
+                      <li class="dropdown-header">All Instructors</li>
+                      <% User.instructors.each do |instructor| %>
+                        <li><%= link_to user_availabilities_path(instructor), class: "dropdown-item" do %>
+                          <i class="fas fa-user me-2"></i><%= instructor.full_name %>
+                        <% end %></li>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-ellipsis-h me-1"></i>More
                 </a>

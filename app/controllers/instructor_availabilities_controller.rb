@@ -8,24 +8,55 @@ class InstructorAvailabilitiesController < ApplicationController
     @availabilities = @instructor.instructor_availabilities
     respond_to do |format|
       format.html # renders calendar view
-      format.json { render json: @availabilities }
+      format.json { 
+        render json: @availabilities.map { |availability|
+          {
+            id: availability.id,
+            title: availability.location&.name || "Available",
+            start: availability.start_time.iso8601,
+            end: availability.end_time.iso8601,
+            backgroundColor: '#28a745',
+            borderColor: '#1e7e34'
+          }
+        }
+      }
     end
   end
 
-  # POST /instructors/:instructor_id/availabilities
+  # POST /users/:user_id/availabilities
   def create
     @availability = @instructor.instructor_availabilities.new(availability_params)
+    
+    # Set default location if none provided and one exists
+    if @availability.location_id.blank? && Location.exists?
+      @availability.location = Location.first
+    end
+    
     if @availability.save
-      render json: @availability, status: :created
+      render json: {
+        id: @availability.id,
+        title: @availability.location&.name || "Available",
+        start: @availability.start_time.iso8601,
+        end: @availability.end_time.iso8601,
+        backgroundColor: '#28a745',
+        borderColor: '#1e7e34'
+      }, status: :created
     else
       render json: @availability.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /instructors/:instructor_id/availabilities/:id
+  # PATCH/PUT /users/:user_id/availabilities/:id
   def update
     if @availability.update(availability_params)
-      render json: @availability
+      render json: {
+        id: @availability.id,
+        title: @availability.location&.name || "Available",
+        start: @availability.start_time.iso8601,
+        end: @availability.end_time.iso8601,
+        backgroundColor: '#28a745',
+        borderColor: '#1e7e34'
+      }
     else
       render json: @availability.errors, status: :unprocessable_entity
     end

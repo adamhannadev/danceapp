@@ -1,5 +1,100 @@
-<div class="container">
-  <h2>Instructor Availability Calendar</h2>
-  <div data-controller="instructor-availability-calendar"
-       data-instructor-availability-calendar-instructor-id-value="<%= @instructor.id %>"></div>
+<div class="container" data-controller="instructor-availability-calendar"
+     data-instructor-availability-calendar-instructor-id-value="<%= @instructor.id %>">
+  <!-- Breadcrumb Navigation -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to "Dashboard", root_path %></li>
+      <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
+      <li class="breadcrumb-item"><%= link_to @instructor.full_name, user_path(@instructor) %></li>
+      <li class="breadcrumb-item active" aria-current="page">Availability Calendar</li>
+    </ol>
+  </nav>
+
+  <!-- Header with Actions -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="mb-1">
+        <i class="fas fa-calendar-check me-2 text-primary"></i>
+        <%= @instructor.full_name %>'s Availability
+      </h2>
+      <p class="text-muted mb-0">Click and drag to create multiple slots, double-click to delete</p>
+    </div>
+    
+    <div class="btn-group" role="group">
+      <%= link_to user_path(@instructor), class: "btn btn-outline-secondary" do %>
+        <i class="fas fa-user me-1"></i>View Profile
+      <% end %>
+      <% if current_user&.admin? %>
+        <%= link_to users_path(role: 'instructor'), class: "btn btn-outline-primary" do %>
+          <i class="fas fa-users me-1"></i>All Instructors
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Pending Slots Controls -->
+  <div class="alert alert-info d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <i class="fas fa-info-circle me-2"></i>
+      <strong>Pending slots:</strong> 
+      <span data-instructor-availability-calendar-target="pendingCount" class="badge bg-warning text-dark">0</span>
+      <small class="text-muted ms-2">These slots are not saved yet</small>
+    </div>
+    <div>
+      <button type="button" 
+              class="btn btn-success me-2" 
+              data-instructor-availability-calendar-target="saveButton"
+              data-action="click->instructor-availability-calendar#saveAllSlots"
+              disabled>
+        <i class="fas fa-save me-1"></i>Save All Slots
+      </button>
+      <button type="button" 
+              class="btn btn-outline-warning" 
+              data-instructor-availability-calendar-target="clearButton"
+              data-action="click->instructor-availability-calendar#clearPendingSlots"
+              disabled>
+        <i class="fas fa-trash me-1"></i>Clear Pending
+      </button>
+    </div>
+  </div>
+
+  <!-- Instructions Card -->
+  <div class="card mb-4">
+    <div class="card-body py-3">
+      <h6 class="card-title mb-2">
+        <i class="fas fa-question-circle me-2 text-info"></i>How to use this calendar:
+      </h6>
+      <div class="row">
+        <div class="col-md-4">
+          <small class="text-muted">
+            <i class="fas fa-mouse-pointer me-1 text-primary"></i>
+            <strong>Click & Drag:</strong> Create new availability slots
+          </small>
+        </div>
+        <div class="col-md-4">
+          <small class="text-muted">
+            <i class="fas fa-mouse me-1 text-success"></i>
+            <strong>Double-click:</strong> Delete existing slots
+          </small>
+        </div>
+        <div class="col-md-4">
+          <small class="text-muted">
+            <i class="fas fa-arrows-alt me-1 text-warning"></i>
+            <strong>Drag edges:</strong> Resize slots
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar Container -->
+  <div class="card">
+    <div class="card-body">
+      <div style="height: 600px;"></div>
+    </div>
+  </div>
 </div>
+
+<!-- FullCalendar CSS and JS from CDN -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>

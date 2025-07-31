@@ -288,6 +288,100 @@
             <% end %>
           </div>
         </div>
+
+        <!-- Instructor Availability -->
+        <% if current_user&.admin? || current_user == @user %>
+          <div class="card card-ballroom mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="fas fa-calendar-check me-2"></i>Availability Schedule
+                </h5>
+                <%= link_to user_availabilities_path(@user), class: "btn btn-sm btn-outline-primary" do %>
+                  <i class="fas fa-calendar-alt me-1"></i>Manage Calendar
+                <% end %>
+              </div>
+            </div>
+            <div class="card-body">
+              <% instructor_availabilities = @user.instructor_availabilities.includes(:location) %>
+              <% if instructor_availabilities.any? %>
+                <!-- Availability Summary -->
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <div class="text-center p-3 bg-light rounded">
+                      <i class="fas fa-clock text-primary fs-4 mb-2"></i>
+                      <h6 class="mb-0"><%= instructor_availabilities.count %></h6>
+                      <small class="text-muted">Total Slots</small>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="text-center p-3 bg-light rounded">
+                      <i class="fas fa-calendar-week text-success fs-4 mb-2"></i>
+                      <h6 class="mb-0">
+                        <%= instructor_availabilities.where('start_time >= ?', Time.current.beginning_of_week).count %>
+                      </h6>
+                      <small class="text-muted">This Week</small>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="text-center p-3 bg-light rounded">
+                      <i class="fas fa-map-marker-alt text-info fs-4 mb-2"></i>
+                      <h6 class="mb-0">
+                        <%= instructor_availabilities.joins(:location).select(:location_id).distinct.count %>
+                      </h6>
+                      <small class="text-muted">Locations</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recent Availability Slots -->
+                <h6 class="mb-3">Upcoming Availability</h6>
+                <div class="row">
+                  <% instructor_availabilities.where('start_time >= ?', Time.current).order(:start_time).limit(6).each do |availability| %>
+                    <div class="col-md-6 mb-3">
+                      <div class="border rounded p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                          <h6 class="mb-0">
+                            <%= availability.start_time.strftime("%A, %b %d") %>
+                          </h6>
+                          <span class="badge bg-success">Available</span>
+                        </div>
+                        <p class="text-muted small mb-2">
+                          <i class="fas fa-clock me-1"></i>
+                          <%= availability.start_time.strftime("%I:%M %p") %> - 
+                          <%= availability.end_time.strftime("%I:%M %p") %>
+                        </p>
+                        <% if availability.location %>
+                          <p class="text-muted small mb-0">
+                            <i class="fas fa-map-marker-alt me-1"></i>
+                            <%= availability.location.name %>
+                          </p>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+
+                <% if instructor_availabilities.where('start_time >= ?', Time.current).count > 6 %>
+                  <div class="text-center mt-3">
+                    <%= link_to user_availabilities_path(@user), class: "btn btn-outline-primary btn-sm" do %>
+                      <i class="fas fa-calendar me-1"></i>View All Availability
+                    <% end %>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="text-center py-4">
+                  <i class="fas fa-calendar-plus text-muted fs-2 mb-3"></i>
+                  <h6 class="text-muted">No Availability Set</h6>
+                  <p class="text-muted small mb-3">Set your availability schedule to let students know when you're free for lessons.</p>
+                  <%= link_to user_availabilities_path(@user), class: "btn btn-primary btn-sm" do %>
+                    <i class="fas fa-plus me-1"></i>Set Availability
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       <% end %>
 
       <!-- Activity Log -->

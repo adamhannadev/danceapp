@@ -35,6 +35,15 @@ class UsersController < ApplicationController
                              .joins(:class_schedule).where('class_schedules.start_datetime > ?', Time.current)
                              .order('class_schedules.start_datetime').limit(5) if @user.student?
     @teaching_classes = @user.dance_classes.includes(:dance_style, :dance_level).limit(5) if @user.instructor?
+    
+    # Load instructor availability data for instructors (visible to self and admins)
+    if @user.instructor? && (current_user&.admin? || current_user == @user)
+      @instructor_availabilities = @user.instructor_availabilities.includes(:location)
+                                       .order(:start_time).limit(10)
+      @upcoming_availabilities = @user.instructor_availabilities.includes(:location)
+                                     .where('start_time >= ?', Time.current)
+                                     .order(:start_time).limit(6)
+    end
   end
 
   def new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_29_010725) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_31_195753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,13 +121,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_29_010725) do
 
   create_table "instructor_availabilities", force: :cascade do |t|
     t.bigint "instructor_id", null: false
-    t.bigint "location_id", null: false
+    t.bigint "location_id"
     t.integer "day_of_week"
-    t.time "start_time"
-    t.time "end_time"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["instructor_id"], name: "index_instructor_availabilities_on_instructor_id"
     t.index ["location_id"], name: "index_instructor_availabilities_on_location_id"
   end
