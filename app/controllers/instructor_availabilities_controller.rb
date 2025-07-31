@@ -48,7 +48,10 @@ class InstructorAvailabilitiesController < ApplicationController
 
   # PATCH/PUT /users/:user_id/availabilities/:id
   def update
+    Rails.logger.info "Updating availability #{params[:id]} with params: #{availability_params.inspect}"
+    
     if @availability.update(availability_params)
+      Rails.logger.info "Successfully updated availability: #{@availability.inspect}"
       render json: {
         id: @availability.id,
         title: @availability.location&.name || "Available",
@@ -58,6 +61,7 @@ class InstructorAvailabilitiesController < ApplicationController
         borderColor: '#1e7e34'
       }
     else
+      Rails.logger.error "Failed to update availability: #{@availability.errors.full_messages}"
       render json: @availability.errors, status: :unprocessable_entity
     end
   end

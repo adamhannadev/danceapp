@@ -114,6 +114,13 @@ export default class extends Controller {
       return
     }
     
+    console.log('Updating availability:', {
+      id: info.event.id,
+      start: info.event.start.toISOString(),
+      end: info.event.end.toISOString(),
+      url: `/users/${this.instructorIdValue}/availabilities/${info.event.id}`
+    })
+    
     fetch(`/users/${this.instructorIdValue}/availabilities/${info.event.id}`, {
       method: 'PATCH',
       headers: {
@@ -128,10 +135,23 @@ export default class extends Controller {
       })
     }).then(response => {
       if (!response.ok) {
+        console.error('Update failed:', response.status, response.statusText)
+        response.text().then(text => console.error('Response body:', text))
         // Revert the change if update failed
         info.revert()
         alert('Failed to update availability')
+      } else {
+        console.log('Update successful')
+        return response.json()
       }
+    }).then(data => {
+      if (data) {
+        console.log('Updated availability data:', data)
+      }
+    }).catch(error => {
+      console.error('Update error:', error)
+      info.revert()
+      alert('Failed to update availability: ' + error.message)
     })
   }
 
