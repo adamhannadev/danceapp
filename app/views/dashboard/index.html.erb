@@ -21,7 +21,9 @@
   <%= render "quick_stats" %>  
   <%= render "quick_actions" %>
   <%= render "recent_classes" %>
+<% elsif current_user.student? %>
+  <%= render "lesson_grid" %>
 <% end %>
-Test
+
 </div>
 

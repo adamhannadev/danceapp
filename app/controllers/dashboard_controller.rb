@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
       @dance_classes = DanceClass.all
       @teachers = User.instructors
     else
-      
+      @private_lessons = current_user.private_lessons_as_student.order(scheduled_at: :desc).limit(10)
     end
   end
   end
