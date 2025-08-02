@@ -186,8 +186,8 @@
         <main class="flex-fill">
       <!-- Flash Messages -->
       <% flash.each do |type, message| %>
-        <div class="container">
-          <div class="alert alert-<%= flash_class(type) %> alert-dismissible fade show" role="alert">
+        <div class="position-fixed top-0 start-50 translate-middle-x w-100 d-flex justify-content-center" style="z-index: 9999; padding-top: 20px;">
+          <div class="alert alert-<%= flash_class(type) %> alert-dismissible fade show" role="alert" style="position: relative; z-index: 9999; max-width: 600px;">
             <i class="<%= flash_icon(type) %> me-2"></i>
             <%= message %>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
