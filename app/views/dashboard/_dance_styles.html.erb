@@ -1,0 +1,65 @@
+<!-- Dance Styles Overview -->
+<div class="row">
+<div class="col-12">
+    <div class="card card-ballroom fade-in">
+    <div class="card-header card-header-ballroom">
+        <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Dance Styles Overview</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+        <% DanceStyle.all.group_by(&:category).each_with_index do |(category, styles), index| %>
+            <div class="col-lg-4 mb-4">
+            <h6 class="fw-bold dance-style <%= category.downcase.gsub(' ', '_') %>">
+                <%= category %>
+            </h6>
+            <div class="list-group list-group-flush">
+                <% styles.each do |style| %>
+                <div class="list-group-item border-0 px-0 py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                    <span><%= style.name %></span>
+                    <div>
+                        <span class="badge bg-info">
+                        <%= style.figures.count %> figures
+                        </span>
+                    </div>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+            </div>
+        <% end %>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<!-- Welcome Message for Empty State -->
+<% if DanceClass.count == 0 && Figure.count <= 4 %>
+<div class="row mt-5">
+    <div class="col-12">
+    <div class="text-center py-5">
+        <div class="icon-ballroom mx-auto mb-4" style="width: 80px; height: 80px; font-size: 2rem;">
+        <i class="fas fa-music"></i>
+        </div>
+        <h2 class="mb-3" style="color: var(--primary-purple);">Welcome to Your Ballroom Dancing CRM!</h2>
+        <p class="lead text-muted mb-4">
+        Your system is ready to help you manage students, classes, and dance progress.<br>
+        Let's get started by setting up your first dance class.
+        </p>
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="d-grid gap-2">
+            <%= link_to new_dance_class_path, class: "btn btn-ballroom-primary btn-lg" do %>
+                <i class="fas fa-plus me-2"></i>Create Your First Class
+            <% end %>
+            <%= link_to figures_path, class: "btn btn-ballroom-gold btn-lg" do %>
+                <i class="fas fa-upload me-2"></i>Import Dance Figures
+            <% end %>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+<% end %>
