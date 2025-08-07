@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   # Dashboard
   get "dashboard", to: "dashboard#index"
 
-  # User management
   # Figure management with import
   resources :figures do
     collection do
@@ -25,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # User management
+  # User management - Students, teachers and admin.
   resources :users do
     resources :availabilities, controller: 'instructor_availabilities', except: [:show, :edit, :new]
     member do
@@ -73,32 +72,32 @@ Rails.application.routes.draw do
   end
 
   # Bookings
-  resources :bookings do
-    member do
-      patch :cancel
-      patch :confirm
-    end
-  end
+  # resources :bookings do
+  #   member do
+  #     patch :cancel
+  #     patch :confirm
+  #   end
+  # end
 
   # Events and registrations
-  resources :events do
-    resources :event_registrations, except: [:show]
-  end
+  # resources :events do
+  #   resources :event_registrations, except: [:show]
+  # end
 
   # Payments and invoicing
-  resources :payments do
-    collection do
-      get :monthly_report
-    end
-  end
+  # resources :payments do
+  #   collection do
+  #     get :monthly_report
+  #   end
+  # end
 
   # Locations
   resources :locations
 
   # Dance styles and levels
-  resources :dance_styles do
-    resources :dance_levels, except: [:show]
-  end
+  # resources :dance_styles do
+  #   resources :dance_levels, except: [:show]
+  # end
 
   # Instructor availability
   resources :instructor_availabilities, except: [:show]
@@ -107,15 +106,15 @@ Rails.application.routes.draw do
   # resources :students_imports, only: [:new, :create]
 
   # Waitlists
-  resources :waitlists, only: [:index, :create, :destroy]
+  # resources :waitlists, only: [:index, :create, :destroy]
 
   # Reports
-  namespace :reports do
-    get :student_progress
-    get :instructor_hours
-    get :revenue
-    get :class_attendance
-  end
+  # namespace :reports do
+  #   get :student_progress
+  #   get :instructor_hours
+  #   get :revenue
+  #   get :class_attendance
+  # end
 
   # API endpoints for AJAX requests
   namespace :api do
