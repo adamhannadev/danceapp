@@ -17,13 +17,15 @@
 </div>
 
 <div class="container">
-<% if current_user.instructor? %>
-  <%= render "quick_stats" %>  
-  <%= render "quick_actions" %>
+<% case current_user.role %>
+<% when 'admin' %>
+  <%= render 'quick_stats' %>
   <%= render "recent_classes" %>
-<% elsif current_user.student? %>
+<% when 'instructor' %>
+  <%= render "quick_stats" %> 
+  <%= render "recent_classes" %>
+<% else %>
   <%= render "lesson_grid" %>
 <% end %>
-
 </div>
 
