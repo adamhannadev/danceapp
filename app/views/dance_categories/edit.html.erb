@@ -1,0 +1,12 @@
+<% content_for :title, "Editing dance category" %>
+
+<h1>Editing dance category</h1>
+
+<%= render "form", dance_category: @dance_category %>
+
+<br>
+
+<div>
+  <%= link_to "Show this dance category", @dance_category %> |
+  <%= link_to "Back to dance categories", dance_categories_path %>
+</div>

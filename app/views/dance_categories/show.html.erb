@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @dance_category %>
+
+<div>
+  <%= link_to "Edit this dance category", edit_dance_category_path(@dance_category) %> |
+  <%= link_to "Back to dance categories", dance_categories_path %>
+
+  <%= button_to "Destroy this dance category", @dance_category, method: :delete %>
+</div>

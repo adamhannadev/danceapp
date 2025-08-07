@@ -1,0 +1,3 @@
+class DanceCategory < ApplicationRecord
+    
+end

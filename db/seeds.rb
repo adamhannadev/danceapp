@@ -9,6 +9,37 @@
 #   end
 
 puts "🕺 Seeding Ballroom Dancing CRM..."
+# Create Dance Categories
+puts "Creating dance categories..."
+cats = [
+  {
+    name: "American Smooth", 
+    description: "Elegant ballroom style featuring flowing movement and open positions. Includes Waltz, Tango, Foxtrot, and Viennese Waltz with emphasis on grace, sophistication, and dramatic styling while traveling around the dance floor. Unlike International Standard, American Smooth allows for underarm turns, dips, and shadow positions."
+  },
+  {
+    name: "American Rhythm", 
+    description: "Dynamic ballroom style danced in a compact area with emphasis on sharp, staccato movements and Latin hip action. Includes Cha Cha, Rumba, East Coast Swing, Bolero, and Mambo. Features syncopated rhythms, spot turns, and expressive choreography that showcases individual personality and connection between partners."
+  },
+  {
+    name: "International Ballroom", 
+    description: "Classic ballroom style characterized by elegant, controlled movement in closed position around the dance floor. Includes Waltz, Tango, Viennese Waltz, Foxtrot, and Quickstep. Emphasizes proper frame, posture, and continuous flow with strict technique requirements for competitive dancing worldwide."
+  },
+  {
+    name: "International Latin", 
+    description: "Passionate and energetic style featuring strong Latin rhythms and expressive hip action. Includes Cha Cha, Samba, Rumba, Paso Doble, and Jive. Characterized by sharp movements, dramatic shapes, and intense connection between partners with emphasis on musicality and performance quality."
+  },
+  {
+    name: "Social", 
+    description: "Relaxed, adaptable dance styles perfect for social events and nightlife. Includes West Coast Swing, Salsa, Bachata, Argentine Tango, and Kizomba. Emphasizes connection, musicality, and improvisation with focus on enjoyment rather than strict technique, making them accessible to dancers of all levels."
+  }
+]
+
+cats.each do |attrs|
+  DanceCategory.find_or_create_by!(name: attrs[:name]) do |c|
+    c.name = attrs[:name]
+    c.description = attrs[:description]
+  end
+end
 
 # Create Dance Styles
 puts "Creating Dance Styles..."

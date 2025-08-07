@@ -3,6 +3,7 @@ class DanceStyle < ApplicationRecord
   has_many :figures, dependent: :destroy
   has_many :dance_classes, dependent: :destroy
   has_many :private_lessons, dependent: :destroy
+  has_one :dance_category
 
   # Validations
   validates :name, presence: true, uniqueness: true
