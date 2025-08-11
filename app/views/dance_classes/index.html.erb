@@ -24,13 +24,13 @@
       <%= form_with url: dance_classes_path, method: :get, local: true, class: "row g-3" do |form| %>
         <div class="col-md-4">
           <%= form.label :dance_style_id, "Dance Style", class: "form-label-ballroom" %>
-          <%= form.collection_select :dance_style_id, @dance_styles, :id, :name, 
+          <%= form.collection_select :dance_style_id, @classes_data[:dance_styles], :id, :name, 
                                    { prompt: "All Styles", selected: params[:dance_style_id] }, 
                                    { class: "form-select form-control-ballroom" } %>
         </div>
         <div class="col-md-4">
           <%= form.label :instructor_id, "Instructor", class: "form-label-ballroom" %>
-          <%= form.collection_select :instructor_id, @instructors, :id, :full_name, 
+          <%= form.collection_select :instructor_id, @classes_data[:instructors], :id, :full_name, 
                                    { prompt: "All Instructors", selected: params[:instructor_id] }, 
                                    { class: "form-select form-control-ballroom" } %>
         </div>
@@ -44,7 +44,7 @@
 
   <!-- Classes Grid -->
   <div class="row">
-    <% @dance_classes.each_with_index do |dance_class, index| %>
+    <% @classes_data[:dance_classes].each_with_index do |dance_class, index| %>
       <div class="col-lg-6 col-xl-4 mb-4">
         <div class="card card-ballroom h-100 slide-in-left" style="animation-delay: <%= index * 0.1 %>s;">
           <div class="card-header card-header-ballroom d-flex justify-content-between align-items-center">
@@ -145,7 +145,7 @@
   </div>
 
   <!-- Empty State -->
-  <% if @dance_classes.empty? %>
+  <% if @classes_data[:dance_classes].empty? %>
     <div class="text-center py-5">
       <div class="icon-ballroom mx-auto mb-3">
         <i class="fas fa-music"></i>
@@ -159,9 +159,9 @@
   <% end %>
 
   <!-- Pagination -->
-  <% if defined?(Kaminari) && @dance_classes.respond_to?(:current_page) %>
+  <% if defined?(Kaminari) && @classes_data[:dance_classes].respond_to?(:current_page) %>
     <div class="d-flex justify-content-center mt-4">
-      <%= paginate @dance_classes, outer_window: 1, inner_window: 2, left: 1, right: 1 %>
+      <%= paginate @classes_data[:dance_classes], outer_window: 1, inner_window: 2, left: 1, right: 1 %>
     </div>
   <% end %>
 </div>

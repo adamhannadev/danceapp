@@ -6,8 +6,22 @@
         <div class="icon-ballroom mx-auto mb-3">
         <i class="fas fa-users"></i>
         </div>
-        <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @students.count %></h3>
-        <p class="text-muted mb-0">Active Students</p>
+        <% if current_user.admin? %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:total_students] %></h3>
+        <% elsif current_user.instructor? %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:students]&.count || 0 %></h3>
+        <% else %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:total_figures] || 0 %></h3>
+        <% end %>
+        <p class="text-muted mb-0">
+          <% if current_user.admin? %>
+            Total Students
+          <% elsif current_user.instructor? %>
+            My Students
+          <% else %>
+            Total Figures
+          <% end %>
+        </p>
     </div>
     </div>
 </div>
@@ -17,8 +31,16 @@
         <div class="icon-ballroom mx-auto mb-3">
         <i class="fas fa-users"></i>
         </div>
-        <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @teachers.count %></h3>
-        <p class="text-muted mb-0">Active Teachers</p>
+        <% if current_user.admin? %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:total_instructors] %></h3>
+          <p class="text-muted mb-0">Total Instructors</p>
+        <% elsif current_user.instructor? %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:classes_this_week] || 0 %></h3>
+          <p class="text-muted mb-0">Classes This Week</p>
+        <% else %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:completed_figures] || 0 %></h3>
+          <p class="text-muted mb-0">Completed Figures</p>
+        <% end %>
     </div>
     </div>
 </div>
@@ -28,8 +50,16 @@
         <div class="icon-ballroom mx-auto mb-3" style="background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);">
         <i class="fas fa-chalkboard-teacher"></i>
         </div>
-        <h3 class="fw-bold" style="color: var(--gold);"><%= @private_lessons.count %></h3>
-        <p class="text-muted mb-0">Lessons This Month</p>
+        <h3 class="fw-bold" style="color: var(--gold);"><%= @dashboard_data[:private_lessons]&.count || 0 %></h3>
+        <p class="text-muted mb-0">
+          <% if current_user.admin? %>
+            Recent Lessons
+          <% elsif current_user.instructor? %>
+            My Recent Lessons
+          <% else %>
+            My Lessons
+          <% end %>
+        </p>
     </div>
     </div>
 </div>
@@ -40,8 +70,16 @@
         <div class="icon-ballroom mx-auto mb-3">
         <i class="fas fa-music"></i>
         </div>
-        <h3 class="fw-bold" style="color: var(--primary-purple);"><%= DanceClass.count %></h3>
-        <p class="text-muted mb-0">Dance Classes</p>
+        <% if current_user.admin? %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:total_classes] || 0 %></h3>
+          <p class="text-muted mb-0">Total Classes</p>
+        <% elsif current_user.instructor? %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:dance_classes]&.count || 0 %></h3>
+          <p class="text-muted mb-0">My Classes</p>
+        <% else %>
+          <h3 class="fw-bold" style="color: var(--primary-purple);"><%= @dashboard_data[:stats][:completion_percentage] || 0 %>%</h3>
+          <p class="text-muted mb-0">Progress Complete</p>
+        <% end %>
     </div>
     </div>
 </div>

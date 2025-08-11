@@ -2,7 +2,7 @@ class StudentProgressController < ApplicationController
   before_action :set_user, only: [:index, :show, :update, :mark_progress, :enroll]
   before_action :set_student_progress, only: [:show, :update, :mark_progress]
   before_action :ensure_instructor_or_admin!, only: [:all_students, :enroll, :update, :mark_progress]
-  before_action :ensure_can_access_student!, only: [:index, :show]
+  before_action :check_student_access, only: [:index, :show]
 
   def index
     @progress_data = StudentProgressIndexService.new(@user, filter_params).call
@@ -82,5 +82,9 @@ class StudentProgressController < ApplicationController
 
   def filter_params
     params.permit(:dance_style_id, :dance_level_id, :page)
+  end
+
+  def check_student_access
+    ensure_can_access_student!(@user)
   end
 end

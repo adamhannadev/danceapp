@@ -1,4 +1,17 @@
-<% content_for :title, params[:user_id].present? ? "#{@viewing_user.full_name}'s Progress" : "My Progress" %>
+<%= content_for :title, params[:user_id].present? ? "#{@viewing_user.full_name}'s Progress" : "My Progress" %> 
+    <div class="card card-ballroom h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-check text-success fs-2 mb-2"></i>
+          <h5 class="card-title"><%= @progress_data[:stats][:completed_figures] %></h5>
+          <p class="card-text text-muted">Completed</p>
+        </div>
+      </div> card-ballroom h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-list text-primary fs-2 mb-2"></i>
+          <h5 class="card-title"><%= @progress_data[:stats][:total_figures] %></h5>
+          <p class="card-text text-muted">Total Figures</p>
+        </div>
+      </div>
 
 <div class="container-fluid">
   <!-- Header Section -->
@@ -98,7 +111,7 @@
       <div class="card card-ballroom h-100">
         <div class="card-body text-center">
           <i class="fas fa-clock text-warning fs-2 mb-2"></i>
-          <h5 class="card-title"><%= @total_figures - @completed_figures %></h5>
+          <h5 class="card-title"><%= @progress_data[:stats][:total_figures] - @progress_data[:stats][:completed_figures] %></h5>
           <p class="card-text text-muted">In Progress</p>
         </div>
       </div>
@@ -115,20 +128,20 @@
   </div>
 
   <!-- Quick Dance Style Navigation -->
-  <% if @available_dance_styles.any? %>
+  <% if @progress_data[:available_dance_styles].any? %>
     <div class="row mb-3">
       <div class="col-12">
         <div class="d-flex flex-wrap gap-2 align-items-center">
           <span class="text-muted me-2">Quick Filter:</span>
           <%= link_to "All Styles", 
                       params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path,
-                      class: "btn #{'btn-primary' unless @selected_style} #{'btn-outline-primary' if @selected_style} btn-sm" %>
-          <% @available_dance_styles.each do |style| %>
+                      class: "btn #{'btn-primary' unless @progress_data[:selected_style]} #{'btn-outline-primary' if @progress_data[:selected_style]} btn-sm" %>
+          <% @progress_data[:available_dance_styles].each do |style| %>
             <%= link_to style.name,
                         params[:user_id].present? ? 
                           user_student_progress_index_path(@viewing_user, dance_style_id: style.id) :
                           student_progress_index_path(dance_style_id: style.id),
-                        class: "btn #{'btn-primary' if @selected_style == style} #{'btn-outline-primary' unless @selected_style == style} btn-sm" %>
+                        class: "btn #{'btn-primary' if @progress_data[:selected_style] == style} #{'btn-outline-primary' unless @progress_data[:selected_style] == style} btn-sm" %>
           <% end %>
         </div>
       </div>
@@ -152,13 +165,13 @@
             <% end %>
             <div class="col-md-4">
               <%= form.select :dance_style_id, 
-                  options_from_collection_for_select(@available_dance_styles, :id, :name, @selected_style&.id),
+                  options_from_collection_for_select(@progress_data[:available_dance_styles], :id, :name, @progress_data[:selected_style]&.id),
                   { prompt: "All Dance Styles" },
                   { class: "form-select" } %>
             </div>
             <div class="col-md-4">
               <%= form.select :dance_level_id,
-                  options_from_collection_for_select(DanceLevel.ordered, :id, :name, @selected_level&.id),
+                  options_from_collection_for_select(DanceLevel.ordered, :id, :name, @progress_data[:selected_level]&.id),
                   { prompt: "All Levels" },
                   { class: "form-select" } %>
             </div>
@@ -176,24 +189,24 @@
   </div>
 
   <!-- Progress Table -->
-  <% if @student_progresses_paginated.any? %>
+  <% if @progress_data[:student_progresses_paginated].any? %>
     <div class="card card-ballroom">
       <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
           <h5 class="mb-0">
             <i class="fas fa-list me-2"></i>
             Progress Overview
-            <% if @selected_style %>
-              - <%= @selected_style.name %>
+            <% if @progress_data[:selected_style] %>
+              - <%= @progress_data[:selected_style].name %>
             <% end %>
-            <% if @selected_level %>
-              - <%= @selected_level.name %>
+            <% if @progress_data[:selected_level] %>
+              - <%= @progress_data[:selected_level].name %>
             <% end %>
           </h5>
           <div>
-            <span class="badge bg-primary"><%= @total_figures %> Total</span>
-            <span class="badge bg-success"><%= @completed_figures %> Completed</span>
-            <span class="badge bg-warning"><%= @total_figures - @completed_figures %> In Progress</span>
+            <span class="badge bg-primary"><%= @progress_data[:stats][:total_figures] %> Total</span>
+            <span class="badge bg-success"><%= @progress_data[:stats][:completed_figures] %> Completed</span>
+            <span class="badge bg-warning"><%= @progress_data[:stats][:total_figures] - @progress_data[:stats][:completed_figures] %> In Progress</span>
           </div>
         </div>
       </div>
@@ -213,7 +226,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @progresses_by_style.each do |dance_style, progresses| %>
+              <% @progress_data[:progresses_by_style].each do |dance_style, progresses| %>
                 <% progresses.group_by { |sp| sp.figure.dance_level }.each do |level, level_progresses| %>
                   <% group_by_core_figures(level_progresses).each do |core_number, group| %>
                     <!-- Core Figure -->
@@ -393,16 +406,16 @@
       </div>
       
       <!-- Pagination -->
-      <% if @student_progresses_paginated.respond_to?(:total_pages) && @student_progresses_paginated.total_pages > 1 %>
+      <% if @progress_data[:student_progresses_paginated].respond_to?(:total_pages) && @progress_data[:student_progresses_paginated].total_pages > 1 %>
         <div class="card-footer">
           <div class="d-flex justify-content-between align-items-center">
             <div class="text-muted">
-              Showing <%= (@student_progresses_paginated.current_page - 1) * @student_progresses_paginated.limit_value + 1 %>
-              to <%= [@student_progresses_paginated.current_page * @student_progresses_paginated.limit_value, @total_figures].min %>
-              of <%= @total_figures %> figures
+              Showing <%= (@progress_data[:student_progresses_paginated].current_page - 1) * @progress_data[:student_progresses_paginated].limit_value + 1 %>
+              to <%= [@progress_data[:student_progresses_paginated].current_page * @progress_data[:student_progresses_paginated].limit_value, @progress_data[:stats][:total_figures]].min %>
+              of <%= @progress_data[:stats][:total_figures] %> figures
             </div>
             <div>
-              <%= paginate @student_progresses_paginated, 
+              <%= paginate @progress_data[:student_progresses_paginated], 
                           params: { dance_style_id: params[:dance_style_id], dance_level_id: params[:dance_level_id], user_id: params[:user_id] },
                           theme: 'bootstrap-5' %>
             </div>

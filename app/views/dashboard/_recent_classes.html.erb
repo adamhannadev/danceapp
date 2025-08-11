@@ -3,13 +3,21 @@
 <div class="col-lg-8 mb-4">
     <div class="card card-ballroom h-100 slide-in-left" style="animation-delay: 0.2s;">
     <div class="card-header card-header-ballroom d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Recent Dance Classes</h5>
+        <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>
+          <% if current_user.admin? %>
+            Recent Dance Classes
+          <% elsif current_user.instructor? %>
+            My Dance Classes
+          <% else %>
+            Available Classes
+          <% end %>
+        </h5>
         <%= link_to dance_classes_path, class: "btn btn-ballroom-gold btn-sm" do %>
         View All
         <% end %>
     </div>
     <div class="card-body">
-        <% recent_classes = DanceClass.includes(:dance_style, :dance_level, :instructor).limit(5) %>
+        <% recent_classes = @dashboard_data[:dance_classes] || [] %>
         <% if recent_classes.any? %>
         <div class="row">
             <% recent_classes.each do |dance_class| %>
@@ -17,13 +25,19 @@
                 <div class="border rounded p-3 h-100">
                 <div class="d-flex justify-content-between align-items-start mb-2">
                     <h6 class="mb-0"><%= dance_class.name %></h6>
-                    <span class="badge badge-level <%= dance_class.dance_level.name.downcase.split(' ').first %>">
-                    <%= dance_class.dance_level.name %>
-                    </span>
+                    <% if dance_class.dance_level %>
+                      <span class="badge badge-level <%= dance_class.dance_level.name.downcase.split(' ').first %>">
+                      <%= dance_class.dance_level.name %>
+                      </span>
+                    <% end %>
                 </div>
                 <p class="text-muted small mb-2">
-                    <i class="fas fa-music me-1"></i><%= dance_class.dance_style.name %><br>
-                    <i class="fas fa-user-graduate me-1"></i><%= dance_class.instructor.full_name %><br>
+                    <% if dance_class.dance_style %>
+                      <i class="fas fa-music me-1"></i><%= dance_class.dance_style.name %><br>
+                    <% end %>
+                    <% if dance_class.instructor %>
+                      <i class="fas fa-user-graduate me-1"></i><%= dance_class.instructor.full_name %><br>
+                    <% end %>
                     <i class="fas fa-clock me-1"></i><%= dance_class.duration_formatted %>
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -43,10 +57,24 @@
             <div class="icon-ballroom mx-auto mb-3">
             <i class="fas fa-music"></i>
             </div>
-            <h6 class="text-muted">No Classes Yet</h6>
-            <p class="text-muted small mb-3">Start building your dance program</p>
-            <%= link_to new_dance_class_path, class: "btn btn-ballroom-primary" do %>
-            <i class="fas fa-plus me-2"></i>Create First Class
+            <h6 class="text-muted">
+              <% if current_user.instructor? %>
+                No Classes Assigned
+              <% else %>
+                No Classes Available
+              <% end %>
+            </h6>
+            <p class="text-muted small mb-3">
+              <% if current_user.admin? || current_user.instructor? %>
+                Start building your dance program
+              <% else %>
+                Check back later for new classes
+              <% end %>
+            </p>
+            <% if current_user.admin? || current_user.instructor? %>
+              <%= link_to new_dance_class_path, class: "btn btn-ballroom-primary" do %>
+              <i class="fas fa-plus me-2"></i>Create First Class
+              <% end %>
             <% end %>
         </div>
         <% end %>

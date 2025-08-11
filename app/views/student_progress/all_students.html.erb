@@ -28,7 +28,7 @@
       <div class="card bg-primary text-white">
         <div class="card-body text-center">
           <i class="fas fa-users fa-2x mb-2"></i>
-          <h4><%= @users_with_progress.count %></h4>
+          <h4><%= @students_data[:users_with_progress].count %></h4>
           <p class="mb-0">Active Students</p>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="card bg-success text-white">
         <div class="card-body text-center">
           <i class="fas fa-trophy fa-2x mb-2"></i>
-          <h4><%= @progress_stats.values.sum { |s| s[:completed] } %></h4>
+          <h4><%= @students_data[:progress_stats].values.sum { |s| s[:completed] } %></h4>
           <p class="mb-0">Total Completed</p>
         </div>
       </div>
@@ -46,7 +46,7 @@
       <div class="card bg-info text-white">
         <div class="card-body text-center">
           <i class="fas fa-tasks fa-2x mb-2"></i>
-          <h4><%= @progress_stats.values.sum { |s| s[:total] } %></h4>
+          <h4><%= @students_data[:progress_stats].values.sum { |s| s[:total] } %></h4>
           <p class="mb-0">Total Figures</p>
         </div>
       </div>
@@ -56,8 +56,8 @@
         <div class="card-body text-center">
           <i class="fas fa-percentage fa-2x mb-2"></i>
           <h4>
-            <%= @progress_stats.values.any? ? 
-                (@progress_stats.values.sum { |s| s[:percentage] } / @progress_stats.count).round(1) : 0 %>%
+            <%= @students_data[:progress_stats].values.any? ? 
+                (@students_data[:progress_stats].values.sum { |s| s[:percentage] } / @students_data[:progress_stats].count).round(1) : 0 %>%
           </h4>
           <p class="mb-0">Average Progress</p>
         </div>
@@ -76,7 +76,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <% if @users_with_progress.any? %>
+          <% if @students_data[:users_with_progress].any? %>
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead>
@@ -91,8 +91,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @users_with_progress.each do |user| %>
-                    <% stats = @progress_stats[user.id] %>
+                  <% @students_data[:users_with_progress].each do |user| %>
+                    <% stats = @students_data[:progress_stats][user.id] %>
                     <tr>
                       <td>
                         <div class="d-flex align-items-center">
