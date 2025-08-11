@@ -14,4 +14,25 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone, :role, :membership_type, :membership_discount, :waiver_signed])
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :phone, :role, :membership_type, :membership_discount, :waiver_signed])
   end
+
+  # Authorization helpers
+  def ensure_admin!
+    redirect_to root_path, alert: 'Access denied. Admin privileges required.' unless current_user&.admin?
+  end
+  
+  def ensure_instructor_or_admin!
+    redirect_to root_path, alert: 'Access denied. Instructor or admin privileges required.' unless current_user&.instructor? || current_user&.admin?
+  end
+  
+  def ensure_owns_resource_or_admin!(resource_user)
+    redirect_to root_path, alert: 'Access denied.' unless current_user&.admin? || current_user == resource_user
+  end
+
+  def ensure_can_access_student!(student)
+    return if current_user.admin?
+    return if current_user.instructor?
+    return if current_user == student
+    
+    redirect_to root_path, alert: 'Access denied.'
+  end
 end

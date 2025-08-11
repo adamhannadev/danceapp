@@ -1,82 +1,51 @@
 class DanceClassesController < ApplicationController
   before_action :set_dance_class, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_instructor_or_admin!, except: [:index, :show]
 
   def index
-    @dance_classes = DanceClass.includes(:dance_style, :dance_level, :instructor, :location)
-                               .order(:name)
-    
-    # Add pagination if Kaminari is available
-    if defined?(Kaminari)
-      @dance_classes = @dance_classes.page(params[:page]).per(12)
-    else
-      @dance_classes = @dance_classes.limit(50) # Fallback limit
-    end
-    
-    # Filter by dance style if provided
-    if params[:dance_style_id].present?
-      @dance_classes = @dance_classes.where(dance_style_id: params[:dance_style_id])
-    end
-    
-    # Filter by instructor if provided
-    if params[:instructor_id].present?
-      @dance_classes = @dance_classes.where(instructor_id: params[:instructor_id])
-    end
-    
-    @dance_styles = DanceStyle.all
-    @instructors = User.instructors
+    @classes_data = DanceClassIndexService.new(filter_params).call
   end
 
   def show
-    @class_schedules = @dance_class.class_schedules.includes(:bookings)
-    @upcoming_schedules = @class_schedules.where('start_datetime > ?', Time.current)
-                                         .order(:start_datetime)
-                                         .limit(5)
+    @class_details = DanceClassDetailService.new(@dance_class, current_user).call
   end
 
   def new
     @dance_class = DanceClass.new
-    @dance_styles = DanceStyle.all
-    @dance_levels = DanceLevel.all
-    @instructors = User.instructors
-    @locations = Location.active
+    @form_data = DanceClassFormService.new.call
   end
 
   def create
     @dance_class = DanceClass.new(dance_class_params)
+    @dance_class.instructor = current_user if current_user.instructor?
     
-    if @dance_class.save
+    if DanceClassCreationService.new(@dance_class, current_user).call
       redirect_to @dance_class, notice: 'Dance class was successfully created.'
     else
-      @dance_styles = DanceStyle.all
-      @dance_levels = DanceLevel.all
-      @instructors = User.instructors
-      @locations = Location.active
+      @form_data = DanceClassFormService.new.call
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @dance_styles = DanceStyle.all
-    @dance_levels = DanceLevel.all
-    @instructors = User.instructors
-    @locations = Location.active
+    @form_data = DanceClassFormService.new.call
   end
 
   def update
-    if @dance_class.update(dance_class_params)
+    if DanceClassUpdateService.new(@dance_class, dance_class_params, current_user).call
       redirect_to @dance_class, notice: 'Dance class was successfully updated.'
     else
-      @dance_styles = DanceStyle.all
-      @dance_levels = DanceLevel.all
-      @instructors = User.instructors
-      @locations = Location.active
+      @form_data = DanceClassFormService.new.call
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @dance_class.destroy
-    redirect_to dance_classes_url, notice: 'Dance class was successfully deleted.'
+    if DanceClassDeletionService.new(@dance_class, current_user).call
+      redirect_to dance_classes_url, notice: 'Dance class was successfully deleted.'
+    else
+      redirect_to @dance_class, alert: 'Unable to delete dance class.'
+    end
   end
 
   private
@@ -89,5 +58,9 @@ class DanceClassesController < ApplicationController
     params.require(:dance_class).permit(:name, :dance_style_id, :dance_level_id, 
                                       :instructor_id, :location_id, :duration_minutes, 
                                       :max_capacity, :price, :description, :class_type)
+  end
+
+  def filter_params
+    params.permit(:dance_style_id, :instructor_id, :page)
   end
 end
