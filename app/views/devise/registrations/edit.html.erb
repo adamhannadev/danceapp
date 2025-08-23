@@ -172,9 +172,11 @@
                 registration_path(resource_name), 
                 method: :delete,
                 class: "btn btn-outline-danger",
-                data: { 
-                  confirm: "Are you absolutely sure? This action cannot be undone.",
-                  turbo_confirm: "Are you absolutely sure? This will permanently delete your account and all associated data." 
+                form: { 
+                  data: {
+                    confirm: "Are you absolutely sure? This action cannot be undone.",
+                    turbo_confirm: "Are you absolutely sure? This will permanently delete your account and all associated data." 
+                  }
                 } do %>
               <i class="fas fa-trash me-2"></i>Delete My Account
             <% end %>

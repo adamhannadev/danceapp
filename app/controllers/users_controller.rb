@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :progress_report, :toggle_membership]
-  before_action :ensure_owns_resource_or_admin!, only: [:edit, :update]
+  before_action :check_resource_access, only: [:edit, :update]
   before_action :ensure_admin!, only: [:destroy, :toggle_membership]
 
   def index
@@ -90,5 +90,9 @@ class UsersController < ApplicationController
 
   def filter_params
     params.permit(:role, :membership_type, :search, :page)
+  end
+
+  def check_resource_access
+    ensure_owns_resource_or_admin!(@user)
   end
 end

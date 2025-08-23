@@ -120,8 +120,9 @@
                   <i class="fas fa-user-tag me-2"></i>Role and Permissions
                 </h6>
               </div>
-              
+                
               <div class="col-md-6 mb-3">
+                <% if current_user.admin? %>
                 <%= form.label :role, "User Role *", class: "form-label fw-medium" %>
                 <%= form.select :role, 
                     options_for_select([
@@ -137,11 +138,13 @@
                   </div>
                 <% end %>
                 <div class="form-text">Changing role may affect access permissions</div>
+                  <% end %>
+                  <div class="form-text"><%= @user.role.camelcase %></div>
               </div>
             </div>
 
             <!-- Membership Information -->
-            <div class="row mb-4">
+            <!-- <div class="row mb-4">
               <div class="col-12">
                 <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
                   <i class="fas fa-crown me-2"></i>Membership Information
@@ -168,7 +171,7 @@
                     min: 0, max: 100, step: 0.1 %>
                 <div class="form-text">Percentage discount applied to class prices</div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Waiver Status -->
             <div class="row mb-4">
@@ -247,7 +250,7 @@
       </div>
 
       <!-- Danger Zone -->
-      <div class="card card-ballroom border-danger mt-4">
+      <div class="card card-ballroom border-danger mt-4 mb-4">
         <div class="card-header bg-danger text-white">
           <h6 class="mb-0">
             <i class="fas fa-exclamation-triangle me-2"></i>Danger Zone
@@ -263,7 +266,6 @@
             </div>
             <div>
               <%= link_to user_path(@user), 
-                  method: :delete,
                   class: "btn btn-outline-danger",
                   data: { 
                     confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone.",
