@@ -14,7 +14,7 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <div class="card">
             <div class="card-header bg-primary text-white">
               <h5 class="card-title mb-0">
@@ -61,25 +61,10 @@
 
                     <div class="mb-3">
                       <%= f.label :instructor_id, class: "form-label fw-bold" %>
-                      <% if current_user.instructor? %>
-                        <%= f.hidden_field :instructor_id, value: current_user.id %>
-                        <div class="form-control-plaintext">
-                          <div class="d-flex align-items-center">
-                            <div class="avatar-circle bg-gold text-white me-2">
-                              <%= current_user.first_name.first.upcase %>
-                            </div>
-                            <div>
-                              <div class="fw-bold"><%= current_user.full_name %></div>
-                              <small class="text-muted">$<%= current_user.hourly_rate %>/hour</small>
-                            </div>
-                          </div>
-                        </div>
-                      <% else %>
                         <%= f.select :instructor_id, 
-                              options_from_collection_for_select(@instructors, :id, lambda { |i| "#{i.full_name} ($#{i.hourly_rate}/hr)" }, @private_lesson.instructor_id),
+                              options_from_collection_for_select(@instructors, :id, :full_name, @private_lesson.instructor_id),
                               { prompt: "Select an instructor..." },
                               { class: "form-select", required: true, id: "instructor_select" } %>
-                      <% end %>
                     </div>
 
                     <!-- Removed dance_style and dance_level fields -->
@@ -91,9 +76,6 @@
                             { prompt: "Select location..." },
                             { class: "form-select", required: true } %>
                     </div>
-                  </div>
-
-                  <div class="col-md-6">
                     <div class="mb-3">
                       <%= f.label :scheduled_at, "Date & Time", class: "form-label fw-bold" %>
                       <%= f.datetime_local_field :scheduled_at, 
@@ -137,15 +119,19 @@
                       <!-- Cost field removed; now calculated in controller -->
                     <% end %>
                   </div>
-                </div>
-<div class="row">
-<div class="col-md-12 mb-3">
+
+                  <div class="col-md-6">
+                    <div class="col-md-12 mb-3">
                       <%= f.label :notes, class: "form-label fw-bold" %>
                       <%= f.text_area :notes, 
                             class: "form-control", 
-                            rows: 3,
+                            rows: 18,
                             placeholder: "Lesson plan or any other notes..." %>
                     </div>
+                  </div>
+                </div>
+<div class="row">
+
 </div>
                 <div class="d-flex gap-2">
                   <%= f.submit (@private_lesson.new_record? ? "Book Lesson" : "Update Lesson"), class: "btn btn-primary" %>
@@ -160,7 +146,7 @@
         </div>
 
         <!-- Sidebar with helpful information -->
-        <div class="col-lg-4">
+        <!-- <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-header bg-info text-white">
               <h5 class="card-title mb-0">
@@ -187,9 +173,10 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
 
-          <div class="card" id="cost_breakdown" style="display: none;">
+          <% if current_user.admin? %>
+          <div class="card" id="cost_breakdown" style="display: block;">
             <div class="card-header bg-success text-white">
               <h5 class="card-title mb-0">
                 <i class="fas fa-calculator me-2"></i>Cost Breakdown
@@ -223,11 +210,13 @@
               </div>
             </div>
           </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
