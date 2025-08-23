@@ -32,10 +32,9 @@ class PrivateLessonsController < ApplicationController
   end
 
   def show
-    @previous_lesson = PrivateLesson.where(student_id: @private_lesson.student_id)
+    @previous_lessons = PrivateLesson.where(student_id: @private_lesson.student_id)
                                 .where('scheduled_at < ?', @private_lesson.scheduled_at)
                                 .order(scheduled_at: :desc)
-                                .first
   end
 
   def new
