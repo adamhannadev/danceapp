@@ -205,7 +205,7 @@
         </div>
 
         <!-- Upcoming Bookings -->
-        <div class="card card-ballroom mb-4">
+        <!-- <div class="card card-ballroom mb-4">
           <div class="card-header">
             <h5 class="mb-0">
               <i class="fas fa-calendar-alt me-2"></i>Upcoming Classes
@@ -250,14 +250,14 @@
 
       <% elsif @user.instructor? %>
         <!-- Instructor Classes -->
-        <div class="card card-ballroom mb-4">
+        <!-- <div class="card card-ballroom mb-4">
           <div class="card-header">
             <h5 class="mb-0">
               <i class="fas fa-chalkboard-teacher me-2"></i>Teaching Classes
             </h5>
           </div>
           <div class="card-body">
-            <% if @teaching_classes.any? %>
+            <% if @teaching_classes %>
               <div class="row">
                 <% @teaching_classes.each do |dance_class| %>
                   <div class="col-md-6 mb-3">
@@ -287,7 +287,7 @@
               </div>
             <% end %>
           </div>
-        </div>
+        </div> -->  
 
         <!-- Instructor Availability -->
         <% if current_user&.admin? || current_user == @user %>
