@@ -26,7 +26,7 @@
             <% end %>
           <% end %>
           
-          <% if @private_lesson.can_be_cancelled? %>
+          <% if @private_lesson.can_be_cancelled? && (current_user.instructor? || current_user.admin?) %>
             <%= link_to cancel_private_lesson_path(@private_lesson),
                   class: "btn btn-danger",
                   data: { turbo_method: :patch, turbo_confirm: "Cancel this lesson? This action cannot be undone." } do %>
@@ -73,6 +73,9 @@
                   <div class="mb-3">
                     <label class="form-label fw-bold text-muted">Student</label>
                     <div class="d-flex align-items-center">
+                      <div class="avatar-circle bg-light-purple text-white me-2">
+                            <%= @private_lesson.student.first_name.first.upcase %>
+                      </div>
                         <div class="fs-5"><%= link_to @private_lesson.student.full_name, user_path(@private_lesson.student) %></div>
                     </div>
                   </div>
@@ -80,6 +83,9 @@
                   <div class="mb-3">
                     <label class="form-label fw-bold text-muted">Instructor</label>
                     <div class="d-flex align-items-center">
+                      <div class="avatar-circle bg-gold text-white me-2">
+                            <%= @private_lesson.instructor.first_name.first.upcase %>
+                      </div>
                         <div class="fs-5"><%= link_to @private_lesson.instructor.full_name,  user_path(@private_lesson.instructor.id) %></div>
                     </div>
                   </div>

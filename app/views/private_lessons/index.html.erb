@@ -198,7 +198,7 @@
                             <% end %>
                           <% end %>
                           
-                          <% if lesson.can_be_cancelled? %>
+                          <% if lesson.can_be_cancelled? && (current_user.instructor? || current_user.admin?) %>
                             <%= button_to cancel_private_lesson_path(lesson), 
                                   method: :patch, 
                                   class: "btn btn-sm btn-outline-danger", 

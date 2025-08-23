@@ -324,6 +324,28 @@ html, body {
   margin-bottom: 15px;
 }
 
+// Avatar circle styling
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0; // Prevents shrinking in flex containers
+}
+
+// Background color classes for avatar circles
+.bg-light-purple {
+  background-color: var(--light-purple) !important;
+}
+
+.bg-gold {
+  background-color: var(--gold) !important;
+}
+
 // Animation classes
 .fade-in {
   animation: fadeIn 0.6s ease-in;
