@@ -23,7 +23,7 @@
         </div>
         
         <!-- Navigation for Admin/Instructor -->
-        <div class="text-end">
+        <div class="text-end mt-4 mb-4">
           <% if current_user.admin? || current_user.instructor? %>
             <div class="btn-group me-3">
               <%= link_to all_students_student_progress_index_path, 
@@ -55,19 +55,19 @@
           <% end %>
           
           <!-- Overall Progress Badge -->
-          <div class="card border-0 shadow-sm">
+          <!--<div class="card border-0 shadow-sm">
             <div class="card-body py-2 px-3">
               <div class="d-flex align-items-center">
                 <div class="me-3">
                   <i class="fas fa-trophy text-warning fs-4"></i>
                 </div>
                 <div>
-                  <div class="fw-bold text-primary fs-5"><%= @overall_completion %>%</div>
+                  <div class="fw-bold text-primary fs-5"><%= @progress_data[:overall_completion] %>%</div>
                   <small class="text-muted">Overall Progress</small>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
       <div class="card card-ballroom h-100">
         <div class="card-body text-center">
           <i class="fas fa-list-ol text-info fs-2 mb-2"></i>
-          <h5 class="card-title"><%= @total_figures %></h5>
+          <h5 class="card-title"><%= @progress_data[:stats][:total_figures] %></h5>
           <p class="card-text text-muted">Total Figures</p>
         </div>
       </div>
@@ -88,7 +88,7 @@
       <div class="card card-ballroom h-100">
         <div class="card-body text-center">
           <i class="fas fa-check-circle text-success fs-2 mb-2"></i>
-          <h5 class="card-title"><%= @completed_figures %></h5>
+          <h5 class="card-title"><%= @progress_data[:stats][:completed_figures] %></h5>
           <p class="card-text text-muted">Completed</p>
         </div>
       </div>
@@ -106,7 +106,7 @@
       <div class="card card-ballroom h-100">
         <div class="card-body text-center">
           <i class="fas fa-percentage text-primary fs-2 mb-2"></i>
-          <h5 class="card-title"><%= @overall_completion %>%</h5>
+          <h5 class="card-title"><%= @progress_data[:stats][:overall_completion] %>%</h5>
           <p class="card-text text-muted">Completion Rate</p>
         </div>
       </div>
