@@ -1,18 +1,4 @@
-<%= content_for :title, params[:user_id].present? ? "#{@viewing_user.full_name}'s Progress" : "My Progress" %> 
-    <div class="card card-ballroom h-100">
-        <div class="card-body text-center">
-          <i class="fas fa-check text-success fs-2 mb-2"></i>
-          <h5 class="card-title"><%= @progress_data[:stats][:completed_figures] %></h5>
-          <p class="card-text text-muted">Completed</p>
-        </div>
-      </div> card-ballroom h-100">
-        <div class="card-body text-center">
-          <i class="fas fa-list text-primary fs-2 mb-2"></i>
-          <h5 class="card-title"><%= @progress_data[:stats][:total_figures] %></h5>
-          <p class="card-text text-muted">Total Figures</p>
-        </div>
-      </div>
-
+<%= content_for :title, params[:user_id].present? ? "#{@progress_data[:viewing_user].full_name}'s Progress" : "My Progress" %> 
 <div class="container-fluid">
   <!-- Header Section -->
   <div class="row mb-4">
@@ -22,14 +8,14 @@
           <h1 class="h3 mb-1">
             <i class="fas fa-chart-line me-2 text-primary"></i>
             <% if params[:user_id].present? %>
-              <%= @viewing_user.full_name %>'s Dance Progress
+              <%= @progress_data[:viewing_user].full_name %>'s Dance Progress
             <% else %>
               My Dance Progress
             <% end %>
           </h1>
           <p class="text-muted mb-0">
             <% if params[:user_id].present? %>
-              Viewing progress for <%= @viewing_user.full_name %> (<%= @viewing_user.email %>)
+              Viewing progress for <%= @progress_data[:viewing_user].full_name %> (<%= @progress_data[:viewing_user].email %>)
             <% else %>
               Track your learning journey across all dance styles and levels
             <% end %>
@@ -46,7 +32,7 @@
                 All Students
               <% end %>
               <% if params[:user_id].present? %>
-                <%= link_to enroll_user_student_progress_index_path(@viewing_user), 
+                <%= link_to enroll_user_student_progress_index_path(@progress_data[:viewing_user]), 
                             class: "btn btn-success btn-sm" do %>
                   <i class="fas fa-user-plus me-1"></i>
                   Enroll in Style/Level
@@ -134,12 +120,12 @@
         <div class="d-flex flex-wrap gap-2 align-items-center">
           <span class="text-muted me-2">Quick Filter:</span>
           <%= link_to "All Styles", 
-                      params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path,
+                      params[:user_id].present? ? user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path,
                       class: "btn #{'btn-primary' unless @progress_data[:selected_style]} #{'btn-outline-primary' if @progress_data[:selected_style]} btn-sm" %>
           <% @progress_data[:available_dance_styles].each do |style| %>
             <%= link_to style.name,
                         params[:user_id].present? ? 
-                          user_student_progress_index_path(@viewing_user, dance_style_id: style.id) :
+                          user_student_progress_index_path(@progress_data[:viewing_user], dance_style_id: style.id) :
                           student_progress_index_path(dance_style_id: style.id),
                         class: "btn #{'btn-primary' if @progress_data[:selected_style] == style} #{'btn-outline-primary' unless @progress_data[:selected_style] == style} btn-sm" %>
           <% end %>
@@ -158,7 +144,7 @@
           </h6>
         </div>
         <div class="card-body">
-          <%= form_with url: params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path, 
+          <%= form_with url: params[:user_id].present? ? user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path, 
                         method: :get, local: true, class: "row g-3" do |form| %>
             <% if params[:user_id].present? %>
               <%= form.hidden_field :user_id, value: params[:user_id] %>
@@ -178,7 +164,7 @@
             <div class="col-md-4">
               <div class="d-flex gap-2">
                 <%= form.submit "Apply Filters", class: "btn btn-primary" %>
-                <%= link_to "Clear", params[:user_id].present? ? user_student_progress_index_path(@viewing_user) : student_progress_index_path, 
+                <%= link_to "Clear", params[:user_id].present? ? user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path, 
                             class: "btn btn-outline-secondary" %>
               </div>
             </div>
@@ -430,14 +416,14 @@
         <h5 class="text-muted">No Progress Found</h5>
         <p class="text-muted mb-4">
           <% if params[:user_id].present? %>
-            <%= @viewing_user.full_name %> hasn't been enrolled in any dance figures yet.
+            <%= @progress_data[:viewing_user].full_name %> hasn't been enrolled in any dance figures yet.
           <% else %>
             You haven't been enrolled in any dance figures yet.
           <% end %>
         </p>
         <% if current_user.admin? || current_user.instructor? %>
           <% if params[:user_id].present? %>
-            <%= link_to enroll_user_student_progress_index_path(@viewing_user), 
+            <%= link_to enroll_user_student_progress_index_path(@progress_data[:viewing_user]), 
                         class: "btn btn-primary" do %>
               <i class="fas fa-user-plus me-2"></i>Enroll Student
             <% end %>
@@ -576,7 +562,7 @@ function handleComponentToggle() {
   this.disabled = true;
   
   // Build the URL based on whether we're viewing a specific user or current user
-  let baseUrl = '<%= params[:user_id].present? ? "/users/#{@viewing_user.id}/student_progress" : "/student_progress" %>';
+  let baseUrl = '<%= params[:user_id].present? ? "/users/#{@progress_data[:viewing_user].id}/student_progress" : "/student_progress" %>';
   let url = `${baseUrl}/${progressId}/mark_progress`;
   
   console.log('Making request to:', url);
