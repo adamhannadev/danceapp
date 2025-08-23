@@ -1,4 +1,8 @@
-<% content_for :title, "#{@figure.name} Progress" %>
+<% content_for :title, "#{@progress_details[:figure].name} Progress" %>     
+          <p class="text-muted mb-0">
+            <%= @progress_details[:dance_style].name %> • <%= @progress_details[:dance_level].name %> • Figure <%= @progress_details[:figure].figure_number %>
+          </p>
+        </div>
 
 <div class="container-fluid">
   <!-- Header Section -->
@@ -14,7 +18,7 @@
               <%= link_to "My Progress", student_progress_index_path %>
             <% end %>
           </li>
-          <li class="breadcrumb-item active" aria-current="page"><%= @figure.name %></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= @progress_details[:figure].name %></li>
         </ol>
       </nav>
       
@@ -22,10 +26,10 @@
         <div>
           <h1 class="h3 mb-1">
             <i class="fas fa-chart-line me-2 text-primary"></i>
-            <%= @figure.name %>
+            <%= @progress_details[:figure].name %>
           </h1>
           <p class="text-muted mb-0">
-            <%= @dance_style.name %> • <%= @dance_level.name %> • Figure <%= @figure.figure_number %>
+            <%= @progress_details[:dance_style] %> • <%= @progress_details[:dance_level].name %> • Figure <%= @progress_details[:figure].figure_number %>
           </p>
         </div>
         
@@ -216,15 +220,15 @@
             <div class="col-md-6">
               <dl class="row">
                 <dt class="col-sm-4">Figure Number:</dt>
-                <dd class="col-sm-8"><%= @figure.figure_number %></dd>
+                <dd class="col-sm-8"><%= @progress_details[:figure].figure_number %></dd>
                 
                 <dt class="col-sm-4">Measures:</dt>
-                <dd class="col-sm-8"><%= @figure.measures %></dd>
+                <dd class="col-sm-8"><%= @progress_details[:figure].measures %></dd>
                 
                 <dt class="col-sm-4">Type:</dt>
                 <dd class="col-sm-8">
-                  <span class="badge bg-<%= @figure.core_figure? ? 'primary' : 'secondary' %>">
-                    <%= @figure.core_figure? ? 'Core Figure' : 'Variation' %>
+                  <span class="badge bg-<%= @progress_details[:figure].core_figure? ? 'primary' : 'secondary' %>">
+                    <%= @progress_details[:figure].core_figure? ? 'Core Figure' : 'Variation' %>
                   </span>
                 </dd>
               </dl>
@@ -232,21 +236,21 @@
             <div class="col-md-6">
               <dl class="row">
                 <dt class="col-sm-4">Dance Style:</dt>
-                <dd class="col-sm-8"><%= @dance_style.name %></dd>
+                <dd class="col-sm-8"><%= @progress_details[:dance_style].name %></dd>
                 
                 <dt class="col-sm-4">Level:</dt>
-                <dd class="col-sm-8"><%= @dance_level.name %></dd>
+                <dd class="col-sm-8"><%= @progress_details[:dance_level].name %></dd>
                 
                 <dt class="col-sm-4">Category:</dt>
-                <dd class="col-sm-8"><%= @dance_style.category %></dd>
+                <dd class="col-sm-8"><%= @progress_details[:dance_style].category %></dd>
               </dl>
             </div>
           </div>
           
-          <% if @figure.components.present? %>
+          <% if @progress_details[:figure].components.present? %>
             <div class="mt-3">
               <h6>Components:</h6>
-              <p class="text-muted"><%= @figure.components %></p>
+              <p class="text-muted"><%= @progress_details[:figure].components %></p>
             </div>
           <% end %>
         </div>
@@ -269,7 +273,7 @@
               <i class="fas fa-user text-white"></i>
             </div>
             <div>
-              <h6 class="mb-0"><%= @instructor.full_name %></h6>
+              <h6 class="mb-0"><%= @progress_details[:instructor].full_name %></h6>
               <small class="text-muted">Dance Instructor</small>
             </div>
           </div>
@@ -292,9 +296,9 @@
               <i class="fas fa-arrow-left me-2"></i>Back to Progress
             <% end %>
             
-            <%= link_to figure_path(@figure), class: "btn btn-outline-info" do %>
+            <!-- <%= link_to figure_path(@progress_details[:figure]), class: "btn btn-outline-info" do %>
               <i class="fas fa-eye me-2"></i>View Figure Details
-            <% end %>
+            <% end %> -->
             
             <% if current_user.admin? || current_user.instructor? %>
               <% unless @student_progress.completed? %>
