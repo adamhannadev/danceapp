@@ -9,30 +9,51 @@ class StudentEnrollmentService
     return validation_error unless valid_params?
     
     dance_style = DanceStyle.find(@params[:dance_style_id])
-    dance_level = DanceLevel.find(@params[:dance_level_id])
-    figures = Figure.where(dance_style: dance_style, dance_level: dance_level)
+    dance_levels = DanceLevel.where(id: @params[:dance_level_ids])
     
-    return no_figures_error(dance_style, dance_level) if figures.empty?
+    return no_levels_error if dance_levels.empty?
     
-    created_count = create_progress_records(figures, dance_style, dance_level)
+    total_created = 0
+    enrollment_results = []
     
-    if created_count > 0
-      success_response(dance_style, dance_level, created_count)
+    dance_levels.each do |dance_level|
+      figures = Figure.where(dance_style: dance_style, dance_level: dance_level)
+      
+      if figures.any?
+        created_count = create_progress_records(figures, dance_style, dance_level)
+        total_created += created_count
+        enrollment_results << {
+          dance_level: dance_level,
+          figures_added: created_count,
+          total_figures: figures.count
+        }
+      end
+    end
+    
+    if total_created > 0
+      success_response(dance_style, dance_levels, enrollment_results, total_created)
     else
-      already_enrolled_response(dance_style, dance_level)
+      already_enrolled_response(dance_style, dance_levels)
     end
   end
 
   private
 
   def valid_params?
-    @params[:dance_style_id].present? && @params[:dance_level_id].present?
+    @params[:dance_style_id].present? && @params[:dance_level_ids].present? && @params[:dance_level_ids].any?
   end
 
   def validation_error
     {
       success: false,
-      message: 'Please select both a dance style and level.'
+      message: 'Please select a dance style and at least one dance level.'
+    }
+  end
+
+  def no_levels_error
+    {
+      success: false,
+      message: 'No valid dance levels selected.'
     }
   end
 
@@ -63,17 +84,23 @@ class StudentEnrollmentService
     created_count
   end
 
-  def success_response(dance_style, dance_level, created_count)
+  def success_response(dance_style, dance_levels, enrollment_results, total_created)
+    level_names = dance_levels.map(&:name).join(', ')
+    details = enrollment_results.map do |result|
+      "#{result[:dance_level].name}: #{result[:figures_added]} new figures"
+    end.join('; ')
+    
     {
       success: true,
-      message: "Successfully enrolled #{@student.full_name} in #{dance_style.name} #{dance_level.name}. Added #{created_count} figures to their progress."
+      message: "Successfully enrolled #{@student.full_name} in #{dance_style.name} across #{dance_levels.count} level(s): #{level_names}. Added #{total_created} total figures. Details: #{details}"
     }
   end
 
-  def already_enrolled_response(dance_style, dance_level)
+  def already_enrolled_response(dance_style, dance_levels)
+    level_names = dance_levels.map(&:name).join(', ')
     {
       success: true,
-      message: "#{@student.full_name} is already enrolled in all figures for #{dance_style.name} #{dance_level.name}"
+      message: "#{@student.full_name} is already enrolled in all figures for #{dance_style.name} at levels: #{level_names}"
     }
   end
 end

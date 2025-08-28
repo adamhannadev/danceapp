@@ -77,7 +77,7 @@ class StudentProgressController < ApplicationController
   end
 
   def enrollment_params
-    params.permit(:dance_style_id, :dance_level_id)
+    params.permit(:dance_style_id, dance_level_ids: [])
   end
 
   def filter_params
