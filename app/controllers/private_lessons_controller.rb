@@ -1,7 +1,8 @@
 class PrivateLessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_private_lesson, only: [:show, :edit, :update, :destroy, :cancel, :confirm]
-  before_action :ensure_authorized, only: [:edit, :update, :destroy, :cancel, :confirm]
+  before_action :ensure_authorized, only: [:edit, :update, :cancel, :confirm]
+  before_action :ensure_delete_authorized, only: [:destroy]
 
   def index
     @private_lessons = current_user.admin? ? 
@@ -169,10 +170,22 @@ class PrivateLessonsController < ApplicationController
     end
   end
 
+  def ensure_delete_authorized
+    unless can_delete_lesson?
+      redirect_to private_lessons_path, alert: 'You are not authorized to delete this lesson.'
+    end
+  end
+
   def can_modify_lesson?
     return true if current_user.admin?
     return true if current_user == @private_lesson.instructor
     return true if current_user == @private_lesson.student && @private_lesson.status == 'requested'
+    false
+  end
+
+  def can_delete_lesson?
+    return true if current_user.admin?
+    return true if current_user == @private_lesson.instructor
     false
   end
 

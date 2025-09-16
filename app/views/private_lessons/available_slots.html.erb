@@ -39,25 +39,10 @@
                 
                 <div class="mb-3">
                   <%= f.label :instructor_id, "Instructor", class: "form-label fw-bold" %>
-                  <% if current_user.instructor? %>
-                    <%= f.hidden_field :instructor_id, value: current_user.id %>
-                    <div class="form-control-plaintext">
-                      <div class="d-flex align-items-center">
-                        <div class="avatar-circle bg-gold text-white me-2">
-                          <%= current_user.first_name.first.upcase %>
-                        </div>
-                        <div>
-                          <div class="fw-bold"><%= current_user.full_name %></div>
-                          <small class="text-muted">$<%= current_user.hourly_rate || 100 %>/hour</small>
-                        </div>
-                      </div>
-                    </div>
-                  <% else %>
                     <%= f.select :instructor_id, 
                           options_from_collection_for_select(@instructors, :id, lambda { |i| "#{i.full_name} ($#{i.hourly_rate || 100}/hr)" }, @instructor_id),
                           { prompt: "Select an instructor..." },
                           { class: "form-select", required: true, onchange: "this.form.submit();" } %>
-                  <% end %>
                 </div>
 
                 <div class="mb-3">
@@ -160,6 +145,19 @@
                 </h5>
               </div>
               <div class="card-body">
+                <!-- Debug Info (remove in production) -->
+                <% if Rails.env.development? %>
+                  <div class="alert alert-info small mb-3">
+                    <strong>Debug Info:</strong><br>
+                    Student ID: <%= current_user.student? ? current_user.id : params[:student_id] %><br>
+                    Instructor ID: <%= @instructor.id if @instructor %><br>
+                    Location ID: <%= @location_id %><br>
+                    Duration: <%= @duration %><br>
+                    Date: <%= @date %><br>
+                    Cost: $<%= sprintf('%.2f', (@instructor.hourly_rate || 100) * (@duration.to_f / 60.0)) if @instructor && @duration %>
+                  </div>
+                <% end %>
+                
                 <div class="mb-3">
                   <div class="text-center mb-3">
                     <h6 class="mb-1">
@@ -183,10 +181,15 @@
                         <%= f.hidden_field :scheduled_at, value: slot[:start_time].iso8601 %>
                         <%= f.hidden_field :duration, value: @duration %>
                         <%= f.hidden_field :status, value: current_user.student? ? 'requested' : 'scheduled' %>
+                        <%= f.hidden_field :cost, value: (@instructor.hourly_rate || 100) * (@duration.to_f / 60.0) %>
                         
-                        <button type="submit" class="btn btn-outline-success w-100 mb-2 time-slot-btn">
+                        <button type="submit" class="btn btn-outline-success w-100 mb-2 time-slot-btn"
+                                data-confirm="Book this <%= @duration %>-minute lesson with <%= @instructor.full_name %> on <%= @date.strftime('%A, %B %d') %> at <%= slot[:formatted_time] %>?">
                           <div class="fw-bold"><%= slot[:formatted_time] %></div>
                           <div class="small">to <%= slot[:formatted_end] %></div>
+                          <div class="small text-success">
+                            $<%= sprintf('%.2f', (@instructor.hourly_rate || 100) * (@duration.to_f / 60.0)) %>
+                          </div>
                         </button>
                       <% end %>
                     <% end %>
