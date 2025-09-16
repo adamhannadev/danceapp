@@ -11,7 +11,6 @@ class PrivateLesson < ApplicationRecord
   validates :cost, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validate :instructor_must_be_instructor
   validate :student_must_be_student
-  validate :scheduled_at_must_be_future, on: :create
   validate :instructor_availability, if: :scheduled_at_changed?
   # Removed dance_style_id and dance_level_id validations
 
@@ -71,11 +70,6 @@ class PrivateLesson < ApplicationRecord
   def student_must_be_student
     return unless student
     errors.add(:student, 'must be a student') unless student.student?
-  end
-
-  def scheduled_at_must_be_future
-    return unless scheduled_at
-    errors.add(:scheduled_at, 'must be in the future') if scheduled_at <= Time.current
   end
 
   def instructor_availability

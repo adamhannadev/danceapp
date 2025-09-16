@@ -80,8 +80,7 @@
                       <%= f.label :scheduled_at, "Date & Time", class: "form-label fw-bold" %>
                       <%= f.datetime_local_field :scheduled_at, 
                             class: "form-control", 
-                            required: true,
-                            min: Time.current.strftime("%Y-%m-%dT%H:%M") %>
+                            required: true %>
                       <div class="form-text">
                         <i class="fas fa-info-circle me-1"></i>
                         Lessons must be scheduled at least 24 hours in advance
