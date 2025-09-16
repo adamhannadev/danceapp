@@ -16,7 +16,8 @@ class InstructorAvailabilitiesController < ApplicationController
             start: availability.start_time.iso8601,
             end: availability.end_time.iso8601,
             backgroundColor: '#28a745',
-            borderColor: '#1e7e34'
+            borderColor: '#1e7e34',
+            editable: true
           }
         }
       }
