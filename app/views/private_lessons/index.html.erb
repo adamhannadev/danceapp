@@ -1,5 +1,24 @@
 <% content_for :title, "Private Lessons" %>
 
+<style>
+  .btn-group .dropdown-menu .dropdown-item {
+    padding: 0.5rem 0;
+  }
+  .btn-group .dropdown-menu .dropdown-item form {
+    width: 100%;
+  }
+  .btn-group .dropdown-menu .dropdown-item button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+  }
+  .btn-group .dropdown-menu .dropdown-item button:hover {
+    background-color: var(--bs-gray-100);
+  }
+</style>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
@@ -136,6 +155,14 @@
                           <%= lesson.scheduled_at.strftime("%I:%M %p") %> - 
                           <%= lesson.end_time.strftime("%I:%M %p") %>
                         </small>
+                        <% if lesson.part_of_recurring_series? %>
+                          <div class="mt-1">
+                            <span class="badge bg-info">
+                              <i class="fas fa-repeat me-1"></i>
+                              <%= lesson.is_parent_lesson? ? 'Recurring (Parent)' : 'Part of Series' %>
+                            </span>
+                          </div>
+                        <% end %>
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
@@ -213,15 +240,57 @@
                           <% end %>
                           
                           <% if current_user.admin? || current_user == lesson.instructor %>
-                            <%= button_to private_lesson_path(lesson), 
-                                  method: :delete, 
-                                  class: "btn btn-sm btn-danger", 
-                                  title: "Delete Lesson",
-                                  data: { 
-                                    confirm: "Are you sure you want to delete this lesson? This action cannot be undone and will permanently remove all lesson data." 
-                                  },
-                                  form: { class: "d-inline" } do %>
-                              <i class="fas fa-trash"></i>
+                            <% if lesson.part_of_recurring_series? %>
+                              <!-- Recurring lesson delete with options -->
+                              <div class="btn-group dropstart">
+                                <button type="button" class="btn btn-sm btn-danger dropdown-toggle" 
+                                        data-bs-toggle="dropdown" aria-expanded="false" title="Delete Options">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <h6 class="dropdown-header">
+                                      <i class="fas fa-repeat me-1"></i>Recurring Lesson Options
+                                    </h6>
+                                  </li>
+                                  <li>
+                                    <%= button_to private_lesson_path(lesson), 
+                                          method: :delete, 
+                                          params: { delete_future: false },
+                                          class: "dropdown-item text-warning",
+                                          data: { 
+                                            confirm: "Delete only this lesson? Previous and future lessons in the series will remain unchanged." 
+                                          },
+                                          form: { class: "d-inline w-100" } do %>
+                                      <i class="fas fa-minus-circle me-2"></i>Delete this lesson only
+                                    <% end %>
+                                  </li>
+                                  <li>
+                                    <%= button_to private_lesson_path(lesson), 
+                                          method: :delete, 
+                                          params: { delete_future: true },
+                                          class: "dropdown-item text-danger",
+                                          data: { 
+                                            confirm: "Delete this lesson and all future lessons in the series? Lessons before this one will remain. This cannot be undone." 
+                                          },
+                                          form: { class: "d-inline w-100" } do %>
+                                      <i class="fas fa-trash me-2"></i>Delete this and all following
+                                    <% end %>
+                                  </li>
+                                </ul>
+                              </div>
+                            <% else %>
+                              <!-- Regular single lesson delete -->
+                              <%= button_to private_lesson_path(lesson), 
+                                    method: :delete, 
+                                    class: "btn btn-sm btn-danger", 
+                                    title: "Delete Lesson",
+                                    data: { 
+                                      confirm: "Are you sure you want to delete this lesson? This action cannot be undone and will permanently remove all lesson data." 
+                                    },
+                                    form: { class: "d-inline" } do %>
+                                <i class="fas fa-trash"></i>
+                              <% end %>
                             <% end %>
                           <% end %>
                         </div>

@@ -94,10 +94,23 @@ class PrivateLessonsController < ApplicationController
     end
 
     if @private_lesson.save
+      # Handle recurring lesson creation
+      if @private_lesson.is_recurring?
+        service = RecurringLessonService.new(@private_lesson)
+        recurring_lessons = service.create_recurring_lessons
+        
+        flash_message = "Private lesson was successfully created"
+        if recurring_lessons.any?
+          flash_message += " with #{recurring_lessons.length} recurring instances through #{@private_lesson.recurring_until.strftime('%B %d, %Y')}"
+        end
+      else
+        flash_message = 'Private lesson was successfully created.'
+      end
+      
       # Send notification email to relevant parties
       send_lesson_notification
       
-      redirect_to @private_lesson, notice: 'Private lesson was successfully created.'
+      redirect_to @private_lesson, notice: flash_message
     else
       # If coming from available_slots, redirect back with error
       if request.referer&.include?('available_slots')
@@ -121,22 +134,98 @@ class PrivateLessonsController < ApplicationController
   end
 
   def update
-    if @private_lesson.update(private_lesson_params)
-      # Recalculate cost if instructor or duration changed
-      if @private_lesson.saved_change_to_instructor_id? || @private_lesson.saved_change_to_duration?
-        @private_lesson.update(cost: calculate_lesson_cost(@private_lesson))
-      end
+    # Handle recurring lesson updates
+    if @private_lesson.is_parent_lesson? && recurring_params_changed?
+      service = RecurringLessonService.new(@private_lesson)
+      result = service.update_recurring_series(private_lesson_params)
       
-      redirect_to @private_lesson, notice: 'Private lesson was successfully updated.'
+      if @private_lesson.update(private_lesson_params)
+        flash_message = 'Private lesson was successfully updated.'
+        
+        if result[:deleted_count]
+          flash_message += " #{result[:deleted_count]} future recurring lessons were removed."
+        elsif result[:created_count]
+          flash_message += " #{result[:created_count]} recurring lessons were created."
+        end
+        
+        redirect_to @private_lesson, notice: flash_message
+      else
+        set_form_data
+        render :edit, status: :unprocessable_entity
+      end
     else
-      set_form_data
-      render :edit, status: :unprocessable_entity
+      if @private_lesson.update(private_lesson_params)
+        # Recalculate cost if instructor or duration changed
+        if @private_lesson.saved_change_to_instructor_id? || @private_lesson.saved_change_to_duration?
+          @private_lesson.update(cost: calculate_lesson_cost(@private_lesson))
+        end
+        
+        # Handle new recurring series creation
+        if @private_lesson.is_recurring? && @private_lesson.saved_change_to_is_recurring?
+          service = RecurringLessonService.new(@private_lesson)
+          recurring_lessons = service.create_recurring_lessons
+          flash_message = "Private lesson was successfully updated with #{recurring_lessons.length} recurring instances."
+        else
+          flash_message = 'Private lesson was successfully updated.'
+        end
+        
+        redirect_to @private_lesson, notice: flash_message
+      else
+        set_form_data
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   def destroy
+    deleted_count = 0
+    lesson_type = 'private lesson'
+    delete_future = params[:delete_future] == 'true'
+    
+    Rails.logger.info "DESTROY DEBUG: delete_future param = #{params[:delete_future]}, converted = #{delete_future}"
+    Rails.logger.info "DESTROY DEBUG: lesson.is_recurring? = #{@private_lesson.is_recurring?}"
+    Rails.logger.info "DESTROY DEBUG: lesson.part_of_recurring_series? = #{@private_lesson.part_of_recurring_series?}"
+    Rails.logger.info "DESTROY DEBUG: lesson.is_parent_lesson? = #{@private_lesson.is_parent_lesson?}"
+    Rails.logger.info "DESTROY DEBUG: lesson.is_recurring_instance? = #{@private_lesson.is_recurring_instance?}"
+    
+    if @private_lesson.part_of_recurring_series?
+      if @private_lesson.is_parent_lesson?
+        # This is the parent lesson - delete entire series or just this one
+        if delete_future
+          service = RecurringLessonService.new(@private_lesson)
+          deleted_count = service.delete_future_lessons
+          lesson_type = 'recurring lesson series'
+        else
+          lesson_type = 'parent lesson (series continues)'
+        end
+      else
+        # This is a child lesson in a series
+        Rails.logger.info "DESTROY DEBUG: This is a child lesson, delete_future = #{delete_future}"
+        if delete_future
+          # Delete this lesson and all future lessons in the series (starting from this lesson's date)
+          Rails.logger.info "DESTROY DEBUG: About to call delete_future_lessons with date #{@private_lesson.scheduled_at}"
+          service = RecurringLessonService.new(@private_lesson.parent_lesson)
+          deleted_count = service.delete_future_lessons(@private_lesson.scheduled_at)
+          Rails.logger.info "DESTROY DEBUG: delete_future_lessons returned #{deleted_count}"
+          lesson_type = 'lesson and all following lessons in the series'
+        else
+          lesson_type = 'single lesson from series'
+        end
+      end
+    end
+    
     @private_lesson.destroy!
-    redirect_to private_lessons_path, notice: 'Private lesson was successfully deleted.'
+    
+    flash_message = "#{lesson_type.humanize} was successfully deleted."
+    if deleted_count > 0
+      if lesson_type.include?('following lessons in the series')
+        flash_message += " #{deleted_count} future lessons were removed (lessons before this one remain in the series)."
+      else
+        flash_message += " #{deleted_count} future recurring lessons were also removed."
+      end
+    end
+    
+    redirect_to private_lessons_path, notice: flash_message
   end
 
   def cancel
@@ -190,7 +279,15 @@ class PrivateLessonsController < ApplicationController
   end
 
   def private_lesson_params
-    params.require(:private_lesson).permit(:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status)
+    params.require(:private_lesson).permit(:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status, :is_recurring, :recurrence_rule, :recurring_until)
+  end
+
+  def recurring_params_changed?
+    return false unless params[:private_lesson]
+    
+    params[:private_lesson][:is_recurring] != @private_lesson.is_recurring.to_s ||
+    params[:private_lesson][:recurrence_rule] != @private_lesson.recurrence_rule ||
+    params[:private_lesson][:recurring_until] != @private_lesson.recurring_until&.to_s
   end
 
   def set_form_data

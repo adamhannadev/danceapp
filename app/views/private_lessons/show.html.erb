@@ -1,5 +1,24 @@
 <% content_for :title, "Private Lesson Details" %>
 
+<style>
+  .btn-group .dropdown-menu .dropdown-item {
+    padding: 0.5rem 0;
+  }
+  .btn-group .dropdown-menu .dropdown-item form {
+    width: 100%;
+  }
+  .btn-group .dropdown-menu .dropdown-item button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+  }
+  .btn-group .dropdown-menu .dropdown-item button:hover {
+    background-color: var(--bs-gray-100);
+  }
+</style>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
@@ -119,6 +138,52 @@
                   </div>
                 </div>
               <% end %>
+
+              <% if @private_lesson.is_recurring? %>
+                <div class="mb-3">
+                  <label class="form-label fw-bold text-muted">
+                    <i class="fas fa-repeat me-1"></i>Recurring Lesson Information
+                  </label>
+                  <div class="border rounded p-3 bg-info bg-opacity-10">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <strong>Lesson Type:</strong> 
+                        <span class="badge bg-info">
+                          <%= @private_lesson.is_parent_lesson? ? 'Parent Lesson (Original)' : 'Part of Series' %>
+                        </span>
+                      </div>
+                      <% if @private_lesson.recurrence_rule.present? %>
+                        <div class="col-md-6">
+                          <strong>Frequency:</strong> <%= @private_lesson.recurrence_rule.humanize %>
+                        </div>
+                      <% end %>
+                      <% if @private_lesson.recurring_until.present? %>
+                        <div class="col-md-6 mt-2">
+                          <strong>Series ends:</strong> <%= @private_lesson.recurring_until.strftime("%B %d, %Y") %>
+                        </div>
+                      <% end %>
+                      <% if @private_lesson.parent_lesson.present? %>
+                        <div class="col-md-6 mt-2">
+                          <strong>Original lesson:</strong> 
+                          <%= link_to @private_lesson.parent_lesson.scheduled_at.strftime("%B %d, %Y"), 
+                                @private_lesson.parent_lesson, 
+                                class: "text-decoration-none" %>
+                        </div>
+                      <% end %>
+                      <% if @private_lesson.is_parent_lesson? && @private_lesson.recurring_lessons.any? %>
+                        <div class="col-12 mt-3">
+                          <strong>Remaining lessons in series:</strong> 
+                          <span class="badge bg-secondary"><%= @private_lesson.future_recurring_lessons.count %></span>
+                          <br>
+                          <small class="text-muted">
+                            Next: <%= @private_lesson.future_recurring_lessons.first&.scheduled_at&.strftime("%B %d, %Y") || 'None scheduled' %>
+                          </small>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -172,13 +237,55 @@
                 <% end %>
                 
                 <% if current_user.admin? %>
-                  <%= link_to @private_lesson,  
-                        class: "btn btn-outline-danger",
-                        data: { 
-                            turbo_method: :delete,
-                          turbo_confirm: "Are you sure? This will permanently delete this lesson and cannot be undone." 
-                        } do %>
-                    <i class="fas fa-trash me-1"></i>Delete Lesson
+                  <% if @private_lesson.is_recurring? %>
+                    <!-- Recurring lesson delete with options -->
+                    <div class="btn-group dropstart">
+                      <button type="button" class="btn btn-outline-danger dropdown-toggle" 
+                              data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-trash me-1"></i>Delete Options
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <h6 class="dropdown-header">
+                            <i class="fas fa-repeat me-1"></i>Recurring Lesson Options
+                          </h6>
+                        </li>
+                        <li>
+                          <%= button_to @private_lesson, 
+                                method: :delete, 
+                                params: { delete_future: false },
+                                class: "dropdown-item text-warning",
+                                data: { 
+                                  confirm: "Delete only this lesson? Previous and future lessons in the series will remain unchanged." 
+                                },
+                                form: { class: "d-inline w-100" } do %>
+                            <i class="fas fa-minus-circle me-2"></i>Delete this lesson only
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= button_to @private_lesson, 
+                                method: :delete, 
+                                params: { delete_future: true },
+                                class: "dropdown-item text-danger",
+                                data: { 
+                                  confirm: "Delete this lesson and all future lessons in the series? Lessons before this one will remain. This cannot be undone." 
+                                },
+                                form: { class: "d-inline w-100" } do %>
+                            <i class="fas fa-trash me-2"></i>Delete this and all following
+                          <% end %>
+                        </li>
+                      </ul>
+                    </div>
+                  <% else %>
+                    <!-- Regular single lesson delete -->
+                    <%= link_to @private_lesson,  
+                          class: "btn btn-outline-danger",
+                          data: { 
+                              turbo_method: :delete,
+                            turbo_confirm: "Are you sure? This will permanently delete this lesson and cannot be undone." 
+                          } do %>
+                      <i class="fas fa-trash me-1"></i>Delete Lesson
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>

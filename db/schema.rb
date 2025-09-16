@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_07_224738) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_16_192907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -177,8 +177,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_07_224738) do
     t.datetime "updated_at", null: false
     t.datetime "confirmed_at"
     t.datetime "cancelled_at"
+    t.boolean "is_recurring", default: false, null: false
+    t.string "recurrence_rule"
+    t.integer "parent_lesson_id"
+    t.date "recurring_until"
     t.index ["instructor_id"], name: "index_private_lessons_on_instructor_id"
+    t.index ["is_recurring"], name: "index_private_lessons_on_is_recurring"
     t.index ["location_id"], name: "index_private_lessons_on_location_id"
+    t.index ["parent_lesson_id"], name: "index_private_lessons_on_parent_lesson_id"
     t.index ["student_id"], name: "index_private_lessons_on_student_id"
   end
 
@@ -245,6 +251,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_07_224738) do
   add_foreign_key "instructor_availabilities", "users", column: "instructor_id"
   add_foreign_key "payments", "users"
   add_foreign_key "private_lessons", "locations"
+  add_foreign_key "private_lessons", "private_lessons", column: "parent_lesson_id"
   add_foreign_key "private_lessons", "users", column: "instructor_id"
   add_foreign_key "private_lessons", "users", column: "student_id"
   add_foreign_key "student_progresses", "figures"
