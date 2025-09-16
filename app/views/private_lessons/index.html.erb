@@ -187,13 +187,14 @@
                           <% end %>
                           
                           <% if lesson.can_be_confirmed? && (current_user.instructor? || current_user.admin?) %>
-                            <%= link_to confirm_private_lesson_path(lesson), 
+                            <%= button_to confirm_private_lesson_path(lesson), 
                                   method: :patch, 
                                   class: "btn btn-sm btn-outline-success", 
                                   title: "Confirm",
                                   data: { 
                                     confirm: "Confirm this lesson?" 
-                                  } do %>
+                                  },
+                                  form: { class: "d-inline" } do %>
                               <i class="fas fa-check"></i>
                             <% end %>
                           <% end %>
