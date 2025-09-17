@@ -1,0 +1,95 @@
+<%= form_with(model: routine, local: true, class: "needs-validation", novalidate: true) do |form| %>
+  <% if routine.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <h4>Please fix the following errors:</h4>
+      <ul class="mb-0">
+        <% routine.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="mb-3">
+        <%= form.label :user_id, "Assign to Student", class: "form-label fw-bold" %>
+        <%= form.select :user_id, 
+              options_from_collection_for_select(@students, :id, :full_name, routine.user_id),
+              { prompt: "Select a student" },
+              { class: "form-select", required: true } %>
+        <div class="invalid-feedback">
+          Please select a student to assign this routine to.
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="mb-3">
+        <%= form.label :dance_category_id, "Dance Category", class: "form-label fw-bold" %>
+        <%= form.select :dance_category_id, 
+              options_from_collection_for_select(@dance_categories, :id, :name, routine.dance_category_id),
+              { prompt: "Select a dance category" },
+              { class: "form-select", required: true } %>
+        <div class="invalid-feedback">
+          Please select a dance category.
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="mb-3">
+        <%= form.label :dance_style_id, "Dance Style", class: "form-label fw-bold" %>
+        <%= form.select :dance_style_id, 
+              options_from_collection_for_select(@dance_styles, :id, :name, routine.dance_style_id),
+              { prompt: "Select a dance style" },
+              { class: "form-select", required: true } %>
+        <div class="invalid-feedback">
+          Please select a dance style.
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label fw-bold" %>
+    <%= form.text_area :description, 
+          class: "form-control", 
+          rows: 10,
+          placeholder: "Describe the routine steps, movements, and instructions in detail...",
+          required: true %>
+    <div class="form-text">
+      Provide detailed instructions for the routine (minimum 10 characters, maximum 1000 characters).
+    </div>
+    <div class="invalid-feedback">
+      Please provide a description for the routine.
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= form.submit routine.persisted? ? "Update Routine" : "Create Routine", 
+          class: "btn btn-primary" %>
+    
+    <%= link_to routines_path, class: "btn btn-secondary" do %>
+      <i class="fas fa-times me-1"></i>Cancel
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Bootstrap form validation
+  const forms = document.querySelectorAll('.needs-validation');
+  
+  Array.from(forms).forEach(function(form) {
+    form.addEventListener('submit', function(event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      form.classList.add('was-validated');
+    }, false);
+  });
+});
+</script>

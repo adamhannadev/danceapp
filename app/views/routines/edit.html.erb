@@ -1,0 +1,34 @@
+<% content_for :title, "Edit Routine" %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+          <i class="fas fa-edit me-2"></i>Edit Routine
+        </h1>
+        
+        <div>
+          <%= link_to @routine, class: "btn btn-outline-secondary me-2" do %>
+            <i class="fas fa-eye me-1"></i>View
+          <% end %>
+          
+          <%= link_to routines_path, class: "btn btn-outline-secondary" do %>
+            <i class="fas fa-arrow-left me-1"></i>Back to Routines
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-file-text me-2"></i>Edit "<%= @routine.title %>"
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= render 'form', routine: @routine %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

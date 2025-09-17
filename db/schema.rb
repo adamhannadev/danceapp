@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_16_192907) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_17_225629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -188,6 +188,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_16_192907) do
     t.index ["student_id"], name: "index_private_lessons_on_student_id"
   end
 
+  create_table "routines", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "dance_category_id", null: false
+    t.bigint "dance_style_id", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "created_by_id", null: false
+    t.index ["created_by_id"], name: "index_routines_on_created_by_id"
+    t.index ["dance_category_id"], name: "index_routines_on_dance_category_id"
+    t.index ["dance_style_id"], name: "index_routines_on_dance_style_id"
+    t.index ["user_id"], name: "index_routines_on_user_id"
+  end
+
   create_table "student_progresses", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "figure_id", null: false
@@ -254,6 +268,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_16_192907) do
   add_foreign_key "private_lessons", "private_lessons", column: "parent_lesson_id"
   add_foreign_key "private_lessons", "users", column: "instructor_id"
   add_foreign_key "private_lessons", "users", column: "student_id"
+  add_foreign_key "routines", "dance_categories"
+  add_foreign_key "routines", "dance_styles"
+  add_foreign_key "routines", "users"
+  add_foreign_key "routines", "users", column: "created_by_id"
   add_foreign_key "student_progresses", "figures"
   add_foreign_key "student_progresses", "users"
   add_foreign_key "student_progresses", "users", column: "instructor_id"

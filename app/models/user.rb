@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :event_registrations, dependent: :destroy
   has_many :events, through: :event_registrations
   has_many :waitlists, dependent: :destroy
+  has_many :routines, dependent: :destroy
 
   # Validations
   validates :email, presence: true, uniqueness: true
