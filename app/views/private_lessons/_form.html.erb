@@ -127,25 +127,28 @@
                             rows: 6,
                             placeholder: "Lesson plan or any other notes..." %>
                     </div>
-                    
-                    <!-- Recurring Lesson Options -->
-                    <div class="card bg-light">
-                      <div class="card-header">
-                        <h6 class="mb-0">
-                          <i class="fas fa-repeat me-2"></i>Recurring Lesson Options
-                        </h6>
-                      </div>
-                      <div class="card-body">
-                        <div class="mb-3">
-                          <div class="form-check form-switch">
-                            <%= f.check_box :is_recurring, 
-                                  class: "form-check-input" %>
-                            <%= f.label :is_recurring, "Make this a recurring lesson", class: "form-check-label fw-bold" %>
-                          </div>
-                          <small class="text-muted">
-                            Check this to automatically create multiple lessons with the same details
-                          </small>
+                  </div>
+                </div>
+                
+                <!-- Recurring Lesson Options (Only for Instructors and Admins) -->
+                <% if current_user.instructor? || current_user.admin? %>
+                  <div class="row">
+                    <div class="col-12">
+                      <hr class="my-4">
+                      <h6 class="text-primary mb-3">
+                        <i class="fas fa-repeat me-2"></i>Recurring Lesson Options
+                      </h6>
+                      
+                      <div class="mb-3">
+                        <div class="form-check form-switch">
+                          <%= f.check_box :is_recurring, 
+                                class: "form-check-input" %>
+                          <%= f.label :is_recurring, "Make this a recurring lesson", class: "form-check-label fw-bold" %>
                         </div>
+                        <small class="text-muted">
+                          Check this to automatically create multiple lessons with the same details
+                        </small>
+                      </div>
                         
                         <div class="collapse <%= 'show' if @private_lesson.is_recurring? %>" id="recurring_options">
                           <div class="row">
@@ -178,13 +181,13 @@
                             Each lesson will have the same instructor, duration, and location.
                           </div>
                         </div>
-                      </div>
                     </div>
                   </div>
-                </div>
-<div class="row">
-
-</div>
+                <% end %>
+              </div>
+            </div>
+            
+            <div class="row mt-2 mb-2">
                 <div class="d-flex gap-2">
                   <%= f.submit (@private_lesson.new_record? ? "Book Lesson" : "Update Lesson"), class: "btn btn-primary" %>
                   
@@ -195,7 +198,7 @@
               <% end %>
             </div>
           </div>
-        </div>
+      </div>
 
         <!-- Sidebar with helpful information -->
         <!-- <div class="col-lg-4">
@@ -325,30 +328,39 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Handle recurring lesson toggle
-  const recurringCheckbox = document.querySelector('input[name="private_lesson[is_recurring]"][type="checkbox"]');
-  const recurringOptions = document.getElementById('recurring_options');
-  
-  console.log('Recurring checkbox found:', recurringCheckbox);
-  console.log('Recurring options div found:', recurringOptions);
-  
-  if (recurringCheckbox && recurringOptions) {
-    recurringCheckbox.addEventListener('change', function() {
-      console.log('Checkbox changed, checked:', this.checked);
-      if (this.checked) {
+  setTimeout(function() {
+    const recurringCheckbox = document.querySelector('input[name="private_lesson[is_recurring]"][type="checkbox"]');
+    const recurringOptions = document.getElementById('recurring_options');
+    
+    console.log('Recurring toggle initialization...');
+    console.log('Recurring checkbox found:', recurringCheckbox);
+    console.log('Recurring options div found:', recurringOptions);
+    
+    if (recurringCheckbox && recurringOptions) {
+      recurringCheckbox.addEventListener('change', function() {
+        console.log('Checkbox changed, checked:', this.checked);
+        if (this.checked) {
+          recurringOptions.classList.add('show');
+          console.log('Added show class');
+        } else {
+          recurringOptions.classList.remove('show');
+          console.log('Removed show class');
+        }
+      });
+      
+      // Set initial state based on checkbox value
+      if (recurringCheckbox.checked) {
         recurringOptions.classList.add('show');
-        console.log('Added show class');
+        console.log('Initial state: checkbox is checked, adding show class');
       } else {
         recurringOptions.classList.remove('show');
-        console.log('Removed show class');
+        console.log('Initial state: checkbox is unchecked, removing show class');
       }
-    });
-    
-    // Set initial state based on checkbox value
-    if (recurringCheckbox.checked) {
-      recurringOptions.classList.add('show');
+    } else {
+      console.error('Could not find recurring checkbox or options div');
+      console.log('All checkboxes:', document.querySelectorAll('input[type="checkbox"]'));
+      console.log('All divs with id:', document.querySelectorAll('div[id]'));
     }
-  } else {
-    console.error('Could not find recurring checkbox or options div');
-  }
+  }, 100);
 });
 </script>

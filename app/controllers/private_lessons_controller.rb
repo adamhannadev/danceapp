@@ -69,6 +69,13 @@ class PrivateLessonsController < ApplicationController
   def create
     @private_lesson = PrivateLesson.new(private_lesson_params)
     
+    # Clear recurring parameters if user is not authorized to set them
+    unless current_user.instructor? || current_user.admin?
+      @private_lesson.is_recurring = false
+      @private_lesson.recurrence_rule = nil
+      @private_lesson.recurring_until = nil
+    end
+    
     # Set defaults based on user role and form data
     if current_user.student?
       @private_lesson.student = current_user
@@ -134,6 +141,13 @@ class PrivateLessonsController < ApplicationController
   end
 
   def update
+    # Clear recurring parameters if user is not authorized to set them
+    unless current_user.instructor? || current_user.admin?
+      params[:private_lesson][:is_recurring] = false if params[:private_lesson][:is_recurring]
+      params[:private_lesson].delete(:recurrence_rule)
+      params[:private_lesson].delete(:recurring_until)
+    end
+    
     # Handle recurring lesson updates
     if @private_lesson.is_parent_lesson? && recurring_params_changed?
       service = RecurringLessonService.new(@private_lesson)
@@ -182,12 +196,6 @@ class PrivateLessonsController < ApplicationController
     lesson_type = 'private lesson'
     delete_future = params[:delete_future] == 'true'
     
-    Rails.logger.info "DESTROY DEBUG: delete_future param = #{params[:delete_future]}, converted = #{delete_future}"
-    Rails.logger.info "DESTROY DEBUG: lesson.is_recurring? = #{@private_lesson.is_recurring?}"
-    Rails.logger.info "DESTROY DEBUG: lesson.part_of_recurring_series? = #{@private_lesson.part_of_recurring_series?}"
-    Rails.logger.info "DESTROY DEBUG: lesson.is_parent_lesson? = #{@private_lesson.is_parent_lesson?}"
-    Rails.logger.info "DESTROY DEBUG: lesson.is_recurring_instance? = #{@private_lesson.is_recurring_instance?}"
-    
     if @private_lesson.part_of_recurring_series?
       if @private_lesson.is_parent_lesson?
         # This is the parent lesson - delete entire series or just this one
@@ -200,13 +208,10 @@ class PrivateLessonsController < ApplicationController
         end
       else
         # This is a child lesson in a series
-        Rails.logger.info "DESTROY DEBUG: This is a child lesson, delete_future = #{delete_future}"
         if delete_future
           # Delete this lesson and all future lessons in the series (starting from this lesson's date)
-          Rails.logger.info "DESTROY DEBUG: About to call delete_future_lessons with date #{@private_lesson.scheduled_at}"
           service = RecurringLessonService.new(@private_lesson.parent_lesson)
           deleted_count = service.delete_future_lessons(@private_lesson.scheduled_at)
-          Rails.logger.info "DESTROY DEBUG: delete_future_lessons returned #{deleted_count}"
           lesson_type = 'lesson and all following lessons in the series'
         else
           lesson_type = 'single lesson from series'
@@ -279,7 +284,14 @@ class PrivateLessonsController < ApplicationController
   end
 
   def private_lesson_params
-    params.require(:private_lesson).permit(:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status, :is_recurring, :recurrence_rule, :recurring_until)
+    base_params = [:student_id, :instructor_id, :location_id, :scheduled_at, :duration, :notes, :status]
+    
+    # Only allow recurring parameters for instructors and admins
+    if current_user.instructor? || current_user.admin?
+      base_params += [:is_recurring, :recurrence_rule, :recurring_until]
+    end
+    
+    params.require(:private_lesson).permit(base_params)
   end
 
   def recurring_params_changed?
