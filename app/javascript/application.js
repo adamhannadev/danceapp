@@ -8,15 +8,22 @@ window.bootstrap = bootstrap
 
 // Initialize Bootstrap components on page load
 document.addEventListener('turbo:load', () => {
-  // Initialize Bootstrap dropdowns
-  const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+  // Check if Bootstrap is available
+  if (typeof bootstrap === 'undefined') {
+    console.error('Bootstrap is not loaded');
+    return;
+  }
 
-  // Initialize Bootstrap collapses
-  const collapseElementList = document.querySelectorAll('.collapse');
-  const collapseList = [...collapseElementList].map(collapseEl => new bootstrap.Collapse(collapseEl, {
-    toggle: false
-  }));
+  // Initialize Bootstrap dropdowns
+  try {
+    const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+    const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+  } catch (error) {
+    console.error('Error initializing dropdowns:', error);
+  }
+
+  // Note: Removed automatic collapse initialization to avoid conflicts
+  // Bootstrap will auto-initialize collapses that have proper data attributes
 });
 
 // Clean up Bootstrap components before caching
@@ -25,12 +32,6 @@ document.addEventListener("turbo:before-cache", () => {
   document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(dropdown => {
     const bsDropdown = bootstrap.Dropdown.getInstance(dropdown)
     if (bsDropdown) bsDropdown.dispose()
-  })
-  
-  // Dispose of collapses
-  document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(collapse => {
-    const bsCollapse = bootstrap.Collapse.getInstance(collapse)
-    if (bsCollapse) bsCollapse.dispose()
   })
   
   // Dispose of tooltips

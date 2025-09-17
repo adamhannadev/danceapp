@@ -329,6 +329,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Handle recurring lesson toggle
   setTimeout(function() {
+    // Check if Bootstrap is available
+    if (typeof bootstrap === 'undefined') {
+      console.warn('Bootstrap not available for recurring toggle');
+    }
+    
     const recurringCheckbox = document.querySelector('input[name="private_lesson[is_recurring]"][type="checkbox"]');
     const recurringOptions = document.getElementById('recurring_options');
     
