@@ -14,13 +14,21 @@
     <div class="col-md-4">
       <div class="mb-3">
         <%= form.label :user_id, "Assign to Student", class: "form-label fw-bold" %>
-        <%= form.select :user_id, 
-              options_from_collection_for_select(@students, :id, :full_name, routine.user_id),
-              { prompt: "Select a student" },
-              { class: "form-select", required: true } %>
-        <div class="invalid-feedback">
-          Please select a student to assign this routine to.
-        </div>
+        
+        <% if @pre_selected_student.present? %>
+          <!-- Pre-selected student (from student's profile page) -->
+          <%= form.hidden_field :user_id %>
+          <input type="text" class="form-control" value="<%= @pre_selected_student.full_name %>" readonly>
+        <% else %>
+          <!-- Normal student selection dropdown -->
+          <%= form.select :user_id, 
+                options_from_collection_for_select(@students, :id, :full_name, routine.user_id),
+                { prompt: "Select a student" },
+                { class: "form-select", required: true } %>
+          <div class="invalid-feedback">
+            Please select a student to assign this routine to.
+          </div>
+        <% end %>
       </div>
     </div>
     

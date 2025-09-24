@@ -18,21 +18,41 @@ class RoutinesController < ApplicationController
         redirect_to routines_path, alert: 'Access denied.'
         return
       end
-    elsif current_user.student? && !current_user.instructor? && !current_user.admin?
-      # Filter by current user if they're a student (not instructor or admin)
-      @routines = @routines.where(user: current_user)
+    else
+      # Authorization based on user role
+      if current_user.admin? || current_user.instructor?
+        # Teachers and admins can see ALL routines
+        @routines = @routines
+      else
+        # Students can only see their own assigned routines
+        @routines = @routines.where(user: current_user)
+      end
     end
   end
 
   def show
-    # Students can only view their own routines unless they're also instructors/admins
-    if current_user.student? && !current_user.instructor? && !current_user.admin?
-      redirect_to routines_path, alert: 'Access denied.' unless @routine.user == current_user
+    # Authorization: Teachers and admins can view any routine, students can only view their own
+    unless can_view_routine?
+      redirect_to routines_path, alert: 'You can only view routines assigned to you.'
     end
   end
 
   def new
     @routine = Routine.new
+    
+    # Pre-populate student if student_id parameter is provided
+    if params[:student_id].present?
+      @student = User.find(params[:student_id])
+      # Ensure the current user can assign routines to this student
+      if current_user.admin? || current_user.instructor?
+        @routine.user = @student
+        @pre_selected_student = @student
+      else
+        redirect_to routines_path, alert: 'Access denied.'
+        return
+      end
+    end
+    
     set_form_data
   end
 
@@ -81,6 +101,19 @@ class RoutinesController < ApplicationController
       redirect_to routines_path, alert: 'Only instructors and administrators can create or modify routines.'
     end
   end
+
+  def can_view_routine?
+    # Teachers and admins can view any routine
+    return true if current_user.instructor? || current_user.admin?
+    
+    # Students can only view routines assigned to them
+    current_user.student? && @routine.user == current_user
+  end
+
+  def can_edit_routines?
+    current_user.instructor? || current_user.admin?
+  end
+  helper_method :can_edit_routines?
 
   def set_form_data
     @dance_categories = DanceCategory.order(:name)
