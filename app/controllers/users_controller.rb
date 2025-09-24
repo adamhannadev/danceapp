@@ -28,6 +28,12 @@ class UsersController < ApplicationController
 
   def show
     @user_dashboard = UserDashboardService.new(@user, current_user).call
+    @recent_progress = @user_dashboard[:recent_progress] || []
+    @upcoming_bookings = @user_dashboard[:upcoming_bookings] || []
+    @teaching_classes = @user_dashboard[:teaching_classes] || []
+    @enrollment_stats = @user_dashboard[:enrollment_stats] || {}
+    @instructor_availabilities = @user_dashboard[:instructor_availabilities] || []
+    @upcoming_availabilities = @user_dashboard[:upcoming_availabilities] || []
   end
 
   def new
