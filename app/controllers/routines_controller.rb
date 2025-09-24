@@ -7,8 +7,19 @@ class RoutinesController < ApplicationController
     @routines = Routine.includes(:user, :created_by, :dance_category, :dance_style)
                       .order(created_at: :desc)
     
-    # Filter by current user if they're a student (not instructor or admin)
-    if current_user.student? && !current_user.instructor? && !current_user.admin?
+    # Handle filtering by student_id parameter (for viewing specific student's routines)
+    if params[:student_id].present?
+      @student = User.find(params[:student_id])
+      # Only allow viewing if current user is admin/instructor or viewing their own routines
+      if current_user.admin? || current_user.instructor? || current_user == @student
+        @routines = @routines.where(user: @student)
+        @page_title = "#{@student.full_name}'s Routines"
+      else
+        redirect_to routines_path, alert: 'Access denied.'
+        return
+      end
+    elsif current_user.student? && !current_user.instructor? && !current_user.admin?
+      # Filter by current user if they're a student (not instructor or admin)
       @routines = @routines.where(user: current_user)
     end
   end

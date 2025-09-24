@@ -34,6 +34,12 @@ class UsersController < ApplicationController
     @enrollment_stats = @user_dashboard[:enrollment_stats] || {}
     @instructor_availabilities = @user_dashboard[:instructor_availabilities] || []
     @upcoming_availabilities = @user_dashboard[:upcoming_availabilities] || []
+    
+    # Load routines for students (visible to admins/instructors viewing any student, or students viewing themselves)
+    if @user.student? && (current_user.admin? || current_user.instructor? || current_user == @user)
+      @student_routines = @user.routines.includes(:created_by, :dance_category, :dance_style)
+                               .order(created_at: :desc).limit(3)
+    end
   end
 
   def new

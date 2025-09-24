@@ -204,6 +204,61 @@
           </div>
         </div>
 
+        <!-- Student Routines (Only for students, visible to appropriate users) -->
+        <% if @user.student? && (current_user.admin? || current_user.instructor? || current_user == @user) %>
+          <div class="card card-ballroom mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="fas fa-list-alt me-2"></i>Assigned Routines
+                </h5>
+                <%= link_to routines_path(student_id: @user.id), class: "btn btn-sm btn-outline-primary" do %>
+                  <i class="fas fa-eye me-1"></i>View All Routines
+                <% end %>
+              </div>
+            </div>
+            <div class="card-body">
+              <% if @student_routines&.any? %>
+                <div class="row">
+                  <% @student_routines.each do |routine| %>
+                    <div class="col-md-12 mb-3">
+                      <div class="border rounded p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                          <div>
+                            <h6 class="mb-1">
+                              <%= link_to routine.title, routine_path(routine), class: "text-decoration-none" %>
+                            </h6>
+                            <small class="text-muted">
+                              Created by <%= routine.created_by.full_name %>
+                            </small>
+                          </div>
+                          <div>
+                            <span class="badge bg-primary me-1">
+                              <%= routine.dance_category.name %>
+                            </span>
+                            <span class="badge bg-secondary">
+                              <%= routine.dance_style.name %>
+                            </span>
+                          </div>
+                        </div>
+                        <p class="text-muted mb-0">
+                          <%= truncate(routine.description, length: 100) %>
+                        </p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="text-center py-4">
+                  <i class="fas fa-list-alt text-muted fs-2 mb-3"></i>
+                  <h6 class="text-muted">No Routines Assigned</h6>
+                  <p class="text-muted small">Your instructor will assign routines for you to practice.</p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
         <!-- Upcoming Bookings -->
         <!-- <div class="card card-ballroom mb-4">
           <div class="card-header">
