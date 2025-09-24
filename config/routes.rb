@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   # Root route
   root "dashboard#index"
+  
+  # Test alert route (remove in production)
+  get "test_alert" => "dashboard#test_alert"
 
   # Dashboard
   get "dashboard", to: "dashboard#index"

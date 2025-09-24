@@ -416,3 +416,39 @@ html, body {
     font-style: italic;
   }
 }
+
+/* Auto-dismissing Alert Animations */
+.alert {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.alert.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Alert hover effects */
+.alert:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress bar for visual countdown */
+.alert-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 0.375rem 0.375rem;
+  animation: alertProgress 5s linear forwards;
+}
+
+@keyframes alertProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
