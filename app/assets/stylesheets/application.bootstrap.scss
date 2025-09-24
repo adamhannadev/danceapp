@@ -1,3 +1,6 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+// Import Bootstrap from npm package (Rails 8 best practices)
+@import "bootstrap/scss/bootstrap";
+
+// Import custom theme after Bootstrap
 @import 'ballroom_theme';
+@import 'actiontext.css';

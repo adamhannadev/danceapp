@@ -61,16 +61,20 @@
   
   <div class="mb-3">
     <%= form.label :description, class: "form-label fw-bold" %>
-    <%= form.text_area :description, 
-          class: "form-control", 
-          rows: 10,
+    
+    <!-- Trix Editor for Rich Text -->
+    <%= form.rich_text_area :description, 
           placeholder: "Describe the routine steps, movements, and instructions in detail...",
-          required: true %>
+          class: "form-control",
+          style: "min-height: 300px;",
+          data: { 
+            "bs-toggle": "tooltip",
+            "bs-placement": "top",
+            "bs-title": "Use the toolbar to format your routine description with bold text, lists, and more."
+          } %>
+    
     <div class="form-text">
-      Provide detailed instructions for the routine (minimum 10 characters, maximum 1000 characters).
-    </div>
-    <div class="invalid-feedback">
-      Please provide a description for the routine.
+      Provide detailed instructions for the routine. Use the toolbar to format text, add lists, and structure your content.
     </div>
   </div>
 
@@ -84,20 +88,47 @@
   </div>
 <% end %>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Bootstrap form validation
-  const forms = document.querySelectorAll('.needs-validation');
-  
-  Array.from(forms).forEach(function(form) {
-    form.addEventListener('submit', function(event) {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      
-      form.classList.add('was-validated');
-    }, false);
-  });
-});
-</script>
+
+
+<style>
+/* Custom styles for Quill editor to match Bootstrap */
+#quill-editor {
+  background-color: #fff;
+}
+
+#quill-editor.is-invalid {
+  border-color: #dc3545;
+}
+
+#quill-editor.is-valid {
+  border-color: #198754;
+}
+
+.ql-toolbar {
+  border-top: 1px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom: none;
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.ql-container {
+  border-bottom: 1px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-top: none;
+  border-radius: 0 0 0.375rem 0.375rem;
+  font-family: inherit;
+}
+
+.ql-editor {
+  min-height: 200px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ql-editor.ql-blank::before {
+  font-style: italic;
+  color: #6c757d;
+}
+</style>

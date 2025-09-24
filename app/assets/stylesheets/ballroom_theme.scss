@@ -382,3 +382,37 @@ html, body {
     margin-bottom: 10px;
   }
 }
+
+// Routine Content Styles
+.routine-content {
+  h1, h2, h3 {
+    color: var(--primary-purple);
+    margin-bottom: 0.75rem;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.1rem; }
+  
+  ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  li {
+    margin-bottom: 0.25rem;
+  }
+  
+  p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+  
+  strong {
+    color: var(--dark-purple);
+  }
+  
+  em {
+    font-style: italic;
+  }
+}

@@ -4,8 +4,11 @@ class Routine < ApplicationRecord
   belongs_to :dance_category
   belongs_to :dance_style
 
+  # Action Text for rich text description
+  has_rich_text :description
+
   # Validations
-  validates :description, presence: true, length: { minimum: 10, maximum: 1000 }
+  validates :description, presence: true
   validates :user, presence: true
   validates :created_by, presence: true
   validates :dance_category, presence: true

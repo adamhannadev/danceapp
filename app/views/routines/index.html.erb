@@ -97,7 +97,7 @@
                       </div>
                       
                       <p class="card-text">
-                        <%= truncate(routine.description, length: 150) %>
+                        <%= truncate(routine.description.to_plain_text, length: 150) %>
                       </p>
                     </div>
                     
