@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_24_202545) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_25_173322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -160,6 +160,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_24_202545) do
     t.boolean "is_core"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video"
     t.index ["dance_level_id"], name: "index_figures_on_dance_level_id"
     t.index ["dance_style_id"], name: "index_figures_on_dance_style_id"
   end

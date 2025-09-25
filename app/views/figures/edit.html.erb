@@ -96,7 +96,7 @@
               <div class="col-md-6 mb-3">
                 <%= form.label :dance_style_id, "Dance Style *", class: "form-label fw-medium" %>
                 <%= form.select :dance_style_id, 
-                    options_from_collection_for_select(@dance_styles, :id, :name, @figure.dance_style_id),
+                    options_from_collection_for_select(@form_data[:dance_styles], :id, :name, @figure.dance_style_id),
                     { prompt: "Select Dance Style" },
                     { class: "form-select #{'is-invalid' if @figure.errors[:dance_style_id].any?}", required: true } %>
                 <% if @figure.errors[:dance_style_id].any? %>
@@ -109,7 +109,7 @@
               <div class="col-md-6 mb-3">
                 <%= form.label :dance_level_id, "Dance Level *", class: "form-label fw-medium" %>
                 <%= form.select :dance_level_id, 
-                    options_from_collection_for_select(@dance_levels, :id, :name, @figure.dance_level_id),
+                    options_from_collection_for_select(@form_data[:dance_levels], :id, :name, @figure.dance_level_id),
                     { prompt: "Select Dance Level" },
                     { class: "form-select #{'is-invalid' if @figure.errors[:dance_level_id].any?}", required: true } %>
                 <% if @figure.errors[:dance_level_id].any? %>
@@ -168,6 +168,27 @@
                 <div class="form-text">
                   Describe the individual components, steps, or elements that make up this figure
                 </div>
+              </div>
+              
+              <div class="col-12 mb-3" data-controller="youtube-preview">
+                <%= form.label :video, "YouTube Video URL", class: "form-label fw-medium" %>
+                <%= form.url_field :video, 
+                    class: "form-control #{'is-invalid' if @figure.errors[:video].any?}",
+                    placeholder: "https://www.youtube.com/watch?v=... or https://youtu.be/...",
+                    data: { 
+                      youtube_preview_target: "urlInput",
+                      action: "input->youtube-preview#updatePreview"
+                    } %>
+                <% if @figure.errors[:video].any? %>
+                  <div class="invalid-feedback">
+                    <%= @figure.errors[:video].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">
+                  <i class="fab fa-youtube me-1"></i>
+                  Optional YouTube video demonstrating this figure. Supports youtube.com/watch, youtu.be, and youtube.com/embed URLs
+                </div>
+                <div data-youtube-preview-target="preview"></div>
               </div>
             </div>
 

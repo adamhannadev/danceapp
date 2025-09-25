@@ -4,10 +4,26 @@ class FiguresController < ApplicationController
 
   def index
     @figures_data = FigureIndexService.new(filter_params).call
+    
+    # Extract data for the view
+    @figures = @figures_data[:figures]
+    @dance_styles = @figures_data[:dance_styles]
+    @dance_levels = @figures_data[:dance_levels]
+    
+    # Extract statistics
+    stats = @figures_data[:stats]
+    @total_figures = stats[:total_figures]
+    @core_figures_count = stats[:core_figures_count]
+    @variations_count = stats[:variations_count]
   end
 
   def show
     @figure_details = FigureDetailService.new(@figure).call
+    
+    # Extract data for the view
+    @student_progresses = @figure_details[:student_progresses]
+    @progress_stats = @figure_details[:progress_stats]
+    @related_figures = @figure_details[:related_figures]
   end
 
   def new
@@ -72,7 +88,7 @@ class FiguresController < ApplicationController
 
   def figure_params
     params.require(:figure).permit(:figure_number, :name, :dance_style_id, :dance_level_id, 
-                                   :measures, :components, :is_core)
+                                   :measures, :components, :is_core, :video)
   end
 
   def filter_params

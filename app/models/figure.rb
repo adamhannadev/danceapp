@@ -9,6 +9,10 @@ class Figure < ApplicationRecord
   validates :figure_number, presence: true, uniqueness: { scope: [:dance_style_id, :dance_level_id] }
   validates :name, presence: true
   validates :measures, presence: true, numericality: { greater_than: 0 }
+  validates :video, format: { 
+    with: /\A(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)[\w-]+(&[\w=]*)*\z/i,
+    message: "must be a valid YouTube URL"
+  }, allow_blank: true
 
   # Scopes
   scope :core_figures, -> { where(is_core: true) }
@@ -42,5 +46,29 @@ class Figure < ApplicationRecord
 
   def full_description
     "#{dance_style.name} #{dance_level.name}: #{figure_number} - #{name}"
+  end
+
+  # YouTube video methods
+  def has_video?
+    video.present?
+  end
+
+  def youtube_video_id
+    return nil unless has_video?
+    
+    # Extract video ID from various YouTube URL formats
+    if video.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/)
+      $1
+    end
+  end
+
+  def youtube_embed_url
+    return nil unless youtube_video_id
+    "https://www.youtube.com/embed/#{youtube_video_id}"
+  end
+
+  def youtube_thumbnail_url
+    return nil unless youtube_video_id
+    "https://img.youtube.com/vi/#{youtube_video_id}/maxresdefault.jpg"
   end
 end

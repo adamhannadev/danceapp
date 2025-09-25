@@ -186,6 +186,9 @@
                       </td>
                       <td>
                         <strong><%= link_to figure.name, figure_path(figure), class: "text-decoration-none" %></strong>
+                        <% if figure.has_video? %>
+                          <i class="fab fa-youtube text-danger ms-2" title="Has video demonstration"></i>
+                        <% end %>
                         <% if figure.components.present? %>
                           <br><small class="text-muted"><%= truncate(figure.components, length: 50) %></small>
                         <% end %>
