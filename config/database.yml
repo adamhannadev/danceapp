@@ -80,6 +80,12 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['DATABASE_URL'] %>
-  username: danceapp
-  password: <%= ENV["DANCEAPP_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 5
+  timeout: 5000
+  encoding: unicode
+  host: <%= URI.parse(ENV['DATABASE_URL']).host %>
+  port: <%= URI.parse(ENV['DATABASE_URL']).port %>
+  database: <%= URI.parse(ENV['DATABASE_URL']).path[1..-1] %>
+  username: <%= URI.parse(ENV['DATABASE_URL']).user %>
+  password: <%= URI.parse(ENV['DATABASE_URL']).password %>
