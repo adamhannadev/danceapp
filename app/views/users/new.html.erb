@@ -174,11 +174,25 @@
               </div>
               
               <div class="col-12 mb-3">
-                <div class="form-check">
-                  <%= form.check_box :waiver_signed, class: "form-check-input" %>
-                  <%= form.label :waiver_signed, "Waiver has been signed", class: "form-check-label" %>
+                <%= form.hidden_field :waiver_signed_at, id: "waiver_signed_field" %>
+                
+                <div id="waiverSignedIndicator" class="alert alert-success d-none">
+                  <i class="fas fa-check-circle me-2"></i>
+                  <strong>Waiver Signed!</strong> The liability waiver has been digitally signed.
                 </div>
-                <div class="form-text">Liability waiver must be signed before participating in classes</div>
+                
+                <button type="button" 
+                        class="btn btn-outline-primary w-100" 
+                        id="waiverTriggerBtn"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#waiverModal">
+                  <i class="fas fa-file-signature me-2"></i>
+                  Sign Liability Waiver *
+                </button>
+                <div class="form-text">
+                  <i class="fas fa-info-circle me-1"></i>
+                  The liability waiver must be signed before account creation
+                </div>
               </div>
             </div>
 
@@ -203,6 +217,11 @@
               <div class="col-12">
                 <div class="d-flex justify-content-between">
                   <%= link_to "Cancel", users_path, class: "btn btn-outline-secondary" %>
+                  <%= form.submit "Create User Account", 
+                      class: "btn btn-secondary",
+                      id: "submitBtn",
+                      disabled: true,
+                      data: { disable_with: "Creating Account..." } %>
                 </div>
               </div>
             </div>
@@ -213,14 +232,26 @@
   </div>
 </div>
 
+<!-- Waiver Modal -->
+<%= render 'shared/waiver_modal' %>
+
 <script>
-// Form validation
+// Form validation and waiver handling
 (function() {
   'use strict';
   window.addEventListener('load', function() {
     var forms = document.getElementsByClassName('needs-validation');
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
+        // Check if waiver is signed
+        const waiverSignedField = document.getElementById('waiver_signed_field');
+        if (!waiverSignedField.value) {
+          event.preventDefault();
+          event.stopPropagation();
+          alert('Please sign the liability waiver before creating the account.');
+          return false;
+        }
+        
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
@@ -230,6 +261,56 @@
     });
   }, false);
 })();
+
+// Waiver modal handling
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Setting up waiver modal for registration...')
+  const waiverModal = document.getElementById('waiverModal');
+  
+  if (waiverModal) {
+    waiverModal.setAttribute('data-waiver-modal-required-value', 'true');
+    waiverModal.setAttribute('data-waiver-modal-mode-value', 'registration');
+    
+    console.log('Waiver modal configured for registration')
+    
+    // Listen for waiver signed event from the Stimulus controller
+    document.addEventListener('waiver:signed', function(event) {
+      console.log('Waiver signed event received:', event.detail)
+      
+      const waiverSignedField = document.getElementById('waiver_signed_field');
+      const waiverIndicator = document.getElementById('waiverSignedIndicator');
+      const triggerBtn = document.getElementById('waiverTriggerBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      if (waiverSignedField) {
+        waiverSignedField.value = event.detail.signedAt || new Date().toISOString();
+        console.log('Updated waiver field:', waiverSignedField.value)
+      }
+      
+      if (waiverIndicator) {
+        waiverIndicator.classList.remove('d-none');
+        console.log('Showed waiver indicator')
+      }
+      
+      if (triggerBtn) {
+        triggerBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Waiver Signed';
+        triggerBtn.classList.remove('btn-outline-primary');
+        triggerBtn.classList.add('btn-success');
+        triggerBtn.disabled = true;
+        console.log('Updated trigger button')
+      }
+      
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn-secondary');
+        submitBtn.classList.add('btn-primary');
+        console.log('Enabled submit button')
+      }
+    });
+  } else {
+    console.log('Waiver modal not found!')
+  }
+});
 </script>
 
 <style>

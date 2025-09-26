@@ -50,6 +50,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     
+    # Handle waiver signature from modal during registration
+    if params[:user][:waiver_signed_at].present?
+      @user.waiver_signed = true
+      @user.waiver_signed_at = params[:user][:waiver_signed_at]
+    end
+    
     if UserRegistrationService.new(@user, current_user).call
       redirect_to @user, notice: "Welcome #{@user.full_name}! Account created successfully."
     else
@@ -96,7 +102,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :email, :phone, :role, 
-      :membership_type, :membership_discount, :waiver_signed, :goals
+      :membership_type, :membership_discount, :waiver_signed, :waiver_signed_at, :goals
     )
   end
 

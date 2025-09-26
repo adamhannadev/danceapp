@@ -140,4 +140,23 @@ module ApplicationHelper
       'No Membership'
     end
   end
+
+  # Waiver helper methods
+  def current_user_needs_waiver?
+    return false unless current_user
+    !current_user.waiver_signed?
+  end
+
+  def waiver_modal_trigger(text: "Sign Waiver", css_class: "btn btn-warning")
+    return "" unless current_user_needs_waiver?
+    
+    button_tag(text, 
+      type: "button",
+      class: css_class,
+      data: { 
+        bs_toggle: "modal", 
+        bs_target: "#waiverModal" 
+      }
+    )
+  end
 end

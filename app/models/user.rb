@@ -63,6 +63,15 @@ class User < ApplicationRecord
     membership_discount / 100.0 if membership_discount
   end
 
+  # Waiver methods
+  def waiver_signed?
+    waiver_signed_at.present? && waiver_signed == true
+  end
+
+  def needs_waiver?
+    !waiver_signed?
+  end
+
   private
 
   def set_defaults

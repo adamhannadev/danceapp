@@ -17,6 +17,10 @@ Rails.application.routes.draw do
   
   # Test alert route (remove in production)
   get "test_alert" => "dashboard#test_alert"
+  
+  # Waiver signing
+  get "waiver", to: "waiver#show"
+  post "waiver/sign", to: "waiver#sign"
 
   # Dashboard
   get "dashboard", to: "dashboard#index"

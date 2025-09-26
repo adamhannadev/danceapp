@@ -1,0 +1,134 @@
+<!-- Waiver Modal -->
+<div class="modal fade" 
+     id="waiverModal" 
+     tabindex="-1" 
+     aria-labelledby="waiverModalLabel" 
+     aria-hidden="true"
+     data-controller="waiver-modal"
+     data-waiver-modal-user-id-value="<%= current_user.id if current_user %>"
+     data-waiver-modal-target="modal"
+     data-waiver-modal-form-id-value=""
+     data-waiver-modal-required-value="false"
+     data-waiver-modal-mode-value="default">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="waiverModalLabel">
+          <i class="fas fa-file-signature me-2"></i>
+          Liability Waiver & Terms of Service
+        </h5>
+        <button type="button" 
+                class="btn-close btn-close-white" 
+                data-bs-dismiss="modal" 
+                aria-label="Close"
+                data-waiver-modal-target="closeButton"></button>
+      </div>
+      
+      <div class="modal-body" data-waiver-modal-target="content">
+        <div class="mb-4">
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Please read carefully:</strong> By signing this waiver, you acknowledge that you have read, understood, and agree to all terms and conditions outlined below.
+          </div>
+        </div>
+
+        <div class="waiver-content">
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">Liability Waiver and Release</h6>
+            
+            <div class="waiver-text bg-light p-4 rounded border" style="max-height: 400px; overflow-y: auto;">
+              <p>I agree and consent to the following:</p>
+
+              <p>I am voluntarily participating in an exercise/dance program conducted by <strong>Adam Hanna Ballroom Dance</strong>. I recognize that this requires physical exertion that may be strenuous at times and may cause physical injury and I am fully aware of the risks and hazards involved.</p>
+
+              <p>I understand that it is my responsibility to consult with a physician prior to and regarding my participation in the above mentioned program. I represent and warrant that I have no medical condition that would prevent my participation in the program.</p>
+
+              <p>I agree to assume full responsibility for any risks, injuries, or damage known or unknown which I might incur as a result of participating in the program. Such injuries may include but are not limited to, heart attacks, muscle strains, muscle pulls, muscle tears, broken bones, shin splints, heat prostration, injury to knees, backs, feet or any other illness or soreness including death.</p>
+
+              <p>I knowingly, voluntarily, and expressly waive any claim I have against <strong>Adam Hanna Ballroom Dance</strong> or whichever facility the event takes place in for any injury or damages that I may sustain as a result of participating in the program.</p>
+
+              <p>I, my heirs or representatives, forever release, waive, discharge, and covenant not to sue <strong>Adam Hanna Ballroom Dance</strong> for any injury or death caused by their negligence or other acts.</p>
+
+              <p>I have read the above waiver and release of liability and fully understand its contents. I voluntarily agree to the terms and conditions stated above.</p>
+
+              <p class="fst-italic"><small>*If participant is under the age of 18, they must have the consent of a parent or guardian who will also read, understand and agree to the above terms. The parent or guardian must then sign and assume responsibility for the above terms. I, as parent or legal guardian of the above participant, hereby understand, agree to, and assume responsibility for the above terms.</small></p>
+
+              <hr class="my-3">
+
+              <h6 class="fw-bold">Photography and Video Consent</h6>
+              <p>From time to time, photographs and/or video of Adam Hanna Ballroom Dance classes or events may be taken and used for marketing and other promotional materials.</p>
+            </div>
+          </div>
+
+          <div class="agreement-section">
+            <div class="form-check mb-3">
+              <input class="form-check-input" 
+                     type="checkbox" 
+                     id="waiverAgreement"
+                     data-waiver-modal-target="checkbox"
+                     data-action="change->waiver-modal#toggleAgreement">
+              <label class="form-check-label fw-medium" for="waiverAgreement">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                I have read, understood, and agree to all terms and conditions above. I voluntarily agree to sign this waiver.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer bg-light">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <small class="text-muted">
+            <i class="fas fa-shield-alt me-1"></i>
+            Your digital signature will be recorded with timestamp.
+          </small>
+          
+          <div>
+            <button type="button" 
+                    class="btn btn-outline-secondary me-2" 
+                    data-bs-dismiss="modal"
+                    data-waiver-modal-target="cancelButton">
+              <i class="fas fa-times me-2"></i>Cancel
+            </button>
+            <button type="button" 
+                    class="btn btn-secondary" 
+                    data-waiver-modal-target="signButton"
+                    data-action="click->waiver-modal#signWaiver"
+                    disabled>
+              <i class="fas fa-pen-nib me-2"></i>Sign Waiver
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.waiver-content .waiver-text {
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.waiver-content .waiver-text p {
+  margin-bottom: 1rem;
+}
+
+.waiver-content .waiver-text strong {
+  color: #0d6efd;
+}
+
+.form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.modal-dialog-scrollable .modal-body {
+  overflow-y: auto;
+}
+
+#waiverModal .modal-content {
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+</style>
