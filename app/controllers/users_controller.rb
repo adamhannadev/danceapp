@@ -96,7 +96,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :email, :phone, :role, 
-      :membership_type, :membership_discount, :waiver_signed
+      :membership_type, :membership_discount, :waiver_signed, :goals
     )
   end
 

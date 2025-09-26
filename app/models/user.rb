@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_many :waitlists, dependent: :destroy
   has_many :routines, dependent: :destroy
 
+  # Action Text associations
+  has_rich_text :goals
+
   # Validations
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true

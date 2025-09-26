@@ -75,6 +75,13 @@
                   wrapper_html: { class: "mb-3" } %>
             </div>
 
+            <div class="mb-3">
+              <label class="form-label fw-medium">Dance Goals</label>
+              <%= rich_text_area_tag "user[goals]", resource.goals, 
+                  placeholder: "Share your dance goals, aspirations, or what you hope to achieve..." %>
+              <div class="form-text">Optional - helps instructors personalize your learning experience</div>
+            </div>
+
             <div class="d-grid">
               <%= f.button :submit, "Update Profile", 
                   class: "btn btn-primary" %>

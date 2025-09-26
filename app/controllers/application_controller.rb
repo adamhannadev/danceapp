@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone, :role, :membership_type, :membership_discount, :waiver_signed])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :phone, :role, :membership_type, :membership_discount, :waiver_signed])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone, :role, :membership_type, :membership_discount, :waiver_signed, :goals])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :phone, :role, :membership_type, :membership_discount, :waiver_signed, :goals])
   end
 
   # Authorization helpers
