@@ -187,15 +187,6 @@
               <div class="col-12">
                 <div class="d-flex justify-content-between">
                   <%= link_to "Cancel", users_path, class: "btn btn-outline-secondary" %>
-                  
-                  <div>
-                    <button type="button" class="btn btn-outline-info me-2" onclick="fillSampleData()">
-                      <i class="fas fa-magic me-1"></i>Fill Sample Data
-                    </button>
-                    <%= form.submit "Create User", 
-                        class: "btn btn-primary",
-                        data: { disable_with: "Creating User..." } %>
-                  </div>
                 </div>
               </div>
             </div>
@@ -224,17 +215,6 @@
   }, false);
 })();
 
-// Sample data filler for testing
-function fillSampleData() {
-  if (confirm('Fill form with sample data?')) {
-    document.getElementById('user_first_name').value = sample.first_name;
-    document.getElementById('user_last_name').value = sample.last_name;
-    document.getElementById('user_email').value = sample.email;
-    document.getElementById('user_phone').value = sample.phone;
-    document.getElementById('user_role').value = sample.role;
-    document.getElementById('user_membership_type').value = sample.membership_type;
-    document.getElementById('user_waiver_signed').checked = sample.waiver_signed;
-  }
 }
 </script>
 
