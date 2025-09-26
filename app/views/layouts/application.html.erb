@@ -17,7 +17,11 @@
     <!-- Font Awesome (external dependency) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
+    <!-- Trix Editor CSS (CDN fallback for production) -->
+    <link href="https://unpkg.com/trix@2.0.7/dist/trix.css" rel="stylesheet">
+    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 

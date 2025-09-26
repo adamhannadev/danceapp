@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Script to precompile assets for production deployment
+
+set -e
+
+echo "🔨 Precompiling Rails assets..."
+RAILS_ENV=production bundle exec rails assets:precompile
+
+echo "✅ Assets precompiled successfully!"
+echo "📦 Asset files:"
+ls -la public/assets/ | head -10
