@@ -24,8 +24,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: 'Access denied. Instructor or admin privileges required.' unless current_user&.instructor? || current_user&.admin?
   end
   
-  def ensure_owns_resource_or_admin!(resource_user)
-    redirect_to root_path, alert: 'Access denied.' unless current_user&.admin? || current_user == resource_user
+  def ensure_owns_resource_or_instructor_or_admin!(resource_user)
+    unless current_user&.admin? || current_user&.instructor? || current_user == resource_user
+      redirect_to root_path, alert: 'Access denied.'
+    end
   end
 
   def ensure_can_access_student!(student)

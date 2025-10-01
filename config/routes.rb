@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :routines
   resources :dance_categories
-  devise_for :users
+  
+  # Devise routes - skip registrations to avoid conflicts with admin user management
+  devise_for :users, skip: [:registrations]
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -33,23 +36,33 @@ Rails.application.routes.draw do
     end
   end
 
-  # User management - Students, teachers and admin.
-  resources :users do
-    resources :availabilities, controller: 'instructor_availabilities', except: [:show, :edit, :new]
+  # User management - Admin only for creating/managing users
+  namespace :admin do
+    resources :users do
+      resources :availabilities, controller: 'instructor_availabilities', except: [:show, :edit, :new]
+      member do
+        patch :toggle_membership
+        get :progress_report
+      end
+      # Nested student progress under users (for admin/instructor access)
+      resources :student_progress, only: [:index, :show, :update] do
+        member do
+          get :mark_progress
+          patch :mark_progress
+        end
+        collection do
+          get :enroll
+          post :enroll
+        end
+      end
+    end
+  end
+
+  # User profiles - for individual user access
+  resources :users, only: [:show, :edit, :update] do
     member do
       patch :toggle_membership
       get :progress_report
-    end
-    # Nested student progress under users (for admin/instructor access)
-    resources :student_progress, only: [:index, :show, :update] do
-      member do
-        get :mark_progress
-        patch :mark_progress
-      end
-      collection do
-        get :enroll
-        post :enroll
-      end
     end
   end
 

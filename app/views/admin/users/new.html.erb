@@ -1,4 +1,4 @@
-<% content_for :title, "Edit #{@user.full_name}" %>
+<% content_for :title, "Add New User" %>
 
 <div class="container-fluid">
   <!-- Header Section -->
@@ -8,22 +8,16 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
           <li class="breadcrumb-item"><%= link_to "Users", admin_users_path %></li>
-          <li class="breadcrumb-item"><%= link_to @user.full_name, user_path(@user) %></li>
-          <li class="breadcrumb-item active" aria-current="page">Edit</li>
+          <li class="breadcrumb-item active" aria-current="page">New User</li>
         </ol>
       </nav>
       
       <div class="text-center">
-        <div class="d-flex justify-content-center align-items-center mb-3">
-          <div class="bg-<%= user_role_color(@user.role) %> rounded-circle d-flex align-items-center justify-content-center me-3" 
-               style="width: 60px; height: 60px;">
-            <i class="fas fa-<%= user_role_icon(@user.role) %> text-white fs-4"></i>
-          </div>
-          <div>
-            <h1 class="h3 mb-1">Edit Profile</h1>
-            <p class="text-muted mb-0"><%= @user.full_name %></p>
-          </div>
-        </div>
+        <h1 class="h3 mb-1">
+          <i class="fas fa-user-plus me-2 text-primary"></i>
+          Add New User
+        </h1>
+        <p class="text-muted mb-0">Create a new account for a student, instructor, or administrator</p>
       </div>
     </div>
   </div>
@@ -33,11 +27,11 @@
       <div class="card card-ballroom">
         <div class="card-header">
           <h5 class="mb-0">
-            <i class="fas fa-edit me-2"></i>Update User Information
+            <i class="fas fa-form me-2"></i>User Information
           </h5>
         </div>
         <div class="card-body">
-          <%= form_with model: @user, local: true, class: "needs-validation", novalidate: true do |form| %>
+                  <%= form_with(model: [:admin, @user], local: true, html: { class: "needs-validation", novalidate: true }) do |form| %>
             
             <!-- Error Messages -->
             <% if @user.errors.any? %>
@@ -109,7 +103,42 @@
                 <%= form.telephone_field :phone, 
                     class: "form-control",
                     placeholder: "(555) 123-4567" %>
-                <div class="form-text">For class reminders and notifications</div>
+                <div class="form-text">Optional - for class reminders and notifications</div>
+              </div>
+            </div>
+
+            <!-- Password Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-lock me-2"></i>Account Security
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password, "Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
+                    required: true %>
+                <% if @user.errors[:password].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Minimum 6 characters</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password_confirmation, "Confirm Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password_confirmation, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
+                    required: true %>
+                <% if @user.errors[:password_confirmation].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password_confirmation].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Must match the password above</div>
               </div>
             </div>
 
@@ -120,9 +149,8 @@
                   <i class="fas fa-user-tag me-2"></i>Role and Permissions
                 </h6>
               </div>
-                
+              
               <div class="col-md-6 mb-3">
-                <% if current_user.admin? %>
                 <%= form.label :role, "User Role *", class: "form-label fw-medium" %>
                 <%= form.select :role, 
                     options_for_select([
@@ -130,21 +158,19 @@
                       ['Instructor', 'instructor'],
                       ['Administrator', 'admin']
                     ], @user.role),
-                    {},
+                    { prompt: "Select a role..." },
                     { class: "form-select #{'is-invalid' if @user.errors[:role].any?}", required: true } %>
                 <% if @user.errors[:role].any? %>
                   <div class="invalid-feedback">
                     <%= @user.errors[:role].first %>
                   </div>
                 <% end %>
-                <div class="form-text">Changing role may affect access permissions</div>
-                  <% end %>
-                  <div class="form-text"><%= @user.role.camelcase %></div>
+                <div class="form-text">Determines access level and permissions</div>
               </div>
             </div>
 
             <!-- Membership Information -->
-            <!-- <div class="row mb-4">
+            <div class="row mb-4">
               <div class="col-12">
                 <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
                   <i class="fas fa-crown me-2"></i>Membership Information
@@ -158,7 +184,7 @@
                       ['No Membership', 'none'],
                       ['Monthly Membership', 'monthly'],
                       ['Annual Membership', 'annual']
-                    ], @user.membership_type),
+                    ], @user.membership_type || 'none'),
                     {},
                     { class: "form-select" } %>
                 <div class="form-text">Members receive discounts on classes and events</div>
@@ -168,77 +194,40 @@
                 <%= form.label :membership_discount, "Membership Discount (%)", class: "form-label fw-medium" %>
                 <%= form.number_field :membership_discount, 
                     class: "form-control",
-                    min: 0, max: 100, step: 0.1 %>
+                    min: 0, max: 100, step: 0.1,
+                    value: @user.membership_discount || 0 %>
                 <div class="form-text">Percentage discount applied to class prices</div>
               </div>
-            </div> -->
+            </div>
 
-            <!-- Waiver Status -->
+            <!-- Waiver (Optional) -->
             <div class="row mb-4">
               <div class="col-12">
                 <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
-                  <i class="fas fa-file-signature me-2"></i>Legal Requirements
+                  <i class="fas fa-file-signature me-2"></i>Legal Documentation (Optional)
                 </h6>
               </div>
               
               <div class="col-12 mb-3">
-                <% if @user.waiver_signed? %>
-                  <div class="alert alert-success">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <i class="fas fa-check-circle me-2"></i>
-                        <strong>Waiver Signed</strong>
-                        <div class="small">
-                          Signed on <%= @user.waiver_signed_at.strftime("%B %d, %Y at %I:%M %p") %>
-                        </div>
-                      </div>
-                      <button type="button" 
-                              class="btn btn-sm btn-outline-primary"
-                              data-bs-toggle="modal" 
-                              data-bs-target="#waiverModal">
-                        <i class="fas fa-eye me-1"></i>View Waiver
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <% if current_user.admin? || current_user.instructor? %>
-                    <div class="form-check">
-                      <%= form.check_box :waiver_signed, class: "form-check-input" %>
-                      <%= form.label :waiver_signed, "Waiver has been signed", class: "form-check-label" %>
-                    </div>
-                    <div class="form-text">
-                      <i class="fas fa-info-circle me-1"></i>
-                      Admins and instructors can manually override waiver status
-                    </div>
-                  <% end %>
-                <% else %>
-                  <div class="alert alert-warning">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <i class="fas fa-exclamation-triangle me-2"></i>
-                        <strong>Waiver Not Signed</strong>
-                        <div class="small">Liability waiver must be signed before participating in classes</div>
-                      </div>
-                      <button type="button" 
-                              class="btn btn-sm btn-primary"
-                              data-bs-toggle="modal" 
-                              data-bs-target="#waiverModal">
-                        <i class="fas fa-file-signature me-1"></i>Sign Waiver
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <% if current_user.admin? || current_user.instructor? %>
-                    <div class="form-check mt-2">
-                      <%= form.check_box :waiver_signed, class: "form-check-input" %>
-                      <%= form.label :waiver_signed, "Mark waiver as signed", class: "form-check-label" %>
-                    </div>
-                    <div class="form-text">
-                      <i class="fas fa-info-circle me-1"></i>
-                      Admins and instructors can manually mark waiver as signed
-                    </div>
-                  <% end %>
-                <% end %>
+                <%= form.hidden_field :waiver_signed_at, id: "waiver_signed_field" %>
+                
+                <div id="waiverSignedIndicator" class="alert alert-success d-none">
+                  <i class="fas fa-check-circle me-2"></i>
+                  <strong>Waiver Signed!</strong> The liability waiver has been digitally signed.
+                </div>
+                
+                <button type="button" 
+                        class="btn btn-outline-secondary w-100" 
+                        id="waiverTriggerBtn"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#waiverModal">
+                  <i class="fas fa-file-signature me-2"></i>
+                  Sign Liability Waiver (Optional)
+                </button>
+                <div class="form-text">
+                  <i class="fas fa-info-circle me-1"></i>
+                  The liability waiver can be signed now or later
+                </div>
               </div>
             </div>
 
@@ -258,84 +247,19 @@
               </div>
             </div>
 
-            <!-- Current Status Display -->
-            <div class="row mb-4">
-              <div class="col-12">
-                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
-                  <i class="fas fa-info-circle me-2"></i>Current Status
-                </h6>
-              </div>
-              
-              <div class="col-md-6 mb-3">
-                <div class="card bg-light">
-                  <div class="card-body py-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="text-muted">Member Since:</span>
-                      <span class="fw-medium"><%= @user.created_at.strftime("%B %d, %Y") %></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="col-md-6 mb-3">
-                <div class="card bg-light">
-                  <div class="card-body py-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="text-muted">Last Updated:</span>
-                      <span class="fw-medium"><%= @user.updated_at.strftime("%B %d, %Y") %></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Action Buttons -->
             <div class="row">
               <div class="col-12">
                 <div class="d-flex justify-content-between">
-                  <div>
-                    <%= link_to "Cancel", user_path(@user), class: "btn btn-outline-secondary" %>
-                    <%= link_to "View Profile", user_path(@user), class: "btn btn-outline-info ms-2" %>
-                  </div>
-                  
-                  <div>
-                    <%= form.submit "Update Profile", 
-                        class: "btn btn-primary",
-                        data: { disable_with: "Updating Profile..." } %>
-                  </div>
+                  <%= link_to "Cancel", admin_users_path, class: "btn btn-outline-secondary" %>
+                  <%= form.submit "Create User Account", 
+                      class: "btn btn-primary",
+                      id: "submitBtn",
+                      data: { disable_with: "Creating Account..." } %>
                 </div>
               </div>
             </div>
           <% end %>
-        </div>
-      </div>
-
-      <!-- Danger Zone -->
-      <div class="card card-ballroom border-danger mt-4 mb-4">
-        <div class="card-header bg-danger text-white">
-          <h6 class="mb-0">
-            <i class="fas fa-exclamation-triangle me-2"></i>Danger Zone
-          </h6>
-        </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <h6 class="text-danger mb-1">Delete User Account</h6>
-              <p class="text-muted small mb-0">
-                This action cannot be undone. All user data, progress, and bookings will be permanently deleted.
-              </p>
-            </div>
-            <div>
-              <%= link_to user_path(@user), 
-                  class: "btn btn-outline-danger",
-                  data: { 
-                    confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone.",
-                    method: :delete 
-                  } do %>
-                <i class="fas fa-trash me-1"></i>Delete Account
-              <% end %>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -346,10 +270,74 @@
 <%= render 'shared/waiver_modal' %>
 
 <script>
-// Form validation
+// Form validation (waiver is optional for all users)
 (function() {
   'use strict';
+  
+  // Global validation function
+  window.validateForm = function validateForm() {
+    const requiredFields = [
+      'user_first_name',
+      'user_last_name', 
+      'user_email',
+      'user_password',
+      'user_password_confirmation'
+    ];
+    
+    let allValid = true;
+    
+    requiredFields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      if (!field || !field.value.trim()) {
+        allValid = false;
+      }
+    });
+    
+    // Validate role selection
+    const roleSelect = document.getElementById('user_role');
+    if (!roleSelect || !roleSelect.value) {
+      allValid = false;
+    }
+    
+    // Validate password match
+    const password = document.getElementById('user_password');
+    const passwordConfirmation = document.getElementById('user_password_confirmation');
+    if (password && passwordConfirmation && password.value !== passwordConfirmation.value) {
+      allValid = false;
+    }
+    
+    // Waiver is now optional for all users - no validation needed
+    
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+      submitBtn.disabled = !allValid;
+      submitBtn.className = allValid ? 'btn btn-primary' : 'btn btn-secondary';
+    }
+  }
+  
   window.addEventListener('load', function() {
+    // Add event listeners for form validation
+    const formFields = [
+      'user_first_name',
+      'user_last_name',
+      'user_email',
+      'user_password',
+      'user_password_confirmation',
+      'user_role'
+    ];
+    
+    formFields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        field.addEventListener('input', window.validateForm);
+        field.addEventListener('change', window.validateForm);
+      }
+    });
+    
+    // Initial validation
+    window.validateForm();
+    
+    // Standard form validation (no waiver requirement)
     var forms = document.getElementsByClassName('needs-validation');
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
@@ -363,14 +351,37 @@
   }, false);
 })();
 
-// Waiver modal handling for existing users
+// Optional waiver modal handling
 document.addEventListener('DOMContentLoaded', function() {
   const waiverModal = document.getElementById('waiverModal');
   
   if (waiverModal) {
-    waiverModal.setAttribute('data-waiver-modal-user-id-value', '<%= @user.id %>');
     waiverModal.setAttribute('data-waiver-modal-required-value', 'false');
-    waiverModal.setAttribute('data-waiver-modal-mode-value', 'profile_update');
+    waiverModal.setAttribute('data-waiver-modal-mode-value', 'optional');
+    
+    // Listen for waiver signed event
+    document.addEventListener('waiver:signed', function(event) {
+      const waiverSignedField = document.getElementById('waiver_signed_field');
+      const waiverIndicator = document.getElementById('waiverSignedIndicator');
+      const triggerBtn = document.getElementById('waiverTriggerBtn');
+      
+      if (waiverSignedField) {
+        waiverSignedField.value = event.detail.signedAt || new Date().toISOString();
+      }
+      
+      if (waiverIndicator) {
+        waiverIndicator.classList.remove('d-none');
+      }
+      
+      if (triggerBtn) {
+        triggerBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Waiver Signed';
+        triggerBtn.classList.remove('btn-outline-secondary');
+        triggerBtn.classList.add('btn-success');
+        triggerBtn.disabled = true;
+      }
+      
+      // Form validation doesn't change since waiver is optional
+    });
   }
 });
 </script>

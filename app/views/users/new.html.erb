@@ -107,6 +107,41 @@
               </div>
             </div>
 
+            <!-- Password Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="fas fa-lock me-2"></i>Account Security
+                </h6>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password, "Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password].any?}",
+                    required: true %>
+                <% if @user.errors[:password].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Minimum 6 characters</div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <%= form.label :password_confirmation, "Confirm Password *", class: "form-label fw-medium" %>
+                <%= form.password_field :password_confirmation, 
+                    class: "form-control #{'is-invalid' if @user.errors[:password_confirmation].any?}",
+                    required: true %>
+                <% if @user.errors[:password_confirmation].any? %>
+                  <div class="invalid-feedback">
+                    <%= @user.errors[:password_confirmation].first %>
+                  </div>
+                <% end %>
+                <div class="form-text">Must match the password above</div>
+              </div>
+            </div>
+
             <!-- Role and Permissions -->
             <div class="row mb-4">
               <div class="col-12">
@@ -165,11 +200,11 @@
               </div>
             </div>
 
-            <!-- Waiver -->
+            <!-- Waiver (Optional) -->
             <div class="row mb-4">
               <div class="col-12">
                 <h6 class="fw-bold text-primary border-bottom pb-2 mb-3">
-                  <i class="fas fa-file-signature me-2"></i>Legal Requirements
+                  <i class="fas fa-file-signature me-2"></i>Legal Documentation (Optional)
                 </h6>
               </div>
               
@@ -182,16 +217,16 @@
                 </div>
                 
                 <button type="button" 
-                        class="btn btn-outline-primary w-100" 
+                        class="btn btn-outline-secondary w-100" 
                         id="waiverTriggerBtn"
                         data-bs-toggle="modal" 
                         data-bs-target="#waiverModal">
                   <i class="fas fa-file-signature me-2"></i>
-                  Sign Liability Waiver *
+                  Sign Liability Waiver (Optional)
                 </button>
                 <div class="form-text">
                   <i class="fas fa-info-circle me-1"></i>
-                  The liability waiver must be signed before account creation
+                  The liability waiver can be signed now or later
                 </div>
               </div>
             </div>
@@ -218,9 +253,8 @@
                 <div class="d-flex justify-content-between">
                   <%= link_to "Cancel", users_path, class: "btn btn-outline-secondary" %>
                   <%= form.submit "Create User Account", 
-                      class: "btn btn-secondary",
+                      class: "btn btn-primary",
                       id: "submitBtn",
-                      disabled: true,
                       data: { disable_with: "Creating Account..." } %>
                 </div>
               </div>
@@ -236,22 +270,77 @@
 <%= render 'shared/waiver_modal' %>
 
 <script>
-// Form validation and waiver handling
+// Form validation (waiver is optional for all users)
 (function() {
   'use strict';
+  
+  // Global validation function
+  window.validateForm = function validateForm() {
+    const requiredFields = [
+      'user_first_name',
+      'user_last_name', 
+      'user_email',
+      'user_password',
+      'user_password_confirmation'
+    ];
+    
+    let allValid = true;
+    
+    requiredFields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      if (!field || !field.value.trim()) {
+        allValid = false;
+      }
+    });
+    
+    // Validate role selection
+    const roleSelect = document.getElementById('user_role');
+    if (!roleSelect || !roleSelect.value) {
+      allValid = false;
+    }
+    
+    // Validate password match
+    const password = document.getElementById('user_password');
+    const passwordConfirmation = document.getElementById('user_password_confirmation');
+    if (password && passwordConfirmation && password.value !== passwordConfirmation.value) {
+      allValid = false;
+    }
+    
+    // Waiver is now optional for all users - no validation needed
+    
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+      submitBtn.disabled = !allValid;
+      submitBtn.className = allValid ? 'btn btn-primary' : 'btn btn-secondary';
+    }
+  }
+  
   window.addEventListener('load', function() {
+    // Add event listeners for form validation
+    const formFields = [
+      'user_first_name',
+      'user_last_name',
+      'user_email',
+      'user_password',
+      'user_password_confirmation',
+      'user_role'
+    ];
+    
+    formFields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        field.addEventListener('input', window.validateForm);
+        field.addEventListener('change', window.validateForm);
+      }
+    });
+    
+    // Initial validation
+    window.validateForm();
+    
+    // Standard form validation (no waiver requirement)
     var forms = document.getElementsByClassName('needs-validation');
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
-        // Check if waiver is signed
-        const waiverSignedField = document.getElementById('waiver_signed_field');
-        if (!waiverSignedField.value) {
-          event.preventDefault();
-          event.stopPropagation();
-          alert('Please sign the liability waiver before creating the account.');
-          return false;
-        }
-        
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
@@ -262,53 +351,37 @@
   }, false);
 })();
 
-// Waiver modal handling
+// Optional waiver modal handling
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Setting up waiver modal for registration...')
   const waiverModal = document.getElementById('waiverModal');
   
   if (waiverModal) {
-    waiverModal.setAttribute('data-waiver-modal-required-value', 'true');
-    waiverModal.setAttribute('data-waiver-modal-mode-value', 'registration');
+    waiverModal.setAttribute('data-waiver-modal-required-value', 'false');
+    waiverModal.setAttribute('data-waiver-modal-mode-value', 'optional');
     
-    console.log('Waiver modal configured for registration')
-    
-    // Listen for waiver signed event from the Stimulus controller
+    // Listen for waiver signed event
     document.addEventListener('waiver:signed', function(event) {
-      console.log('Waiver signed event received:', event.detail)
-      
       const waiverSignedField = document.getElementById('waiver_signed_field');
       const waiverIndicator = document.getElementById('waiverSignedIndicator');
       const triggerBtn = document.getElementById('waiverTriggerBtn');
-      const submitBtn = document.getElementById('submitBtn');
       
       if (waiverSignedField) {
         waiverSignedField.value = event.detail.signedAt || new Date().toISOString();
-        console.log('Updated waiver field:', waiverSignedField.value)
       }
       
       if (waiverIndicator) {
         waiverIndicator.classList.remove('d-none');
-        console.log('Showed waiver indicator')
       }
       
       if (triggerBtn) {
         triggerBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Waiver Signed';
-        triggerBtn.classList.remove('btn-outline-primary');
+        triggerBtn.classList.remove('btn-outline-secondary');
         triggerBtn.classList.add('btn-success');
         triggerBtn.disabled = true;
-        console.log('Updated trigger button')
       }
       
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('btn-secondary');
-        submitBtn.classList.add('btn-primary');
-        console.log('Enabled submit button')
-      }
+      // Form validation doesn't change since waiver is optional
     });
-  } else {
-    console.log('Waiver modal not found!')
   }
 });
 </script>

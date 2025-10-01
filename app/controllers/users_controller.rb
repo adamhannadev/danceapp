@@ -42,27 +42,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def new
-    @user = User.new
-    ensure_admin!
-  end
-
-  def create
-    @user = User.new(user_params)
-    
-    # Handle waiver signature from modal during registration
-    if params[:user][:waiver_signed_at].present?
-      @user.waiver_signed = true
-      @user.waiver_signed_at = params[:user][:waiver_signed_at]
-    end
-    
-    if UserRegistrationService.new(@user, current_user).call
-      redirect_to @user, notice: "Welcome #{@user.full_name}! Account created successfully."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
   def edit
     # View rendered with @user from before_action
   end
@@ -100,10 +79,15 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(
-      :first_name, :last_name, :email, :phone, :role, 
-      :membership_type, :membership_discount, :waiver_signed, :waiver_signed_at, :goals
-    )
+    # Allow different parameters based on user permissions
+    base_params = [:first_name, :last_name, :email, :phone, :membership_type, :membership_discount, :waiver_signed, :waiver_signed_at, :goals]
+    
+    # Only admins can change roles
+    if current_user&.admin?
+      base_params << :role
+    end
+    
+    params.require(:user).permit(base_params)
   end
 
   def filter_params
@@ -111,6 +95,6 @@ class UsersController < ApplicationController
   end
 
   def check_resource_access
-    ensure_owns_resource_or_admin!(@user)
+    ensure_owns_resource_or_instructor_or_admin!(@user)
   end
 end

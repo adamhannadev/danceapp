@@ -8,7 +8,9 @@ class UserRegistrationService
     return false unless @user.valid?
     
     ActiveRecord::Base.transaction do
+      # Create user without triggering Devise callbacks that might affect session
       @user.save!
+      
       setup_default_progress if @user.student?
       send_welcome_notification
       log_registration_activity

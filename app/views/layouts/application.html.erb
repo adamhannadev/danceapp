@@ -52,14 +52,14 @@
                   <i class="fas fa-users me-1"></i>People
                 </a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to users_path, class: "dropdown-item" do %>
+                  <li><%= link_to admin_users_path, class: "dropdown-item" do %>
                     <i class="fas fa-user-graduate me-2"></i>Students
                   <% end %></li>
-                  <li><%= link_to users_path(role: 'instructor'), class: "dropdown-item" do %>
+                  <li><%= link_to admin_users_path(role: 'instructor'), class: "dropdown-item" do %>
                     <i class="fas fa-chalkboard-teacher me-2"></i>Instructors
                   <% end %></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><%= link_to new_user_path, class: "dropdown-item" do %>
+                  <li><%= link_to new_admin_user_path, class: "dropdown-item" do %>
                     <i class="fas fa-user-plus me-2"></i>Add New Person
                   <% end %></li>
                 </ul>
@@ -107,7 +107,7 @@
                     <i class="fas fa-calendar-check me-1"></i>Instructor Tools
                   </a>
                   <ul class="dropdown-menu">
-                    <li><%= link_to user_availabilities_path(current_user), class: "dropdown-item" do %>
+                    <li><%= link_to instructor_availabilities_path, class: "dropdown-item" do %>
                       <i class="fas fa-calendar-alt me-2"></i>My Availability
                     <% end %></li>
                   <li><%= link_to figures_path, class: "dropdown-item" do %>
@@ -117,7 +117,7 @@
                       <li><hr class="dropdown-divider"></li>
                       <li class="dropdown-header">All Instructors</li>
                       <% User.instructors.each do |instructor| %>
-                        <li><%= link_to user_availabilities_path(instructor), class: "dropdown-item" do %>
+                        <li><%= link_to admin_user_availabilities_path(instructor), class: "dropdown-item" do %>
                           <i class="fas fa-user me-2"></i><%= instructor.full_name %>
                         <% end %></li>
                       <% end %>
@@ -161,7 +161,7 @@
                   <span class="badge bg-light text-dark ms-2"><%= current_user.role.humanize %></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                  <li><%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
                     <i class="fas fa-user me-2"></i>Edit Profile
                   <% end %></li>
                   <li><%= link_to user_path(current_user), class: "dropdown-item" do %>
