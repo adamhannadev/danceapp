@@ -158,8 +158,9 @@ require 'csv'
 
 student_csv_file_path = Rails.root.join('student_list.csv')
 
-if File.exist?(student_csv_file_path)
-  CSV.foreach(student_csv_file_path, headers: true) do |row|
+if File.exist?(student_csv_file_path) && File.readable?(student_csv_file_path)
+  begin
+    CSV.foreach(student_csv_file_path, headers: true) do |row|
     # Skip rows with missing essential data
     next if row['email'].blank? || row['first_name'].blank? || row['last_name'].blank?
     
@@ -182,10 +183,13 @@ if File.exist?(student_csv_file_path)
       user.waiver_signed = false
       user.waiver_signed_at = nil
     end
+    puts "✅ Students loaded from CSV successfully!"
+  rescue => e
+    puts "❌ Error reading student CSV file: #{e.message}"
+    puts "⚠️  Skipping student creation from CSV..."
   end
-  puts "✅ Students loaded from CSV successfully!"
 else
-  puts "⚠️  Student CSV file not found at #{student_csv_file_path}, skipping student creation..."
+  puts "⚠️  Student CSV file not found or not readable at #{student_csv_file_path}, skipping student creation..."
 end
 
 # Create Figures from CSV Data
@@ -194,8 +198,9 @@ require 'csv'
 
 csv_file_path = Rails.root.join('db', 'data', 'br_smooth.csv')
 
-if File.exist?(csv_file_path)
-  CSV.foreach(csv_file_path, headers: true) do |row|
+if File.exist?(csv_file_path) && File.readable?(csv_file_path)
+  begin
+    CSV.foreach(csv_file_path, headers: true) do |row|
     dance_style = DanceStyle.find_by(name: row['dance_style'])
     dance_level = DanceLevel.find_by(name: row['dance_level'])
     
@@ -217,8 +222,13 @@ if File.exist?(csv_file_path)
     else
       puts "Warning: Could not find dance style '#{row['dance_style']}' or dance level '#{row['dance_level']}' for figure #{row['figure_number']}"
     end
+    puts "✅ Figures loaded from CSV successfully!"
+  rescue => e
+    puts "❌ Error reading figures CSV file: #{e.message}"
+    puts "⚠️  Skipping figures creation from CSV..."
   end
-  puts "✅ Figures loaded from CSV successfully!"
+else
+  puts "⚠️  Figures CSV file not found or not readable at #{csv_file_path}, skipping figures creation..."
 end
 
 # Create sample private lessons
