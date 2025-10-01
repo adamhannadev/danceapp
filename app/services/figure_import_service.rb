@@ -16,6 +16,7 @@ class FigureImportService
         message: build_success_message(import_result),
         details: {
           created: import_result[:created],
+          updated: import_result[:updated],
           skipped: import_result[:skipped],
           errors: @errors,
           warnings: @warnings
@@ -69,6 +70,7 @@ class FigureImportService
     require 'csv'
     
     created_count = 0
+    updated_count = 0
     skipped_count = 0
     row_number = 1  # Start at 1 for header
     
@@ -80,6 +82,8 @@ class FigureImportService
         
         if result[:created]
           created_count += 1
+        elsif result[:updated]
+          updated_count += 1
         else
           skipped_count += 1
         end
@@ -92,6 +96,7 @@ class FigureImportService
     
     {
       created: created_count,
+      updated: updated_count,
       skipped: skipped_count,
       total_rows: row_number - 1  # Subtract header row
     }
@@ -112,21 +117,46 @@ class FigureImportService
       dance_level: dance_level
     )
     
-    if existing_figure
-      @warnings << "Row #{row_number}: Figure '#{row[:figure_number]}' already exists for #{dance_style.name} #{dance_level.name}"
-      return { created: false }
-    end
-    
-    # Create the figure
+    # Build the figure attributes
     figure_attributes = build_figure_attributes(row, dance_style, dance_level)
-    figure = Figure.create!(figure_attributes)
     
-    { created: true, figure: figure }
+    if existing_figure
+      # Update existing figure if there are changes
+      changes_detected = false
+      
+      figure_attributes.each do |attr, new_value|
+        # Skip associations for comparison, handle them separately
+        next if [:dance_style, :dance_level].include?(attr)
+        
+        current_value = existing_figure.send(attr)
+        if current_value != new_value
+          changes_detected = true
+          break
+        end
+      end
+      
+      # Check if dance style or level changed
+      if existing_figure.dance_style != dance_style || existing_figure.dance_level != dance_level
+        changes_detected = true
+      end
+      
+      if changes_detected
+        existing_figure.update!(figure_attributes)
+        @warnings << "Row #{row_number}: Updated figure '#{row[:figure_number]}' for #{dance_style.name} #{dance_level.name}"
+        return { created: false, updated: true, figure: existing_figure }
+      else
+        return { created: false, updated: false, figure: existing_figure }
+      end
+    else
+      # Create new figure
+      figure = Figure.create!(figure_attributes)
+      return { created: true, updated: false, figure: figure }
+    end
     
   rescue ActiveRecord::RecordInvalid => e
     error_messages = e.record.errors.full_messages.join(', ')
     @errors << "Row #{row_number}: #{error_messages}"
-    { created: false }
+    { created: false, updated: false }
   end
 
   def validate_required_fields(row, row_number)
@@ -222,11 +252,15 @@ class FigureImportService
     message_parts = []
     
     if import_result[:created] > 0
-      message_parts << "Successfully imported #{import_result[:created]} figure(s)"
+      message_parts << "Successfully imported #{import_result[:created]} new figure(s)"
+    end
+    
+    if import_result[:updated] > 0
+      message_parts << "Updated #{import_result[:updated]} existing figure(s)"
     end
     
     if import_result[:skipped] > 0
-      message_parts << "#{import_result[:skipped]} duplicate(s) skipped"
+      message_parts << "#{import_result[:skipped]} figure(s) unchanged"
     end
     
     if @warnings.any?

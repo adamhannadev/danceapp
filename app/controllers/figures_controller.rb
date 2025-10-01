@@ -82,6 +82,7 @@ class FiguresController < ApplicationController
       details = result[:details] || {}
       summary = {
         created_count: details[:created] || 0,
+        updated_count: details[:updated] || 0,
         skipped_count: details[:skipped] || 0,
         error_count: details[:errors]&.count || 0,
         warning_count: details[:warnings]&.count || 0
