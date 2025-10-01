@@ -77,17 +77,25 @@
           <%= form_with url: enroll_user_student_progress_index_path(@user), method: :post, local: true, class: "needs-validation", novalidate: true do |form| %>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <%= form.label :dance_style_id, "Dance Style", class: "form-label fw-medium" %>
-                <%= form.select :dance_style_id, 
-                    grouped_options_for_select(
-                      @enrollment_form_data[:dance_styles].map do |category, styles|
-                        [category, options_from_collection_for_select(styles, :id, :name)]
-                      end
-                    ),
-                    { prompt: "Choose a dance style..." },
-                    { class: "form-select", required: true, id: "dance_style_select" } %>
-                <div class="invalid-feedback">Please select a dance style.</div>
-                <div class="form-text">Select one dance style from the organized categories</div>
+                <%= form.label :dance_style_ids, "Dance Styles", class: "form-label fw-medium" %>
+                <div class="form-control" style="height: auto; max-height: 200px; overflow-y: auto;">
+                  <% @enrollment_form_data[:dance_styles].each do |category, styles| %>
+                    <div class="mb-2">
+                      <h6 class="text-muted mb-1" style="font-size: 0.8rem; font-weight: bold;"><%= category.upcase %></h6>
+                      <% styles.each do |style| %>
+                        <div class="form-check">
+                          <%= check_box_tag "dance_style_ids[]", style.id, false, 
+                              id: "dance_style_#{style.id}", 
+                              class: "form-check-input style-checkbox", 
+                              data: { category: category.downcase } %>
+                          <%= label_tag "dance_style_#{style.id}", style.name, class: "form-check-label" %>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="invalid-feedback">Please select at least one dance style.</div>
+                <div class="form-text">Select multiple styles - students will be enrolled in all selected styles</div>
               </div>
               
               <div class="col-md-6 mb-3">
@@ -127,11 +135,17 @@
                       <div class="d-flex flex-wrap gap-1">
                         <% @enrollment_form_data[:dance_styles].each do |category, styles| %>
                           <button type="button" class="btn btn-sm btn-outline-primary style-category-btn" 
-                                  data-category="<%= category %>" 
+                                  data-category="<%= category.downcase %>" 
                                   data-styles="<%= styles.map(&:id).join(',') %>">
                             <%= category.split.last %>
                           </button>
                         <% end %>
+                        <button type="button" class="btn btn-sm btn-outline-warning" id="select-all-styles">
+                          Select All
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="clear-all-styles">
+                          Clear All
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -168,11 +182,11 @@
                 <i class="fas fa-info-circle me-2"></i>
                 <strong>What happens when you enroll:</strong>
                 <ul class="mb-0 mt-2">
-                  <li>All figures for the selected style and level(s) will be added to the student's progress</li>
+                  <li>All figures for the selected style(s) and level(s) will be added to the student's progress</li>
                   <li>Progress will be initially set to "not passed" for all components (Movement, Timing, Partnering)</li>
                   <li>You can then individually mark progress for each figure</li>
                   <li>If the student is already enrolled in some figures, only new figures will be added</li>
-                  <li>Multiple levels can be selected to enroll the student in several levels at once</li>
+                  <li>Multiple styles and levels can be selected to enroll the student in several combinations at once</li>
                 </ul>
               </div>
             </div>
@@ -187,7 +201,7 @@
                   class: "btn btn-primary",
                   id: "enroll-submit-btn",
                   data: { 
-                    confirm: "Are you sure you want to enroll #{@user.full_name} in the selected dance style and level(s)? This will add all figures for those combinations to their progress." 
+                    confirm: "Are you sure you want to enroll #{@user.full_name} in the selected dance style(s) and level(s)? This will add all figures for those combinations to their progress." 
                   } %>
             </div>
           <% end %>
@@ -367,18 +381,21 @@ document.addEventListener('DOMContentLoaded', function() {
   const forms = document.querySelectorAll('.needs-validation');
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
-      // Check if at least one dance level is selected
+      // Check if at least one dance level and style is selected
       const levelCheckboxes = form.querySelectorAll('input[name="dance_level_ids[]"]:checked');
-      const danceStyleSelect = form.querySelector('#dance_style_select');
+      const styleCheckboxes = form.querySelectorAll('input[name="dance_style_ids[]"]:checked');
       
       let isValid = true;
       
       // Validate dance style selection
-      if (!danceStyleSelect.value) {
+      if (styleCheckboxes.length === 0) {
         isValid = false;
-        danceStyleSelect.classList.add('is-invalid');
+        // Show error for style selection
+        const styleContainer = form.querySelector('.style-checkbox').closest('.form-control');
+        styleContainer.classList.add('is-invalid');
       } else {
-        danceStyleSelect.classList.remove('is-invalid');
+        const styleContainer = form.querySelector('.style-checkbox').closest('.form-control');
+        styleContainer.classList.remove('is-invalid');
       }
       
       // Validate dance level selection
@@ -406,19 +423,40 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', function() {
       const category = this.getAttribute('data-category');
       const styleIds = this.getAttribute('data-styles').split(',');
-      const styleSelect = document.getElementById('dance_style_select');
       
-      // Find the first style in this category and select it
-      if (styleIds.length > 0 && styleIds[0]) {
-        styleSelect.value = styleIds[0];
-        styleSelect.dispatchEvent(new Event('change'));
-      }
+      // Toggle selection of all styles in this category
+      styleIds.forEach(styleId => {
+        if (styleId) {
+          const checkbox = document.getElementById(`dance_style_${styleId}`);
+          if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+          }
+        }
+      });
       
       // Visual feedback
-      updateCategoryButton(this, '.style-category-btn', 'btn-primary', 'btn-outline-primary');
+      updateStyleCategoryButtons();
+      updateFormValidation();
       
-      // Show info
-      showCategoryInfo(styleSelect, category, styleIds, 'styles');
+      // Update the button text to show selected/deselected
+      const selectedInCategory = styleIds.filter(styleId => {
+        const checkbox = document.getElementById(`dance_style_${styleId}`);
+        return checkbox && checkbox.checked;
+      }).length;
+      
+      if (selectedInCategory === styleIds.filter(id => id).length) {
+        this.textContent = `${this.getAttribute('data-category')} ✓`;
+        this.classList.remove('btn-outline-primary');
+        this.classList.add('btn-primary');
+      } else if (selectedInCategory > 0) {
+        this.textContent = `${this.getAttribute('data-category')} (${selectedInCategory})`;
+        this.classList.remove('btn-outline-primary', 'btn-primary');
+        this.classList.add('btn-warning');
+      } else {
+        this.textContent = this.getAttribute('data-category');
+        this.classList.remove('btn-primary', 'btn-warning');
+        this.classList.add('btn-outline-primary');
+      }
     });
   });
 
@@ -465,6 +503,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  // Select All Styles button
+  document.getElementById('select-all-styles').addEventListener('click', function() {
+    const allCheckboxes = document.querySelectorAll('.style-checkbox');
+    allCheckboxes.forEach(checkbox => {
+      checkbox.checked = true;
+    });
+    updateStyleCategoryButtons();
+    updateFormValidation();
+    
+    // Visual feedback
+    this.classList.remove('btn-outline-warning');
+    this.classList.add('btn-warning');
+    setTimeout(() => {
+      this.classList.remove('btn-warning');
+      this.classList.add('btn-outline-warning');
+    }, 300);
+  });
+
+  // Clear All Styles button
+  document.getElementById('clear-all-styles').addEventListener('click', function() {
+    const allCheckboxes = document.querySelectorAll('.style-checkbox');
+    allCheckboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    updateStyleCategoryButtons();
+    updateFormValidation();
+    
+    // Visual feedback
+    this.classList.remove('btn-outline-secondary');
+    this.classList.add('btn-secondary');
+    setTimeout(() => {
+      this.classList.remove('btn-secondary');
+      this.classList.add('btn-outline-secondary');
+    }, 300);
+  });
+
   // Select All Levels button
   document.getElementById('select-all-levels').addEventListener('click', function() {
     const allCheckboxes = document.querySelectorAll('.level-checkbox');
@@ -502,6 +576,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Update category buttons when individual checkboxes change
+  document.querySelectorAll('.style-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      updateStyleCategoryButtons();
+      updateFormValidation();
+    });
+  });
+
   document.querySelectorAll('.level-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
       updateLevelCategoryButtons();
@@ -520,6 +601,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Activate clicked button
     activeButton.classList.remove(inactiveClass);
     activeButton.classList.add(activeClass);
+  }
+
+  function updateStyleCategoryButtons() {
+    document.querySelectorAll('.style-category-btn').forEach(button => {
+      const category = button.getAttribute('data-category');
+      const styleIds = button.getAttribute('data-styles').split(',');
+      
+      const selectedInCategory = styleIds.filter(styleId => {
+        const checkbox = document.getElementById(`dance_style_${styleId}`);
+        return checkbox && checkbox.checked;
+      }).length;
+      
+      const totalInCategory = styleIds.filter(id => id).length;
+      
+      if (selectedInCategory === totalInCategory && totalInCategory > 0) {
+        button.textContent = `${category} ✓`;
+        button.classList.remove('btn-outline-primary', 'btn-warning');
+        button.classList.add('btn-primary');
+      } else if (selectedInCategory > 0) {
+        button.textContent = `${category} (${selectedInCategory})`;
+        button.classList.remove('btn-outline-primary', 'btn-primary');
+        button.classList.add('btn-warning');
+      } else {
+        button.textContent = category;
+        button.classList.remove('btn-primary', 'btn-warning');
+        button.classList.add('btn-outline-primary');
+      }
+    });
   }
 
   function updateLevelCategoryButtons() {
@@ -552,13 +661,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateFormValidation() {
     const levelCheckboxes = document.querySelectorAll('input[name="dance_level_ids[]"]:checked');
-    const levelContainer = document.querySelector('.level-checkbox').closest('.form-control');
+    const styleCheckboxes = document.querySelectorAll('input[name="dance_style_ids[]"]:checked');
     
+    // Validate levels
+    const levelContainer = document.querySelector('.level-checkbox').closest('.form-control');
     if (levelCheckboxes.length > 0) {
       levelContainer.classList.remove('is-invalid');
       levelContainer.classList.add('is-valid');
     } else {
       levelContainer.classList.remove('is-valid');
+    }
+    
+    // Validate styles
+    const styleContainer = document.querySelector('.style-checkbox').closest('.form-control');
+    if (styleCheckboxes.length > 0) {
+      styleContainer.classList.remove('is-invalid');
+      styleContainer.classList.add('is-valid');
+    } else {
+      styleContainer.classList.remove('is-valid');
     }
   }
 
@@ -589,6 +709,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Initialize category button states
+  updateStyleCategoryButtons();
   updateLevelCategoryButtons();
 });
 </script>
