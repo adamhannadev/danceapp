@@ -76,7 +76,7 @@ class StudentEnrollmentService
         movement_passed: false,
         timing_passed: false,
         partnering_passed: false,
-        notes: "Enrolled in #{dance_style.name} #{dance_level.name}"
+        notes: ""
       )
       created_count += 1
     end
