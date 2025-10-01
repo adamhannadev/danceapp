@@ -7,8 +7,8 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
-          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
-          <li class="breadcrumb-item"><%= link_to @user.full_name, user_path(@user) %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", admin_users_path %></li>
+          <li class="breadcrumb-item"><%= link_to @user.full_name, admin_user_path(@user) %></li>
           <li class="breadcrumb-item active" aria-current="page">Edit</li>
         </ol>
       </nav>
@@ -294,8 +294,8 @@
               <div class="col-12">
                 <div class="d-flex justify-content-between">
                   <div>
-                    <%= link_to "Cancel", user_path(@user), class: "btn btn-outline-secondary" %>
-                    <%= link_to "View Profile", user_path(@user), class: "btn btn-outline-info ms-2" %>
+                    <%= link_to "Cancel", admin_user_path(@user), class: "btn btn-outline-secondary" %>
+                    <%= link_to "View Profile", admin_user_path(@user), class: "btn btn-outline-info ms-2" %>
                   </div>
                   
                   <div>
@@ -326,11 +326,11 @@
               </p>
             </div>
             <div>
-              <%= link_to user_path(@user), 
+              <%= link_to admin_user_path(@user), 
                   class: "btn btn-outline-danger",
                   data: { 
-                    confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone.",
-                    method: :delete 
+                    "turbo-method": :delete,
+                    confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone."
                   } do %>
                 <i class="fas fa-trash me-1"></i>Delete Account
               <% end %>

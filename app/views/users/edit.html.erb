@@ -329,8 +329,8 @@
               <%= link_to user_path(@user), 
                   class: "btn btn-outline-danger",
                   data: { 
-                    confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone.",
-                    method: :delete 
+                    "turbo-method": :delete,
+                    confirm: "Are you sure you want to delete #{@user.full_name}'s account? This action cannot be undone."
                   } do %>
                 <i class="fas fa-trash me-1"></i>Delete Account
               <% end %>

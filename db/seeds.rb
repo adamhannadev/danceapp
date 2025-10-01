@@ -152,84 +152,45 @@ instructor2 = User.find_or_create_by!(email: "tyna@danceapp.com") do |user|
   user.waiver_signed_at = Time.current
 end
 
-# Create Students from CSV Data
-puts "Creating Students from CSV data..."
-require 'csv'
+# # Create Students from CSV Data
+# puts "Creating Students from CSV data..."
+# require 'csv'
 
-student_csv_file_path = Rails.root.join('student_list.csv')
+# student_csv_file_path = Rails.root.join('student_list.csv')
 
-if File.exist?(student_csv_file_path) && File.readable?(student_csv_file_path)
-  begin
-    CSV.foreach(student_csv_file_path, headers: true) do |row|
-    # Skip rows with missing essential data
-    next if row['email'].blank? || row['first_name'].blank? || row['last_name'].blank?
+# if File.exist?(student_csv_file_path) && File.readable?(student_csv_file_path)
+#   begin
+#     CSV.foreach(student_csv_file_path, headers: true) do |row|
+#     # Skip rows with missing essential data
+#     next if row['email'].blank? || row['first_name'].blank? || row['last_name'].blank?
     
-    # Clean up the email and name fields
-    email = row['email'].strip.downcase
-    first_name = row['first_name'].strip
-    last_name = row['last_name'].strip
-    phone = row['phone'].present? ? row['phone'].strip : nil
+#     # Clean up the email and name fields
+#     email = row['email'].strip.downcase
+#     first_name = row['first_name'].strip
+#     last_name = row['last_name'].strip
+#     phone = row['phone'].present? ? row['phone'].strip : nil
     
-    # Create the student user
-    User.find_or_create_by!(email: email) do |user|
-      user.password = "password123"
-      user.password_confirmation = "password123"
-      user.first_name = first_name
-      user.last_name = last_name
-      user.phone = phone
-      user.role = "student"
-      user.membership_type = "none"
-      user.membership_discount = 0
-      user.waiver_signed = false
-      user.waiver_signed_at = nil
-    end
-    puts "✅ Students loaded from CSV successfully!"
-  rescue => e
-    puts "❌ Error reading student CSV file: #{e.message}"
-    puts "⚠️  Skipping student creation from CSV..."
-  end
-else
-  puts "⚠️  Student CSV file not found or not readable at #{student_csv_file_path}, skipping student creation..."
-end
-
-# Create Figures from CSV Data
-puts "Creating Figures from CSV data..."
-require 'csv'
-
-csv_file_path = Rails.root.join('db', 'data', 'br_smooth.csv')
-
-if File.exist?(csv_file_path) && File.readable?(csv_file_path)
-  begin
-    CSV.foreach(csv_file_path, headers: true) do |row|
-    dance_style = DanceStyle.find_by(name: row['dance_style'])
-    dance_level = DanceLevel.find_by(name: row['dance_level'])
-    
-    if dance_style && dance_level
-      # Determine if figure is core based on figure_number
-      # Core figures have only numbers (1, 2, 3), non-core have letters (1a, 1b, 2a, etc.)
-      is_core = row['figure_number'].match?(/^\d+$/)
-      
-      Figure.find_or_create_by!(
-        figure_number: row['figure_number'],
-        dance_style: dance_style,
-        dance_level: dance_level
-      ) do |figure|
-        figure.name = row['name']
-        figure.measures = row['measures'].to_i
-        figure.is_core = is_core
-        figure.components = row['components']
-      end
-    else
-      puts "Warning: Could not find dance style '#{row['dance_style']}' or dance level '#{row['dance_level']}' for figure #{row['figure_number']}"
-    end
-    puts "✅ Figures loaded from CSV successfully!"
-  rescue => e
-    puts "❌ Error reading figures CSV file: #{e.message}"
-    puts "⚠️  Skipping figures creation from CSV..."
-  end
-else
-  puts "⚠️  Figures CSV file not found or not readable at #{csv_file_path}, skipping figures creation..."
-end
+#     # Create the student user
+#     User.find_or_create_by!(email: email) do |user|
+#       user.password = "password123"
+#       user.password_confirmation = "password123"
+#       user.first_name = first_name
+#       user.last_name = last_name
+#       user.phone = phone
+#       user.role = "student"
+#       user.membership_type = "none"
+#       user.membership_discount = 0
+#       user.waiver_signed = false
+#       user.waiver_signed_at = nil
+#     end
+#     puts "✅ Students loaded from CSV successfully!"
+#   rescue => e
+#     puts "❌ Error reading student CSV file: #{e.message}"
+#     puts "⚠️  Skipping student creation from CSV..."
+#   end
+# else
+#   puts "⚠️  Student CSV file not found or not readable at #{student_csv_file_path}, skipping student creation..."
+# end
 
 # Create sample private lessons
 puts "Creating sample private lessons..."

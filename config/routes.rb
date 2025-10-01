@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   resources :routines
   resources :dance_categories
   
-  # Devise routes - skip registrations to avoid conflicts with admin user management
-  devise_for :users, skip: [:registrations]
+  # Devise routes - allow both registrations and admin management
+  devise_for :users
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -36,9 +36,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # User management - Admin only for creating/managing users
+  # User management - Admin only for creating/managing users (separate from Devise registration)
   namespace :admin do
-    resources :users do
+    resources :users, path: 'manage_users' do
       resources :availabilities, controller: 'instructor_availabilities', except: [:show, :edit, :new]
       member do
         patch :toggle_membership
@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   end
 
   # User profiles - for individual user access
-  resources :users, only: [:show, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update] do
     member do
       patch :toggle_membership
       get :progress_report

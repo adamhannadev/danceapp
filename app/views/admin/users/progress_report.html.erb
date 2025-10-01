@@ -7,8 +7,8 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
-          <li class="breadcrumb-item"><%= link_to "Users", users_path %></li>
-          <li class="breadcrumb-item"><%= link_to @user.full_name, user_path(@user) %></li>
+          <li class="breadcrumb-item"><%= link_to "Users", admin_users_path %></li>
+          <li class="breadcrumb-item"><%= link_to @user.full_name, admin_user_path(@user) %></li>
           <li class="breadcrumb-item active" aria-current="page">Progress Report</li>
         </ol>
       </nav>
@@ -23,7 +23,7 @@
         </div>
         
         <div>
-          <%= link_to user_path(@user), class: "btn btn-outline-primary" do %>
+          <%= link_to admin_user_path(@user), class: "btn btn-outline-primary" do %>
             <i class="fas fa-arrow-left me-2"></i>
             Back to Profile
           <% end %>

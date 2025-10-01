@@ -1,2 +1,299 @@
-<h1>Figures#import</h1>
-<p>Find me in app/views/figures/import.html.erb</p>
+<% content_for :title, "Import Figures" %>
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Figures", figures_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">Import</li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <h1 class="h3 mb-1">
+          <i class="fas fa-upload me-2 text-primary"></i>
+          Import Figure Data
+        </h1>
+        <p class="text-muted mb-0">Upload a CSV file to import multiple figures at once</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Results Display -->
+  <% if flash[:import_summary] %>
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="alert alert-success">
+          <h6 class="alert-heading">
+            <i class="fas fa-check-circle me-2"></i>
+            Import Completed Successfully
+          </h6>
+          <% summary = flash[:import_summary] %>
+          <div class="row text-center">
+            <div class="col-md-3">
+              <div class="border rounded p-2">
+                <h5 class="text-success mb-0"><%= summary[:created_count] %></h5>
+                <small class="text-muted">Created</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="border rounded p-2">
+                <h5 class="text-warning mb-0"><%= summary[:skipped_count] %></h5>
+                <small class="text-muted">Skipped</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="border rounded p-2">
+                <h5 class="text-info mb-0"><%= summary[:warning_count] %></h5>
+                <small class="text-muted">Warnings</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="border rounded p-2">
+                <h5 class="text-danger mb-0"><%= summary[:error_count] %></h5>
+                <small class="text-muted">Errors</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:import_error_summary] %>
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="alert alert-danger">
+          <h6 class="alert-heading">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Import Failed
+          </h6>
+          <% error_summary = flash[:import_error_summary] %>
+          <p class="mb-2">
+            <strong>Total Errors:</strong> <%= error_summary[:error_count] %>
+          </p>
+          
+          <% if error_summary[:first_few_errors]&.any? %>
+            <div class="mt-3">
+              <h6>Sample Errors:</h6>
+              <ul class="mb-0">
+                <% error_summary[:first_few_errors].each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+              <% if error_summary[:error_count] > 3 %>
+                <small class="text-muted">
+                  ... and <%= error_summary[:error_count] - 3 %> more errors. Please check your CSV file format.
+                </small>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-file-csv me-2"></i>
+            CSV File Upload
+          </h5>
+        </div>
+        <div class="card-body">
+          <%= form_with url: upload_import_figures_path, method: :post, local: true, 
+                        html: { multipart: true, class: "needs-validation", novalidate: true } do |form| %>
+            
+            <!-- File Upload Section -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <label for="file" class="form-label fw-bold">
+                  <i class="fas fa-file-upload me-2"></i>
+                  Select CSV File *
+                </label>
+                <input type="file" 
+                       name="file" 
+                       id="file"
+                       class="form-control" 
+                       accept=".csv"
+                       required>
+                <div class="invalid-feedback">
+                  Please select a CSV file to upload.
+                </div>
+                <div class="form-text">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Only CSV files are accepted. Maximum file size: 10MB
+                </div>
+              </div>
+            </div>
+
+            <!-- CSV Format Information -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="alert alert-info">
+                  <h6 class="alert-heading">
+                    <i class="fas fa-table me-2"></i>
+                    Required CSV Format
+                  </h6>
+                  <p class="mb-2">Your CSV file must include the following columns (in any order):</p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ul class="mb-0">
+                        <li><strong>figure_number</strong> - Figure identifier (e.g., "1", "2a", "3b")</li>
+                        <li><strong>name</strong> - Figure name</li>
+                        <li><strong>dance_style_name</strong> - Style (e.g., "Waltz", "Tango")</li>
+                        <li><strong>dance_level_name</strong> - Level (e.g., "Bronze", "Silver")</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <ul class="mb-0">
+                        <li><strong>measures</strong> - Number of measures (numeric)</li>
+                        <li><strong>components</strong> - Figure components (optional)</li>
+                        <li><strong>is_core</strong> - Core figure? (true/false)</li>
+                        <li><strong>video</strong> - YouTube URL (optional)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sample Data -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="card bg-light">
+                  <div class="card-header">
+                    <h6 class="card-title mb-0">
+                      <i class="fas fa-eye me-2"></i>
+                      Sample CSV Data
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <code class="d-block bg-dark text-light p-3 rounded">
+figure_number,name,dance_style_name,dance_level_name,measures,components,is_core,video<br>
+1,Natural Turn,Waltz,Bronze,6,"RF Forward, LF to Side",true,https://youtu.be/example1<br>
+2,Reverse Turn,Waltz,Bronze,6,"LF Forward, RF to Side",true,<br>
+3,Whisk,Waltz,Bronze,3,"LF Back, RF to Side",false,<br>
+4,Chasse from PP,Waltz,Bronze,3,"RF Forward, LF to Side",false,
+                    </code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Import Options -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="card border-warning">
+                  <div class="card-header bg-warning text-dark">
+                    <h6 class="card-title mb-0">
+                      <i class="fas fa-exclamation-triangle me-2"></i>
+                      Import Behavior
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <ul class="mb-0">
+                      <li><strong>Admin Only:</strong> Only administrators can import figure data</li>
+                      <li><strong>Duplicate Detection:</strong> Figures with the same number, style, and level will be skipped</li>
+                      <li><strong>Auto-Creation:</strong> Dance styles and levels will be created automatically if they don't exist</li>
+                      <li><strong>Validation:</strong> Invalid rows will be skipped with detailed error reporting</li>
+                      <li><strong>Video URLs:</strong> Only valid YouTube URLs will be accepted</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row">
+              <div class="col-12">
+                <div class="d-flex justify-content-between">
+                  <%= link_to "Cancel", figures_path, class: "btn btn-outline-secondary" %>
+                  <div>
+                    <%= link_to "Download Sample CSV", "#", class: "btn btn-outline-info me-2", 
+                               id: "downloadSample" %>
+                    <%= form.submit "Import Figures", 
+                        class: "btn btn-primary",
+                        data: { disable_with: "Importing..." } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+// Download sample CSV
+document.getElementById('downloadSample').addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  const csvContent = `figure_number,name,dance_style_name,dance_level_name,measures,components,is_core,video
+1,Natural Turn,Waltz,Bronze,6,"RF Forward, LF to Side",true,https://youtu.be/example1
+2,Reverse Turn,Waltz,Bronze,6,"LF Forward, RF to Side",true,
+3,Whisk,Waltz,Bronze,3,"LF Back, RF to Side",false,
+4,Chasse from PP,Waltz,Bronze,3,"RF Forward, LF to Side",false,
+5,Natural Spin Turn,Waltz,Silver,9,"RF Forward, Pivot, LF Forward",true,
+6,Basic Movement,Rumba,Bronze,4,"LF Forward, RF Back",true,
+7,Progressive Walks,Rumba,Bronze,8,"RF Forward, LF Forward",true,
+8,Side Steps,Rumba,Bronze,4,"RF to Side, LF Close",false,`;
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', 'sample_figures.csv');
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+</script>
+
+<style>
+.card-ballroom {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-label.fw-medium {
+  font-weight: 500;
+}
+
+.was-validated .form-control:valid {
+  border-color: #198754;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}
+</style>

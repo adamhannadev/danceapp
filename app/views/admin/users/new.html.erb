@@ -31,7 +31,7 @@
           </h5>
         </div>
         <div class="card-body">
-                  <%= form_with(model: [:admin, @user], local: true, html: { class: "needs-validation", novalidate: true }) do |form| %>
+                  <%= form_with(model: [:admin, @user], url: admin_users_path, local: true, html: { class: "needs-validation", novalidate: true }) do |form| %>
             
             <!-- Error Messages -->
             <% if @user.errors.any? %>
