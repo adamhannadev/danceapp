@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
           <li class="breadcrumb-item"><%= link_to "All Students", all_students_student_progress_index_path %></li>
-          <li class="breadcrumb-item"><%= link_to "#{@user.full_name}'s Progress", user_student_progress_index_path(@user) %></li>
+          <li class="breadcrumb-item"><%= link_to "#{@user.full_name}'s Progress", admin_user_student_progress_index_path(@user) %></li>
           <li class="breadcrumb-item active" aria-current="page">Enroll in Style & Level</li>
         </ol>
       </nav>
@@ -74,7 +74,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <%= form_with url: enroll_user_student_progress_index_path(@user), method: :post, local: true, class: "needs-validation", novalidate: true do |form| %>
+          <%= form_with url: enroll_admin_user_student_progress_index_path(@user), method: :post, local: true, class: "needs-validation", novalidate: true do |form| %>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <%= form.label :dance_style_ids, "Dance Styles", class: "form-label fw-medium" %>
@@ -192,7 +192,7 @@
             </div>
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <%= link_to user_student_progress_index_path(@user), 
+              <%= link_to admin_user_student_progress_index_path(@user), 
                           class: "btn btn-outline-secondary me-md-2" do %>
                 <i class="fas fa-arrow-left me-2"></i>Cancel
               <% end %>

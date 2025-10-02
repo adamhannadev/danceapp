@@ -32,7 +32,7 @@
                 All Students
               <% end %>
               <% if params[:user_id].present? %>
-                <%= link_to enroll_user_student_progress_index_path(@progress_data[:viewing_user]), 
+                <%= link_to enroll_admin_user_student_progress_index_path(@progress_data[:viewing_user]), 
                             class: "btn btn-success btn-sm" do %>
                   <i class="fas fa-user-plus me-1"></i>
                   Enroll in Style/Level
@@ -120,12 +120,12 @@
         <div class="d-flex flex-wrap gap-2 align-items-center">
           <span class="text-muted me-2">Quick Filter:</span>
           <%= link_to "All Styles", 
-                      params[:user_id].present? ? user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path,
+                      params[:user_id].present? ? admin_user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path,
                       class: "btn #{'btn-primary' unless @progress_data[:selected_style]} #{'btn-outline-primary' if @progress_data[:selected_style]} btn-sm" %>
           <% @progress_data[:available_dance_styles].each do |style| %>
             <%= link_to style.name,
                         params[:user_id].present? ? 
-                          user_student_progress_index_path(@progress_data[:viewing_user], dance_style_id: style.id) :
+                          admin_user_student_progress_index_path(@progress_data[:viewing_user], dance_style_id: style.id) :
                           student_progress_index_path(dance_style_id: style.id),
                         class: "btn #{'btn-primary' if @progress_data[:selected_style] == style} #{'btn-outline-primary' unless @progress_data[:selected_style] == style} btn-sm" %>
           <% end %>
@@ -144,7 +144,7 @@
           </h6>
         </div>
         <div class="card-body">
-          <%= form_with url: params[:user_id].present? ? user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path, 
+          <%= form_with url: params[:user_id].present? ? admin_user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path, 
                         method: :get, local: true, class: "row g-3" do |form| %>
             <% if params[:user_id].present? %>
               <%= form.hidden_field :user_id, value: params[:user_id] %>
@@ -164,7 +164,7 @@
             <div class="col-md-4">
               <div class="d-flex gap-2">
                 <%= form.submit "Apply Filters", class: "btn btn-primary" %>
-                <%= link_to "Clear", params[:user_id].present? ? user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path, 
+                <%= link_to "Clear", params[:user_id].present? ? admin_user_student_progress_index_path(@progress_data[:viewing_user]) : student_progress_index_path, 
                             class: "btn btn-outline-secondary" %>
               </div>
             </div>
@@ -290,7 +290,7 @@
                         <td>
                           <div class="btn-group btn-group-sm">
                             <% show_url = params[:user_id].present? ? 
-                                user_student_progress_path(@progress_data[:viewing_user], progress) : 
+                                admin_user_student_progress_path(@progress_data[:viewing_user], progress) : 
                                 student_progress_path(progress) %>
                             <%= link_to show_url, class: "btn btn-outline-primary btn-sm", title: "View Details" do %>
                               <i class="fas fa-eye"></i>
@@ -374,7 +374,7 @@
                         <td>
                           <div class="btn-group btn-group-sm">
                             <% show_url = params[:user_id].present? ? 
-                                user_student_progress_path(@progress_data[:viewing_user], progress) : 
+                                admin_user_student_progress_path(@progress_data[:viewing_user], progress) : 
                                 student_progress_path(progress) %>
                             <%= link_to show_url, class: "btn btn-outline-primary btn-sm", title: "View Details" do %>
                               <i class="fas fa-eye"></i>
@@ -423,7 +423,7 @@
         </p>
         <% if current_user.admin? || current_user.instructor? %>
           <% if params[:user_id].present? %>
-            <%= link_to enroll_user_student_progress_index_path(@progress_data[:viewing_user]), 
+            <%= link_to enroll_admin_user_student_progress_index_path(@progress_data[:viewing_user]), 
                         class: "btn btn-primary" do %>
               <i class="fas fa-user-plus me-2"></i>Enroll Student
             <% end %>

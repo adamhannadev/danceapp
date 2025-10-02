@@ -64,7 +64,10 @@ class UsersController < ApplicationController
 
   def progress_report
     ensure_can_access_student!(@user)
-    @progress_data = StudentProgressReportService.new(@user).call
+    service_result = StudentProgressReportService.new(@user).call
+    @progress_data = service_result[:progress_data]
+    @progress_by_style = service_result[:progress_by_style]
+    @overall_stats = service_result[:overall_stats]
   end
 
   def toggle_membership

@@ -43,7 +43,11 @@ class StudentProgressController < ApplicationController
       result = StudentEnrollmentService.new(@user, enrollment_params, current_user).call
       
       if result[:success]
-        redirect_to user_student_progress_index_path(@user), notice: result[:message]
+        # Determine the correct path based on whether we're in admin namespace
+        redirect_path = params[:user_id].present? ? 
+          admin_user_student_progress_index_path(@user) : 
+          student_progress_index_path
+        redirect_to redirect_path, notice: result[:message]
       else
         @enrollment_form_data = StudentEnrollmentFormService.new.call
         flash.now[:alert] = result[:message]
