@@ -158,7 +158,7 @@
                     </div>
                     <div class="col-md-6">
                       <ul class="mb-0">
-                        <li><strong>measures</strong> - Number of measures (numeric)</li>
+                        <li><strong>measures</strong> - Number of measures (numeric, decimals allowed)</li>
                         <li><strong>components</strong> - Figure components (optional)</li>
                         <li><strong>is_core</strong> - Core figure? (true/false)</li>
                         <li><strong>video</strong> - YouTube URL (optional)</li>
@@ -185,7 +185,7 @@ figure_number,name,dance_style_name,dance_level_name,measures,components,is_core
 1,Natural Turn,Waltz,Bronze,6,"RF Forward, LF to Side",true,https://youtu.be/example1<br>
 2,Reverse Turn,Waltz,Bronze,6,"LF Forward, RF to Side",true,<br>
 3,Whisk,Waltz,Bronze,3,"LF Back, RF to Side",false,<br>
-4,Chasse from PP,Waltz,Bronze,3,"RF Forward, LF to Side",false,
+4,Chasse from PP,Waltz,Bronze,1.5,"RF Forward, LF to Side",false,
                     </code>
                   </div>
                 </div>
@@ -263,11 +263,11 @@ document.getElementById('downloadSample').addEventListener('click', function(e) 
 1,Natural Turn,Waltz,Bronze,6,"RF Forward, LF to Side",true,https://youtu.be/example1
 2,Reverse Turn,Waltz,Bronze,6,"LF Forward, RF to Side",true,
 3,Whisk,Waltz,Bronze,3,"LF Back, RF to Side",false,
-4,Chasse from PP,Waltz,Bronze,3,"RF Forward, LF to Side",false,
+4,Chasse from PP,Waltz,Bronze,1.5,"RF Forward, LF to Side",false,
 5,Natural Spin Turn,Waltz,Silver,9,"RF Forward, Pivot, LF Forward",true,
 6,Basic Movement,Rumba,Bronze,4,"LF Forward, RF Back",true,
 7,Progressive Walks,Rumba,Bronze,8,"RF Forward, LF Forward",true,
-8,Side Steps,Rumba,Bronze,4,"RF to Side, LF Close",false,`;
+8,Side Steps,Rumba,Bronze,2.5,"RF to Side, LF Close",false,`;
 
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');

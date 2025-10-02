@@ -133,7 +133,8 @@
                 <%= form.number_field :measures, 
                     class: "form-control #{'is-invalid' if @figure.errors[:measures].any?}",
                     required: true,
-                    min: 1 %>
+                    min: 0.1,
+                    step: 0.1 %>
                 <% if @figure.errors[:measures].any? %>
                   <div class="invalid-feedback">
                     <%= @figure.errors[:measures].first %>

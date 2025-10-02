@@ -173,9 +173,9 @@ class FigureImportService
       raise "Missing required fields: #{missing_fields.join(', ')}"
     end
     
-    # Validate measures is numeric
-    unless row[:measures].to_s.match?(/^\d+$/)
-      raise "Measures must be a positive number, got '#{row[:measures]}'"
+    # Validate measures is numeric (including decimals)
+    unless row[:measures].to_s.match?(/^\d+(\.\d+)?$/)
+      raise "Measures must be a positive number (decimals allowed), got '#{row[:measures]}'"
     end
   end
 
@@ -185,7 +185,7 @@ class FigureImportService
       name: row[:name]&.to_s&.strip,
       dance_style: dance_style,
       dance_level: dance_level,
-      measures: row[:measures].to_i,
+      measures: row[:measures].to_f,
       components: row[:components]&.to_s&.strip,
       is_core: parse_boolean(row[:is_core])
     }

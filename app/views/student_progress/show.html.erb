@@ -12,7 +12,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Dashboard", dashboard_path %></li>
           <li class="breadcrumb-item">
-            <% if params[:user_id].present? %>
+            <% if (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user %>
               <%= link_to "#{@student_progress.user.full_name}'s Progress", admin_user_student_progress_index_path(@student_progress.user) %>
             <% else %>
               <%= link_to "My Progress", student_progress_index_path %>
@@ -93,7 +93,7 @@
                     Body positioning, footwork, and figure execution
                   </p>
                   <% if current_user.admin? || current_user.instructor? %>
-                    <% mark_progress_url = params[:user_id].present? ? 
+                    <% mark_progress_url = (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? 
                         mark_progress_admin_user_student_progress_path(@student_progress.user, @student_progress, component: 'movement') : 
                         mark_progress_student_progress_path(@student_progress, component: 'movement') %>
                     <%= link_to mark_progress_url, 
@@ -124,7 +124,7 @@
                     Musical timing, rhythm, and tempo coordination
                   </p>
                   <% if current_user.admin? || current_user.instructor? %>
-                    <% mark_progress_url = params[:user_id].present? ? 
+                    <% mark_progress_url = (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? 
                         mark_progress_admin_user_student_progress_path(@student_progress.user, @student_progress, component: 'timing') : 
                         mark_progress_student_progress_path(@student_progress, component: 'timing') %>
                     <%= link_to mark_progress_url, 
@@ -155,7 +155,7 @@
                     Connection, leading/following, and frame
                   </p>
                   <% if current_user.admin? || current_user.instructor? %>
-                    <% mark_progress_url = params[:user_id].present? ? 
+                    <% mark_progress_url = (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? 
                         mark_progress_admin_user_student_progress_path(@student_progress.user, @student_progress, component: 'partnering') : 
                         mark_progress_student_progress_path(@student_progress, component: 'partnering') %>
                     <%= link_to mark_progress_url, 
@@ -178,7 +178,7 @@
           <!-- Notes Section -->
           <div class="mt-4">
             <% if current_user.admin? || current_user.instructor? %>
-              <% form_url = params[:user_id].present? ? admin_user_student_progress_path(@student_progress.user, @student_progress) : student_progress_path(@student_progress) %>
+              <% form_url = (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? admin_user_student_progress_path(@student_progress.user, @student_progress) : student_progress_path(@student_progress) %>
               <%= form_with model: @student_progress, url: form_url, 
                   method: :patch, local: true, class: "needs-validation", novalidate: true do |form| %>
                 <div class="mb-3">
@@ -289,7 +289,7 @@
         </div>
         <div class="card-body">
           <div class="d-grid gap-2">
-            <% back_url = params[:user_id].present? ? 
+            <% back_url = (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? 
                 admin_user_student_progress_index_path(@student_progress.user) : 
                 student_progress_index_path %>
             <%= link_to back_url, class: "btn btn-outline-primary" do %>
@@ -307,7 +307,7 @@
                   <i class="fas fa-check-double me-2"></i>Mark All Passed
                 </button>
               <% else %>
-                <% reset_url = params[:user_id].present? ? 
+                <% reset_url = (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? 
                     mark_progress_admin_user_student_progress_path(@student_progress.user, @student_progress, component: 'reset') : 
                     mark_progress_student_progress_path(@student_progress, component: 'reset') %>
                 <%= link_to reset_url, 
@@ -363,7 +363,7 @@ function markAllPassed() {
   if (confirm('Mark all components as passed?')) {
     // This would be handled via AJAX in a real implementation
     // For now, we'll redirect to update all components
-    window.location.href = '<%= params[:user_id].present? ? admin_user_student_progress_path(@student_progress.user, @student_progress) : student_progress_path(@student_progress) %>?mark_all=true';
+    window.location.href = '<%= (current_user.admin? || current_user.instructor?) && current_user != @student_progress.user ? admin_user_student_progress_path(@student_progress.user, @student_progress) : student_progress_path(@student_progress) %>?mark_all=true';
   }
 }
 </script>

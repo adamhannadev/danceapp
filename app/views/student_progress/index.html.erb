@@ -289,7 +289,7 @@
                         </td>
                         <td>
                           <div class="btn-group btn-group-sm">
-                            <% show_url = params[:user_id].present? ? 
+                            <% show_url = (current_user.admin? || current_user.instructor?) && current_user != @progress_data[:viewing_user] ? 
                                 admin_user_student_progress_path(@progress_data[:viewing_user], progress) : 
                                 student_progress_path(progress) %>
                             <%= link_to show_url, class: "btn btn-outline-primary btn-sm", title: "View Details" do %>
@@ -373,7 +373,7 @@
                         </td>
                         <td>
                           <div class="btn-group btn-group-sm">
-                            <% show_url = params[:user_id].present? ? 
+                            <% show_url = (current_user.admin? || current_user.instructor?) && current_user != @progress_data[:viewing_user] ? 
                                 admin_user_student_progress_path(@progress_data[:viewing_user], progress) : 
                                 student_progress_path(progress) %>
                             <%= link_to show_url, class: "btn btn-outline-primary btn-sm", title: "View Details" do %>
@@ -562,7 +562,7 @@ function handleComponentToggle() {
   this.disabled = true;
   
   // Build the URL based on whether we're viewing a specific user or current user
-  let baseUrl = '<%= params[:user_id].present? ? "/users/#{@progress_data[:viewing_user].id}/student_progress" : "/student_progress" %>';
+  let baseUrl = '<%= (current_user.admin? || current_user.instructor?) && current_user != @progress_data[:viewing_user] ? "/admin/manage_users/#{@progress_data[:viewing_user].id}/student_progress" : "/student_progress" %>';
   let url = `${baseUrl}/${progressId}/mark_progress`;
   
   console.log('Making request to:', url);
