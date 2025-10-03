@@ -87,22 +87,22 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { 
-    host: ENV.fetch('MAILER_HOST', 'danceapp.onrender.com'),
+  config.action_mailer.smtp_settings = {
+    address: ENV['SMTP_HOST'] || 'smtp.ionos.com',
+    port: ENV['SMTP_PORT']&.to_i || 587,
+    domain: ENV['MAILER_DOMAIN'] || 'adamhannaballroom.com',
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
+    authentication: ENV['SMTP_AUTH'] || 'login',
+    enable_starttls_auto: true,
+    openssl_verify_mode: 'none' # Only if you have SSL certificate issues
+  }
+
+  config.action_mailer.default_url_options = {
+    host: ENV['APP_HOST'] || 'danceapp.onrender.com',
     protocol: 'https'
   }
   
-  # SMTP configuration - works with SendGrid, Mailgun, Gmail, etc.
-  config.action_mailer.smtp_settings = {
-    address: ENV.fetch('SMTP_ADDRESS', 'smtp.sendgrid.net'),
-    port: ENV.fetch('SMTP_PORT', 587).to_i,
-    domain: ENV.fetch('SMTP_DOMAIN', 'danceapp.onrender.com'),
-    user_name: ENV.fetch('SMTP_USERNAME'),
-    password: ENV.fetch('SMTP_PASSWORD'),
-    authentication: ENV.fetch('SMTP_AUTHENTICATION', 'plain'),
-    enable_starttls_auto: true
-  }
-
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
