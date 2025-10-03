@@ -201,23 +201,30 @@ export default class extends Controller {
   markWaiverSignedInForm() {
     console.log('Marking waiver as signed in form...')
     
-    // Update hidden field for form submission - use the correct field name
-    const waiverField = document.getElementById('waiver_signed_field') || 
-                       document.querySelector('input[name="user[waiver_signed_at]"]')
+    // Update the boolean waiver_signed field
+    const waiverField = document.getElementById('waiver_signed_field')
     if (waiverField) {
-      waiverField.value = new Date().toISOString()
-      console.log('Updated waiver field:', waiverField.value)
+      waiverField.value = 'true'
+      console.log('Updated waiver_signed field to:', waiverField.value)
     } else {
-      console.log('Waiver field not found, creating one...')
-      // Create the field if it doesn't exist
+      console.log('waiver_signed field not found!')
+    }
+
+    // Also set waiver_signed_at field if it exists or create it
+    let waiverDateField = document.querySelector('input[name="user[waiver_signed_at]"]')
+    if (!waiverDateField) {
+      console.log('Creating waiver_signed_at field...')
       const form = document.querySelector('form')
       if (form) {
-        const hiddenInput = document.createElement('input')
-        hiddenInput.type = 'hidden'
-        hiddenInput.name = 'user[waiver_signed_at]'
-        hiddenInput.value = new Date().toISOString()
-        form.appendChild(hiddenInput)
+        waiverDateField = document.createElement('input')
+        waiverDateField.type = 'hidden'
+        waiverDateField.name = 'user[waiver_signed_at]'
+        form.appendChild(waiverDateField)
       }
+    }
+    if (waiverDateField) {
+      waiverDateField.value = new Date().toISOString()
+      console.log('Updated waiver_signed_at field to:', waiverDateField.value)
     }
 
     // Show signed indicator

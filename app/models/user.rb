@@ -31,6 +31,7 @@ class User < ApplicationRecord
   validates :role, presence: true, inclusion: { in: ['student', 'instructor', 'admin'] }
   validates :membership_type, inclusion: { in: ['none', 'monthly', 'annual'] }
   validates :membership_discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :waiver_signed, acceptance: { accept: true }, on: :create
 
   # Scopes
   scope :students, -> { where(role: 'student') }
