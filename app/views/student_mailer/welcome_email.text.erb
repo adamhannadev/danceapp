@@ -1,0 +1,26 @@
+WELCOME TO <%= ENV.fetch('STUDIO_NAME', 'DANCEAPP').upcase %>!
+
+Hi <%= @user.first_name %>!
+
+Welcome to our dance family! We're thrilled to have you join us and can't wait to see you on the dance floor.
+
+Whether you're a complete beginner or looking to refine your technique, our experienced instructors are here to help you achieve your dance goals.
+
+GETTING STARTED:
+- Browse Classes: Check out our schedule to find classes that fit your level and interests
+- Book Your First Lesson: We recommend starting with a beginner group class or private lesson
+- What to Wear: Comfortable clothes and shoes with smooth soles work best
+- Ask Questions: Our instructors love helping students - don't hesitate to ask!
+
+DANCE STYLES WE OFFER:
+- Ballroom: Waltz, Tango, Foxtrot, Quickstep
+- Latin: Cha-cha, Rumba, Samba, Jive, Paso Doble
+- Social: Swing, Salsa, Bachata, and more!
+
+Ready to start your dance journey? Log in to your account and book your first class!
+
+Visit: <%= ENV.fetch('APP_URL', 'http://localhost:3000') %>/dashboard
+
+QUESTIONS? WE'RE HERE TO HELP!
+Email: <%= ENV.fetch('STUDIO_EMAIL', 'info@danceapp.com') %>
+Phone: <%= ENV.fetch('STUDIO_PHONE', '(555) 123-DANCE') %>

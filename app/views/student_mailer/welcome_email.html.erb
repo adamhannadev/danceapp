@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+      .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+      .header { background: #28a745; color: white; padding: 20px; text-align: center; }
+      .content { padding: 20px; background: #f8f9fa; }
+      .welcome-box { background: white; padding: 20px; margin: 15px 0; border-radius: 5px; border-left: 4px solid #28a745; }
+      .tips { background: white; padding: 15px; margin: 15px 0; border-radius: 5px; }
+      .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Welcome to <%= ENV.fetch('STUDIO_NAME', 'DanceApp') %>!</h1>
+      </div>
+      
+      <div class="content">
+        <div class="welcome-box">
+          <h2>Hi <%= @user.first_name %>! 🕺💃</h2>
+          
+          <p>Welcome to our dance family! We're thrilled to have you join us and can't wait to see you on the dance floor.</p>
+          
+          <p>Whether you're a complete beginner or looking to refine your technique, our experienced instructors are here to help you achieve your dance goals.</p>
+        </div>
+        
+        <div class="tips">
+          <h3>Getting Started:</h3>
+          <ul>
+            <li><strong>Browse Classes:</strong> Check out our schedule to find classes that fit your level and interests</li>
+            <li><strong>Book Your First Lesson:</strong> We recommend starting with a beginner group class or private lesson</li>
+            <li><strong>What to Wear:</strong> Comfortable clothes and shoes with smooth soles work best</li>
+            <li><strong>Ask Questions:</strong> Our instructors love helping students - don't hesitate to ask!</li>
+          </ul>
+        </div>
+        
+        <div class="tips">
+          <h3>Dance Styles We Offer:</h3>
+          <ul>
+            <li><strong>Ballroom:</strong> Waltz, Tango, Foxtrot, Quickstep</li>
+            <li><strong>Latin:</strong> Cha-cha, Rumba, Samba, Jive, Paso Doble</li>
+            <li><strong>Social:</strong> Swing, Salsa, Bachata, and more!</li>
+          </ul>
+        </div>
+        
+        <p>Ready to start your dance journey? Log in to your account and book your first class!</p>
+        
+        <p style="text-align: center;">
+          <a href="<%= ENV.fetch('APP_URL', 'http://localhost:3000') %>/dashboard" 
+             style="background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">
+            View My Dashboard
+          </a>
+        </p>
+      </div>
+      
+      <div class="footer">
+        <p>Questions? We're here to help!</p>
+        <p>Email: <%= ENV.fetch('STUDIO_EMAIL', 'info@danceapp.com') %></p>
+        <p>Phone: <%= ENV.fetch('STUDIO_PHONE', '(555) 123-DANCE') %></p>
+      </div>
+    </div>
+  </body>
+</html>tudent#welcome_email</h1>
+
+<p>
+  <%= @greeting %>, find me in app/views/student_mailer/welcome_email.html.erb
+</p>

@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   # Set default values
   after_initialize :set_defaults, if: :new_record?
+  after_create :send_welcome_email
 
   # Associations
   has_many :student_progresses, dependent: :destroy
@@ -79,5 +80,9 @@ class User < ApplicationRecord
     self.membership_discount ||= 0
     self.membership_type ||= 'none'
     self.role ||= 'student'
+  end
+
+  def send_welcome_email
+    StudentMailer.welcome_email(self).deliver_later if student?
   end
 end

@@ -1,0 +1,25 @@
+BOOKING CONFIRMED!
+
+Hi <%= @user.first_name %>,
+
+Great news! Your booking has been confirmed. We're excited to dance with you!
+
+CLASS DETAILS:
+Class: <%= @dance_class.name %>
+Date: <%= @dance_class.start_time.strftime("%A, %B %d, %Y") %>
+Time: <%= @dance_class.start_time.strftime("%I:%M %p") %> - <%= @dance_class.end_time.strftime("%I:%M %p") %>
+<% if @dance_class.instructor %>Instructor: <%= @dance_class.instructor.full_name %><% end %>
+<% if @dance_class.level %>Level: <%= @dance_class.level.humanize %><% end %>
+<% if @dance_class.description.present? %>Description: <%= @dance_class.description %><% end %>
+
+WHAT TO BRING:
+- Comfortable clothes you can move in
+- Dance shoes (or smooth-soled shoes)
+- Water bottle
+- Positive attitude!
+
+If you need to cancel or reschedule, please contact us at least 24 hours in advance.
+
+See you on the dance floor!
+
+Questions? Contact us at <%= ENV.fetch('STUDIO_EMAIL', 'info@danceapp.com') %>

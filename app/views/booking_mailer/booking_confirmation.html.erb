@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+      .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+      .header { background: #007bff; color: white; padding: 20px; text-align: center; }
+      .content { padding: 20px; background: #f8f9fa; }
+      .details { background: white; padding: 15px; margin: 15px 0; border-radius: 5px; }
+      .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Booking Confirmed!</h1>
+      </div>
+      
+      <div class="content">
+        <h2>Hi <%= @user.first_name %>,</h2>
+        
+        <p>Great news! Your booking has been confirmed. We're excited to dance with you!</p>
+        
+        <div class="details">
+          <h3>Class Details:</h3>
+          <p><strong>Class:</strong> <%= @dance_class.name %></p>
+          <p><strong>Date:</strong> <%= @dance_class.start_time.strftime("%A, %B %d, %Y") %></p>
+          <p><strong>Time:</strong> <%= @dance_class.start_time.strftime("%I:%M %p") %> - <%= @dance_class.end_time.strftime("%I:%M %p") %></p>
+          <% if @dance_class.instructor %>
+            <p><strong>Instructor:</strong> <%= @dance_class.instructor.full_name %></p>
+          <% end %>
+          <% if @dance_class.level %>
+            <p><strong>Level:</strong> <%= @dance_class.level.humanize %></p>
+          <% end %>
+          <% if @dance_class.description.present? %>
+            <p><strong>Description:</strong> <%= @dance_class.description %></p>
+          <% end %>
+        </div>
+        
+        <p><strong>What to bring:</strong></p>
+        <ul>
+          <li>Comfortable clothes you can move in</li>
+          <li>Dance shoes (or smooth-soled shoes)</li>
+          <li>Water bottle</li>
+          <li>Positive attitude!</li>
+        </ul>
+        
+        <p>If you need to cancel or reschedule, please contact us at least 24 hours in advance.</p>
+        
+        <p>See you on the dance floor!</p>
+      </div>
+      
+      <div class="footer">
+        <p>Questions? Contact us at <%= ENV.fetch('STUDIO_EMAIL', 'info@danceapp.com') %></p>
+      </div>
+    </div>
+  </body>
+</html>ooking#booking_confirmation</h1>
+
+<p>
+  <%= @greeting %>, find me in app/views/booking_mailer/booking_confirmation.html.erb
+</p>

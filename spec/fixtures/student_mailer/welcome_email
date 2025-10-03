@@ -1,0 +1,3 @@
+StudentMailer#welcome_email
+
+Hi, find me in app/views/student_mailer/welcome_email
